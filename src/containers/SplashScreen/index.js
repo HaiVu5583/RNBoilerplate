@@ -6,6 +6,8 @@ import {
     Image,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation'
+import Icon from '~/src/components/FontIcon'
+import { Colors } from 'react-native-ui-lib';
 
 export default class SplashScreen extends Component {
 
@@ -32,7 +34,7 @@ export default class SplashScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                {/* <Image source={require('~/src/assets/change.png')} style={{ width: 180, height: 180 }} /> */}
+                <Icon name="the-bank" style={{ color: Colors.orange30, fontSize: 120 }} />
             </View>
         );
     }

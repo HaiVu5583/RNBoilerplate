@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { getData } from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
+import Icon from '~/src/components/FontIcon'
 
 
 class Home extends Component {
@@ -120,7 +121,7 @@ class Home extends Component {
                 title={'Chọn bộ lọc'}
             >
                 <View>
-                    
+
                     <TagSelect
                         data={
                             [
@@ -229,6 +230,10 @@ class Home extends Component {
                         <PageControl width={Constants.width} containerStyle={styles.pageControl} numOfPages={6} currentPage={this.state.page} color={Colors.orange30} size={10}
                             ref={ref => this.pageControl = ref}
                         />
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                        <Icon name="the-bank" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
+                        <Icon name="clingme-building" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
                     </View>
                     <View center padding-10>
                         <Card
