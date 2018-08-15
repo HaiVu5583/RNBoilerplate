@@ -48,7 +48,6 @@ import { Colors } from 'react-native-ui-lib';
 const store = configStore()
 
 export const run = () => {
-    console.log('Call Run')
     registerScreens(store)
     Navigation.events().registerAppLaunchedListener(() => {
         Navigation.setDefaultOptions({

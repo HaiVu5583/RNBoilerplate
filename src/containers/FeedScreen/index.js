@@ -1,14 +1,15 @@
 
 import React, { Component } from 'react';
 import {
-    View, Text
+    Text, View
 } from 'react-native';
 import { Navigation } from 'react-native-navigation'
 import { FlatList, Colors } from 'react-native'
 import styles from './styles'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ErrorBoundary from '~/src/components/ErrorBoundary'
-
+import z from '~/src/themes/ThemeComponent'
+// const { View } = z
 
 export default class FeedScreen extends Component {
     static get options() {
@@ -34,6 +35,7 @@ export default class FeedScreen extends Component {
         this.state = {
             data,
         }
+        this.view = React.createRef()
         console.log('Constructor State', this.state)
     }
 
@@ -61,15 +63,26 @@ export default class FeedScreen extends Component {
         )
     }
 
+    componentDidMount() {
+        this.view.current.measure((x, y, width, height, pageX, pageY) => {
+            console.log('Measure Obj', { x, y, width, height, pageX, pageY })
+        })
+    }
+
     render() {
         return (
             <ErrorBoundary>
-                <FlatList
+                {/* <FlatList
                     data={this.state.data}
                     renderItem={this._renderItem}
                     getItemLayout={this._getItemLayout}
                     keyExtractor={item => '' + item.id}
-                />
+                /> */}
+                <View ref={this.view} onLayout={e => {
+                    console.log('Event Layout', e.nativeEvent)
+                }}>
+                    <Text>Wrapped Text</Text>
+                </View>
             </ErrorBoundary>
         )
     }
