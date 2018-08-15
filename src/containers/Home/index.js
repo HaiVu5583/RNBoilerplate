@@ -4,7 +4,7 @@ import {
     TagsInput, Button, Card, Colors,
     Carousel, Constants, PageControl
 } from 'react-native-ui-lib';
-import { View, Text, TextInput } from '~/src/themes/ThemeComponent'
+import { View, Text, TextInput, Icon } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import { ScrollView } from 'react-native'
 import styles from './styles'
@@ -12,7 +12,6 @@ import { connect } from 'react-redux'
 import { getData } from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
-import Icon from '~/src/components/FontIcon'
 
 
 class Home extends Component {
@@ -233,8 +232,8 @@ class Home extends Component {
                         />
                     </View>
                     <View style={{ flexDirection: 'row' }}>
-                        <Icon name="the-bank" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
-                        <Icon name="clingme-building" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
+                        <Icon name="the-bank" style={{ fontSize: 30, marginRight: 10 }} />
+                        <Icon name="clingme-building" style={{ fontSize: 30, marginRight: 10 }} />
                     </View>
                     <TextInput
                         placeholder={'Input something here...'}

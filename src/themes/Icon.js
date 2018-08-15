@@ -2,29 +2,24 @@ import React, { Component } from 'react'
 import { themeSelector } from '~/src/store/selectors/Theme'
 import { connect } from 'react-redux'
 import { getTheme } from './utils'
-import Ripple from 'react-native-material-ripple'
-import Text from './Text'
+import Icon from '~/src/components/FontIcon'
 
-class Button extends Component {
+class ThemeIcon extends Component {
 
     render() {
-        const { forwardedRef, children, style, theme, ...rest } = this.props
+        const { forwardedRef, name, style, theme, themeable = true, ...rest } = this.props
         const themeStyle = getTheme(theme)
+        const iconThemeStyle = themeable ? { color: themeStyle.textColor } : {}
         return (
-            <Ripple ref={forwardedRef} {...rest}
-                style={[style, { color: themeStyle.primaryColor }]}
-                rippleColor={'white'}
-            >
-                {children}
-            </Ripple>
+            <Icon name={name} {...rest} style={[iconThemeStyle, style]} />
         )
     }
 }
 
-const ConnectedButton = connect(state => ({
+const ConnectedIcon = connect(state => ({
     theme: themeSelector(state)
-}))(Button)
+}))(ThemeIcon)
 
 export default React.forwardRef((props, ref) => {
-    return <ConnectedButton {...props} forwardedRef={ref} />
+    return <ConnectedIcon {...props} forwardedRef={ref} />
 })
