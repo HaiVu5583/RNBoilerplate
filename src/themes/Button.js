@@ -5,16 +5,18 @@ import { connect } from 'react-redux'
 import { getTheme } from './utils'
 import Ripple from 'react-native-material-ripple'
 import { Text } from 'react-native'
-
+import { getElevation } from '~/src/utils'
+import Icon from '~/src/components/FontIcon'
 class Button extends Component {
     render() {
-        const { forwardedRef, children, style, theme, text, icon, ...rest } = this.props
+        const { forwardedRef, children, style, theme, text, icon, iconStyle, ...rest } = this.props
         const themeStyle = getTheme(theme)
         return (
             <Ripple ref={forwardedRef} {...rest}
-                style={[commonStyle.button, style]}
+                style={[commonStyle.button, getElevation(2), style]}
                 rippleColor={'white'}
             >
+                {!!icon && <Icon name={icon} style={[commonStyle.buttonIcon, iconStyle]} />}
                 <Text style={
                     commonStyle.buttonText
                 }>{text}</Text>

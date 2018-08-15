@@ -13,7 +13,7 @@ export const FONT_WEIGHTS = {
 
 // export const FONT_SIZES = {
 //     small: 10,
-    
+
 // }
 
 export const TEXT_STYLES = {
@@ -54,10 +54,16 @@ export default {
         height: 40,
         flexDirection: 'row',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingHorizontal: 16
     },
     buttonText: {
         fontSize: 14,
         color: 'white',
-    }
+    },
+    buttonIcon: {
+        fontSize: 18,
+        color: 'white',
+        marginRight: 5
+    },
 }

@@ -90,9 +90,12 @@ class FeedScreen extends Component {
                     <Text medium>
                         When you start using forwardRef in a component library, you should treat it as a breaking change and release a new major version of your library. This is because your library likely has an observably different behavior (such as what refs get assigned to, and what types are exported), and this can break apps and other libraries that depend on the old behavior
                     </Text>
-                    <Button
-                        text={'Button Customize'}
-                    />
+                    <View style={{ flexDirection: 'row', padding: 10 }}>
+                        <Button
+                            icon='phone-money-2'
+                            text={'Button Customize'}
+                        />
+                    </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <Text>Use dark theme?</Text>
                         <Switch value={(theme == THEMES.dark)} onValueChange={this._onChangeTheme} />

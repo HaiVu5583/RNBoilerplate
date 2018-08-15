@@ -52,3 +52,24 @@ export const getFontStyle = (style = 'regular') => {
     return { fontWeight: iOSFontWeight }
 }
 
+export const getElevation = (number) => {
+    if (Platform.OS == 'android') return { elevation: number }
+    if (number == 0) return {
+        shadowColor: "black",
+        shadowOpacity: 0,
+        shadowRadius: 0,
+        shadowOffset: {
+            height: 0,
+            width: 0
+        }
+    }
+    return {
+        shadowColor: "black",
+        shadowOpacity: 0.22,
+        shadowRadius: 1.5,
+        shadowOffset: {
+            height: number,
+            width: 0
+        },
+    }
+}
