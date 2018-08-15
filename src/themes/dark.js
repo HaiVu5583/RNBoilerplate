@@ -1,5 +1,6 @@
+const PRIMARY_COLOR = 'green'
 export default {
-    primaryColor: 'green',
+    primaryColor: PRIMARY_COLOR,
     backgroundColor: 'black',
-    textColor: 'white'
+    textColor: 'white',
 }

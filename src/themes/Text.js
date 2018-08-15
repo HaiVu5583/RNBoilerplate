@@ -3,16 +3,23 @@ import { themeSelector } from '~/src/store/selectors/Theme'
 import { connect } from 'react-redux'
 import { Text } from 'react-native'
 import { getTheme } from './utils'
-
+import { getFontStyle } from '~/src/utils'
 class ThemeText extends Component {
+
+    _getPropsStyle = (propStyle) => ({
+        light: getFontStyle('light'),
+        medium: getFontStyle('medium'),
+        bold: getFontStyle('bold'),
+        regular: getFontStyle('regular'),
+    })
+
     render() {
-        const { forwardedRef, children, style, theme, ...rest } = this.props
-        console.log('Text Props', this.props)
+        const { forwardedRef, children, style, theme, themeable = true, ...rest } = this.props
         const themeStyle = getTheme(theme)
-        console.log('Theme Style', themeStyle)
+        const textThemeStyle = themeable ? { color: themeStyle.textColor } : {}
         return (
             <Text ref={forwardedRef} {...rest}
-                style={[style, { color: themeStyle.textColor }]}
+                style={[textThemeStyle, style]}
             >
                 {children}
             </Text>

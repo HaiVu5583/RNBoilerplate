@@ -1,8 +1,9 @@
 import React from 'react'
-import { Modal, View, TouchableWithoutFeedback, Text, Dimensions, FlatList, Platform, Animated, Easing } from 'react-native'
+import { Modal, TouchableWithoutFeedback, Dimensions, FlatList, Platform, Animated, Easing } from 'react-native'
 import styles from './styles'
 const { width, height } = Dimensions.get('window')
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import { View, Text } from '~/src/themes/ThemeComponent'
 // import Icon from 'react-native-vector-icons/FontAwesome5Pro'
 const DEFAULT_Y = 1000
 
@@ -72,7 +73,7 @@ export default class BottomSheet extends React.PureComponent {
                 onRequestClose={() => this.close()}
             >
                 <TouchableWithoutFeedback onPress={this.close}>
-                    <View style={styles.modalBackground}>
+                    <View style={styles.modalBackground} themeable={false}>
                         <Animated.View
                             style={[
                                 styles.defaultContainer,
@@ -86,9 +87,10 @@ export default class BottomSheet extends React.PureComponent {
                                 }
                             ]}
                         >
-                            {!!showHeader && < View style={styles.header}>
+                            {!!showHeader && < View style={styles.header} themeable={false}>
                                 <Text style={styles.textHeader}>{title}</Text>
-                                <View 
+                                <View
+                                    themeable={false}
                                     style={{
                                         position: 'absolute',
                                         top: 0,
@@ -98,12 +100,12 @@ export default class BottomSheet extends React.PureComponent {
                                         justifyContent: 'center',
                                     }}
                                 >
-                                    <Icon name='window-close' size={28} color={'rgba(0, 0, 0, 0.6)'} onPress={this.close} light/>
+                                    <Icon name='window-close' size={28} color={'rgba(0, 0, 0, 0.6)'} onPress={this.close} light />
                                 </View>
                             </View>}
-                            <View style={{ padding: 10 }}>
-                            {this.props.children}
-                        </View>
+                            <View style={{ padding: 10 }} themeable={false}>
+                                {this.props.children}
+                            </View>
                         </Animated.View>
                     </View>
                 </TouchableWithoutFeedback>

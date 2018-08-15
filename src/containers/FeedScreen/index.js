@@ -6,9 +6,8 @@ import styles from './styles'
 import { Switch } from 'react-native-ui-lib'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ErrorBoundary from '~/src/components/ErrorBoundary'
-import { View, Text } from '~/src/themes/ThemeComponent'
+import { View, Text, Button } from '~/src/themes/ThemeComponent'
 import { changeTheme } from '~/src/store/actions/ui'
-// const { View, Text } = z
 import { THEMES } from '~/src/constants'
 import { connect } from 'react-redux'
 import { themeSelector } from '~/src/store/selectors/Theme'
@@ -69,9 +68,9 @@ class FeedScreen extends Component {
 
     _onChangeTheme = () => {
         const { theme, changeTheme } = this.props
-        if (theme == THEMES.dark){
+        if (theme == THEMES.dark) {
             changeTheme(THEMES.light)
-        }else{
+        } else {
             changeTheme(THEMES.dark)
         }
     }
@@ -88,9 +87,12 @@ class FeedScreen extends Component {
                     keyExtractor={item => '' + item.id}
                 /> */}
                 <View style={{ flex: 1 }}>
-                    <Text>
+                    <Text medium>
                         When you start using forwardRef in a component library, you should treat it as a breaking change and release a new major version of your library. This is because your library likely has an observably different behavior (such as what refs get assigned to, and what types are exported), and this can break apps and other libraries that depend on the old behavior
                     </Text>
+                    <Button
+                        text={'Button Customize'}
+                    />
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
                         <Text>Use dark theme?</Text>
                         <Switch value={(theme == THEMES.dark)} onValueChange={this._onChangeTheme} />

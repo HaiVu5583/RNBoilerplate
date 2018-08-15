@@ -6,13 +6,12 @@ import { getTheme } from './utils'
 
 class ThemeView extends Component {
     render() {
-        const { forwardedRef, children, style, theme, ...rest } = this.props
-        console.log('View Props', this.props)
+        const { forwardedRef, children, style, theme, themeable=true, text, icon, ...rest } = this.props
         const themeStyle = getTheme(theme)
-        console.log('Theme Style', themeStyle)
+        const viewThemeStyle = themeable ? { backgroundColor: themeStyle.backgroundColor } : {}
         return (
             <View ref={forwardedRef} {...rest}
-                style={[style, { backgroundColor: themeStyle.backgroundColor }]}
+                style={[viewThemeStyle, style]}
             >
                 {children}
             </View>

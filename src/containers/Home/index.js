@@ -1,9 +1,10 @@
 
 import React, { Component } from 'react';
 import {
-    View, TagsInput, Button, Card, Colors,
-    Carousel, Text, Constants, PageControl
+    TagsInput, Button, Card, Colors,
+    Carousel, Constants, PageControl
 } from 'react-native-ui-lib';
+import { View, Text } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import { ScrollView } from 'react-native'
 import styles from './styles'
@@ -120,7 +121,7 @@ class Home extends Component {
                 showHeader={true}
                 title={'Chọn bộ lọc'}
             >
-                <View>
+                <View themeable={false}>
 
                     <TagSelect
                         data={
@@ -231,7 +232,7 @@ class Home extends Component {
                             ref={ref => this.pageControl = ref}
                         />
                     </View>
-                    <View style={{flexDirection: 'row'}}>
+                    <View style={{ flexDirection: 'row' }}>
                         <Icon name="the-bank" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
                         <Icon name="clingme-building" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
                     </View>
@@ -242,7 +243,7 @@ class Home extends Component {
                             borderRadius={2}
                             marginB-10
                         >
-                            <View padding-10 flex center>
+                            <View padding-10 center>
                                 <Button text70 white background-orange30 label="Open Screen" onPress={this._handlePressButton} />
                                 <Button
                                     outline
@@ -263,7 +264,7 @@ class Home extends Component {
                             borderRadius={2}
                             marginB-10
                         >
-                            <View padding-10 flex center>
+                            <View padding-10 center>
                                 <TagsInput
                                     containerStyle={{ marginBottom: 20, width: '100%' }}
                                     placeholder="Add friends"
