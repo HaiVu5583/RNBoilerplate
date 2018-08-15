@@ -15,10 +15,6 @@ const _getBottomTabIcon = (iconList, size, color) => {
 
 
 export const run = () => {
-    _getBottomTabIcon(['home-active', 'ring-active', 'camera', 'ring-active']).then(bottomTabs => {
-        console.log('Bottom Tabs', bottomTabs)
-    })
-
     registerScreens(store)
     Navigation.events().registerAppLaunchedListener(() => {
         Navigation.setDefaultOptions({
@@ -38,26 +34,88 @@ export const run = () => {
                 visible: true
             },
         })
-        Navigation.setRoot({
-            root: {
-                stack: {
-                    id: 'mainStack',
-                    options: {
-                        topBar: {
-                            visible: false,
-                            animate: false
-                        }
+
+        _getBottomTabIcon(['home-active', 'ring-active', 'camera', 'ring-active'], 24, '#F16654').then(bottomTabs => {
+            // console.log('Bottom Tabs', bottomTabs[0])
+
+            // Navigation.setRoot({
+            //     root: {
+            //         stack: {
+            //             id: 'mainStack',
+            //             options: {
+            //                 topBar: {
+            //                     visible: false,
+            //                     animate: false
+            //                 }
+            //             },
+            //             children: [
+            //                 {
+            //                     component: {
+            //                         name: 'gigabankclient.SplashScreen',
+            //                     }
+            //                 },
+            //             ]
+            //         },
+            //     }
+            // })
+
+            Navigation.setRoot({
+                root: {
+                    bottomTabs: {
+                        children: [
+                            {
+                                component: {
+                                    name: 'gigabankclient.SplashScreen',
+                                    options: {
+                                        bottomTab: {
+                                            text: 'Splash',
+                                            icon: bottomTabs[0],
+                                            iconColor: 'green',
+                                        }
+                                    },                                    
+                                },
+                            },
+                            {
+                                component: {
+                                    name: 'gigabankclient.HomeScreen',
+                                    options: {
+                                        bottomTab: {
+                                            text: 'Home',
+                                            icon: bottomTabs[1]
+                                        }
+                                    },
+                                },
+                            },
+                            {
+                                component: {
+                                    name: 'gigabankclient.AnimatedScreen',
+                                    options: {
+                                        bottomTab: {
+                                            text: 'Animated',
+                                            icon: bottomTabs[2]
+                                        }
+                                    },
+                                },
+                            },
+                            {
+                                component: {
+                                    name: 'gigabankclient.FeedScreen',
+                                    options: {
+                                        bottomTab: {
+                                            text: 'Feed',
+                                            icon: bottomTabs[3]
+                                        }
+                                    },
+                                },
+                            },
+                        ],
                     },
-                    children: [
-                        {
-                            component: {
-                                name: 'gigabankclient.SplashScreen',
-                            }
-                        },
-                    ]
-                },
-            }
+                }
+            })
+
         })
+
+
     })
-    
+
 }
