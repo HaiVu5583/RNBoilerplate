@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
+import { Platform } from 'react-native'
 
 export const getHOCScreen = (Component, store) => {
     return class ScreenWrapper extends Component {

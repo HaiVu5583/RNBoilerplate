@@ -258,23 +258,11 @@ class Home extends Component {
                                 <Button text70 white background-orange30 marginT-20 label="Open BottomSheet" onPress={this._handleOpenBottomSheet} />
                             </View>
                         </Card>
-
-                        <Card
-                            width={'100%'}
-                            height={150}
-                            shadowType="white10"
-                            borderRadius={2}
-                            marginB-10
-                        >
-                            <View padding-10 center>
-                                <TagsInput
-                                    containerStyle={{ marginBottom: 20, width: '100%' }}
-                                    placeholder="Add friends"
-                                    tags={this.state.tags}
-                                />
-                            </View>
-                        </Card>
-                        <Text>Just a Simple Text</Text>
+                        <Text h6>Text H6</Text>
+                        <Text h5>Text H5</Text>
+                        <Text body1>Text body1</Text>
+                        <Text body2>Text body2</Text>
+                        <Text overline>Text Overline</Text>
                     </View>
 
                 </ScrollView>
