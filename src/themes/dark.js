@@ -1,4 +1,5 @@
 export default {
     primaryColor: 'green',
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+    textColor: 'white'
 }

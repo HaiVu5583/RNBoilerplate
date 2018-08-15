@@ -1,17 +1,19 @@
 
 import React, { Component } from 'react';
-import {
-    Text, View
-} from 'react-native';
 import { Navigation } from 'react-native-navigation'
 import { FlatList, Colors } from 'react-native'
 import styles from './styles'
+import { Switch } from 'react-native-ui-lib'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ErrorBoundary from '~/src/components/ErrorBoundary'
 import z from '~/src/themes/ThemeComponent'
-// const { View } = z
+import { changeTheme } from '~/src/store/actions/ui'
+const { View, Text } = z
+import { THEMES } from '~/src/constants'
+import { connect } from 'react-redux'
+import { themeSelector } from '~/src/store/selectors/Theme'
 
-export default class FeedScreen extends Component {
+class FeedScreen extends Component {
     static get options() {
         return {
             topBar: {
@@ -36,7 +38,6 @@ export default class FeedScreen extends Component {
             data,
         }
         this.view = React.createRef()
-        console.log('Constructor State', this.state)
     }
 
     _handleLike = (item) => {
@@ -64,12 +65,20 @@ export default class FeedScreen extends Component {
     }
 
     componentDidMount() {
-        this.view.current.measure((x, y, width, height, pageX, pageY) => {
-            console.log('Measure Obj', { x, y, width, height, pageX, pageY })
-        })
+    }
+
+    _onChangeTheme = () => {
+        const { theme, changeTheme } = this.props
+        if (theme == THEMES.dark){
+            changeTheme(THEMES.light)
+        }else{
+            changeTheme(THEMES.dark)
+        }
     }
 
     render() {
+        console.log('FeedScreen Props', this.props)
+        const { theme } = this.props
         return (
             <ErrorBoundary>
                 {/* <FlatList
@@ -78,14 +87,20 @@ export default class FeedScreen extends Component {
                     getItemLayout={this._getItemLayout}
                     keyExtractor={item => '' + item.id}
                 /> */}
-                <View ref={this.view} onLayout={e => {
-                    console.log('Event Layout', e.nativeEvent)
-                }}>
-                    <Text>Wrapped Text</Text>
+                <View style={{ flex: 1 }}>
+                    <Text>
+                        When you start using forwardRef in a component library, you should treat it as a breaking change and release a new major version of your library. This is because your library likely has an observably different behavior (such as what refs get assigned to, and what types are exported), and this can break apps and other libraries that depend on the old behavior
+                    </Text>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <Text>Use dark theme?</Text>
+                        <Switch value={(theme == THEMES.dark)} onValueChange={this._onChangeTheme} />
+                    </View>
                 </View>
             </ErrorBoundary>
         )
     }
 }
 
-// export default connect(null, null, null, { withRef: true })(Home)
+export default connect(state => ({
+    theme: themeSelector(state)
+}), { changeTheme })(FeedScreen)
