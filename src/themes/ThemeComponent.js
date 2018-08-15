@@ -1,7 +1,7 @@
 import View from './View'
 import Text from './Text'
 
-export default {
+export {
     View,
     Text
 }

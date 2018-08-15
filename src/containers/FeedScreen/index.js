@@ -6,9 +6,9 @@ import styles from './styles'
 import { Switch } from 'react-native-ui-lib'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ErrorBoundary from '~/src/components/ErrorBoundary'
-import z from '~/src/themes/ThemeComponent'
+import { View, Text } from '~/src/themes/ThemeComponent'
 import { changeTheme } from '~/src/store/actions/ui'
-const { View, Text } = z
+// const { View, Text } = z
 import { THEMES } from '~/src/constants'
 import { connect } from 'react-redux'
 import { themeSelector } from '~/src/store/selectors/Theme'
