@@ -16,10 +16,18 @@ class FeedScreen extends Component {
     static get options() {
         return {
             topBar: {
-                drawBehind: false,
                 visible: true,
-                animate: false
+                drawBehind: false,
+                animate: false,
+                title: {
+                    text: 'Home Feed'
+                },
             },
+            bottomTabs: {
+                visible: false,
+                animate: false,
+                drawBehind: true
+            }
         };
     }
 

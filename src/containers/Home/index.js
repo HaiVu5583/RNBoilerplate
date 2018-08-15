@@ -18,7 +18,7 @@ class Home extends Component {
     static get options() {
         return {
             topBar: {
-                drawBehind: true,
+                drawBehind: false,
                 visible: false,
                 animate: false
             }
@@ -47,60 +47,14 @@ class Home extends Component {
         Navigation.push(this.props.componentId, {
             component: {
                 name: 'gigabankclient.AnimatedScreen',
-                options: {
-                    animations: {
-                        push: {
-                            content: {
-                                y: {
-                                    from: 1000,
-                                    to: 0,
-                                    duration: 250,
-                                    startDelay: 100,
-                                    interpolation: 'accelerate'
-                                }
-                            }
-                        }
-                    },
-                    topBar: {
-                        visible: true,
-                        drawBehind: false,
-                        animate: true,
-                        title: {
-                            text: 'Animated Example'
-                        },
-                    }
-                }
             }
-        });
+        })
     }
 
     _handleOpenFeed = () => {
         Navigation.push(this.props.componentId, {
             component: {
                 name: 'gigabankclient.FeedScreen',
-                options: {
-                    animations: {
-                        push: {
-                            content: {
-                                y: {
-                                    from: 1000,
-                                    to: 0,
-                                    duration: 250,
-                                    startDelay: 100,
-                                    interpolation: 'accelerate'
-                                }
-                            }
-                        }
-                    },
-                    topBar: {
-                        visible: true,
-                        drawBehind: false,
-                        animate: true,
-                        title: {
-                            text: 'Home Feed'
-                        },
-                    }
-                }
             }
         });
     }

@@ -95,7 +95,7 @@ export const run = () => {
             topBar: {
                 visible: false,
                 animate: false,
-                drawBehind: true,
+                drawBehind: false,
                 elevation: 2
             },
             layout: {
