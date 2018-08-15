@@ -9,8 +9,6 @@ import { Text } from 'react-native'
 class Button extends Component {
     render() {
         const { forwardedRef, children, style, theme, text, icon, ...rest } = this.props
-        console.log('Text Props', this.props)
-        console.log('Ripple', Ripple)
         const themeStyle = getTheme(theme)
         return (
             <Ripple ref={forwardedRef} {...rest}

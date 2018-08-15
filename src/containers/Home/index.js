@@ -4,7 +4,7 @@ import {
     TagsInput, Button, Card, Colors,
     Carousel, Constants, PageControl
 } from 'react-native-ui-lib';
-import { View, Text } from '~/src/themes/ThemeComponent'
+import { View, Text, TextInput } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import { ScrollView } from 'react-native'
 import styles from './styles'
@@ -236,6 +236,9 @@ class Home extends Component {
                         <Icon name="the-bank" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
                         <Icon name="clingme-building" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
                     </View>
+                    <TextInput
+                        placeholder={'Input something here...'}
+                    />
                     <View center padding-10>
                         <Card
                             width={'100%'}
