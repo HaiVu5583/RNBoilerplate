@@ -18,7 +18,7 @@ class Home extends Component {
     static get options() {
         return {
             topBar: {
-                drawBehind: false,
+                drawBehind: true,
                 visible: false,
                 animate: false
             }
@@ -44,7 +44,7 @@ class Home extends Component {
 
     _handlePressButton = () => {
         console.log('Call Push Animated Screen', new Date().getTime())
-        Navigation.push(this.props.componentId, {
+        Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.AnimatedScreen',
             }

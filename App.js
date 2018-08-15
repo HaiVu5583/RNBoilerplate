@@ -16,23 +16,8 @@ const _getBottomTabIcon = (iconList, size, color) => {
 const _getBottomTabs = (bottomTabs) => {
     return [
         {
-            // component: {
-            //     name: 'gigabankclient.HomeScreen',
-            //     options: {
-            //         bottomTab: {
-            //             text: 'Home',
-            //             icon: bottomTabs[0],
-            //             iconColor: 'gray',
-            //             selectedIconColor: '#F16654',
-            //         }
-            //     },
-            // },
-            stack: {
-                children: [{
-                    component: {
-                        name: 'gigabankclient.HomeScreen'
-                    }
-                }],
+            component: {
+                name: 'gigabankclient.HomeScreen',
                 options: {
                     bottomTab: {
                         text: 'Home',
@@ -41,7 +26,22 @@ const _getBottomTabs = (bottomTabs) => {
                         selectedIconColor: '#F16654',
                     }
                 },
-            }
+            },
+            // stack: {
+            //     children: [{
+            //         component: {
+            //             name: 'gigabankclient.HomeScreen'
+            //         }
+            //     }],
+            //     options: {
+            //         bottomTab: {
+            //             text: 'Home',
+            //             icon: bottomTabs[0],
+            //             iconColor: 'gray',
+            //             selectedIconColor: '#F16654',
+            //         }
+            //     },
+            // }
         },
         {
             component: {
@@ -135,17 +135,11 @@ export const run = () => {
                 root: {
                     stack: {
                         id: 'mainStack',
-                        options: {
-                            topBar: {
-                                visible: false,
-                                animate: false
-                            }
-                        },
                         children: [
                             {
                                 bottomTabs: {
                                     children: _getBottomTabs(bottomTabs)
-                                },
+                                }
                             }
                         ]
                     },
