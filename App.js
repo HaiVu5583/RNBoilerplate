@@ -3,32 +3,7 @@ import registerScreens from '~/src/containers'
 import configStore from '~/src/store/configStore'
 import Icon from '~/src/components/FontIcon'
 const store = configStore()
-const BOTTOM_TABS = [
-    {
-        icon: 'home-active',
-        name: 'Home',
-        component: 'gigabankclient.HomeScreen',
-        id: 'tab1',
-    },
-    {
-        icon: 'camera',
-        name: 'Camera',
-        component: 'gigabankclient.SplashScreen',
-        id: 'tab2',
-    },
-    {
-        icon: 'ring-active',
-        name: 'Notification',
-        component: 'gigabankclient.AnimatedScreen',
-        id: 'tab3',
-    },
-    {
-        icon: 'user-active',
-        name: 'Account',
-        component: 'gigabankclient.FeedScreen',
-        id: 'tab4',
-    }
-]
+import { BOTTOM_TABS } from '~/src/constants'
 
 const _getBottomTabIcon = (tabs, size, color) => {
     const promiseList = []
