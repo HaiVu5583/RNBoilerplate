@@ -12,6 +12,7 @@ import { getData } from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
 import Icon from '~/src/components/FontIcon'
+import PreparePictureList from '~/src/components/PreparedPictureList'
 
 
 class Home extends Component {
@@ -206,6 +207,7 @@ class Home extends Component {
             <View style={{ flex: 1 }}>
                 {this._renderFilter()}
                 <ScrollView>
+                    <PreparePictureList />
                     <View>
                         <Carousel loop onChangePage={(index => this.onChangePage(index))}>
                             <View bg-red50 center width={Constants.screenWidth} height={200}>
