@@ -6,7 +6,7 @@ import {
 } from 'react-native-ui-lib';
 import { View, Text, TextInput, Icon } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ScrollView } from 'react-native'
+import { ScrollView, ActivityIndicator, Platform } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux'
 import { getData, getTestData } from '~/src/store/actions/home'
@@ -160,7 +160,7 @@ class Home extends Component {
         //         currentTabIndex: 1,
         //     }
         // })
-        
+
         Navigation.mergeOptions('tab1', {
             bottomTabs: {
                 backgroundColor: 'black',
@@ -261,6 +261,7 @@ class Home extends Component {
                     <View style={{ flexDirection: 'row' }}>
                         <Icon name="the-bank" style={{ fontSize: 30, marginRight: 10 }} />
                         <Icon name="clingme-building" style={{ fontSize: 30, marginRight: 10 }} />
+                        <ActivityIndicator size={Platform.OS == 'ios' ? 'large' : 50} color={'#F16654'} />
                     </View>
                     <TextInput
                         placeholder={'Input something here...'}
