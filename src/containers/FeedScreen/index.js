@@ -8,7 +8,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import ErrorBoundary from '~/src/components/ErrorBoundary'
 import { View, Text, Button } from '~/src/themes/ThemeComponent'
 import { changeTheme } from '~/src/store/actions/ui'
-import { THEMES } from '~/src/constants'
+import { THEMES } from '~/src/themes/common.js'
+
 import { connect } from 'react-redux'
 import { themeSelector } from '~/src/store/selectors/Theme'
 
