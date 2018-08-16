@@ -3,70 +3,51 @@ import registerScreens from '~/src/containers'
 import configStore from '~/src/store/configStore'
 import Icon from '~/src/components/FontIcon'
 const store = configStore()
+const BOTTOM_TABS = [
+    {
+        icon: 'home-active',
+        name: 'Home',
+        component: 'gigabankclient.HomeScreen'
+    },
+    {
+        icon: 'camera',
+        name: 'Camera',
+        component: 'gigabankclient.SplashScreen'
+    },
+    {
+        icon: 'ring-active',
+        name: 'Notification',
+        component: 'gigabankclient.AnimatedScreen'
+    },
+    {
+        icon: 'user-active',
+        name: 'Account',
+        component: 'gigabankclient.FeedScreen'
+    }
+]
 
-const _getBottomTabIcon = (iconList, size, color) => {
+const _getBottomTabIcon = (tabs, size, color) => {
     const promiseList = []
-    for (let icon of iconList) {
-        promiseList.push(Icon.getImageSource(icon, size, color))
+    for (let tab of tabs) {
+        promiseList.push(Icon.getImageSource(tab.icon, size, color))
     }
     return Promise.all(promiseList)
 }
 
 const _getBottomTabs = (bottomTabs) => {
-    return [
-        {
-            component: {
-                name: 'gigabankclient.HomeScreen',
-                options: {
-                    bottomTab: {
-                        text: 'Home',
-                        icon: bottomTabs[0],
-                        iconColor: 'gray',
-                        selectedIconColor: '#F16654',
-                    }
-                },
-            }
-        },
-        {
-            component: {
-                name: 'gigabankclient.SplashScreen',
-                options: {
-                    bottomTab: {
-                        text: 'Splash',
-                        icon: bottomTabs[1],
-                        iconColor: 'gray',
-                        selectedIconColor: '#F16654',
-                    }
-                },
+    return BOTTOM_TABS.map((tab, index) => ({
+        component: {
+            name: tab.component,
+            options: {
+                bottomTab: {
+                    text: tab.name,
+                    icon: bottomTabs[index],
+                    iconColor: 'gray',
+                    selectedIconColor: '#F16654',
+                }
             },
-        },
-        {
-            component: {
-                name: 'gigabankclient.AnimatedScreen',
-                options: {
-                    bottomTab: {
-                        text: 'Animated',
-                        icon: bottomTabs[2],
-                        iconColor: 'gray',
-                        selectedIconColor: '#F16654',
-                    }
-                },
-            },
-        },
-        {
-            component: {
-                name: 'gigabankclient.FeedScreen',
-                options: {
-                    bottomTab: {
-                        text: 'Feed',
-                        icon: bottomTabs[3],
-                        iconColor: 'gray',
-                        selectedIconColor: '#F16654',
-                    }
-                },
-            },
-        },
-    ]
+        }
+    }))
 }
 
 
@@ -91,7 +72,7 @@ export const run = () => {
             },
         })
 
-        _getBottomTabIcon(['home-active', 'ring-active', 'camera', 'ring-active'], 24, '#F16654').then(bottomTabs => {
+        _getBottomTabIcon(BOTTOM_TABS, 24, '#F16654').then(bottomTabs => {
             Navigation.setRoot({
                 root: {
                     stack: {
