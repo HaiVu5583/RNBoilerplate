@@ -9,10 +9,9 @@ import { Navigation } from 'react-native-navigation'
 import { ScrollView } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux'
-import { getData } from '~/src/store/actions/home'
+import { getData, getTestData } from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
-
 
 class Home extends Component {
     static get options() {
@@ -222,6 +221,13 @@ class Home extends Component {
         // })
     }
 
+    _handleLoadGoogle = () => {
+        this.props.getTestData((err, data) => {
+            console.log('Google Err', err)
+            console.log('Google Data', data)
+        })
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -272,6 +278,7 @@ class Home extends Component {
                             />
                             <Button text70 white background-orange30 marginT-20 label="Open BottomSheet" onPress={this._handleOpenBottomSheet} />
                             <Button text70 white background-orange30 marginT-20 label="Change Tab" onPress={this._onChangeBottomTab} />
+                            <Button text70 white background-orange30 marginT-20 label="Load Google" onPress={this._handleLoadGoogle} />
                         </View>
                         <Text h6>Text H6</Text>
                         <Text h5>Text H5</Text>
@@ -286,4 +293,4 @@ class Home extends Component {
     }
 }
 
-export default connect(null, { getData }, null, { withRef: true })(Home)
+export default connect(null, { getData, getTestData }, null, { withRef: true })(Home)

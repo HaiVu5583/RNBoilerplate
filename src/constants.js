@@ -24,3 +24,11 @@ export const BOTTOM_TABS = [
         id: 'tab4',
     }
 ]
+
+export const BUILD_INFO = {
+    'X-DATA-VERSION': 1,
+    'X-VERSION': 1,
+}
+
+export const TIMEOUT_TIME = 30000
+export const TIMEOUT = 'REQUEST_TIME_OUT'
