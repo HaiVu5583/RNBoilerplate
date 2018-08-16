@@ -1,17 +1,19 @@
-
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     TagsInput, Button, Card, Colors,
     Carousel, Constants, PageControl
 } from 'react-native-ui-lib';
-import { View, Text, TextInput, Icon, Image } from '~/src/themes/ThemeComponent'
-import { Navigation } from 'react-native-navigation'
-import { ScrollView, PixelRatio } from 'react-native'
+
+import {Surface, Background, View, Text, TextInput, Icon, Image} from '~/src/themes/ThemeComponent'
+import {Navigation} from 'react-native-navigation'
+import {ScrollView, PixelRatio, ActivityIndicator, Platform} from 'react-native'
+
 import styles from './styles'
-import { connect } from 'react-redux'
-import { getData } from '~/src/store/actions/home'
+import {connect} from 'react-redux'
+import {getData, getTestData} from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
+
 
 // import FastImage from "~/src/components/FastImage";
 // import PictureBrowser from '~/src/components/PictureBrowser'
@@ -19,7 +21,6 @@ import TagSelect from '~/src/components/TagSelect'
 
 // import Icon from '~/src/components/FontIcon'
 import PreparePictureList from '~/src/components/PreparedPictureList'
-
 
 class Home extends Component {
     static get options() {
@@ -40,13 +41,13 @@ class Home extends Component {
         }
     }
 
-    navigationButtonPressed({ buttonId }) {
+    navigationButtonPressed({buttonId}) {
         console.log('Back Button Press', buttonId)
     }
 
     onChangePage = (index) => {
         console.log('Page Control', this.pageControl)
-        this.setState({ page: index });
+        this.setState({page: index});
     }
 
     _handlePressButton = () => {
@@ -81,7 +82,7 @@ class Home extends Component {
                 showHeader={true}
                 title={'Chọn bộ lọc'}
             >
-                <View themeable={false}>
+                <Surface themeable={false}>
 
                     <TagSelect
                         data={
@@ -157,7 +158,7 @@ class Home extends Component {
                         }
                         headerTitle={'Danh mục'}
                     />
-                </View>
+                </Surface>
             </BottomSheet>
         )
     }
@@ -168,7 +169,7 @@ class Home extends Component {
         //         currentTabIndex: 1,
         //     }
         // })
-        
+
         Navigation.mergeOptions('tab1', {
             bottomTabs: {
                 backgroundColor: 'black',
@@ -229,6 +230,7 @@ class Home extends Component {
         // })
     }
 
+
     _renderFastImage = () => {
 
         //uri = 'http://genknews.genkcdn.vn/2018/6/13/photo-1-1528877482828630191491.jpg'
@@ -237,7 +239,13 @@ class Home extends Component {
 
         return (
             <View>
-                <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 8, borderTopColor: 'pink', borderTopWidth: 1/PixelRatio.get()}}>FastImage</Text>
+                <Text style={{
+                    fontSize: 16,
+                    fontWeight: 'bold',
+                    marginTop: 8,
+                    borderTopColor: 'pink',
+                    borderTopWidth: 1 / PixelRatio.get()
+                }}>FastImage</Text>
                 <Image
                     resizeMethod='auto'
                     resizeMode='contain'
@@ -296,69 +304,114 @@ class Home extends Component {
     //     )
     // }
 
+    _handleLoadGoogle = () => {
+        this.props.getTestData((err, data) => {
+            console.log('Google Err', err)
+            console.log('Google Data', data)
+        })
+    }
+
     render() {
         return (
-            <View style={{ flex: 1 }}>
-                {this._renderFilter()}
+            <Background style={{flex: 1}}>
+                {/*{this._renderFilter()}*/}
                 <ScrollView>
-                    <PreparePictureList />
                     <View>
-                        <Carousel loop onChangePage={(index => this.onChangePage(index))}>
-                            <View bg-red50 center width={Constants.screenWidth} height={200}>
-                                <Text>PAGE 1</Text>
-                            </View>
-                            <View bg-purple50 center width={Constants.screenWidth} height={200}>
-                                <Text>PAGE 2</Text>
-                            </View>
-                            <View bg-green50 center width={Constants.screenWidth} height={200}>
-                                <Text>PAGE 3</Text>
-                            </View>
-                            <View bg-yellow20 center width={Constants.screenWidth} height={200}>
-                                <Text>PAGE 4</Text>
-                            </View>
-                            <View bg-purple20 center width={Constants.screenWidth} height={200}>
-                                <Text>PAGE 5</Text>
-                            </View>
-                            <View bg-blue10 center width={Constants.screenWidth} height={200}>
-                                <Text>PAGE 6</Text>
-                            </View>
-                        </Carousel>
-                        <PageControl width={Constants.width} containerStyle={styles.pageControl} numOfPages={6} currentPage={this.state.page} color={Colors.orange30} size={10}
-                            ref={ref => this.pageControl = ref}
-                        />
-                    </View>
-                    <View style={{ flexDirection: 'row' }}>
-                        <Icon name="the-bank" style={{ fontSize: 30, marginRight: 10 }} />
-                        <Icon name="clingme-building" style={{ fontSize: 30, marginRight: 10 }} />
-                    </View>
-                    <TextInput
-                        placeholder={'Input something here...'}
-                    />
-                    <View center padding-10>
-                        <View padding-10 center>
-                            <Button text70 white background-orange30 label="Open Screen" onPress={this._handlePressButton} />
-                            <Button
-                                outline
-                                outlineColor={Colors.orange30}
-                                label="Open Feed"
-                                marginT-20
-                                text70
-                                onPress={this._handleOpenFeed}
+
+                        <PreparePictureList/>
+
+                        <Surface>
+                            <Carousel loop onChangePage={(index => this.onChangePage(index))}>
+                                <Surface width={Constants.screenWidth} height={200}>
+                                    <Text>PAGE 1</Text>
+                                </Surface>
+                                <Surface width={Constants.screenWidth} height={200}>
+                                    <Text>PAGE 2</Text>
+                                </Surface>
+                                <Surface width={Constants.screenWidth} height={200}>
+                                    <Text>PAGE 3</Text>
+                                </Surface>
+                                <Surface width={Constants.screenWidth} height={200}>
+                                    <Text>PAGE 4</Text>
+                                </Surface>
+                                <Surface width={Constants.screenWidth} height={200}>
+                                    <Text>PAGE 5</Text>
+                                </Surface>
+                                <Surface width={Constants.screenWidth} height={200}>
+                                    <Text>PAGE 6</Text>
+                                </Surface>
+                            </Carousel>
+                            <PageControl width={Constants.width} containerStyle={styles.pageControl} numOfPages={6}
+                                         currentPage={this.state.page} color={Colors.orange30} size={10}
+                                         ref={ref => this.pageControl = ref}
                             />
-                            <Button text70 white background-orange30 marginT-20 label="Open BottomSheet" onPress={this._handleOpenBottomSheet} />
-                            <Button text70 white background-orange30 marginT-20 label="Change Tab" onPress={this._onChangeBottomTab} />
-                        </View>
-                        <Text h6>Text H6</Text>
-                        <Text h5>Text H5</Text>
-                        <Text body1>Text body1</Text>
-                        <Text body2>Text body2</Text>
-                        <Text overline>Text Overline</Text>
+                        </Surface>
+
+                        <Surface style={{flexDirection: 'row', ...styles.block}}>
+                            <Icon name="the-bank" style={{fontSize: 30, marginRight: 10}}/>
+                            <Icon name="clingme-building" style={{fontSize: 30, marginRight: 10}}/>
+                            <ActivityIndicator size={Platform.OS == 'ios' ? 'large' : 50} color={'#F16654'}/>
+                        </Surface>
+
+                        <TextInput placeholder={'Input something here...'}/>
+
+                        <Surface style={styles.block}>
+                            <Surface style={styles.block}>
+                                <Button
+                                    text70 white background-orange30 label="Open Screen"
+                                    onPress={this._handlePressButton}
+                                />
+
+                                <Button
+                                    outline
+                                    outlineColor={Colors.orange30}
+                                    label="Open Feed"
+                                    marginT-20
+                                    text70
+                                    onPress={this._handleOpenFeed}
+                                />
+
+                                <Button
+                                    text70
+                                    white
+                                    background-orange30
+                                    marginT-20
+                                    label="Open BottomSheet"
+                                    onPress={this._handleOpenBottomSheet}
+                                />
+
+                                <Button
+                                    text70
+                                    white
+                                    background-orange30
+                                    marginT-20
+                                    label="Change Tab"
+                                    onPress={this._onChangeBottomTab}
+                                />
+
+                                <Button
+                                    text70
+                                    white
+                                    background-orange30
+                                    marginT-20
+                                    label="Load Google"
+                                    onPress={this._handleLoadGoogle}
+                                />
+
+                            </Surface>
+
+                            <Text h6>Text H6</Text>
+                            <Text h5>Text H5</Text>
+                            <Text body1>Text body1</Text>
+                            <Text body2>Text body2</Text>
+                            <Text overline>Text Overline</Text>
+                        </Surface>
                     </View>
-                    {this._renderFastImage()}
                 </ScrollView>
-            </View>
-        );
+            </Background>
+        )
+            ;
     }
 }
 
-export default connect(null, { getData }, null, { withRef: true })(Home)
+export default connect(null, {getData, getTestData}, null, {withRef: true})(Home)

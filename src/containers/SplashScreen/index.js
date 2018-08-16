@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    Image,
+    Image, BackHandler
 } from 'react-native';
 import { Navigation } from 'react-native-navigation'
 import {Icon} from '~/src/themes/ThemeComponent'
@@ -31,6 +31,11 @@ export default class SplashScreen extends Component {
         console.log('Splash Screen Did Appear')
     }
 
+    _onBack = () => {
+        console.log('Call _onBack')
+        return false
+    }
+
     componentDidMount() {
         console.log('Splash Screen Did Mount')
         setTimeout(() => {
@@ -40,6 +45,11 @@ export default class SplashScreen extends Component {
                 },
             });
         }, 1000)
+        BackHandler.addEventListener('hardwareBackPress', this._onBack)
+    }
+
+    componentWillMount() {
+        BackHandler.removeEventListener('hardwareBackPress', this._onBack)
     }
 
     render() {

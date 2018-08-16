@@ -4,6 +4,8 @@ import Button from './Button'
 import TextInput from './TextInput'
 import Icon from './Icon'
 import Image from './Image'
+import Surface from './Surface'
+import Background from './Background'
 
 export {
     View,
@@ -11,5 +13,7 @@ export {
     Button,
     TextInput,
     Icon,
-    Image
+    Image,
+    Surface,
+    Background
 }
