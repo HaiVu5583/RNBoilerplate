@@ -7,7 +7,6 @@ const store = configStore()
 const _getBottomTabIcon = (iconList, size, color) => {
     const promiseList = []
     for (let icon of iconList) {
-        console.log('Bottom Tab Icon', icon)
         promiseList.push(Icon.getImageSource(icon, size, color))
     }
     return Promise.all(promiseList)
@@ -26,22 +25,7 @@ const _getBottomTabs = (bottomTabs) => {
                         selectedIconColor: '#F16654',
                     }
                 },
-            },
-            // stack: {
-            //     children: [{
-            //         component: {
-            //             name: 'gigabankclient.HomeScreen'
-            //         }
-            //     }],
-            //     options: {
-            //         bottomTab: {
-            //             text: 'Home',
-            //             icon: bottomTabs[0],
-            //             iconColor: 'gray',
-            //             selectedIconColor: '#F16654',
-            //         }
-            //     },
-            // }
+            }
         },
         {
             component: {
@@ -108,29 +92,6 @@ export const run = () => {
         })
 
         _getBottomTabIcon(['home-active', 'ring-active', 'camera', 'ring-active'], 24, '#F16654').then(bottomTabs => {
-            // console.log('Bottom Tabs', bottomTabs[0])
-
-            // Navigation.setRoot({
-            //     root: {
-            //         stack: {
-            //             id: 'mainStack',
-            //             options: {
-            //                 topBar: {
-            //                     visible: false,
-            //                     animate: false
-            //                 }
-            //             },
-            //             children: [
-            //                 {
-            //                     component: {
-            //                         name: 'gigabankclient.SplashScreen',
-            //                     }
-            //                 },
-            //             ]
-            //         },
-            //     }
-            // })
-
             Navigation.setRoot({
                 root: {
                     stack: {
@@ -138,14 +99,12 @@ export const run = () => {
                         children: [
                             {
                                 bottomTabs: {
+                                    id: 'bottomTabs',
                                     children: _getBottomTabs(bottomTabs)
                                 }
                             }
                         ]
                     },
-                    // bottomTabs: {
-                    //     children: _getBottomTabs(bottomTabs)
-                    // },
                 }
             })
 

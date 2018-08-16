@@ -52,7 +52,7 @@ class Home extends Component {
     }
 
     _handleOpenFeed = () => {
-        Navigation.push(this.props.componentId, {
+        Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.FeedScreen',
             }
@@ -155,6 +155,14 @@ class Home extends Component {
         )
     }
 
+    _onChangeBottomTab = () => {
+        Navigation.mergeOptions('bottomTabs', {
+            bottomTabs: {
+                currentTabIndex: 1
+            }
+        });
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -193,25 +201,19 @@ class Home extends Component {
                         placeholder={'Input something here...'}
                     />
                     <View center padding-10>
-                        <Card
-                            width={'100%'}
-                            shadowType="white10"
-                            borderRadius={2}
-                            marginB-10
-                        >
-                            <View padding-10 center>
-                                <Button text70 white background-orange30 label="Open Screen" onPress={this._handlePressButton} />
-                                <Button
-                                    outline
-                                    outlineColor={Colors.orange30}
-                                    label="Open Feed"
-                                    marginT-20
-                                    text70
-                                    onPress={this._handleOpenFeed}
-                                />
-                                <Button text70 white background-orange30 marginT-20 label="Open BottomSheet" onPress={this._handleOpenBottomSheet} />
-                            </View>
-                        </Card>
+                        <View padding-10 center>
+                            <Button text70 white background-orange30 label="Open Screen" onPress={this._handlePressButton} />
+                            <Button
+                                outline
+                                outlineColor={Colors.orange30}
+                                label="Open Feed"
+                                marginT-20
+                                text70
+                                onPress={this._handleOpenFeed}
+                            />
+                            <Button text70 white background-orange30 marginT-20 label="Open BottomSheet" onPress={this._handleOpenBottomSheet} />
+                            <Button text70 white background-orange30 marginT-20 label="Change Tab" onPress={this._onChangeBottomTab} />
+                        </View>
                         <Text h6>Text H6</Text>
                         <Text h5>Text H5</Text>
                         <Text body1>Text body1</Text>

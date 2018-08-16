@@ -14,23 +14,23 @@ const { height, width } = Dimensions.get('window')
 
 export default class AnimatedScreen extends Component {
 
-    // static get options() {
-    //     return {
-    //         topBar: {
-    //             visible: true,
-    //             drawBehind: true,
-    //             animate: false,
-    //             title: {
-    //                 text: 'Animated Screen'
-    //             }
-    //         },
-    //         bottomTabs: {
-    //             visible: false,
-    //             animate: false,
-    //             drawBehind: true
-    //         }
-    //     };
-    // }
+    static get options() {
+        return {
+            topBar: {
+                visible: true,
+                drawBehind: false,
+                animate: false,
+                title: {
+                    text: 'Animated Screen'
+                }
+            },
+            // bottomTabs: {
+            //     visible: false,
+            //     animate: false,
+            //     drawBehind: true
+            // }
+        };
+    }
 
     constructor(props) {
         super(props)

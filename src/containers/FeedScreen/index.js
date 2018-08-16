@@ -23,11 +23,11 @@ class FeedScreen extends Component {
                     text: 'Home Feed'
                 },
             },
-            bottomTabs: {
-                visible: false,
-                animate: false,
-                drawBehind: true
-            }
+            // bottomTabs: {
+            //     visible: false,
+            //     animate: false,
+            //     drawBehind: true
+            // }
         };
     }
 
