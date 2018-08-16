@@ -2,22 +2,22 @@ import React, { Component } from 'react'
 import { BackHandler, AppState, Platform, View, Text, Switch, StyleSheet, WebView, Modal, TouchableOpacity, ActivityIndicator, CameraRoll, FlatList, Image, Button, Dimensions } from 'react-native'
 import { ImageBackground } from 'react-native'
 import PopUp from './PopUp'
-import Icon from '~/ui/components/ClingmeFont2'
+import {Icon} from '~/src/themes/ThemeComponent'
 import Header from './Header'
 import ClingmeUtils from '~/utils/ClingmeUtils'
 import SelectFromFolder from './SelectFromFolder'
 import PopUpOpenCamera from './PopUpToUsedCamera'
-import NotificationCenter from '~/utils/NotificationCenter'
+// import NotificationCenter from '~/utils/NotificationCenter'
 import {commonStyle} from '~/ui/styles/common'
 const {height, width} = Dimensions.get('window')
-import { chainParse } from '~/ui/shared/utils'
+import { chainParse } from '~/src/utils'
 import AcceptToViewAlbum from './AcceptToViewAlbum'
-import ImagePicker from 'react-native-image-picker'
-import Permissions from '~/utils/Permissions'
+// import ImagePicker from 'react-native-image-picker'
+import Permissions from '~/utils/PermissionManager'
 import RNPhotosFramework from 'react-native-photos-framework'
 import OpenAppSettings from 'react-native-app-settings'
-import CameraBillCapture from '~/ui/components/CameraBillCapture'
-import NativeComponent from '~/ui/components/NativeComponent'
+import CameraBillCapture from '~/src/components/CameraBillCapture'
+import NativeComponent from '~/src/components/NativeComponent'
 
 const maxOfImagesSelected = 6
 
@@ -470,7 +470,6 @@ export default class PictureBrowser extends NativeComponent {
     }
 
     _renderCameraScreen = () => {
-        // import CameraBillCapture from '~/ui/components/CameraBillCapture'
         return (
             <CameraBillCapture
                 hideButtonQuestion={true}

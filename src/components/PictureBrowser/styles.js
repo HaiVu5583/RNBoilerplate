@@ -1,11 +1,12 @@
-import {toElevation} from "~/ui/shared/utils";
+import {toElevation} from "~/src/utils";
 import {Dimensions} from 'react-native'
 const {height, width} = Dimensions.get('window')
-import {WHITE, commonStyle, fontSize, CYAN, linkColor} from '~/ui/styles/common'
+
+const linkColor = 'blue'
 
 export default {
     textNormal: {
-        fontSize: fontSize.xLarge,
+        fontSize: 15,
         color: 'rgba(0, 0, 0, 0.6)',
         textAlign: 'center',
         fontWeight: '400'
@@ -17,13 +18,13 @@ export default {
         fontWeight: '400'
     },
     headerBar: {
-        height: commonStyle.toolBarHeight,
+        height: 42,
         flexDirection: 'row', 
         width, 
         ...toElevation(4),
         // marginBottom: 4,
         backgroundColor: '#f5f5f5',
-        marginBottom: commonStyle.cardSpace,
+        marginBottom: 8,
         zIndex: 100,
         justifyContent: 'center',
         alignItems: 'center',
