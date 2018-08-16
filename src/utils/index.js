@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { Platform } from 'react-native'
 
+import PermissionManager from './PermissionManager'
+export const Permissions  = PermissionManager;
+
 export const getHOCScreen = (Component, store) => {
     return class ScreenWrapper extends Component {
         static options = Component.options ? { ...Component.options } : {}
