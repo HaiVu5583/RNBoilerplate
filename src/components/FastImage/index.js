@@ -134,6 +134,7 @@ export default class FastImage extends React.Component {
 
         //uri = 'http://genknews.genkcdn.vn/2018/6/13/photo-1-1528877482828630191491.jpg'
         //uri = 'https://vnn-imgs-f.vgcloud.vn/2018/07/27/16/nghe-an-samu-co-thu-ua-mau-tren-dinh-phu-lon-2.jpg'
+        //uri = 'https://static01.clingme.vn/images/picture/bannernhomuudai.png' // load max low
 
         return (
             <View
