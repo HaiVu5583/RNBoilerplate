@@ -6,7 +6,7 @@ import { getTheme } from './utils'
 import Ripple from 'react-native-material-ripple'
 import { Text } from 'react-native'
 import { getElevation } from '~/src/utils'
-import Icon from '~/src/components/FontIcon'
+import {Icon} from '~/src/themes/ThemeComponent'
 class Button extends Component {
     render() {
         const { forwardedRef, children, style, theme, text, icon, iconStyle, ...rest } = this.props

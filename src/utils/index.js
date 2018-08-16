@@ -105,3 +105,27 @@ export const changeBottomTabColor = (color) => {
         })
     })
 }
+
+export const toElevation = (number) => {
+    if (Platform.OS == 'android') return { elevation: number }
+
+    return {
+        shadowColor: "black",
+        shadowOpacity: number > 0 ? 0.22 : 0,
+        shadowRadius: 1.5,
+        shadowOffset: {
+            height: number,
+            width: 0
+        }
+    }
+}
+
+export const getWidth = (input) => {
+    let pixelRatio = PixelRatio.get()
+    // Design Dimension: width 720, pixelRatio 2
+    // Assume device this case will have pixelRatio 2
+    if (width * pixelRatio < 720) {
+        return (width / 360) * input
+    }
+    return input
+}

@@ -5,7 +5,7 @@ import {
     Image,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation'
-import Icon from '~/src/components/FontIcon'
+import {Icon} from '~/src/themes/ThemeComponent'
 import { Colors } from 'react-native-ui-lib';
 import { View } from '~/src/themes/ThemeComponent'
 
