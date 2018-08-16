@@ -96,6 +96,7 @@ class FeedScreen extends Component {
                 name: 'gigabankclient.SplashScreen',
                 options: {
                     modalPresentationStyle: 'pageSheet', // Supported styles are: 'formSheet', 'pageSheet', 'overFullScreen', 'overCurrentContext', 'currentContext', 'popOver', 'fullScreen' and 'none'. On Android, only overCurrentContext and none are supported.
+                    overrideBackPress: true
                 }
             }
         })
