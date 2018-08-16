@@ -8,10 +8,9 @@ import {
 } from 'react-native'
 import NotificationCenter from '~/src/utils/NotificationCenter'
 import I18n from '~/src/I18n'
-import Icon from '~/src/components/ClingmeFont2'
+import Icon from '~/src/components/FontIcon'
 import styles, { imageWidth } from './styles'
 import RemoveIcon from '~/src/assets/RemoveIcon'
-import BorderView from '~/src/components/BorderView'
 
 const MAX_PICTURE = 6
 
@@ -91,20 +90,6 @@ export default class PreparedPictureList extends React.PureComponent {
         if (!!addPictureFunc) {
             addPictureFunc()
         }
-        /*
-        if (!!addPictureFunc) {
-          NotificationCenter.sendNotification('updated_selected_image', this.getPicturesList())
-          addPictureFunc()
-        } else {
-          let params = {
-            screenName: 'PictureBrowser',
-            isSlided: true,
-            isOpenedFromAnother: true,
-            selectedPictures: this.getPicturesList(),
-            parent: 'preparedPictureList' //DuongNT: chu y cho nay
-          }
-          ClingmeUtils.sendNotificationMessage(ClingmeUtils.MSG_PLAY_CLINGME_20_UNIVERSAL_VIEW_MEDIATOR, params)
-        }*/
     }
     _onRemovePicturePress = (pictureIndex) => {
         const srcList = this.state.dataList
@@ -144,7 +129,7 @@ export default class PreparedPictureList extends React.PureComponent {
                     <View style={styles.addPictureCell}>
                         <View>
                             <Icon name='plus' style={styles.addPictureIcon}/>
-                            {/* <Text style={styles.addPictureText}>{I18n.t('place_upload_photo_addpicture_button')}</Text> */}
+                            <Text style={styles.addPictureText}>{I18n.t('place_upload_photo_addpicture_button')}</Text>
                         </View>
                     </View>
                 </TouchableWithoutFeedback>
@@ -166,11 +151,8 @@ export default class PreparedPictureList extends React.PureComponent {
     }
 
     getPicturesList = () => {
-        //<SvgUri width='18' height='18' source={Platform.OS === 'android' ? deleteIcon : {uri : RNFS.MainBundlePath + '/asset/upload_picture_delete.svg'}} />
         let retData = [...this.state.dataList]
-
         retData.splice(0, 1)
-
         return retData
     }
 

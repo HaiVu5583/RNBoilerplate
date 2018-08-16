@@ -1,4 +1,4 @@
-import { THEMES } from '~/src/constants'
+import { THEMES } from '~/src/themes/common.js'
 const initialState = {
     theme: THEMES.light
 }

@@ -2,14 +2,25 @@
 import React, { Component } from 'react';
 import {
     StyleSheet,
-    View,
     Image,
 } from 'react-native';
 import { Navigation } from 'react-native-navigation'
 import Icon from '~/src/components/FontIcon'
 import { Colors } from 'react-native-ui-lib';
+import { View } from '~/src/themes/ThemeComponent'
 
 export default class SplashScreen extends Component {
+
+    static get options() {
+        return {
+            topBar: {
+                visible: false,
+                drawBehind: false,
+                animate: false,
+            },
+        };
+    }
+
 
     constructor(props) {
         super(props);
@@ -45,6 +56,5 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'white',
     }
 });

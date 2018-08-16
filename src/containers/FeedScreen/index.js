@@ -1,24 +1,35 @@
 
 import React, { Component } from 'react';
-import {
-    Text, View
-} from 'react-native';
 import { Navigation } from 'react-native-navigation'
 import { FlatList, Colors } from 'react-native'
 import styles from './styles'
+import { Switch } from 'react-native-ui-lib'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import ErrorBoundary from '~/src/components/ErrorBoundary'
-import z from '~/src/themes/ThemeComponent'
-// const { View } = z
+import { View, Text, Button } from '~/src/themes/ThemeComponent'
+import { changeTheme } from '~/src/store/actions/ui'
+import { THEMES } from '~/src/themes/common.js'
+import { connect } from 'react-redux'
+import { themeSelector } from '~/src/store/selectors/Theme'
+import { changeBottomTabColor } from '~/src/utils'
+import { getTheme } from '~/src/themes/utils'
 
-export default class FeedScreen extends Component {
+class FeedScreen extends Component {
     static get options() {
         return {
             topBar: {
-                drawBehind: false,
                 visible: true,
-                animate: false
+                drawBehind: false,
+                animate: false,
+                title: {
+                    text: 'Home Feed'
+                },
             },
+            // bottomTabs: {
+            //     visible: false,
+            //     animate: false,
+            //     drawBehind: true
+            // }
         };
     }
 
@@ -36,7 +47,6 @@ export default class FeedScreen extends Component {
             data,
         }
         this.view = React.createRef()
-        console.log('Constructor State', this.state)
     }
 
     _handleLike = (item) => {
@@ -64,12 +74,24 @@ export default class FeedScreen extends Component {
     }
 
     componentDidMount() {
-        this.view.current.measure((x, y, width, height, pageX, pageY) => {
-            console.log('Measure Obj', { x, y, width, height, pageX, pageY })
-        })
+    }
+
+    _onChangeTheme = () => {
+        const { theme, changeTheme } = this.props
+        if (theme == THEMES.dark) {
+            changeTheme(THEMES.light)
+            const theme = getTheme(THEMES.light)
+            changeBottomTabColor(theme.backgroundColor)
+        } else {
+            changeTheme(THEMES.dark)
+            const theme = getTheme(THEMES.dark)
+            changeBottomTabColor(theme.backgroundColor)
+        }
     }
 
     render() {
+        console.log('FeedScreen Props', this.props)
+        const { theme } = this.props
         return (
             <ErrorBoundary>
                 {/* <FlatList
@@ -78,14 +100,26 @@ export default class FeedScreen extends Component {
                     getItemLayout={this._getItemLayout}
                     keyExtractor={item => '' + item.id}
                 /> */}
-                <View ref={this.view} onLayout={e => {
-                    console.log('Event Layout', e.nativeEvent)
-                }}>
-                    <Text>Wrapped Text</Text>
+                <View style={{ flex: 1 }}>
+                    <Text medium>
+                        When you start using forwardRef in a component library, you should treat it as a breaking change and release a new major version of your library. This is because your library likely has an observably different behavior (such as what refs get assigned to, and what types are exported), and this can break apps and other libraries that depend on the old behavior
+                    </Text>
+                    <View style={{ flexDirection: 'row', padding: 10 }}>
+                        <Button
+                            icon='phone-money-2'
+                            text={'Button Customize'}
+                        />
+                    </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                        <Text>Use dark theme?</Text>
+                        <Switch value={(theme == THEMES.dark)} onValueChange={this._onChangeTheme} />
+                    </View>
                 </View>
             </ErrorBoundary>
         )
     }
 }
 
-// export default connect(null, null, null, { withRef: true })(Home)
+export default connect(state => ({
+    theme: themeSelector(state)
+}), { changeTheme })(FeedScreen)

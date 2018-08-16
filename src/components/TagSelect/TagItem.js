@@ -1,10 +1,10 @@
 import React from 'react'
-import { Modal, View, TouchableWithoutFeedback, Text, Dimensions, Animated, TouchableHighlight, TouchableOpacity } from 'react-native'
+import { Modal, TouchableWithoutFeedback, Dimensions, Animated, TouchableHighlight, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import { Colors } from 'react-native-ui-lib';
 const { width, height } = Dimensions.get('window')
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import { View, Text } from '~/src/themes/ThemeComponent'
 export default class TagItem extends React.PureComponent {
 
     constructor(props) {
@@ -35,26 +35,30 @@ export default class TagItem extends React.PureComponent {
                     borderRadius: 20,
                 }}
             >
-                <View style={[
-                    {
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        paddingHorizontal: 20,
-                        paddingVertical: 5,
-                        borderRadius: 20,
-                        borderColor: selected ? 'transparent' : passiveIconColor,
-                        backgroundColor: selected ? activeBackgroundColor : passiveBackgroundColor,
-                        borderWidth: 1,
-                    },
-                    this.props.style
-                ]}>
+                <View
+                    themeable={false}
+                    style={[
+                        {
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            paddingHorizontal: 20,
+                            paddingVertical: 5,
+                            borderRadius: 20,
+                            borderColor: selected ? 'transparent' : passiveIconColor,
+                            backgroundColor: selected ? activeBackgroundColor : passiveBackgroundColor,
+                            borderWidth: 1,
+                        },
+                        this.props.style
+                    ]}>
                     <Icon name={icon} size={28} color={selected ? activeIconColor : passiveIconColor} />
-                    <Text style={{
-                        marginLeft: 5,
-                        color: selected ? activeIconColor : passiveIconColor,
-                        flex: 1
-                    }}>{text}</Text>
+                    <Text
+                        themeable={false}
+                        style={{
+                            marginLeft: 5,
+                            color: selected ? activeIconColor : passiveIconColor,
+                            flex: 1
+                        }}>{text}</Text>
                 </View>
             </TouchableOpacity>
         )
