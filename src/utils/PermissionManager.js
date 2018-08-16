@@ -1,14 +1,14 @@
-import Permissions from 'react-native-permissions'
+import ReactNativePermissions from 'react-native-permissions'
 import {Linking, Platform} from 'react-native'
 import SystemSetting from 'react-native-system-setting'
 
-let Permission = {
+let PermissionManager = {
 
     requestAlbumPermission : (callback) => {
         if (Platform.OS === 'ios') {
             Linking.openURL('app-settings:');
         } else {
-            Permissions.request('photo').then(response => {
+            ReactNativePermissions.request('photo').then(response => {
                 // Returns once the user has chosen to 'allow' or to 'not allow' access
                 // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
                 if (response == 'authorized') {
@@ -26,7 +26,7 @@ let Permission = {
     },
 
     checkAlbumPermission: (callback) => {
-        Permissions.check('photo').then(response => {
+        ReactNativePermissions.check('photo').then(response => {
             callback(response)
         })
 
@@ -39,7 +39,7 @@ let Permission = {
         if (Platform.OS === 'ios') {
             Linking.openURL('app-settings:');
         } else {
-            Permissions.request('camera').then(response => {
+            ReactNativePermissions.request('camera').then(response => {
                 // Returns once the user has chosen to 'allow' or to 'not allow' access
                 // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
                 if (response == 'authorized') {
@@ -68,4 +68,4 @@ let Permission = {
 }
 
 
-export default Permission
+export default PermissionManager

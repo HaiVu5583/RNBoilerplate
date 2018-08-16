@@ -4,9 +4,6 @@ import { Platform } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { BOTTOM_TABS } from '~/src/constants'
 
-import PermissionManager from './PermissionManager'
-export const Permissions  = PermissionManager;
-
 export const getHOCScreen = (Component, store) => {
     return class ScreenWrapper extends Component {
         static options = Component.options ? { ...Component.options } : {}

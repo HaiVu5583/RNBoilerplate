@@ -4,7 +4,7 @@ import {
     TagsInput, Button, Card, Colors,
     Carousel, Constants, PageControl
 } from 'react-native-ui-lib';
-import { View, Text, TextInput, Icon } from '~/src/themes/ThemeComponent'
+import { View, Text, TextInput, Icon, Image } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import { ScrollView, PixelRatio } from 'react-native'
 import styles from './styles'
@@ -13,7 +13,7 @@ import { getData } from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
 
-import FastImage from "~/src/components/FastImage";
+// import FastImage from "~/src/components/FastImage";
 // import PictureBrowser from '~/src/components/PictureBrowser'
 
 
@@ -238,7 +238,7 @@ class Home extends Component {
         return (
             <View>
                 <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 8, borderTopColor: 'pink', borderTopWidth: 1/PixelRatio.get()}}>FastImage</Text>
-                <FastImage
+                <Image
                     resizeMethod='auto'
                     resizeMode='contain'
                     style={{
@@ -249,7 +249,7 @@ class Home extends Component {
                     source={{uri: 'http://genknews.genkcdn.vn/2018/6/13/photo-1-1528877482828630191491.jpg'}}
                     key={'img_fast'}
                 />
-                <FastImage
+                <Image
                     resizeMethod='auto'
                     resizeMode='contain'
                     style={{
@@ -260,7 +260,7 @@ class Home extends Component {
                     source={{uri: 'https://static01.clingme.vn/images/picture/bannernhomuudai.png'}}
                     key={'img_low'}
                 />
-                <FastImage
+                <Image
                     resizeMethod='auto'
                     resizeMode='contain'
                     style={{
