@@ -4,16 +4,22 @@ import {
     TagsInput, Button, Card, Colors,
     Carousel, Constants, PageControl
 } from 'react-native-ui-lib';
-import { View, Text, TextInput, Icon } from '~/src/themes/ThemeComponent'
+import { View, Text, TextInput, Icon, Image } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ScrollView } from 'react-native'
+import { ScrollView, PixelRatio } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux'
 import { getData } from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
+
+// import FastImage from "~/src/components/FastImage";
+// import PictureBrowser from '~/src/components/PictureBrowser'
+
+
 // import Icon from '~/src/components/FontIcon'
 import PreparePictureList from '~/src/components/PreparedPictureList'
+
 
 class Home extends Component {
     static get options() {
@@ -223,6 +229,73 @@ class Home extends Component {
         // })
     }
 
+    _renderFastImage = () => {
+
+        //uri = 'http://genknews.genkcdn.vn/2018/6/13/photo-1-1528877482828630191491.jpg'
+        //uri = 'https://vnn-imgs-f.vgcloud.vn/2018/07/27/16/nghe-an-samu-co-thu-ua-mau-tren-dinh-phu-lon-2.jpg'
+        //uri = 'https://static01.clingme.vn/images/picture/bannernhomuudai.png' // load max low
+
+        return (
+            <View>
+                <Text style={{fontSize: 16, fontWeight: 'bold', marginTop: 8, borderTopColor: 'pink', borderTopWidth: 1/PixelRatio.get()}}>FastImage</Text>
+                <Image
+                    resizeMethod='auto'
+                    resizeMode='contain'
+                    style={{
+                        width: '100%',
+                        height: 200,
+                        marginTop: 8,
+                    }}
+                    source={{uri: 'http://genknews.genkcdn.vn/2018/6/13/photo-1-1528877482828630191491.jpg'}}
+                    key={'img_fast'}
+                />
+                <Image
+                    resizeMethod='auto'
+                    resizeMode='contain'
+                    style={{
+                        width: '100%',
+                        height: 200,
+                        marginTop: 8,
+                    }}
+                    source={{uri: 'https://static01.clingme.vn/images/picture/bannernhomuudai.png'}}
+                    key={'img_low'}
+                />
+                <Image
+                    resizeMethod='auto'
+                    resizeMode='contain'
+                    style={{
+                        width: '100%',
+                        height: 200,
+                        marginTop: 8,
+                        marginBottom: 8,
+                    }}
+                    source={{uri: 'https://vnn-imgs-f.vgcloud.vn/2018/07/27/16/nghe-an-samu-co-thu-ua-mau-tren-dinh-phu-lon-2.jpg'}}
+                    key={'img_medium'}
+                />
+            </View>
+        )
+    }
+
+    _onPictureSelected = () => {
+        alert('on picture selected');
+    }
+
+    _onPictureBrowserClosed = () => {
+        alert('on picture browser closed');
+    }
+
+    // _renderPictureBrowser = () => {
+    //     return (
+    //         <PictureBrowser
+    //             // clingmeIdentifier={this.props.clingmeIdentifier}
+    //             isShow={popupType == POPUP_TYPE_PICTURE_BROWSER}
+    //             params={{ selectedPictures: [...this.state.dataList] }}
+    //             onPictureSelected={this._onPictureSelected}
+    //             onClosed={this._onPictureBrowserClosed}
+    //         />
+    //     )
+    // }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -281,7 +354,7 @@ class Home extends Component {
                         <Text body2>Text body2</Text>
                         <Text overline>Text Overline</Text>
                     </View>
-
+                    {this._renderFastImage()}
                 </ScrollView>
             </View>
         );

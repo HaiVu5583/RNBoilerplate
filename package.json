@@ -7,18 +7,27 @@
     "test": "jest"
   },
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
+    "prop-types": "^15.6.2",
     "react": "16.4.1",
     "react-native": "0.56.0",
+    "react-native-app-settings": "^2.0.0",
+    "react-native-fast-image": "^4.0.14",
     "react-native-i18n": "^2.0.15",
     "react-native-material-ripple": "^0.8.0",
     "react-native-navigation": "^2.0.2471",
+    "react-native-permissions": "^1.1.1",
+    "react-native-responsive-image": "^2.3.1",
+    "react-native-shimmer": "^0.3.2",
     "react-native-svg": "^6.5.2",
+    "react-native-system-setting": "^1.5.2",
     "react-native-ui-lib": "^3.3.205",
     "react-native-vector-icons": "^5.0.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^0.16.0"
+    "redux-saga": "^0.16.0",
+    "url-parse": "^1.4.3"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.0.0-beta.55",
