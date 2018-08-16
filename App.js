@@ -61,9 +61,19 @@ export const run = () => {
                         id: 'mainStack',
                         children: [
                             {
-                                bottomTabs: {
-                                    id: 'bottomTabs',
-                                    children: _getBottomTabs(bottomTabs)
+                                sideMenu: {
+                                    id: 'sideMenu',
+                                    left: {
+                                        component: {
+                                            name: 'gigabankclient.SplashScreen',
+                                        }
+                                    },
+                                    center: {
+                                        bottomTabs: {
+                                            id: 'bottomTabs',
+                                            children: _getBottomTabs(bottomTabs)
+                                        }
+                                    },
                                 }
                             }
                         ]
