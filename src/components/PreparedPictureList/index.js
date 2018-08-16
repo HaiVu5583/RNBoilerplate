@@ -1,16 +1,14 @@
 import React from 'react';
 import {
-    Text,
-    View,
     Image,
     TouchableWithoutFeedback,
     FlatList,
 } from 'react-native'
 import NotificationCenter from '~/src/utils/NotificationCenter'
 import I18n from '~/src/I18n'
-import Icon from '~/src/components/FontIcon'
 import styles, { imageWidth } from './styles'
 import RemoveIcon from '~/src/assets/RemoveIcon'
+import { View, Text, TextInput, Icon } from '~/src/themes/ThemeComponent'
 
 const MAX_PICTURE = 6
 
