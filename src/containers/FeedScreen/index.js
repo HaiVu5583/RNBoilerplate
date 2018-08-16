@@ -81,12 +81,24 @@ class FeedScreen extends Component {
         if (theme == THEMES.dark) {
             changeTheme(THEMES.light)
             const theme = getTheme(THEMES.light)
-            changeBottomTabColor(theme.backgroundColor)
+            changeBottomTabColor(theme.surfaceColor)
         } else {
             changeTheme(THEMES.dark)
             const theme = getTheme(THEMES.dark)
-            changeBottomTabColor(theme.backgroundColor)
+            changeBottomTabColor(theme.surfaceColor)
         }
+    }
+
+    _handleShowModal = () => {
+        console.log('Handle Show Modal')
+        Navigation.showModal({
+            component: {
+                name: 'gigabankclient.SplashScreen',
+                options: {
+                    modalPresentationStyle: 'pageSheet', // Supported styles are: 'formSheet', 'pageSheet', 'overFullScreen', 'overCurrentContext', 'currentContext', 'popOver', 'fullScreen' and 'none'. On Android, only overCurrentContext and none are supported.
+                }
+            }
+        })
     }
 
     render() {
@@ -108,6 +120,7 @@ class FeedScreen extends Component {
                         <Button
                             icon='phone-money-2'
                             text={'Button Customize'}
+                            onPress={this._handleShowModal}
                         />
                     </View>
                     <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
