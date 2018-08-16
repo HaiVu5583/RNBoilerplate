@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { Platform } from 'react-native'
+import { Navigation } from 'react-native-navigation'
+import { BOTTOM_TABS } from '~/src/constants'
 
 import PermissionManager from './PermissionManager'
 export const Permissions  = PermissionManager;
@@ -90,4 +92,19 @@ export const getElevation = (number) => {
             width: 0
         },
     }
+}
+
+export const changeBottomTabColor = (color) => {
+    BOTTOM_TABS.forEach(item => {
+        Navigation.mergeOptions(item.id, {
+            bottomTabs: {
+                backgroundColor: color,
+            },
+            topBar: {
+                drawBehind: true,
+                visible: false,
+                animate: false,
+            }
+        })
+    })
 }

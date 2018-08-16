@@ -3,28 +3,7 @@ import registerScreens from '~/src/containers'
 import configStore from '~/src/store/configStore'
 import Icon from '~/src/components/FontIcon'
 const store = configStore()
-const BOTTOM_TABS = [
-    {
-        icon: 'home-active',
-        name: 'Home',
-        component: 'gigabankclient.HomeScreen'
-    },
-    {
-        icon: 'camera',
-        name: 'Camera',
-        component: 'gigabankclient.SplashScreen'
-    },
-    {
-        icon: 'ring-active',
-        name: 'Notification',
-        component: 'gigabankclient.AnimatedScreen'
-    },
-    {
-        icon: 'user-active',
-        name: 'Account',
-        component: 'gigabankclient.FeedScreen'
-    }
-]
+import { BOTTOM_TABS } from '~/src/constants'
 
 const _getBottomTabIcon = (tabs, size, color) => {
     const promiseList = []
@@ -38,6 +17,7 @@ const _getBottomTabs = (bottomTabs) => {
     return BOTTOM_TABS.map((tab, index) => ({
         component: {
             name: tab.component,
+            id: tab.id,
             options: {
                 bottomTab: {
                     text: tab.name,
@@ -61,15 +41,17 @@ export const run = () => {
                 visible: false,
                 animate: false,
                 drawBehind: false,
-                elevation: 2
+                elevation: 2,
             },
             layout: {
-                // backgroundColor: 'red',
             },
             statusBar: {
                 drawBehind: false,
                 visible: true
             },
+            bottomTabs: {
+                titleDisplayMode: 'alwaysShow'
+            }
         })
 
         _getBottomTabIcon(BOTTOM_TABS, 24, '#F16654').then(bottomTabs => {
@@ -79,9 +61,19 @@ export const run = () => {
                         id: 'mainStack',
                         children: [
                             {
-                                bottomTabs: {
-                                    id: 'bottomTabs',
-                                    children: _getBottomTabs(bottomTabs)
+                                sideMenu: {
+                                    id: 'sideMenu',
+                                    left: {
+                                        component: {
+                                            name: 'gigabankclient.SplashScreen',
+                                        }
+                                    },
+                                    center: {
+                                        bottomTabs: {
+                                            id: 'bottomTabs',
+                                            children: _getBottomTabs(bottomTabs)
+                                        }
+                                    },
                                 }
                             }
                         ]

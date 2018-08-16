@@ -9,9 +9,10 @@ import ErrorBoundary from '~/src/components/ErrorBoundary'
 import { View, Text, Button } from '~/src/themes/ThemeComponent'
 import { changeTheme } from '~/src/store/actions/ui'
 import { THEMES } from '~/src/themes/common.js'
-
 import { connect } from 'react-redux'
 import { themeSelector } from '~/src/store/selectors/Theme'
+import { changeBottomTabColor } from '~/src/utils'
+import { getTheme } from '~/src/themes/utils'
 
 class FeedScreen extends Component {
     static get options() {
@@ -79,8 +80,12 @@ class FeedScreen extends Component {
         const { theme, changeTheme } = this.props
         if (theme == THEMES.dark) {
             changeTheme(THEMES.light)
+            const theme = getTheme(THEMES.light)
+            changeBottomTabColor(theme.backgroundColor)
         } else {
             changeTheme(THEMES.dark)
+            const theme = getTheme(THEMES.dark)
+            changeBottomTabColor(theme.backgroundColor)
         }
     }
 

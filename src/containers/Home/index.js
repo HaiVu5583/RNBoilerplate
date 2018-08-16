@@ -12,8 +12,13 @@ import { connect } from 'react-redux'
 import { getData } from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
+
 import FastImage from "~/src/components/FastImage";
 // import PictureBrowser from '~/src/components/PictureBrowser'
+
+
+// import Icon from '~/src/components/FontIcon'
+import PreparePictureList from '~/src/components/PreparedPictureList'
 
 
 class Home extends Component {
@@ -158,11 +163,70 @@ class Home extends Component {
     }
 
     _onChangeBottomTab = () => {
-        Navigation.mergeOptions('bottomTabs', {
+        // Navigation.mergeOptions('bottomTabs', {
+        //     bottomTabs: {
+        //         currentTabIndex: 1,
+        //     }
+        // })
+        
+        Navigation.mergeOptions('tab1', {
             bottomTabs: {
-                currentTabIndex: 1
+                backgroundColor: 'black',
+            },
+            topBar: {
+                drawBehind: true,
+                visible: false,
+                animate: false,
+                background: {
+                    color: 'black'
+                }
             }
-        });
+        })
+        Navigation.mergeOptions('tab4', {
+            bottomTabs: {
+                backgroundColor: 'black',
+            },
+            topBar: {
+                drawBehind: true,
+                visible: false,
+                animate: false,
+                background: {
+                    color: 'black'
+                }
+            }
+        })
+        Navigation.mergeOptions('tab2', {
+            bottomTabs: {
+                backgroundColor: 'black',
+            },
+            topBar: {
+                drawBehind: true,
+                visible: false,
+                animate: false,
+                background: {
+                    color: 'black'
+                }
+            }
+        })
+        Navigation.mergeOptions('tab3', {
+            bottomTabs: {
+                backgroundColor: 'black',
+            },
+            topBar: {
+                drawBehind: true,
+                visible: false,
+                animate: false,
+                background: {
+                    color: 'black'
+                }
+            }
+        })
+
+        // Navigation.mergeOptions('bottomTabs', {
+        //     bottomTabs: {
+        //         backgroundColor: 'black',
+        //     }
+        // })
     }
 
     _renderFastImage = () => {
@@ -237,6 +301,7 @@ class Home extends Component {
             <View style={{ flex: 1 }}>
                 {this._renderFilter()}
                 <ScrollView>
+                    <PreparePictureList />
                     <View>
                         <Carousel loop onChangePage={(index => this.onChangePage(index))}>
                             <View bg-red50 center width={Constants.screenWidth} height={200}>

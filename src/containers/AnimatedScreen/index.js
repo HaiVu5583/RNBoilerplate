@@ -22,7 +22,7 @@ export default class AnimatedScreen extends Component {
                 animate: false,
                 title: {
                     text: 'Animated Screen'
-                }
+                },
             },
             // bottomTabs: {
             //     visible: false,
