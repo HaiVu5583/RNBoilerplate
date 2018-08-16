@@ -156,11 +156,70 @@ class Home extends Component {
     }
 
     _onChangeBottomTab = () => {
-        Navigation.mergeOptions('bottomTabs', {
+        // Navigation.mergeOptions('bottomTabs', {
+        //     bottomTabs: {
+        //         currentTabIndex: 1,
+        //     }
+        // })
+        
+        Navigation.mergeOptions('tab1', {
             bottomTabs: {
-                currentTabIndex: 1
+                backgroundColor: 'black',
+            },
+            topBar: {
+                drawBehind: true,
+                visible: false,
+                animate: false,
+                background: {
+                    color: 'black'
+                }
             }
-        });
+        })
+        Navigation.mergeOptions('tab4', {
+            bottomTabs: {
+                backgroundColor: 'black',
+            },
+            topBar: {
+                drawBehind: true,
+                visible: false,
+                animate: false,
+                background: {
+                    color: 'black'
+                }
+            }
+        })
+        Navigation.mergeOptions('tab2', {
+            bottomTabs: {
+                backgroundColor: 'black',
+            },
+            topBar: {
+                drawBehind: true,
+                visible: false,
+                animate: false,
+                background: {
+                    color: 'black'
+                }
+            }
+        })
+        Navigation.mergeOptions('tab3', {
+            bottomTabs: {
+                backgroundColor: 'black',
+            },
+            topBar: {
+                drawBehind: true,
+                visible: false,
+                animate: false,
+                background: {
+                    color: 'black'
+                }
+            }
+        })
+
+        // Navigation.mergeOptions('bottomTabs', {
+        //     bottomTabs: {
+        //         backgroundColor: 'black',
+        //     }
+        // })
     }
 
     render() {

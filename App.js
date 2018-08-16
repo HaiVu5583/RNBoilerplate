@@ -7,22 +7,26 @@ const BOTTOM_TABS = [
     {
         icon: 'home-active',
         name: 'Home',
-        component: 'gigabankclient.HomeScreen'
+        component: 'gigabankclient.HomeScreen',
+        id: 'tab1',
     },
     {
         icon: 'camera',
         name: 'Camera',
-        component: 'gigabankclient.SplashScreen'
+        component: 'gigabankclient.SplashScreen',
+        id: 'tab2',
     },
     {
         icon: 'ring-active',
         name: 'Notification',
-        component: 'gigabankclient.AnimatedScreen'
+        component: 'gigabankclient.AnimatedScreen',
+        id: 'tab3',
     },
     {
         icon: 'user-active',
         name: 'Account',
-        component: 'gigabankclient.FeedScreen'
+        component: 'gigabankclient.FeedScreen',
+        id: 'tab4',
     }
 ]
 
@@ -38,6 +42,7 @@ const _getBottomTabs = (bottomTabs) => {
     return BOTTOM_TABS.map((tab, index) => ({
         component: {
             name: tab.component,
+            id: tab.id,
             options: {
                 bottomTab: {
                     text: tab.name,
@@ -61,15 +66,17 @@ export const run = () => {
                 visible: false,
                 animate: false,
                 drawBehind: false,
-                elevation: 2
+                elevation: 2,
             },
             layout: {
-                // backgroundColor: 'red',
             },
             statusBar: {
                 drawBehind: false,
                 visible: true
             },
+            bottomTabs: {
+                titleDisplayMode: 'alwaysShow'
+            }
         })
 
         _getBottomTabIcon(BOTTOM_TABS, 24, '#F16654').then(bottomTabs => {
