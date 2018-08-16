@@ -24,7 +24,7 @@ export default class TagSelect extends React.PureComponent {
 
     _renderItem = ({ item, index }) => {
         return (
-            <View style={{ width: '50%', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
+            <View themeable={false} style={{ width: '50%', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                 <TagItem
                     data={item}
                     selected={this.state.selected[item.id] == true}
@@ -39,8 +39,8 @@ export default class TagSelect extends React.PureComponent {
         const { headerTitle } = this.props
         if (!headerTitle) return <View />
         return (
-            <View style={styles.headerTitleContainer}>
-                <Text style={styles.headerTitle}>{headerTitle}</Text>
+            <View style={styles.headerTitleContainer} themeable={false}>
+                <Text style={styles.headerTitle} themeable={false}>{headerTitle}</Text>
             </View>
         )
     }

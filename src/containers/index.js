@@ -14,8 +14,11 @@ export function registerContainerWithRedux(
 ) {
     const generatorWrapper = function () {
         const InternalComponent = comp;
-
         return class Scene extends Component {
+            static get options() {
+                return InternalComponent.options ? {...InternalComponent.options} : {}
+            }
+
             constructor(props) {
                 super(props);
             }

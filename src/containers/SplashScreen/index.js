@@ -11,6 +11,17 @@ import { Colors } from 'react-native-ui-lib';
 
 export default class SplashScreen extends Component {
 
+    static get options() {
+        return {
+            topBar: {
+                visible: false,
+                drawBehind: false,
+                animate: false,
+            },
+        };
+    }
+
+
     constructor(props) {
         super(props);
         Navigation.events().bindComponent(this);

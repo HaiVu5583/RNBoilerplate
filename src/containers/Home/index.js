@@ -1,9 +1,10 @@
 
 import React, { Component } from 'react';
 import {
-    View, TagsInput, Button, Card, Colors,
-    Carousel, Text, Constants, PageControl
+    TagsInput, Button, Card, Colors,
+    Carousel, Constants, PageControl
 } from 'react-native-ui-lib';
+import { View, Text, TextInput, Icon } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import { ScrollView } from 'react-native'
 import styles from './styles'
@@ -11,7 +12,6 @@ import { connect } from 'react-redux'
 import { getData } from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
-import Icon from '~/src/components/FontIcon'
 
 
 class Home extends Component {
@@ -44,63 +44,17 @@ class Home extends Component {
 
     _handlePressButton = () => {
         console.log('Call Push Animated Screen', new Date().getTime())
-        Navigation.push(this.props.componentId, {
+        Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.AnimatedScreen',
-                options: {
-                    animations: {
-                        push: {
-                            content: {
-                                y: {
-                                    from: 1000,
-                                    to: 0,
-                                    duration: 250,
-                                    startDelay: 100,
-                                    interpolation: 'accelerate'
-                                }
-                            }
-                        }
-                    },
-                    topBar: {
-                        visible: true,
-                        drawBehind: false,
-                        animate: true,
-                        title: {
-                            text: 'Animated Example'
-                        },
-                    }
-                }
             }
-        });
+        })
     }
 
     _handleOpenFeed = () => {
-        Navigation.push(this.props.componentId, {
+        Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.FeedScreen',
-                options: {
-                    animations: {
-                        push: {
-                            content: {
-                                y: {
-                                    from: 1000,
-                                    to: 0,
-                                    duration: 250,
-                                    startDelay: 100,
-                                    interpolation: 'accelerate'
-                                }
-                            }
-                        }
-                    },
-                    topBar: {
-                        visible: true,
-                        drawBehind: false,
-                        animate: true,
-                        title: {
-                            text: 'Home Feed'
-                        },
-                    }
-                }
             }
         });
     }
@@ -120,7 +74,7 @@ class Home extends Component {
                 showHeader={true}
                 title={'Chọn bộ lọc'}
             >
-                <View>
+                <View themeable={false}>
 
                     <TagSelect
                         data={
@@ -201,6 +155,14 @@ class Home extends Component {
         )
     }
 
+    _onChangeBottomTab = () => {
+        Navigation.mergeOptions('bottomTabs', {
+            bottomTabs: {
+                currentTabIndex: 1
+            }
+        });
+    }
+
     render() {
         return (
             <View style={{ flex: 1 }}>
@@ -231,47 +193,32 @@ class Home extends Component {
                             ref={ref => this.pageControl = ref}
                         />
                     </View>
-                    <View style={{flexDirection: 'row'}}>
-                        <Icon name="the-bank" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
-                        <Icon name="clingme-building" style={{ color: Colors.orange30, fontSize: 30, marginRight: 10 }} />
+                    <View style={{ flexDirection: 'row' }}>
+                        <Icon name="the-bank" style={{ fontSize: 30, marginRight: 10 }} />
+                        <Icon name="clingme-building" style={{ fontSize: 30, marginRight: 10 }} />
                     </View>
+                    <TextInput
+                        placeholder={'Input something here...'}
+                    />
                     <View center padding-10>
-                        <Card
-                            width={'100%'}
-                            shadowType="white10"
-                            borderRadius={2}
-                            marginB-10
-                        >
-                            <View padding-10 flex center>
-                                <Button text70 white background-orange30 label="Open Screen" onPress={this._handlePressButton} />
-                                <Button
-                                    outline
-                                    outlineColor={Colors.orange30}
-                                    label="Open Feed"
-                                    marginT-20
-                                    text70
-                                    onPress={this._handleOpenFeed}
-                                />
-                                <Button text70 white background-orange30 marginT-20 label="Open BottomSheet" onPress={this._handleOpenBottomSheet} />
-                            </View>
-                        </Card>
-
-                        <Card
-                            width={'100%'}
-                            height={150}
-                            shadowType="white10"
-                            borderRadius={2}
-                            marginB-10
-                        >
-                            <View padding-10 flex center>
-                                <TagsInput
-                                    containerStyle={{ marginBottom: 20, width: '100%' }}
-                                    placeholder="Add friends"
-                                    tags={this.state.tags}
-                                />
-                            </View>
-                        </Card>
-                        <Text>Just a Simple Text</Text>
+                        <View padding-10 center>
+                            <Button text70 white background-orange30 label="Open Screen" onPress={this._handlePressButton} />
+                            <Button
+                                outline
+                                outlineColor={Colors.orange30}
+                                label="Open Feed"
+                                marginT-20
+                                text70
+                                onPress={this._handleOpenFeed}
+                            />
+                            <Button text70 white background-orange30 marginT-20 label="Open BottomSheet" onPress={this._handleOpenBottomSheet} />
+                            <Button text70 white background-orange30 marginT-20 label="Change Tab" onPress={this._onChangeBottomTab} />
+                        </View>
+                        <Text h6>Text H6</Text>
+                        <Text h5>Text H5</Text>
+                        <Text body1>Text body1</Text>
+                        <Text body2>Text body2</Text>
+                        <Text overline>Text Overline</Text>
                     </View>
 
                 </ScrollView>

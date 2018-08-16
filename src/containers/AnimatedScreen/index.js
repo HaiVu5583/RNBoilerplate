@@ -14,6 +14,24 @@ const { height, width } = Dimensions.get('window')
 
 export default class AnimatedScreen extends Component {
 
+    static get options() {
+        return {
+            topBar: {
+                visible: true,
+                drawBehind: false,
+                animate: false,
+                title: {
+                    text: 'Animated Screen'
+                }
+            },
+            // bottomTabs: {
+            //     visible: false,
+            //     animate: false,
+            //     drawBehind: true
+            // }
+        };
+    }
+
     constructor(props) {
         super(props)
         this.state = {
@@ -39,7 +57,7 @@ export default class AnimatedScreen extends Component {
             scaleImage1: new Animated.Value(1),
             scrollAnimatedValue: new Animated.Value(0)
         }
-        Navigation.events().bindComponent(this);
+        // Navigation.events().bindComponent(this);
     }
 
     // const STYLES_WHITELIST = {
@@ -127,7 +145,7 @@ export default class AnimatedScreen extends Component {
         ]).start();
     }
 
-    componentDidAppear(){
+    componentDidAppear() {
         console.log('Animated Screen Did Appear', new Date().getTime())
     }
 
