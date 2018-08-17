@@ -167,7 +167,7 @@ export default class PictureBrowser extends React.PureComponent {
                 if (err.code == 'E_UNABLE_TO_LOAD_PERMISSION') {
                     this._isRequestAlbumPermission = true
                     alert('request read storage permission');
-                    // ClingmeUtils.requestReadStoragePermission()
+                    Permissions.requestAlbumPermission()
                 } else
                     this.setState({popupType: POPUP_TYPE_ALBUM_PERMISSION})
             });
@@ -559,8 +559,9 @@ export default class PictureBrowser extends React.PureComponent {
                 if (!this.firstRequestReadStoragePermission) {
                     this.firstRequestReadStoragePermission = true;
                     this._isRequestAlbumPermission = true
-                    alert('request read storage permission');
+                    alert('request read storage permission 562');
                     // ClingmeUtils.requestReadStoragePermission()
+                    Permissions.requestAlbumPermission()
                 } else {
                     this.setState({
                         popupType: POPUP_TYPE_ALBUM_PERMISSION

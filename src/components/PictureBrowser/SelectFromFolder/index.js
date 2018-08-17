@@ -3,7 +3,7 @@ import { Platform, View, Text, Modal, TouchableOpacity, ActivityIndicator, Camer
 import {chainParse} from '~/src/utils'
 
 import {Icon} from '~/src/themes/ThemeComponent'
-import {getAlbums} from '~/src/utils/CameraRollManager'
+import {getAlbums} from '~/src/components/PictureBrowser/CameraRollManager'
 import Header from '../Header'
 import RNPhotosFramework from 'react-native-photos-framework'
 
