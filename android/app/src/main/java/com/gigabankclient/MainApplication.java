@@ -3,6 +3,9 @@ package com.gigabankclient;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.reactnative.camera.RNCameraPackage;
+import com.horcrux.svg.SvgPackage;
+import com.ninty.system.setting.SystemSettingPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -29,6 +32,9 @@ import com.oblador.vectoricons.VectorIconsPackage;
 //    protected List<ReactPackage> getPackages() {
 //      return Arrays.<ReactPackage>asList(
 //          new MainReactPackage(),
+            new RNCameraPackage(),
+            new SvgPackage(),
+            new SystemSettingPackage(),
             new VectorIconsPackage()
 //      );
 //    }
