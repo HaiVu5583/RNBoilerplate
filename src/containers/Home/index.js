@@ -35,6 +35,7 @@ class Home extends Component {
 
     constructor(props) {
         super(props)
+        console.log("Home Constructor")
         this.state = {
             tags: [],
             page: 0
@@ -312,6 +313,13 @@ class Home extends Component {
     }
 
     render() {
+
+        return (
+            <View style={{flex: 1}}>
+                <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>Home</Text>
+            </View>
+        )
+
         return (
             <Background style={{flex: 1}}>
                 {/*{this._renderFilter()}*/}
