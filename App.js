@@ -4,6 +4,7 @@ import configStore from '~/src/store/configStore'
 import Icon from '~/src/components/FontIcon'
 const store = configStore()
 import { BOTTOM_TABS } from '~/src/constants'
+import { persistStore } from 'redux-persist'
 
 const _getBottomTabIcon = (tabs, size, color) => {
     const promiseList = []
@@ -31,7 +32,17 @@ const _getBottomTabs = (bottomTabs) => {
 }
 
 
+const persist = (store) => {
+    return new Promise(resolve => {
+        persistStore(store, undefined, () => {
+            resolve();
+        });
+    })
+}
+
 export const run = () => {
+    console.log('Run Store', store)
+    persist(store)
     registerScreens(store)
     Navigation.events().registerAppLaunchedListener(() => {
         Navigation.setDefaultOptions({
