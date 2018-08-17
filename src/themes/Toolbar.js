@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, TouchableWithoutFeedback } from 'react-native'
+import { Dimensions, TouchableWithoutFeedback, TouchableNativeFeedback } from 'react-native'
 import { Surface, Text, Icon } from '~/src/themes/ThemeComponent'
 const { width } = Dimensions.get('window')
 import commonStyle, { TOOLBAR_HEIGHT } from '~/src/themes/common'
@@ -36,34 +36,20 @@ export default class Toolbar extends React.PureComponent {
             rightBtnSyle = { ...styles.rightButtonDisable, color: linkColor }
         }
 
-
-        let titleStyle = { ...styles.title, flex: 1, maxWidth: width - 90, textAlign: 'center', fontSize: 20 }
-
-        // if (titleFontSize) {
-        //     titleStyle = { ...titleStyle, fontSize: titleFontSize }
-        // }
-
         return (
-            <Surface style={[toolbar.container ,style]}>
+            <Surface style={[toolbar.container, style]}>
                 <TouchableWithoutFeedback onPress={this._onPressBack}>
                     <Surface style={toolbar.iconLeftContainer}>
-                        {/* {!!leftButtonTitle ?
-                            (<Text style={leftBtnStyle}>{leftButtonTitle}</Text>)
-                            : (<Icon name={!!iconLeft ? iconLeft : 'back'} style={iconStyle} />)
-                        } */}
                         <Icon name={!!iconLeft ? iconLeft : 'back'} style={toolbar.iconLeft} />
                     </Surface>
                 </TouchableWithoutFeedback>
                 {!!title && <Text style={toolbar.title} numberOfLines={1}>{" " + title + " "}</Text>}
-                
-                {/* {(!!iconRight || !!rightButtonTitle) && <TouchableWithoutFeedback onPress={this._onPressIconRight}>
-                    <Surface style={{ ...styles.rightContainer }}>
-                        {!!rightButtonTitle ?
-                            (<Text style={rightBtnSyle}>{rightButtonTitle}</Text>)
-                            : (<Icon name={iconRight} style={{ ...iconStyle, ...iconRightStyle }} />)
-                        }
+
+                {!!iconRight && <TouchableWithoutFeedback onPress={this._onPressIconRight}>
+                    <Surface style={toolbar.iconRightContainer}>
+                        <Icon name={iconRight} style={toolbar.iconRight} />
                     </Surface>
-                </TouchableWithoutFeedback>} */}
+                </TouchableWithoutFeedback>}
             </Surface>
         )
     }

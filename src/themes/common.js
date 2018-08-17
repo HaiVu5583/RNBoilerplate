@@ -55,7 +55,7 @@ export default {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 16
+        paddingHorizontal: 16,
     },
     buttonText: {
         fontSize: 14,
@@ -73,18 +73,34 @@ export default {
             flexDirection: 'row',
             justifyContent: 'flex-start',
             alignItems: 'center',
-            padding: 16
+            elevation: 2,
         },
         iconLeft: {
-            fontSize: 24,
+            fontSize: 19,
         },
         iconLeftContainer: {
+            paddingLeft: 16,
             paddingRight: 32,
+            height: TOOLBAR_HEIGHT,
+            flexDirection: 'row',
+            alignItems: 'center',
         },
         title: {
-            fontSize: 20
+            fontSize: 20,
+            flex: 1
+        },
+        iconRightContainer: {
+            paddingRight: 16,
+            paddingLeft: 8,
+            height: TOOLBAR_HEIGHT,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+        },
+        iconRight: {
+            fontSize: 19,
         }
 
-        
+
     }
 }
