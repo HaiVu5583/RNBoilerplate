@@ -37,14 +37,6 @@ export default class SplashScreen extends Component {
     }
 
     componentDidMount() {
-        console.log('Splash Screen Did Mount')
-        setTimeout(() => {
-            Navigation.setStackRoot(this.props.componentId, {
-                component: {
-                    name: 'gigabankclient.HomeScreen',
-                },
-            });
-        }, 1000)
         BackHandler.addEventListener('hardwareBackPress', this._onBack)
     }
 
