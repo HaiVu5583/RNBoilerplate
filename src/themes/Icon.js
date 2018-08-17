@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { themeSelector } from '~/src/store/selectors/Theme'
 import { connect } from 'react-redux'
 import { getTheme } from './utils'
-import {Icon} from '~/src/themes/ThemeComponent'
+import Icon from '~/src/components/FontIcon'
 
 class ThemeIcon extends Component {
 

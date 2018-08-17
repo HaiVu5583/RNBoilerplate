@@ -1,11 +1,12 @@
 import React from 'react';
 import { Image, ActivityIndicator, NetInfo, Platform, View } from 'react-native';
-// import RNFS, { DocumentDirectoryPath } from 'react-native-fs';
+
 import ResponsiveImage from 'react-native-responsive-image';
 import PropTypes from 'prop-types'
-import ReactNaitveFastImage from 'react-native-fast-image'
+import ReactNativeFastImage from 'react-native-fast-image'
 import Shimmer from '~/src/components/Shimmer'
 
+// import RNFS, { DocumentDirectoryPath } from 'react-native-fs';
 // const SHA1 = require("crypto-js/sha1");
 // const URL = require('url-parse');
 
@@ -18,7 +19,7 @@ export default class FastImage extends React.Component {
 
         this.state = {
             uri: null,
-            loadingData: false
+            loadingData: true
         }
         this.retryCount = 0
     }
@@ -30,33 +31,20 @@ export default class FastImage extends React.Component {
         }
     }
 
-    componentWillMount() {
-
-    }
-
-    componentWillUnmount() {
-
-    }
-
     _onLoadStart = (event) => {
-        this.setState({loadingData: true})
+        this.setState({
+            loadingData: true
+        })
     }
+
     _onProgress = (e) => {
         const isLoadedFull = e.nativeEvent.loaded == e.nativeEvent.total
-
 
         if (!this.state.loadingData) {
             if (e.nativeEvent.loaded  > e.nativeEvent.total / 4) {
                 this.setState({loadingData: false})
             }
         }
-
-        /*
-        if (!this.state.loadingData && !isLoadedFull) {
-            //this.setState({loadingData: true})
-        } else if (isLoadedFull) {
-            this.setState({loadingData: false})
-        }*/
     }
 
     _onLoadEnd = (event) => {
@@ -82,34 +70,13 @@ export default class FastImage extends React.Component {
 
     }
 
-    _renderIndicator = () => {
-        //const { resizeMode, ...remainStyle } = this.props.style
-        return (
-            <View
-                style={{
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Shimmer style={{width: '100%', height: '100%'}}/>
-            </View>
-        )
-
-        //<Spinner />
-    }
     renderLoadingIndicator() {
         const Loading = this.props.loading
 
         if (this.state.loadingData && !!this.props.source.uri) {
             return (
-
-                <View style={{position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center'}}>
-
-                    {/*
-                    !!Loading ? <Loading /> : <Shimmer style={{width: '100%', height: '100%'}}/>
-                */}
-                    <Shimmer style={{width: '100%', height: '100%'}}/>
-
+                <View style={styles.shimmerContainer}>
+                    <Shimmer style={styles.shimmer}/>
                 </View>
             )
 
@@ -125,9 +92,6 @@ export default class FastImage extends React.Component {
         if (!backgroundColor) {
             backgroundColor = 'rgba(0,0,0,0)'
         }
-        //let resizeMode = styles.resizeMode
-        //styles.resizeMode = undefine
-        //styles = {...styles, resizeMode: undefined}
 
         let uri = this.state.uri? this.state.uri : this.props.source.uri
         if (!uri) uri = ''
@@ -152,7 +116,7 @@ export default class FastImage extends React.Component {
                 }} />
                 }
 
-                {!!uri&&<ReactNaitveFastImage
+                {!!uri&&<ReactNativeFastImage
                     onLoadStart={this._onLoadStart}
                     onProgress={this._onProgress}
                     onLoadEnd={this._onLoadEnd}
@@ -164,42 +128,16 @@ export default class FastImage extends React.Component {
                     }}
                     source={{
                         uri: uri,
-                        priority: ReactNaitveFastImage.priority.normal,
+                        priority: ReactNativeFastImage.priority.normal,
                     }}
                     resizeMode={resizeMode}
                     borderRadius={(styles && styles.borderRadius != null) ? styles.borderRadius : 0}
                 />}
 
-                {
-
-                    this.renderLoadingIndicator()
-                }
+                {this.renderLoadingIndicator()}
 
             </View>
         )
-        /*
-        console.log('Current State', this.state)
-
-        if (!this.state.isRemote && !this.props.defaultSource) {
-            console.log('Render Local')
-            return this.renderLocal();
-        }
-
-        if (this.state.cacheable && this.state.cachedImagePath) {
-            console.log('Render cacheable')
-            return this.renderCache();
-        }
-
-        if (this.props.defaultSource) {
-            console.log('Render defaultSource')
-            return this.renderDefaultSource();
-        }
-
-        console.log('Render Loading', this.state)
-        console.log('Render Loading', this.props)
-        */
-
-
 
         if (Loading){
             return <Loading />
@@ -234,6 +172,22 @@ export default class FastImage extends React.Component {
                 {children}
             </FastImage>
         );
+    }
+}
+
+const styles = {
+    shimmerContainer: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    shimmer: {
+        width: '100%',
+        height: '100%'
     }
 }
 

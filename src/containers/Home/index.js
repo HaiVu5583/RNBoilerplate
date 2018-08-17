@@ -315,12 +315,6 @@ class Home extends Component {
     render() {
 
         return (
-            <View style={{flex: 1}}>
-                <Text style={{fontSize: 20, color: 'black', fontWeight: 'bold'}}>Home</Text>
-            </View>
-        )
-
-        return (
             <Background style={{flex: 1}}>
                 {/*{this._renderFilter()}*/}
                 <ScrollView>
@@ -413,6 +407,8 @@ class Home extends Component {
                             <Text body1>Text body1</Text>
                             <Text body2>Text body2</Text>
                             <Text overline>Text Overline</Text>
+
+                            {this._renderFastImage()}
                         </Surface>
                     </View>
                 </ScrollView>
