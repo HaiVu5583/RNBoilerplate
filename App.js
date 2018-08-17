@@ -2,6 +2,7 @@ import { Navigation } from 'react-native-navigation'
 import registerScreens from '~/src/containers'
 import configStore from '~/src/store/configStore'
 import Icon from '~/src/components/FontIcon'
+import { YellowBox } from 'react-native'
 const store = configStore()
 import { BOTTOM_TABS } from '~/src/constants'
 import { persistStore } from 'redux-persist'
@@ -39,6 +40,10 @@ const persist = (store) => {
         });
     })
 }
+
+YellowBox.ignoreWarnings([
+    'Warning: Module SafeAreaManager requires',
+]);
 
 export const run = () => {
     console.log('Run Store', store)

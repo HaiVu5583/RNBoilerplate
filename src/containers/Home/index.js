@@ -331,34 +331,56 @@ class Home extends Component {
             <Background style={{flex: 1}}>
                 {/*{this._renderFilter()}*/}
                 <ScrollView>
-                    <View>
 
-                        <PreparePictureList/>
+                    <PreparePictureList/>
 
-                        <Surface>
-                            <Carousel loop onChangePage={(index => this.onChangePage(index))}>
-                                <Surface width={Constants.screenWidth} height={200}>
-                                    <Text>PAGE 1</Text>
-                                </Surface>
-                                <Surface width={Constants.screenWidth} height={200}>
-                                    <Text>PAGE 2</Text>
-                                </Surface>
-                                <Surface width={Constants.screenWidth} height={200}>
-                                    <Text>PAGE 3</Text>
-                                </Surface>
-                                <Surface width={Constants.screenWidth} height={200}>
-                                    <Text>PAGE 4</Text>
-                                </Surface>
-                                <Surface width={Constants.screenWidth} height={200}>
-                                    <Text>PAGE 5</Text>
-                                </Surface>
-                                <Surface width={Constants.screenWidth} height={200}>
-                                    <Text>PAGE 6</Text>
-                                </Surface>
-                            </Carousel>
-                            <PageControl width={Constants.width} containerStyle={styles.pageControl} numOfPages={6}
-                                         currentPage={this.state.page} color={Colors.orange30} size={10}
-                                         ref={ref => this.pageControl = ref}
+                    <Surface>
+                        <Carousel loop onChangePage={(index => this.onChangePage(index))}>
+                            <Surface width={Constants.screenWidth} height={200}>
+                                <Text>PAGE 1</Text>
+                            </Surface>
+                            <Surface width={Constants.screenWidth} height={200}>
+                                <Text>PAGE 2</Text>
+                            </Surface>
+                            <Surface width={Constants.screenWidth} height={200}>
+                                <Text>PAGE 3</Text>
+                            </Surface>
+                            <Surface width={Constants.screenWidth} height={200}>
+                                <Text>PAGE 4</Text>
+                            </Surface>
+                            <Surface width={Constants.screenWidth} height={200}>
+                                <Text>PAGE 5</Text>
+                            </Surface>
+                            <Surface width={Constants.screenWidth} height={200}>
+                                <Text>PAGE 6</Text>
+                            </Surface>
+                        </Carousel>
+                        <PageControl width={Constants.width} containerStyle={styles.pageControl} numOfPages={6}
+                                     currentPage={this.state.page} color={Colors.orange30} size={10}
+                                     ref={ref => this.pageControl = ref}
+                        />
+                    </Surface>
+                    <Surface style={{flexDirection: 'row', ...styles.block}}>
+                        <Icon name="the-bank" style={{fontSize: 30, marginRight: 10}}/>
+                        <Icon name="clingme-building" style={{fontSize: 30, marginRight: 10}}/>
+                        <ActivityIndicator size={Platform.OS == 'ios' ? 'large' : 50} color={'#F16654'}/>
+                    </Surface>
+
+                    <TextInput
+                        placeholder={'Input something here...'}
+                    />
+
+                    <Surface style={styles.block}>
+                        <Surface style={styles.block}>
+                            <Button text70 white background-orange30 label="Open Screen"
+                                    onPress={this._handlePressButton}/>
+                            <Button
+                                outline
+                                outlineColor={Colors.orange30}
+                                label="Open Feed"
+                                marginT-20
+                                text70
+                                onPress={this._handleOpenFeed}
                             />
                         </Surface>
 
@@ -425,11 +447,10 @@ class Home extends Component {
 
                             {this._renderPictureBrowser()}
                         </Surface>
-                    </View>
+                    </Surface>
                 </ScrollView>
             </Background>
-        )
-            ;
+        );
     }
 }
 
