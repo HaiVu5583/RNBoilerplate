@@ -1,7 +1,3 @@
-import SplashScreen from '~/src/containers/SplashScreen'
-import HomeScreen from '~/src/containers/Home'
-import AnimatedScreen from '~/src/containers/AnimatedScreen'
-import FeedScreen from '~/src/containers/FeedScreen'
 import { Navigation } from 'react-native-navigation'
 import { getHOCScreen } from '~/src/utils'
 import React, { Component } from 'react';
@@ -9,11 +5,13 @@ import { Provider } from 'react-redux';
 
 export function registerContainerWithRedux(
     containerName,
-    comp,
+    requireComponentFunction,
     store,
+    needPreloadComponent = false
 ) {
-    const generatorWrapper = function () {
-        const InternalComponent = comp;
+
+    const generatorWrapper = function () {        
+        const preloadComponent = needPreloadComponent ? requireComponentFunction().default : null
         return class Scene extends Component {
             static get options() {
                 return InternalComponent.options ? {...InternalComponent.options} : {}
@@ -21,11 +19,12 @@ export function registerContainerWithRedux(
 
             constructor(props) {
                 super(props);
+                this.__InternalComponent = preloadComponent || requireComponentFunction().default
             }
             render() {
                 return (
                     <Provider store={store}>
-                        <InternalComponent
+                        <this.__InternalComponent
                             ref="child"
                             {...this.props}
                         />
@@ -63,11 +62,11 @@ function registerContainer(containerName, generator) {
     Navigation.registerComponent(containerName, generator);
 }
 
-
 export default registerScreens = (store) => {
-    registerContainerWithRedux(`gigabankclient.HomeScreen`, HomeScreen, store)
-    registerContainerWithRedux(`gigabankclient.SplashScreen`, SplashScreen, store)
-    registerContainerWithRedux(`gigabankclient.AnimatedScreen`, AnimatedScreen, store)
-    registerContainerWithRedux(`gigabankclient.FeedScreen`, FeedScreen, store)
+    
+    registerContainerWithRedux(`gigabankclient.HomeScreen`, () => require('~/src/containers/Home'), store)
+    registerContainerWithRedux(`gigabankclient.SplashScreen`, () => require('~/src/containers/SplashScreen'), store)
+    registerContainerWithRedux(`gigabankclient.AnimatedScreen`, () => require('~/src/containers/AnimatedScreen'), store)
+    registerContainerWithRedux(`gigabankclient.FeedScreen`, () => require('~/src/containers/FeedScreen'), store)
     
 }

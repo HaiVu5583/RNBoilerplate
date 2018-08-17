@@ -258,7 +258,7 @@ class Home extends Component {
                             ref={ref => this.pageControl = ref}
                         />
                     </Surface>
-                    <Surface style={{ flexDirection: 'row', ...styles.block}}>
+                    <Surface style={{ flexDirection: 'row', ...styles.block }}>
                         <Icon name="the-bank" style={{ fontSize: 30, marginRight: 10 }} />
                         <Icon name="clingme-building" style={{ fontSize: 30, marginRight: 10 }} />
                         <ActivityIndicator size={Platform.OS == 'ios' ? 'large' : 50} color={'#F16654'} />
