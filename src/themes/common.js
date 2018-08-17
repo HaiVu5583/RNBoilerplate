@@ -74,6 +74,7 @@ export default {
             justifyContent: 'flex-start',
             alignItems: 'center',
             elevation: 2,
+            zIndex: 10000
         },
         iconLeft: {
             fontSize: 19,

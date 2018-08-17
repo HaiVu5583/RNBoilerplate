@@ -34,7 +34,7 @@ import Camera from '~/src/components/Camera'
 
 const {height, width} = Dimensions.get('window')
 
-const maxOfImagesSelected = 6
+const maxOfImagesSelected = 16
 
 const POPUP_TYPE_NONE = 0
 const POPUP_TYPE_PHOTO_LIMITED = 1
@@ -234,9 +234,9 @@ export default class PictureBrowser extends React.PureComponent {
     }
 
     _onBack = () => {
-        if (this.props.params) {
-            this.closeView()
-        }
+        // if (this.props.params) {
+        //     this.closeView()
+        // }
 
         const {onClosed} = this.props
         if (onClosed) onClosed()
@@ -278,9 +278,9 @@ export default class PictureBrowser extends React.PureComponent {
 
         const canClose = chainParse(this.props, ['params', 'selectAndClose'])
 
-        if (canClose == true) {
-            this.closeView()
-        }
+        // if (canClose == true) {
+        //     this.closeView()
+        // }
     }
 
 
@@ -519,14 +519,6 @@ export default class PictureBrowser extends React.PureComponent {
         }
     }
 
-    //_onReceivedSelectedPictures = (picturesList) => {
-    //    this.updateList(picturesList)
-    //}
-
-    //_onEnforceClose = () => {
-    //    this._onBack()
-    //}
-
     componentDidMount() {
         console.log('PictuerBrowser Did Mount')
         if (this.state.photos.length == 0) {
@@ -541,14 +533,6 @@ export default class PictureBrowser extends React.PureComponent {
     }
 
     _onAndroidHardbackPressed = () => {
-        // const {popupType} = this.state
-
-        // if (popupType !== POPUP_TYPE_NONE) {
-        //     this.setState({popupType: POPUP_TYPE_NONE})
-        //     return true
-        // } else {
-        //     return false
-        // }
         this._onBack()
         return true
     }
@@ -683,14 +667,16 @@ export default class PictureBrowser extends React.PureComponent {
 
         return (
             <View style={{
-                zIndex: 3000,
+                zIndex: 100,
                 width: width,
-                height: height,
+                // height: height,
                 backgroundColor: '#ffffff',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                flex: 1
+                // position: 'absolute',
+                // top: 0,
+                // left: 0,
+                flex: 1,
+                height: 200,
+                // marginTop: 50,
             }}>
                 {this._renderCameraScreen()}
                 <AcceptToViewAlbum

@@ -76,5 +76,6 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.SplashScreen`, () => require('~/src/containers/SplashScreen'), store)
     registerContainerWithRedux(`gigabankclient.AnimatedScreen`, () => require('~/src/containers/AnimatedScreen'), store)
     registerContainerWithRedux(`gigabankclient.FeedScreen`, () => require('~/src/containers/FeedScreen'), store)
+    registerContainerWithRedux(`gigabankclient.PictureBrowserScreen`, () => require('~/src/containers/PictureBrowserScreen'), store)
 
 }

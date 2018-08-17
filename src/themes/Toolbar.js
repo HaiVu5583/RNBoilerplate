@@ -18,9 +18,11 @@ export default class Toolbar extends React.PureComponent {
         const { onPressIconLeft, componentId } = this.props
         if (onPressIconLeft) {
             onPressIconLeft()
+            return;
         }
         if (componentId) {
             Navigation.pop(this.props.componentId)
+            return;
         }
     }
 

@@ -16,11 +16,11 @@ import TagSelect from '~/src/components/TagSelect'
 
 
 // import FastImage from "~/src/components/FastImage";
-import PictureBrowser from '~/src/components/PictureBrowser'
+// import PictureBrowser from '~/src/components/PictureBrowser'
 
 
 // import Icon from '~/src/components/FontIcon'
-import PreparePictureList from '~/src/components/PreparedPictureList'
+import PreparedPictureList from '~/src/components/PreparedPictureList'
 
 class Home extends Component {
     static get options() {
@@ -38,7 +38,8 @@ class Home extends Component {
         console.log("Home Constructor")
         this.state = {
             tags: [],
-            page: 0
+            page: 0,
+            preparePictureListData: []
         }
     }
 
@@ -56,6 +57,24 @@ class Home extends Component {
         Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.AnimatedScreen',
+            }
+        })
+    }
+
+    _handlePictureList = (args) => {
+        this.setState({
+            preparePictureListData: args
+        })
+    }
+
+    _handlePressOpenPictureBrowserScreen = () => {
+
+        Navigation.push('mainStack', {
+            component: {
+                name: 'gigabankclient.PictureBrowserScreen',
+                passProps: {
+                    handlePictureList: this._handlePictureList
+                }
             }
         })
     }
@@ -293,18 +312,6 @@ class Home extends Component {
         alert('on picture browser closed');
     }
 
-    // _renderPictureBrowser = () => {
-    //     return (
-    //         <PictureBrowser
-    //             // clingmeIdentifier={this.props.clingmeIdentifier}
-    //             isShow={popupType == POPUP_TYPE_PICTURE_BROWSER}
-    //             params={{ selectedPictures: [...this.state.dataList] }}
-    //             onPictureSelected={this._onPictureSelected}
-    //             onClosed={this._onPictureBrowserClosed}
-    //         />
-    //     )
-    // }
-
     _handleLoadGoogle = () => {
         this.props.getTestData((err, data) => {
             console.log('Google Err', err)
@@ -312,17 +319,20 @@ class Home extends Component {
         })
     }
 
-    _renderPictureBrowser = () => {
-        const POPUP_TYPE_PICTURE_BROWSER = 5;
-        // return <View/>
-        return (
-            <PictureBrowser
-                isShow={true}
-                params={{selectedPictures: []}}
-                onPictureSelected={this._onPictureSelected}
-                onClosed={this._onPictureBrowserClosed}
-            />
-        )
+    // _renderPictureBrowser = () => {
+    //     const POPUP_TYPE_PICTURE_BROWSER = 5;
+    //     return (
+    //         <PictureBrowser
+    //             isShow={true}
+    //             params={{selectedPictures: []}}
+    //             onPictureSelected={this._onPictureSelected}
+    //             onClosed={this._onPictureBrowserClosed}
+    //         />
+    //     )
+    // }
+
+    _handleAddPicturePressed = () => {
+        this._handlePressOpenPictureBrowserScreen()
     }
 
     render() {
@@ -332,7 +342,13 @@ class Home extends Component {
                 {/*{this._renderFilter()}*/}
                 <ScrollView>
 
-                    <PreparePictureList/>
+                    <PreparedPictureList
+                        dataList={this.state.preparePictureListData}
+                        onImageRemoved={e => false}
+                        onPicturePress={e => false}
+                        ref={ref => this._pictureList = ref}
+                        onAddPicturePressed={this._handleAddPicturePressed}
+                    />
 
                     <Surface>
                         <Carousel loop onChangePage={(index => this.onChangePage(index))}>
@@ -445,7 +461,8 @@ class Home extends Component {
 
                             {this._renderFastImage()}
 
-                            {this._renderPictureBrowser()}
+                            <Button text70 white background-orange30 label="Open Picture Browser"
+                                    onPress={this._handlePressOpenPictureBrowserScreen}/>
                         </Surface>
                     </Surface>
                 </ScrollView>
