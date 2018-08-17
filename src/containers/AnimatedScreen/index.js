@@ -58,7 +58,7 @@ export default class AnimatedScreen extends Component {
             scaleImage1: new Animated.Value(1),
             scrollAnimatedValue: new Animated.Value(0)
         }
-        // Navigation.events().bindComponent(this);
+        Navigation.events().bindComponent(this);
     }
 
     // const STYLES_WHITELIST = {
