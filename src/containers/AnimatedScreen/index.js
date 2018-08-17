@@ -214,11 +214,7 @@ export default class AnimatedScreen extends Component {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
-                <Toolbar title='Animated Screen' iconRight={'3dots'}
-                    onPressIconLeft={() => {
-                        Navigation.pop(this.props.componentId)
-                    }}
-                />
+                <Toolbar title='Animated Screen' iconRight={'3dots'} componentId={this.props.componentId} />
                 {/*<Animated.View style={{
                 backgroundColor: 'orange',
                 width: 20,

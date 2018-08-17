@@ -5,6 +5,7 @@ const { width } = Dimensions.get('window')
 import commonStyle, { TOOLBAR_HEIGHT } from '~/src/themes/common'
 const { toolbar } = commonStyle
 const styles = {}
+import { Navigation } from 'react-native-navigation'
 
 export default class Toolbar extends React.PureComponent {
 
@@ -14,9 +15,13 @@ export default class Toolbar extends React.PureComponent {
     }
 
     _onPressBack = () => {
-        const { onPressIconLeft } = this.props
-        if (onPressIconLeft)
+        const { onPressIconLeft, componentId } = this.props
+        if (onPressIconLeft) {
             onPressIconLeft()
+        }
+        if (componentId) {
+            Navigation.pop(this.props.componentId)
+        }
     }
 
     _onPressIconRight = () => {
