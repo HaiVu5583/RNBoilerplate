@@ -16,7 +16,7 @@ import TagSelect from '~/src/components/TagSelect'
 
 
 // import FastImage from "~/src/components/FastImage";
-// import PictureBrowser from '~/src/components/PictureBrowser'
+import PictureBrowser from '~/src/components/PictureBrowser'
 
 
 // import Icon from '~/src/components/FontIcon'
@@ -312,6 +312,19 @@ class Home extends Component {
         })
     }
 
+    _renderPictureBrowser = () => {
+        const POPUP_TYPE_PICTURE_BROWSER = 5;
+        // return <View/>
+        return (
+            <PictureBrowser
+                isShow={true}
+                params={{selectedPictures: []}}
+                onPictureSelected={this._onPictureSelected}
+                onClosed={this._onPictureBrowserClosed}
+            />
+        )
+    }
+
     render() {
 
         return (
@@ -409,6 +422,8 @@ class Home extends Component {
                             <Text overline>Text Overline</Text>
 
                             {this._renderFastImage()}
+
+                            {this._renderPictureBrowser()}
                         </Surface>
                     </View>
                 </ScrollView>
