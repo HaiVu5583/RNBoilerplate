@@ -560,6 +560,7 @@ export default class PictureBrowser extends React.PureComponent {
     _requestAlbum = (albumName = '') => {
         // console.log('Album Name', albumName)
         if (!albumName) albumName = ''
+
         this.updateWithSelectedPictures(albumName)
 
         this._isGetAlbumSuccess = false

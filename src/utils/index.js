@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { Platform } from 'react-native'
+import { Platform, PixelRatio, Dimensions } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { BOTTOM_TABS } from '~/src/constants'
 
@@ -121,6 +121,8 @@ export const toElevation = (number) => {
 }
 
 export const getWidth = (input) => {
+    const {width} = Dimensions.get('window');
+
     let pixelRatio = PixelRatio.get()
     // Design Dimension: width 720, pixelRatio 2
     // Assume device this case will have pixelRatio 2

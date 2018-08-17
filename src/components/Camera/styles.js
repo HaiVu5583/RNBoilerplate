@@ -1,4 +1,8 @@
-import {WHITE, commonStyle, fontSize} from '~/ui/styles/common'
+
+const fontSize = {
+    large: 15
+}
+
 import {toElevation} from "~/src/utils";
 import {Dimensions} from 'react-native'
 const window = Dimensions.get('window')

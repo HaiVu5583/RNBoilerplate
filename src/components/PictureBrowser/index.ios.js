@@ -8,7 +8,7 @@ import ClingmeUtils from '~/utils/ClingmeUtils'
 import SelectFromFolder from './SelectFromFolder'
 import PopUpOpenCamera from './PopUpToUsedCamera'
 // import NotificationCenter from '~/utils/NotificationCenter'
-import {commonStyle} from '~/ui/styles/common'
+
 const {height, width} = Dimensions.get('window')
 import { chainParse } from '~/src/utils'
 import AcceptToViewAlbum from './AcceptToViewAlbum'
@@ -16,7 +16,7 @@ import AcceptToViewAlbum from './AcceptToViewAlbum'
 import Permissions from '~/utils/PermissionManager'
 import RNPhotosFramework from 'react-native-photos-framework'
 import OpenAppSettings from 'react-native-app-settings'
-import CameraBillCapture from '~/src/components/CameraBillCapture'
+import Camera from '~/src/components/Camera'
 import NativeComponent from '~/src/components/NativeComponent'
 
 const maxOfImagesSelected = 6
@@ -471,7 +471,7 @@ export default class PictureBrowser extends NativeComponent {
 
     _renderCameraScreen = () => {
         return (
-            <CameraBillCapture
+            <Camera
                 hideButtonQuestion={true}
                 hideText={true}
                 ref={ref => this.camera = ref}

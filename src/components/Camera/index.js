@@ -18,13 +18,23 @@ import styles from './styles'
 import Ripple from 'react-native-material-ripple'
 
 const window = Dimensions.get('window')
-import {RNCamera} from '~/src/components/Camera'
+import {RNCamera} from 'react-native-camera'
 // import ClingmeUtils from '~/utils/ClingmeUtils'
 import PopupConfirm from '~/src/components/PopupConfirm'
 import I18n from '~/src/I18n'
 // import CashbackHelpPopUp from '~/ui/containers/Cashback/PopUpCashback/CashbackHelpPopUp.js'
 // import popUpCashbackData from '~/ui/containers/Cashback/PopUpCashback/data.js'
-import {MAX_UPLOAD_IMAGE_WIDTH_OF_BILL, PERMISSION_RESPONSE} from '~/constants'
+
+export const MAX_UPLOAD_IMAGE_WIDTH_OF_BILL = 10;
+
+export const PERMISSION_RESPONSE = {
+    DENIED: 'denied',
+    UNDEFINED: 'undefined',
+    AUTHORIZED: 'authorized',
+    RESTRICTED: 'restricted',
+    UNDETERMINED: 'undetermined'
+}
+
 import PopUpOpenCamera from '~/src/components/PictureBrowser/PopUpToUsedCamera'
 import moment from 'moment'
 import Permissions from 'react-native-permissions'

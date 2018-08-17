@@ -1,4 +1,5 @@
-import {CameraRoll} from 'react-native'
+import {CameraRoll, Platform} from 'react-native'
+const BATCH_NUMBER = 100
 
 getPhoto = (after, groupName) => {
     if (!after) {

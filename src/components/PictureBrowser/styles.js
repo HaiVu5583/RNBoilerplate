@@ -2,6 +2,10 @@ import {toElevation} from "~/src/utils";
 import {Dimensions} from 'react-native'
 const {height, width} = Dimensions.get('window')
 
+const fontSize = {
+        xLarge: 17
+}
+
 const linkColor = 'blue'
 
 export default {
