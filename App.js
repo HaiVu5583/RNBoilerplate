@@ -45,7 +45,13 @@ import { Navigation } from 'react-native-navigation'
 import registerScreens from '~/src/containers'
 import configStore from '~/src/store/configStore'
 import { Colors } from 'react-native-ui-lib';
+
+import { YellowBox } from 'react-native'
 const store = configStore()
+
+YellowBox.ignoreWarnings([
+    'Warning: Module SafeAreaManager requires',
+]);
 
 export const run = () => {
     console.log('Call Run')

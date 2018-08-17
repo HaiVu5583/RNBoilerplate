@@ -46,7 +46,7 @@ class Home extends Component {
         console.log('Call Push Animated Screen', new Date().getTime())
         Navigation.push(this.props.componentId, {
             component: {
-                name: 'gigabankclient.AnimatedScreen',
+                name: 'gigabankclient.AnimatedScreen',                
                 options: {
                     animations: {
                         push: {
