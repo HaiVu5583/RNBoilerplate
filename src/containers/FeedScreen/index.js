@@ -99,14 +99,8 @@ class FeedScreen extends Component {
         const { theme } = this.props
         return (
             <ErrorBoundary>
-                {/* <FlatList
-                    data={this.state.data}
-                    renderItem={this._renderItem}
-                    getItemLayout={this._getItemLayout}
-                    keyExtractor={item => '' + item.id}
-                /> */}
                 <Background style={{ flex: 1 }}>
-                    <Toolbar title='Home Feed' iconRight={'3dots'}/>
+                    <Toolbar title='Home Feed' iconRight={'3dots'} componentId={this.props.componentId} />
                     <Text medium>
                         When you start using forwardRef in a component library, you should treat it as a breaking change and release a new major version of your library. This is because your library likely has an observably different behavior (such as what refs get assigned to, and what types are exported), and this can break apps and other libraries that depend on the old behavior
                     </Text>
