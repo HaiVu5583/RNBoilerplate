@@ -5,6 +5,7 @@ import TextInput from './TextInput'
 import Icon from './Icon'
 import Surface from './Surface'
 import Background from './Background'
+import Toolbar from './Toolbar'
 
 export {
     View,
@@ -13,5 +14,6 @@ export {
     TextInput,
     Icon,
     Surface,
-    Background
+    Background,
+    Toolbar
 }
