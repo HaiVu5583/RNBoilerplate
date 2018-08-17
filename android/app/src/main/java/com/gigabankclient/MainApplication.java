@@ -3,6 +3,15 @@ package com.gigabankclient;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import org.reactnative.camera.RNCameraPackage;
+import com.horcrux.svg.SvgPackage;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
+import com.ninty.system.setting.SystemSettingPackage;
+import com.krazylabs.OpenAppSettingsPackage;
+import com.oblador.shimmer.RNShimmerPackage;
+
+import com.oblador.vectoricons.VectorIconsPackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -14,7 +23,6 @@ import java.util.List;
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
-import com.oblador.vectoricons.VectorIconsPackage;
 
 //public class MainApplication extends Application implements ReactApplication {
 //
@@ -27,7 +35,15 @@ import com.oblador.vectoricons.VectorIconsPackage;
 //    @Override
 //    protected List<ReactPackage> getPackages() {
 //      return Arrays.<ReactPackage>asList(
-//          new MainReactPackage()
+//          new MainReactPackage(),
+//            new RNCameraPackage(),
+//            new SvgPackage(),
+//            new RNI18nPackage(),
+//            new SystemSettingPackage(),
+//            new OpenAppSettingsPackage(),
+//            new RNShimmerPackage(),
+//            new VectorIconsPackage(),
+//            new FastImageViewPackage()
 //      );
 //    }
 //
@@ -72,7 +88,14 @@ public class MainApplication extends NavigationApplication {
         // Add additional packages you require here
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
-                new VectorIconsPackage()
+                new VectorIconsPackage(),
+                new FastImageViewPackage(),
+                new RNShimmerPackage(),
+                new OpenAppSettingsPackage(),
+                new SystemSettingPackage(),
+                new RNI18nPackage(),
+                new SvgPackage(),
+                new RNCameraPackage()
         );
     }
 
