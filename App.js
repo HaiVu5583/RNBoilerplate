@@ -76,20 +76,25 @@ export const run = () => {
                     stack: {
                         id: 'mainStack',
                         children: [
+                            // {
+                            //     sideMenu: {
+                            //         id: 'sideMenu',
+                            //         left: {
+                            //             component: {
+                            //                 name: 'gigabankclient.SplashScreen',
+                            //             }
+                            //         },
+                            //         center: {
+                            //             bottomTabs: {
+                            //                 id: 'bottomTabs',
+                            //                 children: _getBottomTabs(bottomTabs)
+                            //             }
+                            //         },
+                            //     }
+                            // },
                             {
-                                sideMenu: {
-                                    id: 'sideMenu',
-                                    left: {
-                                        component: {
-                                            name: 'gigabankclient.SplashScreen',
-                                        }
-                                    },
-                                    center: {
-                                        bottomTabs: {
-                                            id: 'bottomTabs',
-                                            children: _getBottomTabs(bottomTabs)
-                                        }
-                                    },
+                                component: {
+                                    name: 'gigabankclient.Authentication'
                                 }
                             }
                         ]

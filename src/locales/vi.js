@@ -1003,6 +1003,9 @@ const language = {
     'clingme_term_of_use': 'Điều khoản sử dụng',
     'phone_number_invalid': 'Số điện thoại chưa chính xác. Xin vui lòng nhập lại.',
     'link_color': '#007aff',
+    'register_account' : 'Đăng ký tài khoản',
+    'already_have_account': 'Bạn đã có tài khoản?',
+
 }
 
 // export default language;

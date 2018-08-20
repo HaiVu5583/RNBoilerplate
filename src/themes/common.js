@@ -1,6 +1,9 @@
 import { getFontStyle } from '~/src/utils'
-import { Dimensions } from 'react-native'
+import { Dimensions, PixelRatio } from 'react-native'
 const { width, height } = Dimensions.get('window')
+import { getElevation } from '~/src/utils'
+const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
+
 
 export const THEMES = {
     light: 'light',
@@ -42,7 +45,81 @@ export const TEXT_STYLES = {
     subtitle2: {
         ...getFontStyle(FONT_WEIGHTS.medium),
         fontSize: 14
+    },
+    white: {
+        color: 'white'
     }
+}
+
+export const TEXT_INPUT_STYLES = {
+    white: {
+        color: 'white',
+        placeholderTextColor: 'rgba(255, 255, 255, 0.7)',
+        borderBottomWidth: LINE_HEIGHT,
+        borderBottomColor: 'white'
+    }
+}
+
+export const BUTTON_STYLES = {
+    round: {
+        borderRadius: 25
+    },
+    flat: {
+        backgroundColor: 'transparent',
+        ...getElevation(0)
+    },
+    full: {
+        width: '100%'
+    }
+}
+
+export const SURFACE_STYLES = {
+    fullWidth: {
+        width: '100%'
+    },
+    flex: {
+        flex: 1
+    },
+    columnCenter: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    columnStart: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    columnEnd: {
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    rowCenter: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    rowStart: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    rowEnd: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    rowSpacebetween: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    mb20: {
+        marginBottom: 20
+    }
+
+
 }
 
 export const TOOLBAR_HEIGHT = 56
@@ -50,12 +127,13 @@ export const TOOLBAR_HEIGHT = 56
 export default {
     button: {
         borderRadius: 2,
-        backgroundColor: '#F16654',
+        backgroundColor: '#1B75BB',
         height: 40,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 16,
+        ...getElevation(2)
     },
     buttonText: {
         fontSize: 14,
