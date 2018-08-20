@@ -48,6 +48,12 @@ export const TEXT_STYLES = {
     },
     white: {
         color: 'white'
+    },
+    center: {
+        textAlign: 'center'
+    },
+    error: {
+        color: 'rgba(255, 0, 0, 0.85)'
     }
 }
 
@@ -117,8 +123,10 @@ export const SURFACE_STYLES = {
     },
     mb20: {
         marginBottom: 20
+    },
+    blue: {
+        backgroundColor: '#256CAD'
     }
-
 
 }
 

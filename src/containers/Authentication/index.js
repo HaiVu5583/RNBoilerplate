@@ -32,13 +32,17 @@ class Authentication extends Component {
     }
 
     _handlePressRegister = () => {
-
+        Navigation.push('mainStack', {
+            component: {
+                name: 'gigabankclient.Register'
+            }
+        })
     }
 
     render() {
 
         return (
-            <Surface style={{ padding: 20, backgroundColor: '#256CAD', flex: 1, flexDirection: 'column' }}>
+            <Surface blue flex style={{ padding: 20 }}>
                 <Surface themeable={false} columnEnd flex>
                     <Surface themeable={false} fullWidth mb20>
                         <Button round full

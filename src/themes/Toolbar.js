@@ -32,29 +32,22 @@ export default class Toolbar extends React.PureComponent {
     }
 
     render() {
-        const { iconLeft, iconRight, iconColor, title, style, leftButtonTitle, rightButtonTitle,
-            leftButtonColor, rightButtonColor, rightButtonState, iconRightStyle, titleFontSize } = this.props
-        const iconStyle = {}
-        // const iconStyle = iconColor ? { ...styles.icon, color: iconColor } : styles.icon
-        // const leftBtnStyle = leftButtonColor ? { ...styles.leftButton, color: leftButtonColor } : styles.leftButton
-        // let rightBtnSyle = rightButtonColor ? { ...styles.rightButtonDisable, color: rightButtonColor } : styles.rightButtonDisable
+        const { iconLeft, iconRight, title, style, leftButtonTitle, rightButtonTitle,
+            iconStyle, themeable } = this.props
 
-        if (rightButtonState && !rightButtonColor) {
-            rightBtnSyle = { ...styles.rightButtonDisable, color: linkColor }
-        }
 
         return (
-            <Surface style={[toolbar.container, style]}>
+            <Surface style={[toolbar.container, style]} themeable={themeable}>
                 <TouchableWithoutFeedback onPress={this._onPressBack}>
-                    <Surface style={toolbar.iconLeftContainer}>
-                        <Icon name={!!iconLeft ? iconLeft : 'back'} style={toolbar.iconLeft} />
+                    <Surface style={toolbar.iconLeftContainer} themeable={themeable}>
+                        <Icon name={!!iconLeft ? iconLeft : 'back'} style={[toolbar.iconLeft, iconStyle]} />
                     </Surface>
                 </TouchableWithoutFeedback>
-                {!!title && <Text style={toolbar.title} numberOfLines={1}>{" " + title + " "}</Text>}
+                {!!title && <Text style={toolbar.title} numberOfLines={1} themeable={themeable}>{" " + title + " "}</Text>}
 
                 {!!iconRight && <TouchableWithoutFeedback onPress={this._onPressIconRight}>
-                    <Surface style={toolbar.iconRightContainer}>
-                        <Icon name={iconRight} style={toolbar.iconRight} />
+                    <Surface style={toolbar.iconRightContainer} themeable={themeable}>
+                        <Icon name={iconRight} style={[toolbar.iconRight, iconStyle]} />
                     </Surface>
                 </TouchableWithoutFeedback>}
             </Surface>

@@ -8,13 +8,7 @@ import I18n from '~/src/I18n'
 
 class Login extends Component {
     static get options() {
-        return {
-            topBar: {
-                drawBehind: true,
-                visible: false,
-                animate: false
-            }
-        };
+        return {}
     }
 
     constructor(props) {
@@ -28,7 +22,7 @@ class Login extends Component {
         return (
             <Surface style={{ padding: 20, backgroundColor: '#256CAD', flex: 1, flexDirection: 'column' }}>
                 <Surface themeable={false} fullWidth mb20>
-                    <TextInput 
+                    <TextInput
                         placeholder={I18n.t('phone')}
                         white
                     />
