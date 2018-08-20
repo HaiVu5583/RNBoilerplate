@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { Platform } from 'react-native'
+import { Platform, PixelRatio, Dimensions } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { BOTTOM_TABS } from '~/src/constants'
 
@@ -15,6 +15,21 @@ export const getHOCScreen = (Component, store) => {
             )
         }
     }
+}
+
+export const chainParse = (obj, attrArr) => {
+    if (!obj || typeof (obj) != 'object') {
+        return null
+    }
+
+    let cloneObj = Object.assign({}, obj);
+
+    for (let i = 0; i < attrArr.length; i++) {
+        cloneObj = cloneObj[attrArr[i]]
+        if (typeof (cloneObj) == 'undefined' || cloneObj == null) return null;
+    }
+
+    return cloneObj;
 }
 
 export const getFontStyle = (style = 'regular') => {
@@ -89,4 +104,30 @@ export const changeBottomTabColor = (color) => {
             }
         })
     })
+}
+
+export const toElevation = (number) => {
+    if (Platform.OS == 'android') return { elevation: number }
+
+    return {
+        shadowColor: "black",
+        shadowOpacity: number > 0 ? 0.22 : 0,
+        shadowRadius: 1.5,
+        shadowOffset: {
+            height: number,
+            width: 0
+        }
+    }
+}
+
+export const getWidth = (input) => {
+    const {width} = Dimensions.get('window');
+
+    let pixelRatio = PixelRatio.get()
+    // Design Dimension: width 720, pixelRatio 2
+    // Assume device this case will have pixelRatio 2
+    if (width * pixelRatio < 720) {
+        return (width / 360) * input
+    }
+    return input
 }

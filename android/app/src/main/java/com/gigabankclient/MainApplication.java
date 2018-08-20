@@ -1,4 +1,15 @@
 package com.gigabankclient;
+
+import android.app.Application;
+
+import com.facebook.react.ReactApplication;
+import com.oblador.shimmer.RNShimmerPackage;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
+import com.krazylabs.OpenAppSettingsPackage;
+import org.reactnative.camera.RNCameraPackage;
+import com.horcrux.svg.SvgPackage;
+import com.ninty.system.setting.SystemSettingPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -34,7 +45,14 @@ public class MainApplication extends NavigationApplication {
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
                 new VectorIconsPackage(),
-                new RNDeviceInfo()
+                new RNDeviceInfo(),
+                new FastImageViewPackage(),
+                new RNShimmerPackage(),
+                new OpenAppSettingsPackage(),
+                new SystemSettingPackage(),
+                new RNI18nPackage(),
+                new SvgPackage(),
+                new RNCameraPackage()
         );
     }
 
@@ -43,3 +61,4 @@ public class MainApplication extends NavigationApplication {
         return getPackages();
     }
 }
+

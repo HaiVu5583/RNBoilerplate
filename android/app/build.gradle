@@ -143,6 +143,10 @@ android {
 
 dependencies {
     compile project(':react-native-camera')
+    compile project(':react-native-shimmer')
+    compile project(':react-native-i18n')
+    compile project(':react-native-fast-image')
+    compile project(':react-native-app-settings')
     compile project(':react-native-svg')
     compile project(':react-native-system-setting')
     compile project(':react-native-vector-icons')
