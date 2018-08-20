@@ -18,6 +18,16 @@ export const FONT_WEIGHTS = {
 }
 
 export const TEXT_STYLES = {
+    sologan: {
+        ...getFontStyle(FONT_WEIGHTS.medium),
+        fontSize: 30,
+        color: 'rgba(255, 255, 255, 0.85)'
+    },
+
+    h4: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 34
+    },
     h5: {
         ...getFontStyle(FONT_WEIGHTS.regular),
         fontSize: 24
@@ -54,6 +64,15 @@ export const TEXT_STYLES = {
     },
     error: {
         color: 'rgba(255, 0, 0, 0.85)'
+    },
+    light: {
+        ...getFontStyle(FONT_WEIGHTS.light),
+    },
+    medium: {
+        ...getFontStyle(FONT_WEIGHTS.medium),
+    },
+    bold: {
+        ...getFontStyle(FONT_WEIGHTS.bold),
     }
 }
 

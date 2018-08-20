@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Surface, Background, Text, Button } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ActivityIndicator, Platform } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
@@ -43,6 +42,20 @@ class Authentication extends Component {
 
         return (
             <Surface blue flex style={{ padding: 20 }}>
+                <Surface themeable={false} style={{ marginTop: 50 }}>
+                    <Surface themeable={false} rowStart>
+                        <Text white bold h4>GIGA</Text>
+                        <Text white h4 light>BANK</Text>
+                    </Surface>
+                    <Surface themeable={false}
+                        style={styles.sologanSpacer}
+                    />
+                    <Surface themeable={false}>
+                        <Text sologan>PERSONAL</Text>
+                        <Text sologan>DIGITAL FINANCE</Text>
+                        <Text sologan>FOR YOU</Text>
+                    </Surface>
+                </Surface>
                 <Surface themeable={false} columnEnd flex>
                     <Surface themeable={false} fullWidth mb20>
                         <Button round full
