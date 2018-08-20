@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import { Platform } from 'react-native'
+import { Platform, PixelRatio } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { BOTTOM_TABS } from '~/src/constants'
 
@@ -104,4 +104,14 @@ export const changeBottomTabColor = (color) => {
             }
         })
     })
+}
+
+export const getWidth = (input) => {
+    let pixelRatio = PixelRatio.get()
+    // Design Dimension: width 720, pixelRatio 2
+    // Assume device this case will have pixelRatio 2
+    if (width * pixelRatio < 720) {
+        return (width / 360) * input
+    }
+    return input
 }

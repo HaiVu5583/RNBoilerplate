@@ -1,4 +1,6 @@
 import { getFontStyle } from '~/src/utils'
+import { Platform } from 'react-native'
+
 export const THEMES = {
     light: 'light',
     dark: 'dark'
@@ -65,5 +67,20 @@ export default {
         fontSize: 18,
         color: 'white',
         marginRight: 5
-    },
+    }
+}
+
+export const toastStyle = {
+    toastStyle: {
+        backgroundColor: "#4ADDFB",
+        width: 300,
+        height: Platform.OS === ("ios") ? 50 : 120,
+        color: "#ffffff",
+        fontSize: 15,
+        lineHeight: 2,
+        lines: 4,
+        borderRadius: 15,
+        fontWeight: "bold",
+        yOffset: 40
+    }
 }

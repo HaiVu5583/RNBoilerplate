@@ -4,23 +4,21 @@ import {
     TagsInput, Button, Card, Colors,
     Carousel, Constants, PageControl
 } from 'react-native-ui-lib';
-import { View, Text, TextInput, Icon, Image } from '~/src/themes/ThemeComponent'
+import { Surface, Background, View, Text, TextInput, Icon, Image } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ScrollView, PixelRatio } from 'react-native'
-import { Surface, Background, View, Text, TextInput, Icon } from '~/src/themes/ThemeComponent'
-import { Navigation } from 'react-native-navigation'
-import { ScrollView, ActivityIndicator, Platform } from 'react-native'
+import { ScrollView, ActivityIndicator, Platform, PixelRatio } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux'
 import { getData, getTestData } from '~/src/store/actions/home'
 import BottomSheet from '~/src/components/BottomSheet'
 import TagSelect from '~/src/components/TagSelect'
-
-// import FastImage from "~/src/components/FastImage";
-// import PictureBrowser from '~/src/components/PictureBrowser'
-
-// import Icon from '~/src/components/FontIcon'
 import PreparePictureList from '~/src/components/PreparedPictureList'
+import RichText from '../../components/RichText'
+import AutoGrowTextInput from '../../components/AutoGrowTextInput'
+import I18n from '~/src/I18n'
+import Tooltip from '../../components/Tooltip'
+import Toast from 'react-native-toast-native'
+import { toastStyle } from '../../themes/common'
 
 class Home extends Component {
     static get options() {
@@ -69,6 +67,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.getData()
+        Toast.show(I18n.t('delete_card_success'), Toast.LONG, Toast.BOTTOM, toastStyle.toastStyle);
     }
 
     _handleOpenBottomSheet = () => {
@@ -310,6 +309,14 @@ class Home extends Component {
                 {this._renderFilter()}
                 <ScrollView>
                     <PreparePictureList />
+                    <RichText content='<rt>Hello <b>world</b></rt>' />
+                    <AutoGrowTextInput>
+                        AutoGrowTextInput
+                    </AutoGrowTextInput>
+                    <Tooltip
+                    ref={ref => this.tooltip = ref}
+                    content={'tooltip quick menu | action block'}
+                    />
                     <View>
                     <Surface>
                         <Carousel loop onChangePage={(index => this.onChangePage(index))}>
