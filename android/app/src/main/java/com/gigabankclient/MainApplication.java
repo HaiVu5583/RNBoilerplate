@@ -32,10 +32,10 @@ import com.oblador.vectoricons.VectorIconsPackage;
 //    protected List<ReactPackage> getPackages() {
 //      return Arrays.<ReactPackage>asList(
 //          new MainReactPackage(),
-            new RNCameraPackage(),
-            new SvgPackage(),
-            new SystemSettingPackage(),
-            new VectorIconsPackage()
+//            new RNCameraPackage(),
+//            new SvgPackage(),
+//            new SystemSettingPackage(),
+//            new VectorIconsPackage()
 //      );
 //    }
 //
