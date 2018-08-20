@@ -95,7 +95,11 @@ class Login extends Component {
     }
 
     _handlePressForgotPassword = () => {
-
+        Navigation.push('mainStack', {
+            component: {
+                name: 'gigabankclient.ForgotPassword'
+            }
+        })
     }
 
     _renderStepPassword = () => {
