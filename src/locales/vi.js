@@ -147,7 +147,7 @@ const language = {
     'err_invalid_phone_number': 'Số điện thoại không hợp lệ.',
     'hint_register_phone_input': 'Nhập số điện thoại để đăng kí tài khoản Gigabank.',
     'err_username_password': 'Tài khoản hoặc mật khẩu không chính xác.',
-    'err_account_not_register': 'Tài khoản chưa được đăng ký.',
+    'err_account_not_register': 'Bạn chưa đăng ký tài khoản Gigabank. Hãy đăng ký tài khoản để sử dụng dịch vụ nhé.',
     'hint_account_exists_part': 'đã tồn tại. Bạn có muốn đăng nhập tiếp trên thiết bị này không?',
     'account': 'Tài khoản',
     'account_not_exists': 'Tài khoản không tồn tại.',
