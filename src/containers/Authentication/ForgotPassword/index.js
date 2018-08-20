@@ -68,7 +68,6 @@ class ForgotPassword extends Component {
                     <TextInput
                         placeholder={I18n.t('full_name')}
                         white
-                        keyboardType='numeric'
                         onChangeText={text => this.setState({ name: text })}
                         value={this.state.name}
                     />
