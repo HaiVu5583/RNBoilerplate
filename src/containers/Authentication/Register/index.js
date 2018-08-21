@@ -12,6 +12,7 @@ import { BackHandler } from 'react-native'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
 import CircleCountdown from '~/src/components/CircleCountdown'
+import { ImageBackground } from 'react-native'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -312,30 +313,32 @@ class Register extends Component {
 
     render() {
         return (
-            <Surface blue flex>
-                <Toolbar
-                    onPressIconLeft={this._handlePressBackIcon}
-                    themeable={false}
-                    iconStyle={{ color: 'white' }}
-                />
-                <PopupConfirm
-                    animationType='none'
-                    content={I18n.t('confirm_send_otp')}
-                    textButton1={I18n.t('cancel').toUpperCase()}
-                    textButton2={I18n.t('confirm').toUpperCase()}
-                    onPressButton1={() => { }}
-                    onPressButton2={() => this._onConfirmPhone()}
-                    ref={ref => this.popupConfirm = ref} />
-                <PopupConfirm
-                    animationType='none'
-                    content={I18n.t('already_have_bank_account')}
-                    textButton1={I18n.t('disagree').toUpperCase()}
-                    textButton2={I18n.t('popup_confirmed').toUpperCase()}
-                    onPressButton1={() => { }}
-                    onPressButton2={() => this._onConfirmHaveBankAccount()}
-                    ref={ref => this.popupHaveBankAccount = ref} />
-                {this._render()}
-            </Surface >
+            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
+                <Surface themeable={false} flex>
+                    <Toolbar
+                        onPressIconLeft={this._handlePressBackIcon}
+                        themeable={false}
+                        iconStyle={{ color: 'white' }}
+                    />
+                    <PopupConfirm
+                        animationType='none'
+                        content={I18n.t('confirm_send_otp')}
+                        textButton1={I18n.t('cancel').toUpperCase()}
+                        textButton2={I18n.t('confirm').toUpperCase()}
+                        onPressButton1={() => { }}
+                        onPressButton2={() => this._onConfirmPhone()}
+                        ref={ref => this.popupConfirm = ref} />
+                    <PopupConfirm
+                        animationType='none'
+                        content={I18n.t('already_have_bank_account')}
+                        textButton1={I18n.t('disagree').toUpperCase()}
+                        textButton2={I18n.t('popup_confirmed').toUpperCase()}
+                        onPressButton1={() => { }}
+                        onPressButton2={() => this._onConfirmHaveBankAccount()}
+                        ref={ref => this.popupHaveBankAccount = ref} />
+                    {this._render()}
+                </Surface>
+            </ImageBackground >
         )
     }
 }

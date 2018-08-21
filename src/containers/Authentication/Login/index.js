@@ -10,6 +10,7 @@ import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
+import { ImageBackground } from 'react-native'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -165,28 +166,30 @@ class Login extends Component {
 
     render() {
         return (
-            <Surface blue flex>
-                <Toolbar
-                    onPressIconLeft={this._handlePressBackIcon}
-                    themeable={false}
-                    iconStyle={{ color: 'white' }}
-                />
-                <PopupConfirm
-                    animationType='none'
-                    content={I18n.t('err_account_not_register')}
-                    textButton1={I18n.t('close').toUpperCase()}
-                    onPressButton1={() => { }}
-                    ref={ref => this.popupAccountNotRegister = ref} />
-                <PopupConfirm
-                    animationType='none'
-                    content={I18n.t('already_have_bank_account')}
-                    textButton1={I18n.t('disagree').toUpperCase()}
-                    textButton2={I18n.t('popup_confirmed').toUpperCase()}
-                    onPressButton1={() => { }}
-                    onPressButton2={() => this._onConfirmHaveBankAccount()}
-                    ref={ref => this.popupHaveBankAccount = ref} />
-                {this._render()}
-            </Surface >
+            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
+                <Surface themeable={false} flex>
+                    <Toolbar
+                        onPressIconLeft={this._handlePressBackIcon}
+                        themeable={false}
+                        iconStyle={{ color: 'white' }}
+                    />
+                    <PopupConfirm
+                        animationType='none'
+                        content={I18n.t('err_account_not_register')}
+                        textButton1={I18n.t('close').toUpperCase()}
+                        onPressButton1={() => { }}
+                        ref={ref => this.popupAccountNotRegister = ref} />
+                    <PopupConfirm
+                        animationType='none'
+                        content={I18n.t('already_have_bank_account')}
+                        textButton1={I18n.t('disagree').toUpperCase()}
+                        textButton2={I18n.t('popup_confirmed').toUpperCase()}
+                        onPressButton1={() => { }}
+                        onPressButton2={() => this._onConfirmHaveBankAccount()}
+                        ref={ref => this.popupHaveBankAccount = ref} />
+                    {this._render()}
+                </Surface>
+            </ImageBackground>
         )
     }
 }

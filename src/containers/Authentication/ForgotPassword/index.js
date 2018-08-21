@@ -11,6 +11,7 @@ import { BackHandler } from 'react-native'
 import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
+import { ImageBackground } from 'react-native'
 
 const STEP = {
     INFO: 'INFO',
@@ -222,30 +223,32 @@ class ForgotPassword extends Component {
 
     render() {
         return (
-            <Surface blue flex>
-                <Toolbar
-                    onPressIconLeft={this._handlePressBackIcon}
-                    themeable={false}
-                    iconStyle={{ color: 'white' }}
-                />
-                <PopupConfirm
-                    animationType='none'
-                    content={I18n.t('err_forgot_password_info')}
-                    textButton1={I18n.t('cancel').toUpperCase()}
-                    textButton2={I18n.t('popup_confirmed').toUpperCase()}
-                    onPressButton1={() => { }}
-                    onPressButton2={() => { }}
-                    ref={ref => this.popupInvalidInfo = ref} />
-                <PopupConfirm
-                    animationType='none'
-                    content={I18n.t('confirm_send_otp')}
-                    textButton1={I18n.t('cancel').toUpperCase()}
-                    textButton2={I18n.t('confirm').toUpperCase()}
-                    onPressButton1={() => { }}
-                    onPressButton2={() => this._onConfirmSendOTP()}
-                    ref={ref => this.popupConfirmSendOTP = ref} />
-                {this._render()}
-            </Surface >
+            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
+                <Surface blue flex>
+                    <Toolbar
+                        onPressIconLeft={this._handlePressBackIcon}
+                        themeable={false}
+                        iconStyle={{ color: 'white' }}
+                    />
+                    <PopupConfirm
+                        animationType='none'
+                        content={I18n.t('err_forgot_password_info')}
+                        textButton1={I18n.t('cancel').toUpperCase()}
+                        textButton2={I18n.t('popup_confirmed').toUpperCase()}
+                        onPressButton1={() => { }}
+                        onPressButton2={() => { }}
+                        ref={ref => this.popupInvalidInfo = ref} />
+                    <PopupConfirm
+                        animationType='none'
+                        content={I18n.t('confirm_send_otp')}
+                        textButton1={I18n.t('cancel').toUpperCase()}
+                        textButton2={I18n.t('confirm').toUpperCase()}
+                        onPressButton1={() => { }}
+                        onPressButton2={() => this._onConfirmSendOTP()}
+                        ref={ref => this.popupConfirmSendOTP = ref} />
+                    {this._render()}
+                </Surface>
+            </ImageBackground>
         )
     }
 }
