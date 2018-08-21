@@ -8,6 +8,7 @@ import Password from '~/src/components/Password'
 import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
+import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
 
 const STEP = {
     INFO: 'INFO',
@@ -34,6 +35,7 @@ class ForgotPassword extends Component {
             errName: '',
             errIdentityNumber: '',
             errBankAccount: '',
+            errRepassword: ''
         }
     }
 
@@ -50,6 +52,24 @@ class ForgotPassword extends Component {
 
     _handlePressGetPassword = () => {
         // this.popupInvalidInfo && this.popupInvalidInfo.open()
+        const wordOnlyRegex = /^([a-zA-Z]|\s)+$/
+        const numberOnlyRegex = /^\d+$/
+        if (!this.state.name || !wordOnlyRegex.test(toNormalCharacter(this.state.name))) {
+            this.setState({
+                errName: I18n.t('err_format_username'),
+            })
+            return
+        } else if (!this.state.identityNumber || !numberOnlyRegex.test(this.state.identityNumber)) {
+            this.setState({
+                errIdentityNumber: I18n.t('err_invalid_identity_number')
+            })
+            return
+        } else if (!this.state.bankAccount || !numberOnlyRegex.test(this.state.bankAccount)) {
+            this.setState({
+                errBankAccount: I18n.t('err_bank_account_number')
+            })
+            return
+        }
         this.popupConfirmSendOTP && this.popupConfirmSendOTP.open()
     }
 
@@ -68,7 +88,7 @@ class ForgotPassword extends Component {
                     <TextInput
                         placeholder={I18n.t('full_name')}
                         white
-                        onChangeText={text => this.setState({ name: text })}
+                        onChangeText={text => this.setState({ name: text, errName: '' })}
                         value={this.state.name}
                     />
                 </Surface>
@@ -78,7 +98,7 @@ class ForgotPassword extends Component {
                         placeholder={I18n.t('identity_number')}
                         white
                         keyboardType='numeric'
-                        onChangeText={text => this.setState({ identityNumber: text })}
+                        onChangeText={text => this.setState({ identityNumber: text, errIdentityNumber: '' })}
                         value={this.state.identityNumber}
                     />
                 </Surface>
@@ -88,7 +108,7 @@ class ForgotPassword extends Component {
                         placeholder={I18n.t('hint_input_bank_account_number')}
                         white
                         keyboardType='numeric'
-                        onChangeText={text => this.setState({ bankAccount: text })}
+                        onChangeText={text => this.setState({ bankAccount: text, errBankAccount: '' })}
                         value={this.state.bankAccount}
                     />
                 </Surface>
@@ -100,7 +120,7 @@ class ForgotPassword extends Component {
     }
 
     _handlePressFinish = () => {
-        
+
     }
 
     _renderStepPassword = () => {
@@ -177,11 +197,11 @@ class ForgotPassword extends Component {
         )
     }
 
-    componentDidMount(){
+    componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this._handlePressBackIcon)
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         BackHandler.removeEventListener('hardwareBackPress', this._handlePressBackIcon)
     }
 

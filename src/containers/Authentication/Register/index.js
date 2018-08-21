@@ -39,6 +39,8 @@ class Register extends Component {
             errName: '',
             errIdentityNumber: '',
             errBankAccount: '',
+            errPassword: '',
+            errRepassword: ''
         }
     }
 
@@ -147,13 +149,18 @@ class Register extends Component {
     }
 
     _handlePressContinuePersonalInfo = () => {
-        const wordOnlyRegex = /^(\w|\s)+$/
+        const wordOnlyRegex = /^([a-zA-Z]|\s)+$/
+        const numberOnlyRegex = /^\d+$/
         console.log('Name normalize', toNormalCharacter(this.state.name))
         console.log('Test', wordOnlyRegex.test(toNormalCharacter(this.state.name)))
         if (!this.state.name || !wordOnlyRegex.test(toNormalCharacter(this.state.name))) {
             this.setState({
                 errName: I18n.t('err_format_username'),
-                errIdentityNumber: I18n.t('err_identity_number_exists')
+            })
+            return
+        } else if (!this.state.identityNumber || !numberOnlyRegex.test(this.state.identityNumber)) {
+            this.setState({
+                errIdentityNumber: I18n.t('err_invalid_identity_number')
             })
             return
         }
@@ -175,7 +182,7 @@ class Register extends Component {
                     <TextInput
                         placeholder={I18n.t('full_name')}
                         white
-                        onChangeText={text => this.setState({ name: text })}
+                        onChangeText={text => this.setState({ name: text, errName: '' })}
                         value={this.state.name}
                     />
                 </Surface>
@@ -185,7 +192,7 @@ class Register extends Component {
                         placeholder={I18n.t('identity_number')}
                         white
                         keyboardType='numeric'
-                        onChangeText={text => this.setState({ identityNumber: text })}
+                        onChangeText={text => this.setState({ identityNumber: text, errIdentityNumber: '' })}
                         value={this.state.identityNumber}
                     />
                 </Surface>
@@ -213,7 +220,7 @@ class Register extends Component {
                         placeholder={I18n.t('hint_input_bank_account_number')}
                         white
                         keyboardType='numeric'
-                        onChangeText={text => this.setState({ bankAccount: text })}
+                        onChangeText={text => this.setState({ bankAccount: text, errBankAccount: '' })}
                         value={this.state.bankAccount}
                     />
                 </Surface>
@@ -223,6 +230,12 @@ class Register extends Component {
                 </Surface>
             </Surface>
         )
+    }
+
+    _handlePressFinishPassword = () => {
+        if (this.state.password != this.state.repassword) {
+            this.setState({ errRepassword: I18n.t('err_invalid_repassword') })
+        }
     }
 
     _renderStepPassword = () => {
@@ -236,7 +249,7 @@ class Register extends Component {
                     <Password
                         placeholder={I18n.t('hint_input_password')}
                         containerStyle={styles.textInput}
-                        onChangeText={text => this.setState({ password: text })}
+                        onChangeText={text => this.setState({ password: text, errRepassword: '' })}
                         value={this.state.password}
                         placeholderTextColor={placeholderTextColor}
                         iconStyle={{ color }}
@@ -246,10 +259,11 @@ class Register extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
+                    {!!this.state.errRepassword && <Text error body2>{this.state.errRepassword}</Text>}
                     <Password
                         placeholder={I18n.t('hint_reinput_password')}
                         containerStyle={styles.textInput}
-                        onChangeText={text => this.setState({ repassword: text })}
+                        onChangeText={text => this.setState({ repassword: text, errRepassword: '' })}
                         value={this.state.repassword}
                         placeholderTextColor={placeholderTextColor}
                         iconStyle={{ color }}
@@ -259,7 +273,7 @@ class Register extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueBankAccount} />
+                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressFinishPassword} />
                 </Surface>
             </Surface>
         )
