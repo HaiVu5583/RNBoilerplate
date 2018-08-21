@@ -8,6 +8,7 @@ import PopupConfirm from '~/src/components/PopupConfirm'
 import Password from '~/src/components/Password'
 import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
+import { BackHandler } from 'react-native'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -53,7 +54,7 @@ class Register extends Component {
         } else if (this.state.step == STEP.PASSWORD) {
             this.setState({ step: STEP.BANK_ACCOUNT })
         }
-
+        return true
     }
 
     _onChangePhoneNumber = (text) => {
@@ -262,6 +263,14 @@ class Register extends Component {
                 </Surface>
             </Surface>
         )
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this._handlePressBackIcon)
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this._handlePressBackIcon)
     }
 
     _render = () => {

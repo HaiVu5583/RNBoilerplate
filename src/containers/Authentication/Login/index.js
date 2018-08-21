@@ -3,11 +3,12 @@ import { TextInput, Surface, Background, Text, Button, Toolbar } from '~/src/the
 import { Navigation } from 'react-native-navigation'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
-import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
+import { isValidPhoneNumer } from '~/src/utils'
 import PopupConfirm from '~/src/components/PopupConfirm'
 import Password from '~/src/components/Password'
 import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
+import { BackHandler } from 'react-native'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -36,6 +37,7 @@ class Login extends Component {
         } else if (this.state.step == STEP.PASSWORD) {
             this.setState({ step: STEP.PHONE })
         }
+        return true
 
     }
 
@@ -135,6 +137,14 @@ class Login extends Component {
                 </Surface>
             </Surface>
         )
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this._handlePressBackIcon)
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this._handlePressBackIcon)
     }
 
     _render = () => {
