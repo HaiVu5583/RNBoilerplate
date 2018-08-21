@@ -26,7 +26,7 @@ export default class FingerprintPopup extends React.PureComponent {
 
     _handleAuthenticationAttempted = (error) => {
         console.log('On Attemp Scan Fingerprint', error)
-        this._showError('Authenticate Failed!')
+        this._showError(error.name)
     }
 
     open = () => {
@@ -38,7 +38,7 @@ export default class FingerprintPopup extends React.PureComponent {
             })
             .catch((error) => {
                 console.log('Error Fingerprint Scan', error);
-                this._showError('Authenticate Failed!')
+                this._showError(error.name)
             })
         this.setState({
             visible: true,
