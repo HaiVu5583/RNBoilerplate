@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import { Surface, Background, Text, Button } from '~/src/themes/ThemeComponent'
+import { Surface, Background, Text, Button, Image } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
+import { Platform } from 'react-native'
+import FingerprintScanner from 'react-native-fingerprint-scanner'
+import { TouchableOpacity } from 'react-native-ui-lib';
+import FingerprintPopup from './FingerprintPopup'
 
 class Authentication extends Component {
     static get options() {
@@ -19,6 +23,7 @@ class Authentication extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            showFingerprint: false
         }
     }
 
@@ -38,10 +43,36 @@ class Authentication extends Component {
         })
     }
 
+    
+
+    componentDidMount() {
+        if (Platform.OS == 'android') {
+            FingerprintScanner
+                .isSensorAvailable()
+                .then(data => {
+                    this.setState({ showFingerprint: true })
+                })
+                .catch(error => console.log('Error Fingerprint Available', error));
+        }
+    }
+
+    _handlePressFingerprint = () => {
+        this.fingerprintPopup && this.fingerprintPopup.open()
+
+    }
+
+    _onAuthenticateSuccess = () => {
+        alert('Fingerprint Authenticate Successful!')
+    }
+
     render() {
 
         return (
             <Surface blue flex style={{ padding: 20 }}>
+                <FingerprintPopup
+                    ref={ref => this.fingerprintPopup = ref}
+                    onAuthenticateSuccess={this._onAuthenticateSuccess}
+                />
                 <Surface themeable={false} style={{ marginTop: 50 }}>
                     <Surface themeable={false} rowStart>
                         <Text white bold h4>GIGA</Text>
@@ -57,6 +88,13 @@ class Authentication extends Component {
                     </Surface>
                 </Surface>
                 <Surface themeable={false} columnEnd flex>
+                    {this.state.showFingerprint && <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <TouchableOpacity onPress={this._handlePressFingerprint}>
+                            <Image
+                                source={{ uri: 'https://cdn4.iconfinder.com/data/icons/unigrid-flat-security/90/013_016_fingerprint_finger_print_security_touch_id_identity_access_key_lock-512.png' }}
+                                style={{ width: 60, height: 60 }} />
+                        </TouchableOpacity>
+                    </Surface>}
                     <Surface themeable={false} fullWidth mb20>
                         <Button round full
                             text={I18n.t('register_account').toUpperCase()}

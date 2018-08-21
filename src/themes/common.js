@@ -1,8 +1,10 @@
 import { getFontStyle } from '~/src/utils'
 import { Dimensions, PixelRatio } from 'react-native'
-const { width, height } = Dimensions.get('window')
+const window = Dimensions.get('window')
 import { getElevation } from '~/src/utils'
 const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
+export const DEVICE_WIDTH = window.width
+export const DEVICE_HEIGHT = window.height
 
 export const DEFAULT_PUSH_ANIMATION = {
     content: {
@@ -166,10 +168,18 @@ export const SURFACE_STYLES = {
     mb20: {
         marginBottom: 20
     },
+    pd20: {
+        padding: 20
+    },
     blue: {
         backgroundColor: '#256CAD'
+    },
+    white: {
+        backgroundColor: 'white'
+    },
+    overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.3)'
     }
-
 }
 
 export const TOOLBAR_HEIGHT = 56
@@ -197,7 +207,7 @@ export default {
     toolbar: {
         container: {
             height: TOOLBAR_HEIGHT,
-            width: width,
+            width: DEVICE_WIDTH,
             flexDirection: 'row',
             justifyContent: 'flex-start',
             alignItems: 'center',

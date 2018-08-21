@@ -144,6 +144,7 @@ const language = {
     'password_confirm': 'Xác nhận mật khẩu',
     'hint_register': 'Vui lòng nhập tên hiển thị và mật khẩu để hoàn tất việc đăng ký tài khoản.',
     'finish': 'Hoàn thành',
+    'hint_fingerprint_authenticate': 'Xác thực vân tay',
     'err_invalid_phone_number': 'Số điện thoại không hợp lệ.',
     'hint_register_phone_input': 'Nhập số điện thoại để đăng kí tài khoản Gigabank.',
     'err_username_password': 'Tài khoản hoặc mật khẩu không chính xác.',

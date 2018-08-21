@@ -20,6 +20,7 @@ import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.hieuvp.fingerprint.ReactNativeFingerprintScannerPackage;
 
 
 public class MainApplication extends NavigationApplication {
@@ -52,7 +53,8 @@ public class MainApplication extends NavigationApplication {
                 new SystemSettingPackage(),
                 new RNI18nPackage(),
                 new SvgPackage(),
-                new RNCameraPackage()
+                new RNCameraPackage(),
+                new ReactNativeFingerprintScannerPackage()
         );
     }
 

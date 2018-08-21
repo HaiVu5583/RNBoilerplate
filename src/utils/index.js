@@ -217,3 +217,7 @@ export const toNormalCharacter = (str) => {
     str = str.replace(/Đ/g, "D");
     return str;
 }
+
+export const isFunction = (obj) => {
+    return !!(obj && obj.constructor && obj.call && obj.apply)
+}
