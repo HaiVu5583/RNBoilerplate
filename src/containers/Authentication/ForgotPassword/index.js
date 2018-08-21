@@ -9,6 +9,7 @@ import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
 
 const STEP = {
     INFO: 'INFO',
@@ -18,7 +19,12 @@ const STEP = {
 
 class ForgotPassword extends Component {
     static get options() {
-        return {}
+        return {
+            animations: {
+                push: DEFAULT_PUSH_ANIMATION,
+                pop: DEFAULT_POP_ANIMATION
+            }
+        }
     }
 
     constructor(props) {

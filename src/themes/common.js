@@ -4,6 +4,29 @@ const { width, height } = Dimensions.get('window')
 import { getElevation } from '~/src/utils'
 const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
 
+export const DEFAULT_PUSH_ANIMATION = {
+    content: {
+        x: {
+            from: 1000,
+            to: 0,
+            duration: 300,
+            interpolation: 'accelerate',
+        },
+    }
+}
+
+export const DEFAULT_POP_ANIMATION = {
+    content: {
+        x: {
+            from: 0,
+            to: 1000,
+            duration: 300,
+            interpolation: 'accelerate',
+        },
+    }
+
+}
+
 
 export const THEMES = {
     light: 'light',

@@ -6,6 +6,7 @@ import { YellowBox } from 'react-native'
 const store = configStore()
 import { BOTTOM_TABS } from '~/src/constants'
 import { persistStore } from 'redux-persist'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
 
 const _getBottomTabIcon = (tabs, size, color) => {
     const promiseList = []
@@ -52,6 +53,8 @@ export const run = () => {
     Navigation.events().registerAppLaunchedListener(() => {
         Navigation.setDefaultOptions({
             animations: {
+                push: DEFAULT_PUSH_ANIMATION,
+                pop: DEFAULT_POP_ANIMATION,
             },
             topBar: {
                 visible: false,
