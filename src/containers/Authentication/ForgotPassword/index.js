@@ -10,6 +10,7 @@ import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
+import OTPInput from '~/src/components/OTPInput'
 
 const STEP = {
     INFO: 'INFO',
@@ -188,12 +189,8 @@ class ForgotPassword extends Component {
                 </Surface>
                 {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
                 <Surface themeable={false} fullWidth mb20>
-                    <TextInput
-                        placeholder={I18n.t('hint_input_opt')}
-                        white
-                        keyboardType='numeric'
+                    <OTPInput numberDigit={4}
                         onChangeText={text => this.setState({ otp: text })}
-                        value={this.state.otp}
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>

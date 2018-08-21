@@ -2,7 +2,7 @@ import { getFontStyle } from '~/src/utils'
 import { Dimensions, PixelRatio } from 'react-native'
 const window = Dimensions.get('window')
 import { getElevation } from '~/src/utils'
-const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
+export const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
 export const DEVICE_WIDTH = window.width
 export const DEVICE_HEIGHT = window.height
 
@@ -83,6 +83,9 @@ export const TEXT_STYLES = {
     },
     white: {
         color: 'white'
+    },
+    lightWhite: {
+        backgroundColor: 'rgba(255, 255, 255, 0.7)'
     },
     center: {
         textAlign: 'center'
@@ -176,6 +179,9 @@ export const SURFACE_STYLES = {
     },
     white: {
         backgroundColor: 'white'
+    },
+    lightWhite: {
+        backgroundColor: 'rgba(255, 255, 255, 0.7)'
     },
     overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.3)'
