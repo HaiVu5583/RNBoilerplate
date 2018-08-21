@@ -11,6 +11,7 @@ import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
+import CircleCountdown from '~/src/components/CircleCountdown'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -144,6 +145,9 @@ class Register extends Component {
                         onChangeText={text => this.setState({ otp: text })}
                     />
                 </Surface>
+                <CircleCountdown time={20} onCountToEnd={() => {
+                    console.log('Counto End')
+                }} />
                 <Surface themeable={false} fullWidth mb20>
                     <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
                 </Surface>
