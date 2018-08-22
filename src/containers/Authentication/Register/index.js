@@ -103,10 +103,10 @@ class Register extends Component {
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('register').toUpperCase()}</Text>
+                    <Text white h6 center>{I18n.t('register_account')}</Text>
                 </Surface>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white body1>{I18n.t('hint_register_phone_input')}</Text>
+                    <Text center body2 lightWhite light>{I18n.t('hint_register_phone_input')}</Text>
                 </Surface>
                 {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                 <Surface themeable={false} fullWidth mb20>
@@ -142,16 +142,24 @@ class Register extends Component {
         return <CircleCountdown time={60} size={45} fontSize={18} />
     }
 
+    _handleResend = () => {
+
+    }
+
     _renderStepOTP = () => {
         const enableButtonContinueOTP = (this.state.otp && this.state.otp.length >= 4)
         return (
             <Surface themeable={false} flex>
                 <Surface pd20 themeable={false} flex>
                     <Surface themeable={false} fullWidth mb20 rowCenter>
-                        <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+                        <Text white h6 center>{I18n.t('verify_phone_number')}</Text>
                     </Surface>
                     <Surface themeable={false} fullWidth mb20 rowCenter>
-                        <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
+                        <Text body2 lightWhite light center>
+                            {I18n.t('input')}
+                            <Text body2 lightWhite bold center> {I18n.t('otp_with_hint')} </Text>
+                            {I18n.t('hint_input_opt2')} {this.state.phone}
+                        </Text>
                     </Surface>
                     {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
                     <Surface themeable={false} fullWidth mb20>
@@ -169,6 +177,14 @@ class Register extends Component {
                             onPress={this._handlePressContinueOTP}
                             rightComponent={this._renderCountdown}
                             innerExpand={true}
+                        />
+                    </Surface>
+                    <Surface themeable={false} fullWidth rowSpacebetween>
+                        <Text lightWhite light>{I18n.t('otp_not_work')}</Text>
+                        <Button flat
+                            text={I18n.t('resend').toUpperCase()}
+                            textStyle={{ color: '#38A5DA' }}
+                            onPress={this._handleResend}
                         />
                     </Surface>
                 </Surface>
@@ -206,7 +222,7 @@ class Register extends Component {
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('personal_info').toUpperCase()}</Text>
+                    <Text white h6 center>{I18n.t('personal_info')}</Text>
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
@@ -249,7 +265,7 @@ class Register extends Component {
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('personal_info').toUpperCase()}</Text>
+                    <Text white h6 center>{I18n.t('personal_info')}</Text>
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errBankAccount && <Text error body2>{this.state.errBankAccount}</Text>}
@@ -285,7 +301,7 @@ class Register extends Component {
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('password').toUpperCase()}</Text>
+                    <Text white h6 center>{I18n.t('password')}</Text>
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Password
@@ -358,6 +374,7 @@ class Register extends Component {
                     <PopupConfirm
                         animationType='none'
                         content={I18n.t('confirm_send_otp')}
+                        title={I18n.t('register_account')}
                         textButton1={I18n.t('cancel').toUpperCase()}
                         textButton2={I18n.t('confirm').toUpperCase()}
                         onPressButton1={() => { }}

@@ -9,7 +9,9 @@ export const DEVICE_HEIGHT = window.height
 export const COLORS = {
     WHITE: 'rgba(255, 255, 255, 1)',
     LIGHT_WHITE: 'rgba(255, 255, 255, 0.7)',
-    ERROR: 'rgba(255, 0, 0, 0.7)'
+    ERROR: 'rgba(255, 0, 0, 0.7)',
+    BLUE: '#1F73B6',
+    DARK_BLUE: '#43597B'
 }
 
 export const ASSETS = {
@@ -49,7 +51,8 @@ export const FONT_WEIGHTS = {
     light: 'light',
     regular: 'regular',
     medium: 'medium',
-    bold: 'bold'
+    bold: 'bold',
+    thin: 'thin'
 }
 
 export const TEXT_STYLES = {
@@ -95,13 +98,16 @@ export const TEXT_STYLES = {
         color: COLORS.WHITE
     },
     lightWhite: {
-        backgroundColor: COLORS.LIGHT_WHITE
+        color: COLORS.LIGHT_WHITE
     },
     center: {
         textAlign: 'center'
     },
     error: {
         color: COLORS.ERROR
+    },
+    thin: {
+        ...getFontStyle(FONT_WEIGHTS.thin),
     },
     light: {
         ...getFontStyle(FONT_WEIGHTS.light),
