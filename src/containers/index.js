@@ -9,18 +9,30 @@ export function registerContainerWithRedux(
     store,
     needPreloadComponent = false
 ) {
-    const generatorWrapper = function () {        
-        
+
+    const generatorWrapper = function () {
         const preloadComponent = needPreloadComponent ? requireComponentFunction().default : null
         return class Scene extends Component {
+            static InternalComponent = null
+            static initInternalComponent() {
+                if (!Scene.InternalComponent) {
+                    Scene.InternalComponent = preloadComponent || requireComponentFunction().default
+                }
+            }
+
+            static get options() {
+                Scene.initInternalComponent()
+                return Scene.InternalComponent.options ? { ...Scene.InternalComponent.options } : {}
+            }
+
             constructor(props) {
                 super(props);
-                this.__InternalComponent = preloadComponent || requireComponentFunction().default
+                Scene.initInternalComponent()
             }
             render() {
                 return (
                     <Provider store={store}>
-                        <this.__InternalComponent
+                        <Scene.InternalComponent
                             ref="child"
                             {...this.props}
                         />
@@ -59,10 +71,14 @@ function registerContainer(containerName, generator) {
 }
 
 export default registerScreens = (store) => {
-    
+
     registerContainerWithRedux(`gigabankclient.HomeScreen`, () => require('~/src/containers/Home'), store)
     registerContainerWithRedux(`gigabankclient.SplashScreen`, () => require('~/src/containers/SplashScreen'), store)
     registerContainerWithRedux(`gigabankclient.AnimatedScreen`, () => require('~/src/containers/AnimatedScreen'), store)
     registerContainerWithRedux(`gigabankclient.FeedScreen`, () => require('~/src/containers/FeedScreen'), store)
-    
+    registerContainerWithRedux(`gigabankclient.PictureBrowserScreen`, () => require('~/src/containers/PictureBrowserScreen'), store)
+    registerContainerWithRedux(`gigabankclient.Authentication`, () => require('~/src/containers/Authentication'), store)
+    registerContainerWithRedux(`gigabankclient.Login`, () => require('~/src/containers/Authentication/Login'), store)
+    registerContainerWithRedux(`gigabankclient.Register`, () => require('~/src/containers/Authentication/Register'), store)
+    registerContainerWithRedux(`gigabankclient.ForgotPassword`, () => require('~/src/containers/Authentication/ForgotPassword'), store)
 }

@@ -153,7 +153,8 @@ const glyphMap = {
 
 const iconSet = createIconSet(glyphMap, 'icon-clingme-2-0', 'icon-clingme-2-0.ttf');
 
-export default Animated.createAnimatedComponent(iconSet);
+// export default Animated.createAnimatedComponent(iconSet);
+export default iconSet
 
 export const Button = iconSet.Button;
 export const TabBarItem = iconSet.TabBarItem;

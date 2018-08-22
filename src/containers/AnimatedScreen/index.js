@@ -11,8 +11,27 @@ import {
 } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 const { height, width } = Dimensions.get('window')
+import { Toolbar } from '~/src/themes/ThemeComponent'
 
 export default class AnimatedScreen extends Component {
+
+    static get options() {
+        return {
+            // topBar: {
+            //     visible: true,
+            //     drawBehind: false,
+            //     animate: false,
+            //     title: {
+            //         text: 'Animated Screen'
+            //     },
+            // },
+            // bottomTabs: {
+            //     visible: false,
+            //     animate: false,
+            //     drawBehind: true
+            // }
+        };
+    }
 
     constructor(props) {
         super(props)
@@ -127,7 +146,7 @@ export default class AnimatedScreen extends Component {
         ]).start();
     }
 
-    componentDidAppear(){
+    componentDidAppear() {
         console.log('Animated Screen Did Appear', new Date().getTime())
     }
 
@@ -195,6 +214,7 @@ export default class AnimatedScreen extends Component {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
+                <Toolbar title='Animated Screen' iconRight={'3dots'} componentId={this.props.componentId} />
                 {/*<Animated.View style={{
                 backgroundColor: 'orange',
                 width: 20,
