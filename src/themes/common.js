@@ -232,7 +232,7 @@ export default {
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 16,
-        ...getElevation(2)
+        ...getElevation(0)
     },
     buttonTextDisable: {
         fontSize: 14,
