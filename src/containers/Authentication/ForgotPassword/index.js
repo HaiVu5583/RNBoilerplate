@@ -9,7 +9,7 @@ import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
-import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
@@ -240,7 +240,7 @@ class ForgotPassword extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
                 <Surface flex themeable={false}>
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}

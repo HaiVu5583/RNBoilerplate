@@ -5,10 +5,15 @@ import { getElevation } from '~/src/utils'
 export const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
 export const DEVICE_WIDTH = window.width
 export const DEVICE_HEIGHT = window.height
+
 export const COLORS = {
     WHITE: 'rgba(255, 255, 255, 1)',
     LIGHT_WHITE: 'rgba(255, 255, 255, 0.7)',
     ERROR: 'rgba(255, 0, 0, 0.7)'
+}
+
+export const ASSETS = {
+    MAIN_BACKGROUND: require('~/src/assets/background.jpg')
 }
 
 export const DEFAULT_PUSH_ANIMATION = {

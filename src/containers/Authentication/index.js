@@ -9,6 +9,7 @@ import { Platform } from 'react-native'
 import FingerprintScanner from 'react-native-fingerprint-scanner'
 import { TouchableOpacity } from 'react-native-ui-lib';
 import FingerprintPopup from './FingerprintPopup'
+import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 
 class Authentication extends Component {
     static get options() {
@@ -72,7 +73,7 @@ class Authentication extends Component {
     render() {
 
         return (
-            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
                 <Surface themeable={false} flex pd20>
                     <FingerprintPopup
                         ref={ref => this.fingerprintPopup = ref}
