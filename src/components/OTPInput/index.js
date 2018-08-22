@@ -30,17 +30,17 @@ export default class OTPInput extends React.PureComponent {
         return null
     }
 
-    _onChangeText = (text) => {
-        const validText = text.toString().replace(/\D/g, '')
-        this.setState({
-            otp: validText
-        })
-        this.props.onChangeText && this.props.onChangeText(validText)
-    }
+    // _onChangeText = (text) => {
+    //     const validText = text.toString().replace(/\D/g, '')
+    //     this.setState({
+    //         otp: validText
+    //     })
+    //     this.props.onChangeText && this.props.onChangeText(validText)
+    // }
 
     _handlePressOTP = () => {
-        this.input.blur()
-        this.input.focus()
+        // this.input.blur()
+        // this.input.focus()
     }
 
     render() {
@@ -71,7 +71,7 @@ export default class OTPInput extends React.PureComponent {
                         this.state.otp.length > 0 ? { borderBottomColor: activeColor } : { borderBottomColor: passiveColor }
                     ]}
                 >
-                    <TextInput
+                    {/* <TextInput
                         underlineColorAndroid='transparent'
                         ref={ref => this.input = ref}
                         autoCorrect={false}
@@ -82,7 +82,7 @@ export default class OTPInput extends React.PureComponent {
                         maxLength={numberDigit}
                         keyboardType={'numeric'}
                         editable={editable}
-                    />
+                    /> */}
                     <Surface themeable={false} rowCenter>
                         {otpViews}
                     </Surface>
