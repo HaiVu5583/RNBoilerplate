@@ -138,6 +138,9 @@ export const SURFACE_STYLES = {
     flex: {
         flex: 1
     },
+    expand: {
+        flex: 1
+    },
     columnCenter: {
         flexDirection: 'column',
         justifyContent: 'center',
@@ -178,9 +181,6 @@ export const SURFACE_STYLES = {
     },
     pd20: {
         padding: 20
-    },
-    blue: {
-        backgroundColor: '#256CAD'
     },
     white: {
         backgroundColor: COLORS.WHITE

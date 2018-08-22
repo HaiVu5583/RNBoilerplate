@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Surface, Text, Button, Image } from '~/src/themes/ThemeComponent'
-import { ImageBackground} from 'react-native'
+import { ImageBackground } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
@@ -73,7 +73,7 @@ class Authentication extends Component {
 
         return (
             <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
-                <Surface themeable={false} flex style={{ padding: 20 }}>
+                <Surface themeable={false} flex pd20>
                     <FingerprintPopup
                         ref={ref => this.fingerprintPopup = ref}
                         onAuthenticateSuccess={this._onAuthenticateSuccess}

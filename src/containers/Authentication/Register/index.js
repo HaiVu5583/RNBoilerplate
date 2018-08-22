@@ -13,6 +13,7 @@ import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/comm
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
+import CircleCountdown from '~/src/components/CircleCountdown'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -137,6 +138,10 @@ class Register extends Component {
         this.setState({ step: STEP.INFO })
     }
 
+    _renderCountdown = () => {
+        return <CircleCountdown time={60} size={45} fontSize={18} />
+    }
+
     _renderStepOTP = () => {
         const enableButtonContinueOTP = (this.state.otp && this.state.otp.length >= 4)
         return (
@@ -161,7 +166,10 @@ class Register extends Component {
                             round
                             text={I18n.t('continue').toUpperCase()}
                             full
-                            onPress={this._handlePressContinueOTP} />
+                            onPress={this._handlePressContinueOTP}
+                            rightComponent={this._renderCountdown}
+                            innerExpand={true}
+                        />
                     </Surface>
                 </Surface>
                 <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />

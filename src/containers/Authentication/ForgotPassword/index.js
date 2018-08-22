@@ -13,6 +13,7 @@ import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/comm
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
+import CircleCountdown from '~/src/components/CircleCountdown'
 
 const STEP = {
     INFO: 'INFO',
@@ -180,10 +181,14 @@ class ForgotPassword extends Component {
         this.setState({ step: STEP.PASSWORD })
     }
 
+    _renderCountdown = () => {
+        return <CircleCountdown time={60} size={45} fontSize={18} />
+    }
+
     _renderStepOTP = () => {
         return (
             <Surface themeable={false} flex>
-                <Surface pd20 themeable={false}>
+                <Surface pd20 themeable={false} flex>
                     <Surface themeable={false} fullWidth mb20 rowCenter>
                         <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
                     </Surface>
@@ -198,7 +203,14 @@ class ForgotPassword extends Component {
                         />
                     </Surface>
                     <Surface themeable={false} fullWidth mb20>
-                        <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
+                        <Button 
+                            round 
+                            text={I18n.t('continue').toUpperCase()} 
+                            full 
+                            onPress={this._handlePressContinueOTP} 
+                            rightComponent={this._renderCountdown}
+                            innerExpand={true}
+                            />
                     </Surface>
                 </Surface>
                 <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
@@ -229,7 +241,7 @@ class ForgotPassword extends Component {
     render() {
         return (
             <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
-                <Surface blue flex>
+                <Surface flex themeable={false}>
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}
                         themeable={false}
