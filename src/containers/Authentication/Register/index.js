@@ -89,7 +89,7 @@ class Register extends Component {
     }
 
     _handlePressContinuePhone = () => {
-        if (!this.state.phone || !isValidPhoneNumer(this.state.phone)) {
+        if (!isValidPhoneNumer(this.state.phone)) {
             this.setState({ errPhone: I18n.t('err_invalid_phone_number') })
             return
         } else {
@@ -98,6 +98,7 @@ class Register extends Component {
     }
 
     _renderStepPhone = () => {
+        const enableContinuePhoneButton = (this.state.phone && this.state.phone.trim())
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
@@ -117,7 +118,12 @@ class Register extends Component {
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinuePhone} />
+                    <Button
+                        enable={enableContinuePhoneButton}
+                        round
+                        text={I18n.t('continue').toUpperCase()}
+                        full
+                        onPress={this._handlePressContinuePhone} />
                 </Surface>
             </Surface>
         )
@@ -132,6 +138,7 @@ class Register extends Component {
     }
 
     _renderStepOTP = () => {
+        const enableButtonContinueOTP = (this.state.otp && this.state.otp.length >= 4)
         return (
             <Surface themeable={false} flex>
                 <Surface pd20 themeable={false} flex>
@@ -143,13 +150,18 @@ class Register extends Component {
                     </Surface>
                     {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
                     <Surface themeable={false} fullWidth mb20>
-                        <OTPInput 
+                        <OTPInput
                             numberDigit={4}
                             otp={this.state.otp}
                         />
                     </Surface>
                     <Surface themeable={false} fullWidth mb20>
-                        <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
+                        <Button
+                            enable={enableButtonContinueOTP}
+                            round
+                            text={I18n.t('continue').toUpperCase()}
+                            full
+                            onPress={this._handlePressContinueOTP} />
                     </Surface>
                 </Surface>
                 <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
@@ -181,6 +193,8 @@ class Register extends Component {
     }
 
     _renderStepInfo = () => {
+        const enableButtonContinueInfo = (this.state.name && this.state.name.trim()
+            && this.state.identityNumber && this.state.identityNumber.trim())
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
@@ -206,7 +220,12 @@ class Register extends Component {
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinuePersonalInfo} />
+                    <Button
+                        round
+                        text={I18n.t('continue').toUpperCase()}
+                        full
+                        enable={enableButtonContinueInfo}
+                        onPress={this._handlePressContinuePersonalInfo} />
                 </Surface>
             </Surface>
         )
@@ -218,6 +237,7 @@ class Register extends Component {
     }
 
     _renderStepBankAccount = () => {
+        const enableContinueBankAccountButton = (this.state.bankAccount && this.state.bankAccount.trim())
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
@@ -235,7 +255,12 @@ class Register extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueBankAccount} />
+                    <Button
+                        round
+                        text={I18n.t('continue').toUpperCase()}
+                        full
+                        enable={enableContinueBankAccountButton}
+                        onPress={this._handlePressContinueBankAccount} />
                 </Surface>
             </Surface>
         )

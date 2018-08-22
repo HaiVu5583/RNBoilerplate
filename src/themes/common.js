@@ -5,6 +5,11 @@ import { getElevation } from '~/src/utils'
 export const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
 export const DEVICE_WIDTH = window.width
 export const DEVICE_HEIGHT = window.height
+export const COLORS = {
+    WHITE: 'rgba(255, 255, 255, 1)',
+    LIGHT_WHITE: 'rgba(255, 255, 255, 0.7)',
+    ERROR: 'rgba(255, 0, 0, 0.7)'
+}
 
 export const DEFAULT_PUSH_ANIMATION = {
     content: {
@@ -46,7 +51,7 @@ export const TEXT_STYLES = {
     sologan: {
         ...getFontStyle(FONT_WEIGHTS.medium),
         fontSize: 30,
-        color: 'rgba(255, 255, 255, 0.85)'
+        color: COLORS.LIGHT_WHITE
     },
 
     h4: {
@@ -82,16 +87,16 @@ export const TEXT_STYLES = {
         fontSize: 14
     },
     white: {
-        color: 'white'
+        color: COLORS.WHITE
     },
     lightWhite: {
-        backgroundColor: 'rgba(255, 255, 255, 0.7)'
+        backgroundColor: COLORS.LIGHT_WHITE
     },
     center: {
         textAlign: 'center'
     },
     error: {
-        color: 'rgba(255, 0, 0, 0.85)'
+        color: COLORS.ERROR
     },
     light: {
         ...getFontStyle(FONT_WEIGHTS.light),
@@ -106,10 +111,10 @@ export const TEXT_STYLES = {
 
 export const TEXT_INPUT_STYLES = {
     white: {
-        color: 'white',
-        placeholderTextColor: 'rgba(255, 255, 255, 0.7)',
+        color: COLORS.WHITE,
+        placeholderTextColor: COLORS.LIGHT_WHITE,
         borderBottomWidth: LINE_HEIGHT,
-        borderBottomColor: 'white'
+        borderBottomColor: COLORS.WHITE
     }
 }
 
@@ -178,10 +183,10 @@ export const SURFACE_STYLES = {
         backgroundColor: '#256CAD'
     },
     white: {
-        backgroundColor: 'white'
+        backgroundColor: COLORS.WHITE
     },
     lightWhite: {
-        backgroundColor: 'rgba(255, 255, 255, 0.7)'
+        backgroundColor: COLORS.LIGHT_WHITE
     },
     overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.3)'
@@ -197,7 +202,7 @@ export default {
     button: {
         borderRadius: 2,
         backgroundColor: '#1B75BB',
-        height: 40,
+        height: 50,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -206,11 +211,25 @@ export default {
     },
     buttonText: {
         fontSize: 14,
-        color: 'white',
+        color: COLORS.WHITE,
+    },
+    buttonDisable: {
+        borderRadius: 2,
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 16,
+        ...getElevation(2)
+    },
+    buttonTextDisable: {
+        fontSize: 14,
+        color: COLORS.LIGHT_WHITE,
     },
     buttonIcon: {
         fontSize: 18,
-        color: 'white',
+        color: COLORS.WHITE,
         marginRight: 5
     },
     toolbar: {

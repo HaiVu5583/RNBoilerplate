@@ -77,6 +77,7 @@ class Login extends Component {
     }
 
     _renderStepPhone = () => {
+        const enableContinuePhoneButton = (this.state.phone && this.state.phone.trim())
         return (
             <Surface style={{ padding: 20 }} themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
@@ -93,7 +94,12 @@ class Login extends Component {
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinuePhone} />
+                    <Button
+                        round
+                        text={I18n.t('continue').toUpperCase()}
+                        full
+                        enable={enableContinuePhoneButton}
+                        onPress={this._handlePressContinuePhone} />
                 </Surface>
             </Surface>
         )
