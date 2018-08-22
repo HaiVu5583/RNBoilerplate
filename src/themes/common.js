@@ -1,5 +1,35 @@
 import { getFontStyle } from '~/src/utils'
-import { Platform } from 'react-native'
+import { Dimensions, PixelRatio, Platform } from 'react-native'
+import { getElevation } from '~/src/utils'
+
+const window = Dimensions.get('window')
+
+export const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
+export const DEVICE_WIDTH = window.width
+export const DEVICE_HEIGHT = window.height
+
+export const DEFAULT_PUSH_ANIMATION = {
+    content: {
+        x: {
+            from: 1000,
+            to: 0,
+            duration: 300,
+            interpolation: 'accelerate',
+        },
+    }
+}
+
+export const DEFAULT_POP_ANIMATION = {
+    content: {
+        x: {
+            from: 0,
+            to: 1000,
+            duration: 300,
+            interpolation: 'accelerate',
+        },
+    }
+
+}
 
 export const THEMES = {
     light: 'light',
@@ -13,12 +43,17 @@ export const FONT_WEIGHTS = {
     bold: 'bold'
 }
 
-// export const FONT_SIZES = {
-//     small: 10,
-
-// }
-
 export const TEXT_STYLES = {
+    sologan: {
+        ...getFontStyle(FONT_WEIGHTS.medium),
+        fontSize: 30,
+        color: 'rgba(255, 255, 255, 0.85)'
+    },
+
+    h4: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 34
+    },
     h5: {
         ...getFontStyle(FONT_WEIGHTS.regular),
         fontSize: 24
@@ -46,18 +81,126 @@ export const TEXT_STYLES = {
     subtitle2: {
         ...getFontStyle(FONT_WEIGHTS.medium),
         fontSize: 14
+    },
+    white: {
+        color: 'white'
+    },
+    lightWhite: {
+        backgroundColor: 'rgba(255, 255, 255, 0.7)'
+    },
+    center: {
+        textAlign: 'center'
+    },
+    error: {
+        color: 'rgba(255, 0, 0, 0.85)'
+    },
+    light: {
+        ...getFontStyle(FONT_WEIGHTS.light),
+    },
+    medium: {
+        ...getFontStyle(FONT_WEIGHTS.medium),
+    },
+    bold: {
+        ...getFontStyle(FONT_WEIGHTS.bold),
     }
 }
+
+export const TEXT_INPUT_STYLES = {
+    white: {
+        color: 'white',
+        placeholderTextColor: 'rgba(255, 255, 255, 0.7)',
+        borderBottomWidth: LINE_HEIGHT,
+        borderBottomColor: 'white'
+    }
+}
+
+export const BUTTON_STYLES = {
+    round: {
+        borderRadius: 25
+    },
+    flat: {
+        backgroundColor: 'transparent',
+        ...getElevation(0)
+    },
+    full: {
+        width: '100%'
+    }
+}
+
+export const SURFACE_STYLES = {
+    fullWidth: {
+        width: '100%'
+    },
+    flex: {
+        flex: 1
+    },
+    columnCenter: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    columnStart: {
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    columnEnd: {
+        flexDirection: 'column',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    rowCenter: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    rowStart: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'center'
+    },
+    rowEnd: {
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'center'
+    },
+    rowSpacebetween: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    mb20: {
+        marginBottom: 20
+    },
+    pd20: {
+        padding: 20
+    },
+    blue: {
+        backgroundColor: '#256CAD'
+    },
+    white: {
+        backgroundColor: 'white'
+    },
+    lightWhite: {
+        backgroundColor: 'rgba(255, 255, 255, 0.7)'
+    },
+    overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.3)'
+    }
+}
+
+export const TOOLBAR_HEIGHT = 56
 
 export default {
     button: {
         borderRadius: 2,
-        backgroundColor: '#F16654',
+        backgroundColor: '#1B75BB',
         height: 40,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 16
+        paddingHorizontal: 16,
+        ...getElevation(2)
     },
     buttonText: {
         fontSize: 14,
@@ -67,6 +210,42 @@ export default {
         fontSize: 18,
         color: 'white',
         marginRight: 5
+    },
+    toolbar: {
+        container: {
+            height: TOOLBAR_HEIGHT,
+            width: DEVICE_WIDTH,
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            elevation: 2,
+            zIndex: 10000
+        },
+        iconLeft: {
+            fontSize: 19,
+        },
+        iconLeftContainer: {
+            paddingLeft: 16,
+            paddingRight: 32,
+            height: TOOLBAR_HEIGHT,
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        title: {
+            fontSize: 20,
+            flex: 1
+        },
+        iconRightContainer: {
+            paddingRight: 16,
+            paddingLeft: 8,
+            height: TOOLBAR_HEIGHT,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-end',
+        },
+        iconRight: {
+            fontSize: 19,
+        }
     }
 }
 

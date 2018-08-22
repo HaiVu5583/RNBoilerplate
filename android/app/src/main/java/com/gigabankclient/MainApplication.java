@@ -11,11 +11,18 @@ import com.krazylabs.OpenAppSettingsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
+
+import com.oblador.shimmer.RNShimmerPackage;
+import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
+import com.dylanvann.fastimage.FastImageViewPackage;
+import com.krazylabs.OpenAppSettingsPackage;
+import org.reactnative.camera.RNCameraPackage;
+import com.horcrux.svg.SvgPackage;
+import com.ninty.system.setting.SystemSettingPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
+
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.shell.MainReactPackage;
-import com.facebook.soloader.SoLoader;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -66,6 +73,10 @@ import com.reactnativenavigation.react.ReactGateway;
 //  }
 //}
 
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.hieuvp.fingerprint.ReactNativeFingerprintScannerPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
+
 
 public class MainApplication extends NavigationApplication {
 
@@ -89,15 +100,28 @@ public class MainApplication extends NavigationApplication {
         // Add additional packages you require here
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
-                new MainReactPackage(),
+
+//                new MainReactPackage(),
+                // new VectorIconsPackage(),
+                // new SvgPackage(),
+                // new RNI18nPackage(),
+                // new SystemSettingPackage(),
+                // new RNShimmerPackage(),
+                // new FastImageViewPackage(),
+                // new OpenAppSettingsPackage(),
+                new RCTToastPackage(),
+
                 new VectorIconsPackage(),
-                new SvgPackage(),
-                new RNI18nPackage(),
-                new SystemSettingPackage(),
-                new RNShimmerPackage(),
+                new RNDeviceInfo(),
                 new FastImageViewPackage(),
+                new RNShimmerPackage(),
                 new OpenAppSettingsPackage(),
-                new RCTToastPackage()
+                new SystemSettingPackage(),
+                new RNI18nPackage(),
+                new SvgPackage(),
+                new RNCameraPackage(),
+                new ReactNativeFingerprintScannerPackage(),
+                new LinearGradientPackage()
         );
     }
 
@@ -106,3 +130,4 @@ public class MainApplication extends NavigationApplication {
         return getPackages();
     }
 }
+

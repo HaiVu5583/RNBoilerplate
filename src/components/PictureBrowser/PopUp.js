@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, Dimensions, TouchableOpacity, Platform } from 'react-native'
-import I18n from '~/ui/I18n'
+import I18n from '~/src/I18n'
 
 const {height, width} = Dimensions.get('window')
 

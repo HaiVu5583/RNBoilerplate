@@ -5,7 +5,7 @@ import {
     Image, BackHandler
 } from 'react-native';
 import { Navigation } from 'react-native-navigation'
-import Icon from '~/src/components/FontIcon'
+import {Icon} from '~/src/themes/ThemeComponent'
 import { Colors } from 'react-native-ui-lib';
 import { View } from '~/src/themes/ThemeComponent'
 
@@ -37,14 +37,6 @@ export default class SplashScreen extends Component {
     }
 
     componentDidMount() {
-        console.log('Splash Screen Did Mount')
-        setTimeout(() => {
-            Navigation.setStackRoot(this.props.componentId, {
-                component: {
-                    name: 'gigabankclient.HomeScreen',
-                },
-            });
-        }, 1000)
         BackHandler.addEventListener('hardwareBackPress', this._onBack)
     }
 

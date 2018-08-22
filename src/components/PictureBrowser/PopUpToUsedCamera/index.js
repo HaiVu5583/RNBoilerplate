@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, Dimensions, TouchableWithoutFeedback } from 'react-native'
-import I18n from '~/ui/I18n'
-import PopupConfirm from '~/ui/components/PopupConfirm'
+import I18n from '~/src/I18n'
+import PopupConfirm from '~/src/components/PopupConfirm'
 
 const {height, width} = Dimensions.get('window')
 

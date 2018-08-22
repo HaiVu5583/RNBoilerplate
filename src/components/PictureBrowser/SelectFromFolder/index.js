@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { Platform, View, Text, Modal, TouchableOpacity, ActivityIndicator, CameraRoll, FlatList, Image, Button, Dimensions, TouchableWithoutFeedback } from 'react-native'
-import {chainParse} from '~/ui/shared/utils'
+import {chainParse} from '~/src/utils'
 
-import Icon from '~/ui/components/ClingmeFont2'
-import {getAlbums} from '~/ui/shared/utils'
+import {Icon} from '~/src/themes/ThemeComponent'
+import {getAlbums} from '~/src/components/PictureBrowser/CameraRollManager'
 import Header from '../Header'
 import RNPhotosFramework from 'react-native-photos-framework'
 

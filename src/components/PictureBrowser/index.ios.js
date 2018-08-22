@@ -1,23 +1,41 @@
-import React, { Component } from 'react'
-import { BackHandler, AppState, Platform, View, Text, Switch, StyleSheet, WebView, Modal, TouchableOpacity, ActivityIndicator, CameraRoll, FlatList, Image, Button, Dimensions } from 'react-native'
-import { ImageBackground } from 'react-native'
+import React, {Component} from 'react'
+import {
+    BackHandler,
+    AppState,
+    Platform,
+    View,
+    Text,
+    Switch,
+    StyleSheet,
+    WebView,
+    Modal,
+    TouchableOpacity,
+    ActivityIndicator,
+    CameraRoll,
+    FlatList,
+    Image,
+    Button,
+    Dimensions
+} from 'react-native'
+
+import {ImageBackground} from 'react-native'
+import OpenAppSettings from 'react-native-app-settings'
+
 import PopUp from './PopUp'
-import Icon from '~/ui/components/ClingmeFont2'
 import Header from './Header'
-import ClingmeUtils from '~/utils/ClingmeUtils'
 import SelectFromFolder from './SelectFromFolder'
 import PopUpOpenCamera from './PopUpToUsedCamera'
-import NotificationCenter from '~/utils/NotificationCenter'
-import {commonStyle} from '~/ui/styles/common'
-const {height, width} = Dimensions.get('window')
-import { chainParse } from '~/ui/shared/utils'
 import AcceptToViewAlbum from './AcceptToViewAlbum'
-import ImagePicker from 'react-native-image-picker'
-import Permissions from '~/utils/Permissions'
+
+import {Icon} from '~/src/themes/ThemeComponent'
+import Permissions from '~/src/utils/PermissionManager'
+import {chainParse} from '~/src/utils'
+import Camera from '~/src/components/Camera'
+
+const {height, width} = Dimensions.get('window')
+
+// import ClingmeUtils from '~/utils/ClingmeUtils'
 import RNPhotosFramework from 'react-native-photos-framework'
-import OpenAppSettings from 'react-native-app-settings'
-import CameraBillCapture from '~/ui/components/CameraBillCapture'
-import NativeComponent from '~/ui/components/NativeComponent'
 
 const maxOfImagesSelected = 6
 
@@ -28,7 +46,7 @@ const POPUP_TYPE_ALBUM_PERMISSION = 3
 const MAX_IMAGE_IN_PAGE = 50
 const ALL_PICTURES_GROUP = 'Tất cả ảnh'
 
-export default class PictureBrowser extends NativeComponent {
+export default class PictureBrowser extends React.PureComponent{
     selectedImage = []
     numberAtIndex = []
 
@@ -44,7 +62,7 @@ export default class PictureBrowser extends NativeComponent {
             showSelectFromAlbum: false,
             groupName: ALL_PICTURES_GROUP,
             pageInfo: '',
-            startIndex: 0,            
+            startIndex: 0,
             stateShowPopUpCamera: false,
             selectedPictures: selectedPictures || [],
             popupType: POPUP_TYPE_NONE
@@ -70,98 +88,98 @@ export default class PictureBrowser extends NativeComponent {
 
     filtAlbum = (pictureList, album) => {
         if (!album || album == '') {
-            return pictureList 
+            return pictureList
         } else {
-            return  pictureList.filter(item => {
-                        return item.node && item.node.group_name == album
-                    })
+            return pictureList.filter(item => {
+                return item.node && item.node.group_name == album
+            })
         }
     }
-    _handleButtonPress = (_groupName) => {  
+    _handleButtonPress = (_groupName) => {
         this._isGetAlbumSuccess = false
         //this._getPhotoWithGroupName(_groupName)
-        
+
         if (!this._isGetAlbumSuccess) {
             this._isGetAlbumSuccess = true
-            this._selectFolder.requestFolder((groupName) => {                
+            this._selectFolder.requestFolder((groupName) => {
                 this._getPhotoWithGroupName(_groupName)
             })
         } else {
             this._getPhotoWithGroupName(_groupName)
         }
-        
+
     }
 
     _getAlbumObjectByGroupName = (groupName, callback) => {
         let option1 = {
-                    type: 'album',
-                    subType: 'any',
-                    assetCount: 'exact',
-                    previewAssets: 1,
-                    fetchOptions: {
-                      sortDescriptors : [
-                        {
-                          key: 'title',
-                          ascending: true
-                        }
-                      ],
-                      includeHiddenAssets: false,
-                      includeAllBurstAssets: false
-                    },
-                    //When you say 'trackInsertsAndDeletes or trackChanges' for an albums query result,
-                    //They will be cached and tracking will start.
-                    //Call queryResult.stopTracking() to stop this. ex. on componentDidUnmount
-                    trackInsertsAndDeletes : true,
-                    trackChanges : false
+            type: 'album',
+            subType: 'any',
+            assetCount: 'exact',
+            previewAssets: 1,
+            fetchOptions: {
+                sortDescriptors: [
+                    {
+                        key: 'title',
+                        ascending: true
+                    }
+                ],
+                includeHiddenAssets: false,
+                includeAllBurstAssets: false
+            },
+            //When you say 'trackInsertsAndDeletes or trackChanges' for an albums query result,
+            //They will be cached and tracking will start.
+            //Call queryResult.stopTracking() to stop this. ex. on componentDidUnmount
+            trackInsertsAndDeletes: true,
+            trackChanges: false
 
-                  }
+        }
 
-        let option2 = {...option1 , type: 'smartAlbum'}
+        let option2 = {...option1, type: 'smartAlbum'}
 
         RNPhotosFramework.getAlbums(option1).then((queryResult1) => {
             RNPhotosFramework.getAlbums(option2).then((queryResult2) => {
-                        const albums = [...queryResult1.albums, ...queryResult2.albums]
+                const albums = [...queryResult1.albums, ...queryResult2.albums]
 
-                        let listFolder = []
-                        let listNumber = []
+                let listFolder = []
+                let listNumber = []
 
-                        this.totalImage = 0
+                this.totalImage = 0
 
-                        let listImage = []
-                        albums.forEach(e => {
+                let listImage = []
+                albums.forEach(e => {
 
-                            const subType = e.subType                            
+                    const subType = e.subType
 
-                            if (
-                                (subType === 'albumRegular'
-                                || subType === 'smartAlbumUserLibrary'
-                                )
-                                && e.assetCount > 0                                
-                                ) {
-                                //"smartAlbumUserLibrary"
-                                
-                                
-                                if (this.totalImage < e.assetCount)
-                                    this.totalImage = e.assetCount
+                    if (
+                        (subType === 'albumRegular'
+                            || subType === 'smartAlbumUserLibrary'
+                        )
+                        && e.assetCount > 0
+                    ) {
+                        //"smartAlbumUserLibrary"
 
-                                const titleLower = e.title.toLowerCase()
 
-                                if (groupName.toLowerCase() == titleLower) {
-                                    callback(e)
-                                    return
-                                }
-                                
-                             }
-                        })                                        
-                        
-                  })
+                        if (this.totalImage < e.assetCount)
+                            this.totalImage = e.assetCount
+
+                        const titleLower = e.title.toLowerCase()
+
+                        if (groupName.toLowerCase() == titleLower) {
+                            callback(e)
+                            return
+                        }
+
+                    }
+                })
+
+            })
         })
     }
 
     _getPhotoWithGroupNameIOS = (_groupName, startIndex = 0) => {
 
         if (startIndex == 0) {
-            this.reachToEndPhotoList = false            
+            this.reachToEndPhotoList = false
         }
 
         if (this.reachToEndPhotoList) {
@@ -181,45 +199,46 @@ export default class PictureBrowser extends NativeComponent {
                 //The fetch-options from the outer query will apply here, if we get
                 //prepareForSizeDisplay: Rect(100,100),
                 startIndex: startIndex,
-                endIndex: startIndex + MAX_IMAGE_IN_PAGE}).then(r => {
-                    console.log(r)
+                endIndex: startIndex + MAX_IMAGE_IN_PAGE
+            }).then(r => {
+                console.log(r)
 
-                    console.log('getPhotos')
-             
-                    if (r.includesLastAsset) {
-                        this.reachToEndPhotoList = true
-                    }
+                console.log('getPhotos')
 
-                    //DuongNT: loc cac picture thuoc 1 album
-                    let photoList = r.assets                
-                    if (startIndex > 0) {
-                        photoList = [...this.state.photos, ...photoList]
-                    }
+                if (r.includesLastAsset) {
+                    this.reachToEndPhotoList = true
+                }
 
-                    this.setState({photos:photoList, startIndex: startIndex + r.assets.length});
+                //DuongNT: loc cac picture thuoc 1 album
+                let photoList = r.assets
+                if (startIndex > 0) {
+                    photoList = [...this.state.photos, ...photoList]
+                }
 
-                    if (this.state.selectedPictures && this.state.selectedPictures.length > 0) {
-                        console.log('a')
-                        this.updateList(this.state.selectedPictures)
-                    }
-                    else {
-                        console.log('b')
-                        this.initNumber()
+                this.setState({photos: photoList, startIndex: startIndex + r.assets.length});
 
-                        for (let i=0; i<this.numberAtIndex.length; i++) this.numberAtIndex[i] = 0
+                if (this.state.selectedPictures && this.state.selectedPictures.length > 0) {
+                    console.log('a')
+                    this.updateList(this.state.selectedPictures)
+                }
+                else {
+                    console.log('b')
+                    this.initNumber()
 
-                        for (let k=0; k<this.selectedImage.length; k++) {
-                            for (let j = 0; j < this.numberAtIndex.length; j++) {
-                                if (this.selectedImage[k] == this.state.photos[j].uri) {
-                                    this.numberAtIndex[j] = k + 1
-                                }
+                    for (let i = 0; i < this.numberAtIndex.length; i++) this.numberAtIndex[i] = 0
+
+                    for (let k = 0; k < this.selectedImage.length; k++) {
+                        for (let j = 0; j < this.numberAtIndex.length; j++) {
+                            if (this.selectedImage[k] == this.state.photos[j].uri) {
+                                this.numberAtIndex[j] = k + 1
                             }
                         }
-
-                        this.forceUpdate()
                     }
-                })
+
+                    this.forceUpdate()
+                }
             })
+        })
     }
     _getPhotoWithGroupName = (_groupName, startIndex = 0) => {
         this._getPhotoWithGroupNameIOS(_groupName, startIndex)
@@ -236,12 +255,12 @@ export default class PictureBrowser extends NativeComponent {
         CameraRoll.getPhotos({
             first: 25,
             groupTypes: Platform.OS === 'android' ? undefined : 'All',
-            assetType: 'Photos',            
+            assetType: 'Photos',
             groupName: tempGroupName,
             mimeTypes: ['image/jpeg', 'image/png']
         })
             .then(r => {
-                                
+
                 //DuongNT iOS only
                 if (!this._isGetAlbumSuccess) {
                     this._isGetAlbumSuccess = true
@@ -263,7 +282,7 @@ export default class PictureBrowser extends NativeComponent {
                     photoList = [...this.state.photos, ...photoList]
                 }
 
-                this.setState({photos:photoList, startIndex: end_cursor});
+                this.setState({photos: photoList, startIndex: end_cursor});
 
                 if (this.state.selectedPictures && this.state.selectedPictures.length > 0) {
                     console.log('a')
@@ -273,9 +292,9 @@ export default class PictureBrowser extends NativeComponent {
                     console.log('b')
                     this.initNumber()
 
-                    for (let i=0; i<this.numberAtIndex.length; i++) this.numberAtIndex[i] = 0
+                    for (let i = 0; i < this.numberAtIndex.length; i++) this.numberAtIndex[i] = 0
 
-                    for (let k=0; k<this.selectedImage.length; k++) {
+                    for (let k = 0; k < this.selectedImage.length; k++) {
                         for (let j = 0; j < this.numberAtIndex.length; j++) {
                             if (this.selectedImage[k] == this.state.photos[j].uri) {
                                 this.numberAtIndex[j] = k + 1
@@ -290,8 +309,8 @@ export default class PictureBrowser extends NativeComponent {
                 //Error Loading Images
                 if (err.code == 'E_UNABLE_TO_LOAD_PERMISSION') {
                     this._isRequestAlbumPermission = true
-                    ClingmeUtils.requestReadStoragePermission()
-                } else                
+                    Permissions.requestAlbumPermission();
+                } else
                     this.setState({popupType: POPUP_TYPE_ALBUM_PERMISSION})
             });
     }
@@ -305,8 +324,7 @@ export default class PictureBrowser extends NativeComponent {
         if (Platform.OS == 'ios' && tempGroupName == '') {
             tempGroupName = this._selectFolder.getAllAlbumGroupName()
         }
-        
-        
+
 
         CameraRoll.getPhotos({
             first: 25,
@@ -324,7 +342,7 @@ export default class PictureBrowser extends NativeComponent {
                     end_cursor = r.page_info.end_cursor
                 }
 
-                
+
                 //DuongNT: loc cac picture thuoc 1 album
                 let photoList = this.filtAlbum(r.edges, tempGroupName)
 
@@ -338,9 +356,9 @@ export default class PictureBrowser extends NativeComponent {
                     // console.log('b')
                     this.initNumber()
 
-                    for (let i=0; i<this.numberAtIndex.length; i++) this.numberAtIndex[i] = 0
+                    for (let i = 0; i < this.numberAtIndex.length; i++) this.numberAtIndex[i] = 0
 
-                    for (let k=0; k<this.selectedImage.length; k++) {
+                    for (let k = 0; k < this.selectedImage.length; k++) {
                         for (let j = 0; j < this.numberAtIndex.length; j++) {
                             if (this.selectedImage[k] == this.state.photos[j].uri) {
                                 this.numberAtIndex[j] = k + 1
@@ -395,8 +413,8 @@ export default class PictureBrowser extends NativeComponent {
 
         const {onPictureSelected} = this.props
 
-        if (onPictureSelected) 
-            onPictureSelected(picturesList)        
+        if (onPictureSelected)
+            onPictureSelected(picturesList)
 
         if (this.__callbacks && this.__callbacks.onPictureSelected) this.__callbacks.onPictureSelected(picturesList)
 
@@ -418,7 +436,7 @@ export default class PictureBrowser extends NativeComponent {
             if (this.state.counterSelect == 1 && this.selectedImage[0] === picUri) {
                 this.selectedImage = []
                 this.numberAtIndex = []
-                this.setState({counterSelect: 0, popupType: POPUP_TYPE_NONE})                
+                this.setState({counterSelect: 0, popupType: POPUP_TYPE_NONE})
             } else {
                 this.selectedImage = [picUri]
                 this.numberAtIndex = []
@@ -470,9 +488,8 @@ export default class PictureBrowser extends NativeComponent {
     }
 
     _renderCameraScreen = () => {
-        // import CameraBillCapture from '~/ui/components/CameraBillCapture'
         return (
-            <CameraBillCapture
+            <Camera
                 hideButtonQuestion={true}
                 hideText={true}
                 ref={ref => this.camera = ref}
@@ -501,7 +518,7 @@ export default class PictureBrowser extends NativeComponent {
         console.log('ducpv::onOpenCamera')
 
         // ImagePicker.launchCamera(options, (response)  => {
-        this.camera.launchCamera(options, (response)  => {
+        this.camera.launchCamera(options, (response) => {
 
             // Same code as in above section!
             console.log('camera ok: ', response)
@@ -509,7 +526,7 @@ export default class PictureBrowser extends NativeComponent {
                 if (!this.allowCameraSaveToCameraRoll) {
                     this._finishSelectPictures([response.uri, ...this.selectedImage])
                 } else {
-                    CameraRoll.saveToCameraRoll(response.uri, 'photo').then( imgPath => {
+                    CameraRoll.saveToCameraRoll(response.uri, 'photo').then(imgPath => {
                         // console.log('PictureBrowser CameraRoll saveToCameraRoll response', {imgPath});
                         this._finishSelectPictures([imgPath, ...this.selectedImage])
                     });
@@ -533,7 +550,7 @@ export default class PictureBrowser extends NativeComponent {
         if (data.item.avatar != null && data.item.avatar == true) {
             return (
                 <TouchableOpacity
-                    onPress = {() => this.onOpenCamera()}
+                    onPress={() => this.onOpenCamera()}
                 >
                     <View style={{
                         width: width * 0.33,
@@ -543,21 +560,21 @@ export default class PictureBrowser extends NativeComponent {
                         alignItems: 'center',
                         justifyContent: 'center',
                     }}>
-                        <Icon name = 'camera' style = {{color: 'rgba(0, 0, 0, 0.6)', fontSize: 20}}/>
-                        <Text style = {{fontSize: 14, color: 'rgba(0, 0, 0, 0.6)'}}>
+                        <Icon name='camera' style={{color: 'rgba(0, 0, 0, 0.6)', fontSize: 20}}/>
+                        <Text style={{fontSize: 14, color: 'rgba(0, 0, 0, 0.6)'}}>
                             Chụp ảnh
                         </Text>
                     </View>
                 </TouchableOpacity>
             )
         }
-        
+
 
         const dataIndex = data.index - 1
 
         return (
             <TouchableOpacity
-                onPress = {() => this._onPressPic(data, this.state.counterSelect+1)}
+                onPress={() => this._onPressPic(data, this.state.counterSelect + 1)}
             >
                 <ImageBackground
                     style={{
@@ -567,29 +584,29 @@ export default class PictureBrowser extends NativeComponent {
                         marginLeft: width * 0.003,
                         alignItems: 'flex-end',
                     }}
-                    resizeMode = {'cover'}
+                    resizeMode={'cover'}
                     source={{uri: data.item.uri}}
-                    resizeMethod = {'resize'}
+                    resizeMethod={'resize'}
                     // source={{uri: 'content://media/external/images/media/2864'}}
-                    >
+                >
 
                     {
                         (this.numberAtIndex.length >= data.index && this.numberAtIndex[dataIndex] > 0) && this._renderImageNumber(this.numberAtIndex[dataIndex])
                     }
                 </ImageBackground>
 
-                <View style = {{width: '100%', height: width * 0.003,}}></View>
+                <View style={{width: '100%', height: width * 0.003,}}></View>
             </TouchableOpacity>
         );
     }
 
     _renderImageNumber = (number) => {
-        
+
 
         if (this.maxOfImagesSelected === 1) {
             return (
                 <View
-                    style = {{
+                    style={{
                         overflow: 'hidden',
                         backgroundColor: '#43bcca',
                         borderWidth: 3,
@@ -603,14 +620,14 @@ export default class PictureBrowser extends NativeComponent {
                         alignItems: 'center'
                     }}
                 >
-                    <Icon name = 'check' style = {{color: 'white', fontSize: 10}}/>
+                    <Icon name='check' style={{color: 'white', fontSize: 10}}/>
                 </View>
-                )
+            )
         } else {
 
             return (
                 <View
-                    style = {{
+                    style={{
                         overflow: 'hidden',
                         backgroundColor: '#43bcca',
                         borderWidth: 3,
@@ -625,7 +642,7 @@ export default class PictureBrowser extends NativeComponent {
                     }}
                 >
                     <Text
-                        style = {{
+                        style={{
                             fontSize: 13,
                             color: 'white',
                         }}
@@ -633,12 +650,12 @@ export default class PictureBrowser extends NativeComponent {
                         {number}
                     </Text>
                 </View>
-                )
+            )
         }
     }
 
     initNumber = () => {
-        for (let i=this.numberAtIndex.length; i < this.state.photos.length; i++) {
+        for (let i = this.numberAtIndex.length; i < this.state.photos.length; i++) {
             this.numberAtIndex.push(0)
         }
     }
@@ -657,24 +674,24 @@ export default class PictureBrowser extends NativeComponent {
             this._handleButtonPress('')
         }
         this.numberAtIndex = []
-        
+
         this._requestAlbum()
         AppState.addEventListener('change', this._handleAppStateChange)
 
         BackHandler.addEventListener('hardwareBackPress', this._onAndroidHardbackPressed)
     }
-    
-    _onAndroidHardbackPressed = () => {        
+
+    _onAndroidHardbackPressed = () => {
         // const {popupType} = this.state
-        
+
         // if (popupType !== POPUP_TYPE_NONE) {
         //     this.setState({popupType: POPUP_TYPE_NONE})
         //     return true
         // } else {
         //     return false
         // }  
-        this._onBack() 
-        return true     
+        this._onBack()
+        return true
     }
 
     componentWillUnmount() {
@@ -682,11 +699,12 @@ export default class PictureBrowser extends NativeComponent {
         //NotificationCenter.unregisterNotification('enforce_close_picture_browser', this._onEnforceClose)
         BackHandler.removeEventListener('hardwareBackPress', this._onAndroidHardbackPressed)
     }
-    _requestAlbum = (albumName='') => {
+
+    _requestAlbum = (albumName = '') => {
         // console.log('Album Name', albumName)
         if (!albumName) albumName = ''
         this.updateWithSelectedPictures(albumName)
-        
+
         this._isGetAlbumSuccess = false
         Permissions.checkAlbumPermission(response => {
             if (response == 'authorized') {
@@ -699,7 +717,9 @@ export default class PictureBrowser extends NativeComponent {
                 if (!this.firstRequestReadStoragePermission) {
                     this.firstRequestReadStoragePermission = true;
                     this._isRequestAlbumPermission = true
-                    ClingmeUtils.requestReadStoragePermission()
+                    // ClingmeUtils.requestReadStoragePermission()
+                    Permissions.requestAlbumPermission();
+
                 } else {
                     this.setState({
                         popupType: POPUP_TYPE_ALBUM_PERMISSION
@@ -707,7 +727,7 @@ export default class PictureBrowser extends NativeComponent {
                 }
             }
         })
-        
+
     }
     _handleAppStateChange = (nextAppState) => {
         if (!!this._isRequestAlbumPermission && this.state.appState && this.state.appState.match(/inactive|background/) && nextAppState === 'active') {
@@ -728,11 +748,11 @@ export default class PictureBrowser extends NativeComponent {
         console.log('listSelected and list Image', listSelected, this.state.photos)
         this.initNumber()
 
-        for (let i=0; i < this.numberAtIndex.length; i++) {
+        for (let i = 0; i < this.numberAtIndex.length; i++) {
             this.numberAtIndex[i] = 0
         }
 
-        for (let k=0; k<listSelected.length; k++) {
+        for (let k = 0; k < listSelected.length; k++) {
             for (let j = 0; j < this.numberAtIndex.length; j++) {
                 if (listSelected[k] == this.state.photos[j].uri) {
                     this.numberAtIndex[j] = k + 1
@@ -781,9 +801,9 @@ export default class PictureBrowser extends NativeComponent {
             else {
 
             }
-        })   
+        })
 
-        this.setState({popupType: POPUP_TYPE_NONE})        
+        this.setState({popupType: POPUP_TYPE_NONE})
     }
     _closeAlbumPermission = () => {
         this.setState({popupType: POPUP_TYPE_NONE})
@@ -798,67 +818,78 @@ export default class PictureBrowser extends NativeComponent {
         this._hideSelectFromAlbum()
         return true
     }
+
     render() {
         console.log('Render Picture Browser')
         if (this.props.isShow !== undefined && !this.props.isShow) return false
 
 
         return (
-            <View style={{zIndex: 3000, width: width, height: height, backgroundColor: '#ffffff', position: 'absolute', top: 0, left: 0, flex: 1}}>
+            <View style={{
+                zIndex: 3000,
+                width: width,
+                height: height,
+                backgroundColor: '#ffffff',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                flex: 1
+            }}>
                 {this._renderCameraScreen()}
-                <AcceptToViewAlbum 
-                    isShow = {this.state.popupType == POPUP_TYPE_ALBUM_PERMISSION} 
+                <AcceptToViewAlbum
+                    isShow={this.state.popupType == POPUP_TYPE_ALBUM_PERMISSION}
                     onRequestPermission={this._openAlbumSetting}
                     onClose={this._closeAlbumPermission}
                 />
-                <PopUpOpenCamera 
+                <PopUpOpenCamera
                     onAccept={this._openCameraSetting}
                     onClose={this._closeAlbumPermission}
-                    isShow = {this.state.popupType == POPUP_TYPE_CAMERA_PERMISSION} 
+                    isShow={this.state.popupType == POPUP_TYPE_CAMERA_PERMISSION}
                 />
 
-                <PopUp maxImage={this.maxOfImagesSelected} show = {this.state.popupType == POPUP_TYPE_PHOTO_LIMITED} />
+                <PopUp maxImage={this.maxOfImagesSelected} show={this.state.popupType == POPUP_TYPE_PHOTO_LIMITED}/>
 
-                
-                    <SelectFromFolder
-                        onRequestClose={this._onSelectFolderRequestClose}
-                        show={this.state.showSelectFromAlbum}
-                        onClose={(albumName) => this._onCloseSelectAlbum(albumName)}
-                        onHide={() => this._hideSelectFromAlbum()}
-                        selectedAlbumName={this.state.groupName}
-                        ref={c => this._selectFolder = c}
-                    />
-                
+
+                <SelectFromFolder
+                    onRequestClose={this._onSelectFolderRequestClose}
+                    show={this.state.showSelectFromAlbum}
+                    onClose={(albumName) => this._onCloseSelectAlbum(albumName)}
+                    onHide={() => this._hideSelectFromAlbum()}
+                    selectedAlbumName={this.state.groupName}
+                    ref={c => this._selectFolder = c}
+                />
+
 
                 <Header
-                    state = {this.state.stateOfHeader}
-                    onBack = {this._onBack}
-                    onFinish = {this._onFinishSelect}
-                    onOpenListAlbum = {this._onOpenAlbum}
-                    headerText = {this.state.groupName}
+                    state={this.state.stateOfHeader}
+                    onBack={this._onBack}
+                    onFinish={this._onFinishSelect}
+                    onOpenListAlbum={this._onOpenAlbum}
+                    headerText={this.state.groupName}
                     showRightButton={this.maxOfImagesSelected > 1}
                 />
 
-                <View style = {{width, height: height - 45}}>
+                <View style={{width, height: height - 45}}>
                     <FlatList
                         //horizontal = {true}
-                        data={[{ avatar: true,
-                                    node : {
-                                        image : {
-                                            uri : '122'
-                                        }
-                                    }
-                                }, ...this.state.photos]}
+                        data={[{
+                            avatar: true,
+                            node: {
+                                image: {
+                                    uri: '122'
+                                }
+                            }
+                        }, ...this.state.photos]}
                         renderItem={this._renderItem}
                         getItemLayout={this.getItemLayout}
-                        keyExtractor={item=>item.uri}
-                        onMomentumScrollEnd = {
+                        keyExtractor={item => item.uri}
+                        onMomentumScrollEnd={
                             () => {
                                 // console.log('endScroll')
                                 this._getPhotoWithGroupName(this.state.groupName, this.state.startIndex)
                             }
                         }
-                        numColumns = {3}
+                        numColumns={3}
                         removeClippedSubviews={true}
                     >
                     </FlatList>

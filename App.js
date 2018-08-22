@@ -2,9 +2,11 @@ import { Navigation } from 'react-native-navigation'
 import registerScreens from '~/src/containers'
 import configStore from '~/src/store/configStore'
 import Icon from '~/src/components/FontIcon'
+import { YellowBox } from 'react-native'
 const store = configStore()
 import { BOTTOM_TABS } from '~/src/constants'
 import { persistStore } from 'redux-persist'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
 
 const _getBottomTabIcon = (tabs, size, color) => {
     const promiseList = []
@@ -40,6 +42,10 @@ const persist = (store) => {
     })
 }
 
+YellowBox.ignoreWarnings([
+    'Warning: Module SafeAreaManager requires',
+]);
+
 export const run = () => {
     console.log('Run Store', store)
     persist(store)
@@ -47,6 +53,8 @@ export const run = () => {
     Navigation.events().registerAppLaunchedListener(() => {
         Navigation.setDefaultOptions({
             animations: {
+                push: DEFAULT_PUSH_ANIMATION,
+                pop: DEFAULT_POP_ANIMATION,
             },
             topBar: {
                 visible: false,
@@ -71,20 +79,25 @@ export const run = () => {
                     stack: {
                         id: 'mainStack',
                         children: [
+                            // {
+                            //     sideMenu: {
+                            //         id: 'sideMenu',
+                            //         left: {
+                            //             component: {
+                            //                 name: 'gigabankclient.SplashScreen',
+                            //             }
+                            //         },
+                            //         center: {
+                            //             bottomTabs: {
+                            //                 id: 'bottomTabs',
+                            //                 children: _getBottomTabs(bottomTabs)
+                            //             }
+                            //         },
+                            //     }
+                            // },
                             {
-                                sideMenu: {
-                                    id: 'sideMenu',
-                                    left: {
-                                        component: {
-                                            name: 'gigabankclient.SplashScreen',
-                                        }
-                                    },
-                                    center: {
-                                        bottomTabs: {
-                                            id: 'bottomTabs',
-                                            children: _getBottomTabs(bottomTabs)
-                                        }
-                                    },
+                                component: {
+                                    name: 'gigabankclient.Authentication'
                                 }
                             }
                         ]

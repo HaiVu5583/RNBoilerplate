@@ -11,19 +11,20 @@ import {
 } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 const { height, width } = Dimensions.get('window')
+import { Toolbar } from '~/src/themes/ThemeComponent'
 
 export default class AnimatedScreen extends Component {
 
     static get options() {
         return {
-            topBar: {
-                visible: true,
-                drawBehind: false,
-                animate: false,
-                title: {
-                    text: 'Animated Screen'
-                },
-            },
+            // topBar: {
+            //     visible: true,
+            //     drawBehind: false,
+            //     animate: false,
+            //     title: {
+            //         text: 'Animated Screen'
+            //     },
+            // },
             // bottomTabs: {
             //     visible: false,
             //     animate: false,
@@ -57,7 +58,7 @@ export default class AnimatedScreen extends Component {
             scaleImage1: new Animated.Value(1),
             scrollAnimatedValue: new Animated.Value(0)
         }
-        // Navigation.events().bindComponent(this);
+        Navigation.events().bindComponent(this);
     }
 
     // const STYLES_WHITELIST = {
@@ -213,6 +214,7 @@ export default class AnimatedScreen extends Component {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
+                <Toolbar title='Animated Screen' iconRight={'3dots'} componentId={this.props.componentId} />
                 {/*<Animated.View style={{
                 backgroundColor: 'orange',
                 width: 20,

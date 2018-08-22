@@ -6,6 +6,7 @@ import Icon from './Icon'
 import Image from './Image'
 import Surface from './Surface'
 import Background from './Background'
+import Toolbar from './Toolbar'
 
 export {
     View,
@@ -16,4 +17,5 @@ export {
     Image,
     Surface,
     Background,
+    Toolbar
 }

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, Switch, StyleSheet, WebView, Modal, TouchableOpacity, ActivityIndicator, CameraRoll, FlatList, Image, Button, Dimensions } from 'react-native'
-import Icon from '~/ui/components/ClingmeFont2'
+import { Icon } from '~/src/themes/ThemeComponent'
 import styles from './styles'
-import {toElevation} from "~/ui/shared/utils";
-import I18n from '~/ui/I18n'
+import {toElevation} from "~/src/utils";
+import I18n from '~/src/I18n'
 const {height, width} = Dimensions.get('window')
 
 
