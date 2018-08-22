@@ -185,6 +185,9 @@ export const SURFACE_STYLES = {
     },
     overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.3)'
+    },
+    transparent: {
+        backgroundColor: 'transparent',
     }
 }
 

@@ -39,7 +39,10 @@ class Authentication extends Component {
     _handlePressRegister = () => {
         Navigation.push('mainStack', {
             component: {
-                name: 'gigabankclient.Register'
+                name: 'gigabankclient.Register',
+                passProps: {
+                    text: 'This is tab 1'
+                }
             }
         })
     }

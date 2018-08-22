@@ -21,6 +21,15 @@ export default class OTPInput extends React.PureComponent {
 
     }
 
+    static getDerivedStateFromProps(props, state) {
+        if (props.otp !== state.otp) {
+            return {
+                otp: props.otp
+            }
+        }
+        return null
+    }
+
     _onChangeText = (text) => {
         const validText = text.toString().replace(/\D/g, '')
         this.setState({
@@ -34,12 +43,8 @@ export default class OTPInput extends React.PureComponent {
         this.input.focus()
     }
 
-    getValue = () => {
-        return this.state.otp
-    }
-
     render() {
-        const { activeColor = 'rgba(255, 255, 255, 1)', numberDigit = 4, passiveColor = 'rgba(255, 255, 255, 0.6)' } = this.props
+        const { activeColor = 'rgba(255, 255, 255, 1)', numberDigit = 4, passiveColor = 'rgba(255, 255, 255, 0.6)', autoFocus = false, editable = false } = this.props
         let otpViews = []
         for (let i = 0; i < this.props.numberDigit; i++) {
             if (i <= this.state.otp.length - 1) {
@@ -70,12 +75,13 @@ export default class OTPInput extends React.PureComponent {
                         underlineColorAndroid='transparent'
                         ref={ref => this.input = ref}
                         autoCorrect={false}
-                        autoFocus={true}
+                        autoFocus={autoFocus}
                         style={{ position: 'absolute', width: 0, height: 0 }}
-                        keyboardType='numeric'
                         value={this.state.otp}
                         onChangeText={this._onChangeText}
                         maxLength={numberDigit}
+                        keyboardType={'numeric'}
+                        editable={editable}
                     />
                     <Surface themeable={false} rowCenter>
                         {otpViews}

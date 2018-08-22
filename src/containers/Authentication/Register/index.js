@@ -11,8 +11,8 @@ import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
-import CircleCountdown from '~/src/components/CircleCountdown'
 import { ImageBackground } from 'react-native'
+import NumberKeyboard from '~/src/components/NumberKeyboard'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -99,7 +99,7 @@ class Register extends Component {
 
     _renderStepPhone = () => {
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
                     <Text white h6 center>{I18n.t('register').toUpperCase()}</Text>
                 </Surface>
@@ -133,26 +133,27 @@ class Register extends Component {
 
     _renderStepOTP = () => {
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+            <Surface themeable={false} flex>
+                <Surface pd20 themeable={false} flex>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
+                    </Surface>
+                    {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
+                    <Surface themeable={false} fullWidth mb20>
+                        <OTPInput 
+                            numberDigit={4}
+                            otp={this.state.otp}
+                        />
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20>
+                        <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
+                    </Surface>
                 </Surface>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
-                </Surface>
-                {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
-                <Surface themeable={false} fullWidth mb20>
-                    <OTPInput numberDigit={4}
-                        onChangeText={text => this.setState({ otp: text })}
-                    />
-                </Surface>
-                <CircleCountdown time={20} onCountToEnd={() => {
-                    console.log('Counto End')
-                }} />
-                <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
-                </Surface>
-            </Surface>
+                <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
+            </Surface >
         )
     }
 
@@ -181,7 +182,7 @@ class Register extends Component {
 
     _renderStepInfo = () => {
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
                     <Text white h6 center>{I18n.t('personal_info').toUpperCase()}</Text>
                 </Surface>
@@ -218,7 +219,7 @@ class Register extends Component {
 
     _renderStepBankAccount = () => {
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
                     <Text white h6 center>{I18n.t('personal_info').toUpperCase()}</Text>
                 </Surface>
@@ -249,7 +250,7 @@ class Register extends Component {
     _renderStepPassword = () => {
         const { placeholderTextColor, color, ...restStyle } = TEXT_INPUT_STYLES.white
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
                     <Text white h6 center>{I18n.t('password').toUpperCase()}</Text>
                 </Surface>
@@ -288,6 +289,7 @@ class Register extends Component {
     }
 
     componentDidMount() {
+        console.log('Register DId Mount', this.props)
         BackHandler.addEventListener('hardwareBackPress', this._handlePressBackIcon)
     }
 

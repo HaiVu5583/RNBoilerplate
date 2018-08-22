@@ -12,6 +12,7 @@ import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
+import NumberKeyboard from '~/src/components/NumberKeyboard'
 
 const STEP = {
     INFO: 'INFO',
@@ -181,22 +182,26 @@ class ForgotPassword extends Component {
 
     _renderStepOTP = () => {
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+            <Surface themeable={false} flex>
+                <Surface pd20 themeable={false}>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
+                    </Surface>
+                    {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
+                    <Surface themeable={false} fullWidth mb20>
+                        <OTPInput
+                            numberDigit={4}
+                            otp={this.state.otp}
+                        />
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20>
+                        <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
+                    </Surface>
                 </Surface>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
-                </Surface>
-                {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
-                <Surface themeable={false} fullWidth mb20>
-                    <OTPInput numberDigit={4}
-                        onChangeText={text => this.setState({ otp: text })}
-                    />
-                </Surface>
-                <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
-                </Surface>
+                <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
             </Surface>
         )
     }
