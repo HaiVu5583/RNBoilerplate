@@ -15,7 +15,8 @@ export const COLORS = {
 }
 
 export const ASSETS = {
-    MAIN_BACKGROUND: require('~/src/assets/background.jpg')
+    MAIN_BACKGROUND: require('~/src/assets/background.jpg'),
+    LIGHT_BACKGROUND: require('~/src/assets/background_light.jpg')
 }
 
 export const DEFAULT_PUSH_ANIMATION = {
