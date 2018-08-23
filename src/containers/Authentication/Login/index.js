@@ -9,7 +9,7 @@ import Password from '~/src/components/Password'
 import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
-import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import { ImageBackground } from 'react-native'
 
 const STEP = {
@@ -77,6 +77,7 @@ class Login extends Component {
     }
 
     _renderStepPhone = () => {
+        const enableContinuePhoneButton = (this.state.phone && this.state.phone.trim())
         return (
             <Surface style={{ padding: 20 }} themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
@@ -93,14 +94,23 @@ class Login extends Component {
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinuePhone} />
+                    <Button
+                        round
+                        text={I18n.t('continue').toUpperCase()}
+                        full
+                        enable={enableContinuePhoneButton}
+                        onPress={this._handlePressContinuePhone} />
                 </Surface>
             </Surface>
         )
     }
 
     _handlePressFinish = () => {
-
+        Navigation.setStackRoot('mainStack', {
+            component: {
+                name: 'gigabankclient.HomeScreen',
+            }
+        })
     }
 
     _handlePressForgotPassword = () => {
@@ -166,7 +176,7 @@ class Login extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
                 <Surface themeable={false} flex>
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}

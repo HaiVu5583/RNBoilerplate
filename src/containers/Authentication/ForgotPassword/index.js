@@ -9,9 +9,11 @@ import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
-import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
+import NumberKeyboard from '~/src/components/NumberKeyboard'
+import CircleCountdown from '~/src/components/CircleCountdown'
 
 const STEP = {
     INFO: 'INFO',
@@ -179,24 +181,39 @@ class ForgotPassword extends Component {
         this.setState({ step: STEP.PASSWORD })
     }
 
+    _renderCountdown = () => {
+        return <CircleCountdown time={60} size={45} fontSize={18} />
+    }
+
     _renderStepOTP = () => {
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+            <Surface themeable={false} flex>
+                <Surface pd20 themeable={false} flex>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
+                    </Surface>
+                    {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
+                    <Surface themeable={false} fullWidth mb20>
+                        <OTPInput
+                            numberDigit={4}
+                            otp={this.state.otp}
+                        />
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20>
+                        <Button 
+                            round 
+                            text={I18n.t('continue').toUpperCase()} 
+                            full 
+                            onPress={this._handlePressContinueOTP} 
+                            rightComponent={this._renderCountdown}
+                            innerExpand={true}
+                            />
+                    </Surface>
                 </Surface>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
-                </Surface>
-                {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
-                <Surface themeable={false} fullWidth mb20>
-                    <OTPInput numberDigit={4}
-                        onChangeText={text => this.setState({ otp: text })}
-                    />
-                </Surface>
-                <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
-                </Surface>
+                <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
             </Surface>
         )
     }
@@ -223,8 +240,8 @@ class ForgotPassword extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
-                <Surface blue flex>
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
+                <Surface flex themeable={false}>
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}
                         themeable={false}

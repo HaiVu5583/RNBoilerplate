@@ -4,15 +4,25 @@ import commonStyle from '~/src/themes/common'
 import { connect } from 'react-redux'
 import { getTheme } from './utils'
 import Ripple from 'react-native-material-ripple'
-import { Text } from 'react-native'
-import { getElevation } from '~/src/utils'
-import {Icon} from '~/src/themes/ThemeComponent'
+import { Icon, Text, Surface } from '~/src/themes/ThemeComponent'
 import { BUTTON_STYLES } from '~/src/themes/common'
 
 class Button extends Component {
     render() {
-        const { forwardedRef, children, style, theme, text, icon, iconStyle, textStyle, ...rest } = this.props
+        const { forwardedRef, children, style, theme, text, icon, iconStyle, textStyle, enable,
+            buttonEnableStyle, buttonDisableStyle, buttonTextEnableStyle, buttonTextDisableStyle,
+            leftComponent, rightComponent, innerExpand, ...rest } = this.props
         let buttonThemeStyle = [commonStyle.button, style]
+        let textButtonStyle = [commonStyle.buttonText, textStyle]
+        if (enable != null && typeof (enable) != 'undefined') {
+            if (!enable) {
+                buttonThemeStyle = [...buttonThemeStyle, commonStyle.buttonDisable, buttonDisableStyle]
+                textButtonStyle = [...textButtonStyle, commonStyle.buttonTextDisable, buttonTextDisableStyle]
+            } else {
+                buttonThemeStyle = [...buttonThemeStyle, buttonEnableStyle]
+                textButtonStyle = [...textButtonStyle, buttonTextEnableStyle]
+            }
+        }
         for (let identifier in rest) {
             if (BUTTON_STYLES[identifier]) {
                 buttonThemeStyle.push(BUTTON_STYLES[identifier])
@@ -24,10 +34,16 @@ class Button extends Component {
                 style={buttonThemeStyle}
                 rippleColor={'white'}
             >
-                {!!icon && <Icon name={icon} style={[commonStyle.buttonIcon, iconStyle]} />}
-                <Text style={[
-                    commonStyle.buttonText, textStyle
-                ]}>{text}</Text>
+                <Surface themeable={false} rowStart>
+                    {!!leftComponent && leftComponent()}
+                    <Surface themeable={false} rowCenter
+                        expand={!!innerExpand}
+                    >
+                        {!!icon && <Icon name={icon} style={[commonStyle.buttonIcon, iconStyle]} />}
+                        <Text themeable={false} style={textButtonStyle}>{text}</Text>
+                    </Surface>
+                    {!!rightComponent && rightComponent()}
+                </Surface>
             </Ripple>
         )
     }

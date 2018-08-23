@@ -168,6 +168,19 @@ const language = {
     'hint_reinput_password': 'Nhập lại mật khẩu',
     'err_forgot_password_info': 'Thông tin bạn nhập không đúng. Vui lòng kiểm tra lại.',
     'create_new_password': 'Thiết lập mật khẩu mới',
+    'register_account': 'Đăng ký tài khoản',
+    'already_have_account': 'Bạn đã có tài khoản?',
+    'authenticate': 'Xác thực',
+    'verify_phone_number': 'Xác thực số điện thoại',
+    'hint_input_opt': 'Nhập mã xác thực',
+    'input': 'Nhập',
+    'otp_with_hint': 'Mã xác thực (OTP)',
+    'hint_input_opt2': 'đã được gửi đến số điện thoại',
+    'personal_info': 'Thông tin cá nhân',
+    'full_name': 'Họ tên',
+    'identity_number': 'CMND/Hộ chiếu',
+    'otp_not_work': 'Mã xác thực chưa hoạt động?',
+    'resend': 'Gửi lại',
     'ok': 'Ok',
     'ok_vietnamese': 'ĐỒNG Ý',
     'disagree': 'Không đồng ý',
@@ -273,14 +286,6 @@ const language = {
         '77', '76', '78', '83', '84', '85', '81', '82', '56', '58', '59'
     ],
     'hotline': '0938432858',
-    'register_account' : 'Đăng ký tài khoản',
-    'already_have_account': 'Bạn đã có tài khoản?',
-    'authenticate': 'Xác thực',
-    'hint_input_opt': 'Nhập mã xác thực',
-    'personal_info': 'Thông tin cá nhân',
-    'full_name': 'Họ tên',
-    'identity_number': 'CMND/Hộ chiếu'
-
 }
 
 // export default language;

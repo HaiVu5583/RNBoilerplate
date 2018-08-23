@@ -11,7 +11,7 @@ class ThemeView extends Component {
         const themeStyle = getTheme(theme)
         const viewThemeStyle = themeable ? [{ backgroundColor: themeStyle.surfaceColor }, style] : [style]
         for (let identifier in rest) {
-            if (SURFACE_STYLES[identifier]) {
+            if (SURFACE_STYLES[identifier] && rest[identifier]) {
                 viewThemeStyle.push(SURFACE_STYLES[identifier])
             }
         }

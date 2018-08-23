@@ -12,7 +12,7 @@ class ThemeTextInput extends Component {
         let textThemeStyle = themeable ? [{ color: themeStyle.textInputTextColor }, style] : [style]
         let placeholderTextColorTheme = themeable ? themeStyle.textInputPlaceholderColor : 'rgba(0, 0, 0, 0.4)'
         for (let identifier in rest) {
-            if (TEXT_INPUT_STYLES[identifier]) {
+            if (TEXT_INPUT_STYLES[identifier] && rest[identifier]) {
                 const { placeholderTextColor, ...restTextInputSyle } = TEXT_INPUT_STYLES[identifier]
                 textThemeStyle.push(restTextInputSyle)
                 if (placeholderTextColor) {
