@@ -291,8 +291,15 @@ export default {
         },
         iconRight: {
             fontSize: 19,
+        },
+    },
+    textInput: {
+        input: {
+            flex: 1
+        },
+        descriptionIcon: {
+            fontSize: 24,
+            marginRight: 15
         }
-
-
     }
 }
