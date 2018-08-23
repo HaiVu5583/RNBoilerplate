@@ -133,19 +133,6 @@ export const TEXT_INPUT_STYLES = {
     }
 }
 
-export const BUTTON_STYLES = {
-    round: {
-        borderRadius: 25
-    },
-    flat: {
-        backgroundColor: 'transparent',
-        ...getElevation(0)
-    },
-    full: {
-        width: '100%'
-    }
-}
-
 export const SURFACE_STYLES = {
     fullWidth: {
         width: '100%'
@@ -197,6 +184,9 @@ export const SURFACE_STYLES = {
     pd20: {
         padding: 20
     },
+    pv20: {
+        paddingVertical: 20
+    },
     white: {
         backgroundColor: COLORS.WHITE
     },
@@ -208,6 +198,24 @@ export const SURFACE_STYLES = {
     },
     transparent: {
         backgroundColor: 'transparent',
+    }
+}
+
+export const BUTTON_STYLES = {
+    ...SURFACE_STYLES,
+    round: {
+        borderRadius: 25
+    },
+    flat: {
+        backgroundColor: 'transparent',
+        ...getElevation(0)
+    },
+    full: {
+        width: '100%'
+    },
+    noPadding: {
+        padingLeft: 0,
+        paddingRight: 0
     }
 }
 
