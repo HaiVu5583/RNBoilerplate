@@ -55,6 +55,15 @@ class Home extends Component {
         console.log('Page Control', this.pageControl)
         this.setState({page: index});
     }
+    
+    _handleOpenWebview = () => {
+        console.log('W', new Date().getTime())
+        Navigation.push('mainStack', {
+            component: {
+                name: 'gigabankclient.WebView',
+            }
+        })
+    }
 
     _handlePressButton = () => {
         console.log('Call Push Animated Screen', new Date().getTime())
@@ -404,8 +413,9 @@ class Home extends Component {
                             placeholder={'Input something here...'}
                         />
                         
-                        {/* <Surface style={styles.block}> */}
-                            <Surface style={styles.block}>
+                        <Surface style={styles.block}>
+                            <Button text70 white background-orange30 label="Open Web view"
+                                onPress={this._handleOpenWebview}/>
                                 <Button text70 white background-orange30 label="Open Screen"
                                     onPress={this._handlePressButton}/>
                                 <Button
