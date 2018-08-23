@@ -118,6 +118,9 @@ export const TEXT_STYLES = {
     },
     bold: {
         ...getFontStyle(FONT_WEIGHTS.bold),
+    },
+    flex: {
+        flex: 1
     }
 }
 
