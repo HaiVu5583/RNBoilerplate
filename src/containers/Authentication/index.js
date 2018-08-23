@@ -81,8 +81,8 @@ class Authentication extends Component {
                     />
                     <Surface themeable={false} style={{ marginTop: 50 }}>
                         <Surface themeable={false} rowStart>
-                            <Text white bold h4>GIGA</Text>
-                            <Text white h4 light>BANK</Text>
+                            <Text white h4 bold>GIGA</Text>
+                            <Text white h4 thin>BANK</Text>
                         </Surface>
                         <Surface themeable={false}
                             style={styles.sologanSpacer}

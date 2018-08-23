@@ -131,6 +131,15 @@ class Home extends Component {
         )
     }
 
+    _renderLogo = () => {
+        return (
+            <Surface themeable={false} flex rowCenter>
+                <Text center h5 white bold>GIGA</Text>
+                <Text center h5 white thin>BANK</Text>
+            </Surface>
+        )
+    }
+
     render() {
 
         return (
@@ -141,6 +150,7 @@ class Home extends Component {
                     iconRight='ring'
                     onPressIconLeft={this._handlePressHambergerIcon}
                     iconStyle={{ color: 'white' }}
+                    centerComponent={this._renderLogo}
                 />
                 <Surface themeable={false} style={{ height: 250 }}>
                     <Carousel

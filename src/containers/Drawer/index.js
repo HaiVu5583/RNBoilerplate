@@ -84,7 +84,10 @@ class Drawer extends Component {
 
     _renderLogo = () => {
         return (
-            <Text center h5 white light flex>GIGA BANK</Text>
+            <Surface themeable={false} flex rowCenter>
+                <Text center h5 white bold>GIGA</Text>
+                <Text center h5 white thin>BANK</Text>
+            </Surface>
         )
     }
 
