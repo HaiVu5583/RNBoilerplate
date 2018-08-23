@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Surface, Background, View, Text, TextInput, Icon, Image } from '~/src/themes/ThemeComponent'
+import { Surface, Text, Toolbar } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import { ImageBackground } from 'react-native'
 import styles from './styles'
@@ -67,11 +67,27 @@ class Home extends Component {
         )
     }
 
+    _handlePressHambergerIcon = () => {
+        Navigation.mergeOptions('sideMenu', {
+            sideMenu: {
+                left: {
+                    visible: true
+                }
+            }
+        })
+    }
+
     render() {
 
         return (
             <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: '100%', height: '100%' }}>
-                <Surface themeable={false} style={{ height: 40 }} />
+                <Toolbar
+                    themeable={false}
+                    iconLeft='menu'
+                    iconRight='ring'
+                    onPressIconLeft={this._handlePressHambergerIcon}
+                    iconStyle={{ color: 'white' }}
+                />
                 <Surface themeable={false} style={{ height: 250 }}>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}

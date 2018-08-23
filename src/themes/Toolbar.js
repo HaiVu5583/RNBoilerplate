@@ -1,6 +1,6 @@
 import React from 'react'
 import { Dimensions, TouchableWithoutFeedback, TouchableNativeFeedback } from 'react-native'
-import { Surface, Text, Icon } from '~/src/themes/ThemeComponent'
+import { Surface, Text, Icon, Button } from '~/src/themes/ThemeComponent'
 const { width } = Dimensions.get('window')
 import commonStyle, { TOOLBAR_HEIGHT } from '~/src/themes/common'
 const { toolbar } = commonStyle
@@ -35,21 +35,43 @@ export default class Toolbar extends React.PureComponent {
         const { iconLeft, iconRight, title, style, leftButtonTitle, rightButtonTitle,
             iconStyle, themeable } = this.props
 
-
-        return (
-            <Surface style={[toolbar.container, style]} themeable={themeable}>
-                <TouchableWithoutFeedback onPress={this._onPressBack}>
+        {/* <TouchableWithoutFeedback onPress={this._onPressBack}>
                     <Surface style={toolbar.iconLeftContainer} themeable={themeable}>
                         <Icon name={!!iconLeft ? iconLeft : 'back'} style={[toolbar.iconLeft, iconStyle]} />
                     </Surface>
-                </TouchableWithoutFeedback>
-                {!!title && <Text style={toolbar.title} numberOfLines={1} themeable={themeable}>{" " + title + " "}</Text>}
-
-                {!!iconRight && <TouchableWithoutFeedback onPress={this._onPressIconRight}>
+                </TouchableWithoutFeedback> */}
+        {/* {!!iconRight && <TouchableWithoutFeedback onPress={this._onPressIconRight}>
                     <Surface style={toolbar.iconRightContainer} themeable={themeable}>
                         <Icon name={iconRight} style={[toolbar.iconRight, iconStyle]} />
                     </Surface>
-                </TouchableWithoutFeedback>}
+                </TouchableWithoutFeedback>} */}
+
+        return (
+            <Surface style={[toolbar.container, style]} themeable={themeable}>
+
+
+                <Button themeable={themeable} flat onPress={this._onPressBack}
+                    style={toolbar.iconLeftContainer}
+                    icon={!!iconLeft ? iconLeft : 'back'}
+                    iconStyle={[toolbar.iconLeft, iconStyle]}
+                />
+
+                {!!title ?
+                    <Text style={toolbar.title} numberOfLines={1} themeable={themeable}>{" " + title + " "}</Text>
+                    :
+                    <Surface themeable={themeable} flex />
+                }
+
+
+
+
+                {!!iconRight &&
+                    <Button themeable={themeable} flat onPress={this._onPressIconRight}
+                        style={toolbar.iconRightContainer}
+                        icon={iconRight}
+                        iconStyle={[toolbar.iconRight, iconStyle]}
+                    />
+                }
             </Surface>
         )
     }

@@ -106,11 +106,22 @@ class Login extends Component {
     }
 
     _handlePressFinish = () => {
-        Navigation.setStackRoot('mainStack', {
-            component: {
-                name: 'gigabankclient.HomeScreen',
-            }
-        })
+        Navigation.setStackRoot('mainStack',
+            {
+                sideMenu: {
+                    id: 'sideMenu',
+                    left: {
+                        component: {
+                            name: 'gigabankclient.Drawer',
+                        }
+                    },
+                    center: {
+                        component: {
+                            name: 'gigabankclient.HomeScreen',
+                        }
+                    },
+                }
+            })
     }
 
     _handlePressForgotPassword = () => {

@@ -218,7 +218,8 @@ export default {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
         ...getElevation(2)
     },
     buttonText: {
@@ -232,7 +233,8 @@ export default {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
         ...getElevation(0)
     },
     buttonTextDisable: {

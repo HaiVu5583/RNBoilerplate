@@ -40,7 +40,7 @@ class Button extends Component {
                         expand={!!innerExpand}
                     >
                         {!!icon && <Icon name={icon} style={[commonStyle.buttonIcon, iconStyle]} />}
-                        <Text themeable={false} style={textButtonStyle}>{text}</Text>
+                        {!!text && <Text themeable={false} style={textButtonStyle}>{text}</Text>}
                     </Surface>
                     {!!rightComponent && rightComponent()}
                 </Surface>
