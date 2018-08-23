@@ -36,17 +36,6 @@ export default class Toolbar extends React.PureComponent {
             leftComponent, centerComponent, rightComponent
         } = this.props
 
-        {/* <TouchableWithoutFeedback onPress={this._onPressBack}>
-                    <Surface style={toolbar.iconLeftContainer} themeable={themeable}>
-                        <Icon name={!!iconLeft ? iconLeft : 'back'} style={[toolbar.iconLeft, iconStyle]} />
-                    </Surface>
-                </TouchableWithoutFeedback> */}
-        {/* {!!iconRight && <TouchableWithoutFeedback onPress={this._onPressIconRight}>
-                    <Surface style={toolbar.iconRightContainer} themeable={themeable}>
-                        <Icon name={iconRight} style={[toolbar.iconRight, iconStyle]} />
-                    </Surface>
-                </TouchableWithoutFeedback>} */}
-
         const left = leftComponent ? leftComponent() : <Button themeable={themeable} flat onPress={this._onPressBack}
             style={toolbar.iconLeftContainer}
             icon={!!iconLeft ? iconLeft : 'back'}
@@ -62,7 +51,6 @@ export default class Toolbar extends React.PureComponent {
             icon={iconRight}
             iconStyle={[toolbar.iconRight, iconStyle]}
         /> : <Surface themeable={false} />)
-        console.log('Right', right)
 
         return (
             <Surface style={[toolbar.container, style]} themeable={themeable}>

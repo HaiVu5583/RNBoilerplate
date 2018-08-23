@@ -22,9 +22,11 @@ class Drawer extends Component {
 
     _renderLeftAvatar = () => {
         return (
-            <Image
-                source={{ uri: 'https://yt3.ggpht.com/a-/ACSszfHXWBb_x1MUBtpuEa9xBBmFVuSRdvi02bquEQ=s900-mo-c-c0xffffffff-rj-k-no' }}
-                style={{ width: 40, height: 40, borderRadius: 20 }} />
+            <Surface themeable={false} rowStart style={{ paddingLeft: 16 }}>
+                <Image
+                    source={{ uri: 'https://yt3.ggpht.com/a-/ACSszfHXWBb_x1MUBtpuEa9xBBmFVuSRdvi02bquEQ=s900-mo-c-c0xffffffff-rj-k-no' }}
+                    style={{ width: 40, height: 40, borderRadius: 20 }} />
+            </Surface>
         )
     }
 
@@ -57,7 +59,7 @@ class Drawer extends Component {
                     iconRight={'close2'}
                     onPressIconRight={this._handleCloseDrawer}
                     iconStyle={{ color: 'white' }}
-                    style={{width: '100%'}}
+                    style={{ width: '100%' }}
                 />
 
 
