@@ -23,41 +23,42 @@ class Drawer extends Component {
 
     constructor(props) {
         super(props)
-        this.feature = [{
-            id: 1,
-            icon: 'map',
-            name: 'Feature 1'
-        },
-        {
-            id: 2,
-            icon: 'gift-code-line',
-            name: 'Feature 2'
-        },
-        {
-            id: 3,
-            icon: 'group-line',
-            name: 'Feature 3'
-        },
-        {
-            id: 4,
-            icon: 'about-line',
-            name: 'Feature 4'
-        },
-        {
-            id: 5,
-            icon: 'email-line',
-            name: 'Feature 5'
-        },
-        {
-            id: 6,
-            icon: 'Clingmepay-line',
-            name: 'Feature 6'
-        },
-        {
-            id: 7,
-            icon: 'help-line',
-            name: 'Feature 7'
-        }
+        this.feature = [
+            {
+                id: 1,
+                icon: 'map',
+                name: 'Feature 1'
+            },
+            {
+                id: 2,
+                icon: 'gift-code-line',
+                name: 'Feature 2'
+            },
+            {
+                id: 3,
+                icon: 'group-line',
+                name: 'Feature 3'
+            },
+            {
+                id: 4,
+                icon: 'about-line',
+                name: 'Feature 4'
+            },
+            {
+                id: 5,
+                icon: 'email-line',
+                name: 'Feature 5'
+            },
+            {
+                id: 6,
+                icon: 'Clingmepay-line',
+                name: 'Feature 6'
+            },
+            {
+                id: 7,
+                icon: 'help-line',
+                name: 'Feature 7'
+            }
         ]
     }
 
