@@ -202,14 +202,14 @@ class Login extends Component {
                     <PopupConfirm
                         animationType='none'
                         content={I18n.t('err_account_not_register')}
-                        textButton1={I18n.t('close').toUpperCase()}
+                        textButton1={'close'}
                         onPressButton1={() => { }}
                         ref={ref => this.popupAccountNotRegister = ref} />
                     <PopupConfirm
                         animationType='none'
                         content={I18n.t('already_have_bank_account')}
-                        textButton1={I18n.t('disagree').toUpperCase()}
-                        textButton2={I18n.t('popup_confirmed').toUpperCase()}
+                        textButton1={'disagree'}
+                        textButton2={'popup_confirmed'}
                         onPressButton1={() => { }}
                         onPressButton2={() => this._onConfirmHaveBankAccount()}
                         ref={ref => this.popupHaveBankAccount = ref} />

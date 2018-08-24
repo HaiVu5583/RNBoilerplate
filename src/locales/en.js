@@ -8,7 +8,11 @@ const language = {
     'forgot_password_question': 'Forgot Password?',
     'finish': 'Finish',
     'phone': 'Phone Number',
-    'hint_input_password': 'Type Password'
+    'hint_input_password': 'Type Password',
+    'cancel': 'Cancel',
+    'confirm': 'Confirm',
+    disagree: 'Disagree',
+    'popup_confirmed': 'Confirm'
 }
 
 // export default language;

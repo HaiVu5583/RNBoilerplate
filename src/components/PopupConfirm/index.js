@@ -1,10 +1,11 @@
 import React from 'react'
-import { Modal, View, Text, Platform } from 'react-native'
+import { Modal, View, Platform } from 'react-native'
 
 import styles from './styles'
 import { TouchableWithoutFeedback } from 'react-native-vector-icons/lib/react-native';
 import TextAutolink from '~/src/components/TextAutolink'
 import SvgUri from 'react-native-svg-uri'
+import { Text } from '~/src/themes/ThemeComponent'
 
 export default class PopupConfirm extends React.PureComponent {
 
@@ -105,7 +106,11 @@ export default class PopupConfirm extends React.PureComponent {
     }
 
     _renderDialogContent = () => {
-        const { title, content, banner, textButton1, textButton2, textButton3, boldPart, isSpecial, overlayColor } = this.props;
+        const { title, content, banner, boldPart, isSpecial, overlayColor,
+            textButton1, textButton2, textButton3,
+            textButton1T, textButton2T, textButton3T,
+            titleT, contentT
+        } = this.props;
 
         let specialContent = {}
         let boldText = {}
@@ -113,18 +118,35 @@ export default class PopupConfirm extends React.PureComponent {
             specialContent = { marginTop: 10, marginBottom: Platform.OS == 'ios' ? 20 : 0 }
         }
 
-        const modalBackgroundStyle = !!overlayColor ? {...styles.backgroundModal, backgroundColor: overlayColor} : styles.backgroundModal
+        const modalBackgroundStyle = !!overlayColor ? { ...styles.backgroundModal, backgroundColor: overlayColor } : styles.backgroundModal
+
+        const button1 = textButton1T ?
+            <Text t={textButton1T} onPress={() => this._handlePressButton1()} style={{ ...styles.button, }} /> :
+            textButton1 ? <Text onPress={() => this._handlePressButton1()} style={{ ...styles.button, }}>{textButton1}</Text> : <View />
+
+        const button2 = textButton2T ?
+            <Text t={textButton2T} onPress={() => this._handlePressButton2()} style={{ ...styles.button, }} /> :
+            textButton2 ? <Text onPress={() => this._handlePressButton2()} style={{ ...styles.button, }}>{textButton2}</Text> : <View />
+
+        const button3 = textButton3T ?
+            <Text t={textButton3T} onPress={() => this._handlePressButton3()} style={{ ...styles.button, }} /> :
+            textButton3 ? <Text onPress={() => this._handlePressButton3()} style={{ ...styles.button, }}>{textButton3}</Text> : <View />
+
+        const titleElement = (
+            <View style={styles.titleContainer}>
+                {titleT ?
+                    <Text style={[styles.textTitle, this.props.titleStyle]} t={titleT}>{title}</Text> :
+                    title ? <Text style={[styles.textTitle, this.props.titleStyle]}>{title}</Text> : <View />}
+            </View>
+        )
+
+        const contentElement
 
         return (
             <TouchableWithoutFeedback onPress={this._onPressOverlay}>
                 <View style={modalBackgroundStyle}>
                     <View style={styles.popupContainer}>
-                        {title && title.length > 0 &&
-                            <View style={styles.titleContainer}>
-                                <Text style={[styles.textTitle, this.props.titleStyle]}>{title}</Text>
-                            </View>
-                        }
-
+                        {titleElement}
                         {banner &&
                             <View style={{ backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', marginTop: 10, marginBottom: 15 }}>
                                 <SvgUri
@@ -148,20 +170,9 @@ export default class PopupConfirm extends React.PureComponent {
                         }
 
                         <View style={styles.buttonContainer}>
-                            {textButton1 &&
-                                <Text
-                                    onPress={() => this._handlePressButton1()}
-                                    style={{ ...styles.button, }}>{textButton1}</Text>}
-
-                            {textButton2 &&
-                                <Text
-                                    onPress={() => this._handlePressButton2()}
-                                    style={{ ...styles.button, }}>{textButton2}</Text>}
-
-                            {textButton3 &&
-                                <Text
-                                    onPress={() => this._handlePressButton3()}
-                                    style={{ ...styles.button, }}>{textButton3}</Text>}
+                            {button1}
+                            {button2}
+                            {button3}
                         </View>
                     </View>
                 </View>

@@ -124,7 +124,7 @@ class ForgotPassword extends Component {
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Button
-                        round t={'get_password'} 
+                        round t={'get_password'}
                         full onPress={this._handlePressGetPassword} />
                 </Surface>
             </Surface>
@@ -252,16 +252,16 @@ class ForgotPassword extends Component {
                     <PopupConfirm
                         animationType='none'
                         content={I18n.t('err_forgot_password_info')}
-                        textButton1={I18n.t('cancel').toUpperCase()}
-                        textButton2={I18n.t('popup_confirmed').toUpperCase()}
+                        textButton1T={'cancel'}
+                        textButton2T={'popup_confirmed'}
                         onPressButton1={() => { }}
                         onPressButton2={() => { }}
                         ref={ref => this.popupInvalidInfo = ref} />
                     <PopupConfirm
                         animationType='none'
                         content={I18n.t('confirm_send_otp')}
-                        textButton1={I18n.t('cancel').toUpperCase()}
-                        textButton2={I18n.t('confirm').toUpperCase()}
+                        textButton1T={'cancel'}
+                        textButton2T={'confirm'}
                         onPressButton1={() => { }}
                         onPressButton2={() => this._onConfirmSendOTP()}
                         ref={ref => this.popupConfirmSendOTP = ref} />

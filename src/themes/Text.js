@@ -20,8 +20,6 @@ class ThemeText extends Component {
                 textThemeStyle.push(TEXT_STYLES[identifier])
             }
         }
-        console.log('Rerender Text 1', language)
-        console.log('Rerender Text 2', children)
         if (t != null && typeof (t) != 'undefined') {
             return (
                 <Text ref={forwardedRef} {...rest}

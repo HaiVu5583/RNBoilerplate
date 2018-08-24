@@ -381,17 +381,17 @@ class Register extends Component {
                     <PopupConfirm
                         animationType='none'
                         content={I18n.t('confirm_send_otp')}
-                        title={I18n.t('register_account')}
-                        textButton1={I18n.t('cancel').toUpperCase()}
-                        textButton2={I18n.t('confirm').toUpperCase()}
+                        titleT={'register_account'}
+                        textButton1T={'cancel'}
+                        textButton2T={'confirm'}
                         onPressButton1={() => { }}
                         onPressButton2={() => this._onConfirmPhone()}
                         ref={ref => this.popupConfirm = ref} />
                     <PopupConfirm
                         animationType='none'
                         content={I18n.t('already_have_bank_account')}
-                        textButton1={I18n.t('disagree').toUpperCase()}
-                        textButton2={I18n.t('popup_confirmed').toUpperCase()}
+                        textButton1={'disagree'}
+                        textButton2={'popup_confirmed'}
                         onPressButton1={() => { }}
                         onPressButton2={() => this._onConfirmHaveBankAccount()}
                         ref={ref => this.popupHaveBankAccount = ref} />
