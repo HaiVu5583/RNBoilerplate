@@ -128,14 +128,16 @@ class Authentication extends Component {
                         </Surface>}
                         <Surface themeable={false} fullWidth mb20>
                             <Button round full
-                                text={I18n.t('register_account').toUpperCase()}
+                                t={'register_account'}
+                                textTransform={String.prototype.toUpperCase}
                                 onPress={this._handlePressRegister}
                             />
                         </Surface>
                         <Surface themeable={false} rowSpacebetween fullWidth>
-                            <Text white>{I18n.t('already_have_account')}</Text>
+                            <Text white t={'already_have_account'} />
                             <Button flat
-                                text={I18n.t('login').toUpperCase()}
+                                t={'login'}
+                                textTransform={String.prototype.toUpperCase}
                                 textStyle={{ color: '#38A5DA' }}
                                 onPress={this._handlePressLogin}
                             />

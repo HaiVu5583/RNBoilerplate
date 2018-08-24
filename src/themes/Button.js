@@ -11,7 +11,8 @@ class Button extends Component {
     render() {
         const { forwardedRef, children, style, theme, icon, iconStyle, textStyle, enable,
             buttonEnableStyle, buttonDisableStyle, buttonTextEnableStyle, buttonTextDisableStyle,
-            leftComponent, rightComponent, centerComponent, innerExpand, t, textTransform, ...rest } = this.props
+            leftComponent, rightComponent, centerComponent, innerExpand,
+            t, textTransform, text, ...rest } = this.props
         let buttonThemeStyle = [commonStyle.button, style]
         let textButtonStyle = [commonStyle.buttonText, textStyle]
         if (enable != null && typeof (enable) != 'undefined') {
@@ -28,12 +29,14 @@ class Button extends Component {
                 buttonThemeStyle.push(BUTTON_STYLES[identifier])
             }
         }
-        const center = centerComponent ? centerComponent() : <Surface themeable={false} rowCenter
-            expand={!!innerExpand}
-        >
-            {!!icon && <Icon name={icon} style={[commonStyle.buttonIcon, iconStyle]} />}
-            {!!t && <Text themeable={false} style={textButtonStyle} t={t} textTransform={textTransform} />}
-        </Surface>
+        const center = centerComponent ? centerComponent() : (
+            <Surface themeable={false} rowCenter
+                expand={!!innerExpand}
+            >
+                {!!icon && <Icon name={icon} style={[commonStyle.buttonIcon, iconStyle]} />}
+                {!!t && <Text themeable={false} style={textButtonStyle} t={t} textTransform={textTransform} />}
+            </Surface>
+        )
 
         return (
             <Ripple ref={forwardedRef} {...rest}

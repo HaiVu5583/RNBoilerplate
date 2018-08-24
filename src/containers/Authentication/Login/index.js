@@ -81,7 +81,7 @@ class Login extends Component {
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('login')}</Text>
+                    <Text white h6 center t={'login'} />
                 </Surface>
                 {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                 <Surface themeable={false} fullWidth mb20>
@@ -96,7 +96,8 @@ class Login extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     <Button
                         round
-                        text={I18n.t('continue').toUpperCase()}
+                        t={'continue'}
+                        textTransform={String.prototype.toUpperCase}
                         full
                         enable={enableContinuePhoneButton}
                         onPress={this._handlePressContinuePhone} />
@@ -137,7 +138,7 @@ class Login extends Component {
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('password')}</Text>
+                    <Text white h6 center t={'password'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Password
@@ -153,12 +154,16 @@ class Login extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('finish').toUpperCase()} full onPress={this._handlePressFinish} />
+                    <Button round
+                        t={'finish'}
+                        textTransform={String.prototype.toUpperCase}
+                        full
+                        onPress={this._handlePressFinish} />
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20 center>
                     <Button flat
-                        text={I18n.t('forgot_password_question')}
+                        t={'forgot_password_question'}
                         textStyle={{ color: '#38A5DA' }}
                         onPress={this._handlePressForgotPassword}
                     />

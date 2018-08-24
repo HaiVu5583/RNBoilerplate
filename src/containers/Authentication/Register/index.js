@@ -103,10 +103,10 @@ class Register extends Component {
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('register_account')}</Text>
+                    <Text white h6 center t={'register_account'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text center body2 lightWhite light>{I18n.t('hint_register_phone_input')}</Text>
+                    <Text center body2 lightWhite light t={'hint_register_phone_input'}/>
                 </Surface>
                 {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                 <Surface themeable={false} fullWidth mb20>
@@ -122,7 +122,8 @@ class Register extends Component {
                     <Button
                         enable={enableContinuePhoneButton}
                         round
-                        text={I18n.t('continue').toUpperCase()}
+                        t={'continue'}
+                        textTransform={String.prototype.toUpperCase}
                         full
                         onPress={this._handlePressContinuePhone} />
                 </Surface>
@@ -152,7 +153,7 @@ class Register extends Component {
             <Surface themeable={false} flex>
                 <Surface pd20 themeable={false} flex>
                     <Surface themeable={false} fullWidth mb20 rowCenter>
-                        <Text white h6 center>{I18n.t('verify_phone_number')}</Text>
+                        <Text white h6 center t={'verify_phone_number'}/>
                     </Surface>
                     <Surface themeable={false} fullWidth mb20 rowCenter>
                         <Text body2 lightWhite light center>
@@ -172,7 +173,8 @@ class Register extends Component {
                         <Button
                             enable={enableButtonContinueOTP}
                             round
-                            text={I18n.t('continue').toUpperCase()}
+                            t={'continue'}
+                            textTransform={String.prototype.toUpperCase}
                             full
                             onPress={this._handlePressContinueOTP}
                             rightComponent={this._renderCountdown}
@@ -180,9 +182,10 @@ class Register extends Component {
                         />
                     </Surface>
                     <Surface themeable={false} fullWidth rowSpacebetween>
-                        <Text lightWhite light>{I18n.t('otp_not_work')}</Text>
+                        <Text lightWhite light t={'otp_not_work'}/>
                         <Button flat
-                            text={I18n.t('resend').toUpperCase()}
+                            t={'resend'}
+                            textTransform={String.prototype.toUpperCase}
                             textStyle={{ color: '#38A5DA' }}
                             onPress={this._handleResend}
                         />
@@ -222,7 +225,7 @@ class Register extends Component {
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('personal_info')}</Text>
+                    <Text white h6 center t={'personal_info'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
@@ -248,7 +251,8 @@ class Register extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     <Button
                         round
-                        text={I18n.t('continue').toUpperCase()}
+                        t={'continue'}
+                        textTransform={String.prototype.toUpperCase}
                         full
                         enable={enableButtonContinueInfo}
                         onPress={this._handlePressContinuePersonalInfo} />
@@ -267,7 +271,7 @@ class Register extends Component {
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('personal_info')}</Text>
+                    <Text white h6 center t={'personal_info'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errBankAccount && <Text error body2>{this.state.errBankAccount}</Text>}
@@ -283,7 +287,8 @@ class Register extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     <Button
                         round
-                        text={I18n.t('continue').toUpperCase()}
+                        t={'continue'}
+                        textTransform={String.prototype.toUpperCase}
                         full
                         enable={enableContinueBankAccountButton}
                         onPress={this._handlePressContinueBankAccount} />
@@ -333,7 +338,11 @@ class Register extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressFinishPassword} />
+                    <Button 
+                        round
+                        t={'continue'} 
+                        textTransform={String.prototype.toUpperCase}
+                        full onPress={this._handlePressFinishPassword} />
                 </Surface>
             </Surface>
         )

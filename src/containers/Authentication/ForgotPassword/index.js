@@ -91,7 +91,7 @@ class ForgotPassword extends Component {
         return (
             <Surface style={{ padding: 20 }} themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('forgot_password').toUpperCase()}</Text>
+                    <Text white h6 center t={'forgot_password'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
@@ -123,7 +123,9 @@ class ForgotPassword extends Component {
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('get_password').toUpperCase()} full onPress={this._handlePressGetPassword} />
+                    <Button
+                        round t={'get_password'} textTransform={String.prototype.toUpperCase}
+                        full onPress={this._handlePressGetPassword} />
                 </Surface>
             </Surface>
         )
@@ -138,7 +140,7 @@ class ForgotPassword extends Component {
         return (
             <Surface style={{ padding: 20 }} themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('create_new_password').toUpperCase()}</Text>
+                    <Text white h6 center t={'create_new_password'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Password
@@ -167,7 +169,9 @@ class ForgotPassword extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('finish').toUpperCase()} full onPress={this._handlePressFinish} />
+                    <Button round t={'finish'}
+                        textTransform={String.prototype.toUpperCase}
+                        full onPress={this._handlePressFinish} />
                 </Surface>
             </Surface>
         )
@@ -190,7 +194,7 @@ class ForgotPassword extends Component {
             <Surface themeable={false} flex>
                 <Surface pd20 themeable={false} flex>
                     <Surface themeable={false} fullWidth mb20 rowCenter>
-                        <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+                        <Text white h6 center t={'authenticate'} />
                     </Surface>
                     <Surface themeable={false} fullWidth mb20 rowCenter>
                         <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
@@ -203,14 +207,15 @@ class ForgotPassword extends Component {
                         />
                     </Surface>
                     <Surface themeable={false} fullWidth mb20>
-                        <Button 
-                            round 
-                            text={I18n.t('continue').toUpperCase()} 
-                            full 
-                            onPress={this._handlePressContinueOTP} 
+                        <Button
+                            round
+                            t={'continue'}
+                            textTransform={String.prototype.toUpperCase}
+                            full
+                            onPress={this._handlePressContinueOTP}
                             rightComponent={this._renderCountdown}
                             innerExpand={true}
-                            />
+                        />
                     </Surface>
                 </Surface>
                 <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
