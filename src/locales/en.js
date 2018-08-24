@@ -11,8 +11,12 @@ const language = {
     'hint_input_password': 'Type Password',
     'cancel': 'Cancel',
     'confirm': 'Confirm',
-    disagree: 'Disagree',
-    'popup_confirmed': 'Confirm'
+    'disagree': 'Disagree',
+    'popup_confirmed': 'Confirm',
+    'personal_info': 'Personal info',
+    'full_name': 'Full name',
+    'identity_number': 'Identity number',
+    'confirm_send_otp': 'We will send OTP number to your phone. Do you want to continue?',
 }
 
 // export default language;

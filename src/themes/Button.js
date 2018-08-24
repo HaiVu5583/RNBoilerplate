@@ -12,7 +12,7 @@ class Button extends Component {
     static defaultProps = {
         textTransform: String.prototype.toUpperCase
     }
-    
+
     render() {
         const { forwardedRef, children, style, theme, icon, iconStyle, textStyle, enable,
             buttonEnableStyle, buttonDisableStyle, buttonTextEnableStyle, buttonTextDisableStyle,
@@ -34,12 +34,14 @@ class Button extends Component {
                 buttonThemeStyle.push(BUTTON_STYLES[identifier])
             }
         }
+        const buttonTextElement = t ? <Text themeable={false} style={textButtonStyle} t={t} textTransform={textTransform} /> :
+            text ? <Text themeable={false} style={textButtonStyle}>{text}</Text> : <Surface themeable={false} />
         const center = centerComponent ? centerComponent() : (
             <Surface themeable={false} rowCenter
                 expand={!!innerExpand}
             >
                 {!!icon && <Icon name={icon} style={[commonStyle.buttonIcon, iconStyle]} />}
-                {!!t && <Text themeable={false} style={textButtonStyle} t={t} textTransform={textTransform} />}
+                {buttonTextElement}
             </Surface>
         )
 

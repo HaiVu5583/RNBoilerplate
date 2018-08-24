@@ -156,9 +156,13 @@ class Register extends Component {
                     </Surface>
                     <Surface themeable={false} fullWidth mb20 rowCenter>
                         <Text body2 lightWhite light center>
-                            {I18n.t('input')}
-                            <Text body2 lightWhite bold center> {I18n.t('otp_with_hint')} </Text>
-                            {I18n.t('hint_input_opt2')} {this.state.phone}
+                            <Text body2 lightWhite light t={'input'} />
+                            {' '}
+                            <Text body2 lightWhite bold t={'otp_with_hint'} />
+                            {' '}
+                            <Text body2 lightWhite light t={'hint_input_opt2'} />
+                            {' '}
+                            {this.state.phone}
                         </Text>
                     </Surface>
                     {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
@@ -380,7 +384,7 @@ class Register extends Component {
                     />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('confirm_send_otp')}
+                        contentT={'confirm_send_otp'}
                         titleT={'register_account'}
                         textButton1T={'cancel'}
                         textButton2T={'confirm'}
@@ -389,7 +393,7 @@ class Register extends Component {
                         ref={ref => this.popupConfirm = ref} />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('already_have_bank_account')}
+                        contentT={'already_have_bank_account'}
                         textButton1={'disagree'}
                         textButton2={'popup_confirmed'}
                         onPressButton1={() => { }}

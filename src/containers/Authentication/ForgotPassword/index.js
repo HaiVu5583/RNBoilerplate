@@ -251,7 +251,7 @@ class ForgotPassword extends Component {
                     />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('err_forgot_password_info')}
+                        contentT={'err_forgot_password_info'}
                         textButton1T={'cancel'}
                         textButton2T={'popup_confirmed'}
                         onPressButton1={() => { }}
@@ -259,7 +259,7 @@ class ForgotPassword extends Component {
                         ref={ref => this.popupInvalidInfo = ref} />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('confirm_send_otp')}
+                        contentT={'confirm_send_otp'}
                         textButton1T={'cancel'}
                         textButton2T={'confirm'}
                         onPressButton1={() => { }}
