@@ -9,9 +9,9 @@ import { BUTTON_STYLES } from '~/src/themes/common'
 
 class Button extends Component {
     render() {
-        const { forwardedRef, children, style, theme, text, icon, iconStyle, textStyle, enable,
+        const { forwardedRef, children, style, theme, icon, iconStyle, textStyle, enable,
             buttonEnableStyle, buttonDisableStyle, buttonTextEnableStyle, buttonTextDisableStyle,
-            leftComponent, rightComponent, centerComponent, innerExpand, ...rest } = this.props
+            leftComponent, rightComponent, centerComponent, innerExpand, t, textTransform, ...rest } = this.props
         let buttonThemeStyle = [commonStyle.button, style]
         let textButtonStyle = [commonStyle.buttonText, textStyle]
         if (enable != null && typeof (enable) != 'undefined') {
@@ -32,7 +32,7 @@ class Button extends Component {
             expand={!!innerExpand}
         >
             {!!icon && <Icon name={icon} style={[commonStyle.buttonIcon, iconStyle]} />}
-            {!!text && <Text themeable={false} style={textButtonStyle}>{text}</Text>}
+            {!!t && <Text themeable={false} style={textButtonStyle} t={t} textTransform={textTransform} />}
         </Surface>
 
         return (
