@@ -1,5 +1,6 @@
 import React from 'react';
 import { Animated, Easing, Image, View, Platform } from 'react-native';
+import { Text } from '~/src/themes/ThemeComponent'
 
 export default class Spinner extends React.PureComponent {
 	

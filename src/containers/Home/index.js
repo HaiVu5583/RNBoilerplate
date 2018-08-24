@@ -61,6 +61,9 @@ class Home extends Component {
         Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.WebView',
+                passProps: {
+                    url: 'https://dantri.com.vn/',
+                }
             }
         })
     }

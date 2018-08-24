@@ -1,28 +1,30 @@
 import React from 'react';
 import { Dimensions, WebView, BackHandler, Linking, ActivityIndicator, Platform } from 'react-native'
 import { connect } from 'react-redux'
-// import ClingmeUtils from '~/utils/ClingmeUtils'
 import ToolBarWithBack from '~/src/components/ToolBarWithBack'
 import { chainParse } from '~/src/utils'
 import Spinner from '~/src/components/Spinner'
 import { requestConvertUrlToId } from '~/src/store/actions/query'
-import { View, Toolbar } from '~/src/themes/ThemeComponent'
+import I18n from '~/src/I18n'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
+import { ImageBackground } from 'react-native'
+import { TextInput, Surface, Background, Button, Toolbar } from '~/src/themes/ThemeComponent'
+import { View, Text } from 'react-native'
+import styles from './styles';
+import LinearGradient from 'react-native-linear-gradient'
 
 const { height, width } = Dimensions.get('window')
 const urlCache = []
 
-class ClingmeWebView extends React.PureComponent {
+class CardInfo extends React.PureComponent {
 
     constructor(props) {
         super(props)
-        
         this.state = {
             failMessage: '',
             webViewLoading: true,
             url: this.props.url
         }
-
-        // this._getUrl()
     }
     
     _handleBack = async () => {
@@ -213,37 +215,35 @@ class ClingmeWebView extends React.PureComponent {
         const url = this.state.url
         console.log('url', url)
         //onLoadStart={this._onLoadStart}
-
-        return (<View style={{ width, height }}>
-            {/* {this._renderWebViewToolbar()} */}
-            <Toolbar title='Webview Screen' componentId={this.props.componentId} />
-            {!!this.state.webViewLoading &&
-                <View style={{
-                    justifyContent: 'center',
-                    position: 'absolute',
-                    zIndex: 1,
-                    backgroundColor: '#ffffff',
-                    width: width,
-                    height: height
-                }}>
-                {/* <Spinner /> */}
-                <ActivityIndicator size={Platform.OS == 'ios' ? 'large' : 50} color={'#F16654'}/>
+        
+        return (
+            <View>
+            <LinearGradient
+                        start={{x: 0.65, y: 0}} end={{x: 0, y: 0.9}}
+                        locations={[0.5, 0.5]}
+                        // colors={['transparent', 'green', 'transparent']}
+                        colors={['green', 'red']}
+                        style={{width: '100%', height: 200}}
+                    />
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND}
+                style={{ marginLeft: 30, marginRight: 30, height: 200, padding: 18}}
+                imageStyle={{ borderRadius: 25 }}>
+                <Surface themeable={false} flex>
+                    <Text style={{fontSize: 26, color: '#ffffff', fontWeight: 'bold', marginTop: 20}} >
+                        1234 5678 1234 5678
+                    </Text>
+                    <Text style={{fontSize: 15, color: '#ffffff',}}>
+                        12/20
+                    </Text>
+                    <Text style={{fontSize: 18, color: '#ffffff', fontWeight: 'bold', marginTop: 30}}>
+                        HOANG THANH GIANF
+                    </Text>
+                </Surface>
+            </ImageBackground>
+            {/* // </LinearGradient> */}
             </View>
-            }
-            {!!url&&
-            <WebView
-                startInLoadingState={true}
-                onShouldStartLoadWithRequest={this._onLoadStart}
-                onLoadEnd={this._onLoadEnd}
-                onError={this._onWebViewError}
-                source={{ uri: url }}
-                ref={ref => this.webView = ref}
-                scalesPageToFit={false}
-            />
-            }
-        </View>
         )
     }
 }
 
-export default connect(null, {requestConvertUrlToId,})(ClingmeWebView)
+export default connect(null, {})(CardInfo)

@@ -98,7 +98,7 @@ export const run = () => {
                             {
                                 component: {
                                     // name: 'gigabankclient.Authentication'
-                                    name: 'gigabankclient.HomeScreen'
+                                    name: 'gigabankclient.AccountScreen'
                                 }
                             }
                         ]

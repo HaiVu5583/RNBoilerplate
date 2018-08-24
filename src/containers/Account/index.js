@@ -1,28 +1,28 @@
 import React from 'react';
-import { Dimensions, WebView, BackHandler, Linking, ActivityIndicator, Platform } from 'react-native'
+import { Dimensions, Linking } from 'react-native'
 import { connect } from 'react-redux'
-// import ClingmeUtils from '~/utils/ClingmeUtils'
 import ToolBarWithBack from '~/src/components/ToolBarWithBack'
 import { chainParse } from '~/src/utils'
-import Spinner from '~/src/components/Spinner'
-import { requestConvertUrlToId } from '~/src/store/actions/query'
-import { View, Toolbar } from '~/src/themes/ThemeComponent'
+import I18n from '~/src/I18n'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
+import { ImageBackground } from 'react-native'
+import { TextInput, Surface, Background, Text, Button, Toolbar, View, Icon} from '~/src/themes/ThemeComponent'
+import CardInfo from './CardInfo'
+import AccountInfo from './AccountInfo'
+import Option from './Option'
 
 const { height, width } = Dimensions.get('window')
 const urlCache = []
 
-class ClingmeWebView extends React.PureComponent {
-
+class Account extends React.PureComponent {
+    
     constructor(props) {
         super(props)
-        
         this.state = {
             failMessage: '',
             webViewLoading: true,
             url: this.props.url
         }
-
-        // this._getUrl()
     }
     
     _handleBack = async () => {
@@ -207,43 +207,62 @@ class ClingmeWebView extends React.PureComponent {
 
 //         os << "cxuserId=" << m_oUserProxy->getUserData()->userId << "&cxsession=" << encodedSession << "&cxlang=" << WalleLocalization::sharedInstance()->getLanguage() << "&xversion=" << GigUtils::getApplicationVersion().c_str();
     }
+    
+    _balanceInquiry = () => {
+        alert('Tra cứu số dư')
+    }
+
+    _transactionHistory = () => {
+        alert('Lịch sử giao dịch')
+    }
+
+    _paymentAccount = () => {
+        alert('Tài khoản thanh toán')
+    }
+
+    _changePassword = () => {
+        alert('Đổi mật khẩu')
+    }
 
     render() {
 
         const url = this.state.url
         console.log('url', url)
         //onLoadStart={this._onLoadStart}
-
-        return (<View style={{ width, height }}>
-            {/* {this._renderWebViewToolbar()} */}
-            <Toolbar title='Webview Screen' componentId={this.props.componentId} />
-            {!!this.state.webViewLoading &&
-                <View style={{
-                    justifyContent: 'center',
-                    position: 'absolute',
-                    zIndex: 1,
-                    backgroundColor: '#ffffff',
-                    width: width,
-                    height: height
-                }}>
-                {/* <Spinner /> */}
-                <ActivityIndicator size={Platform.OS == 'ios' ? 'large' : 50} color={'#F16654'}/>
-            </View>
-            }
-            {!!url&&
-            <WebView
-                startInLoadingState={true}
-                onShouldStartLoadWithRequest={this._onLoadStart}
-                onLoadEnd={this._onLoadEnd}
-                onError={this._onWebViewError}
-                source={{ uri: url }}
-                ref={ref => this.webView = ref}
-                scalesPageToFit={false}
-            />
-            }
-        </View>
+        
+        return (
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
+                <Surface themeable={false} flex>
+                    <Toolbar
+                        onPressIconLeft={this._handlePressBackIcon}
+                        themeable={false}
+                        iconStyle={{ color: 'white' }}
+                        title={I18n.t('account')}
+                        componentId={this.props.componentId}
+                    />
+                    
+                    <CardInfo />
+                    <AccountInfo />
+                    <Option
+                        title={'Tra cứu số dư'}
+                        onPress={this._balanceInquiry}   
+                    />
+                    <Option
+                        title={'Lịch sử giao dịch'}
+                        onPress={this._transactionHistory}   
+                    />
+                    <Option
+                        title={'Tài khoản thanh toán'}
+                        onPress={this._paymentAccount}   
+                    />
+                    <Option
+                        title={'Đổi mật khẩu'}
+                        onPress={this._changePassword}
+                    />
+                </Surface>
+            </ImageBackground>
         )
     }
 }
 
-export default connect(null, {requestConvertUrlToId,})(ClingmeWebView)
+export default connect(null, {})(Account)

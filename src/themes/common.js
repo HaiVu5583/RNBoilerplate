@@ -266,7 +266,9 @@ export default {
         },
         title: {
             fontSize: 20,
-            flex: 1
+            flex: 1,
+            color: '#ffffff',
+            fontWeight: 'bold'
         },
         iconRightContainer: {
             paddingRight: 16,
