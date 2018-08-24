@@ -124,7 +124,7 @@ class ForgotPassword extends Component {
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Button
-                        round t={'get_password'} textTransform={String.prototype.toUpperCase}
+                        round t={'get_password'} 
                         full onPress={this._handlePressGetPassword} />
                 </Surface>
             </Surface>
@@ -169,9 +169,7 @@ class ForgotPassword extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round t={'finish'}
-                        textTransform={String.prototype.toUpperCase}
-                        full onPress={this._handlePressFinish} />
+                    <Button round t={'finish'} full onPress={this._handlePressFinish} />
                 </Surface>
             </Surface>
         )
@@ -210,7 +208,6 @@ class ForgotPassword extends Component {
                         <Button
                             round
                             t={'continue'}
-                            textTransform={String.prototype.toUpperCase}
                             full
                             onPress={this._handlePressContinueOTP}
                             rightComponent={this._renderCountdown}

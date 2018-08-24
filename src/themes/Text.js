@@ -6,6 +6,8 @@ import { getTheme } from './utils'
 import { TEXT_STYLES } from '~/src/themes/common'
 import I18n from '~/src/I18n'
 import { isFunction } from '~/src/utils'
+import PropTypes from 'prop-types'
+
 class ThemeText extends Component {
 
     render() {
@@ -37,6 +39,11 @@ class ThemeText extends Component {
             </Text>
         )
     }
+}
+
+ThemeText.propTypes = {
+    t: PropTypes.string,
+    textTransform: PropTypes.func
 }
 
 const ConnectedText = connect(state => ({

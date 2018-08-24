@@ -129,7 +129,6 @@ class Authentication extends Component {
                         <Surface themeable={false} fullWidth mb20>
                             <Button round full
                                 t={'register_account'}
-                                textTransform={String.prototype.toUpperCase}
                                 onPress={this._handlePressRegister}
                             />
                         </Surface>
@@ -137,7 +136,6 @@ class Authentication extends Component {
                             <Text white t={'already_have_account'} />
                             <Button flat
                                 t={'login'}
-                                textTransform={String.prototype.toUpperCase}
                                 textStyle={{ color: '#38A5DA' }}
                                 onPress={this._handlePressLogin}
                             />

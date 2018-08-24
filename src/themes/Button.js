@@ -6,8 +6,13 @@ import { getTheme } from './utils'
 import Ripple from 'react-native-material-ripple'
 import { Icon, Text, Surface } from '~/src/themes/ThemeComponent'
 import { BUTTON_STYLES } from '~/src/themes/common'
+import PropTypes from 'prop-types'
 
 class Button extends Component {
+    static defaultProps = {
+        textTransform: String.prototype.toUpperCase
+    }
+    
     render() {
         const { forwardedRef, children, style, theme, icon, iconStyle, textStyle, enable,
             buttonEnableStyle, buttonDisableStyle, buttonTextEnableStyle, buttonTextDisableStyle,
@@ -51,6 +56,11 @@ class Button extends Component {
             </Ripple>
         )
     }
+}
+
+Button.propTypes = {
+    t: PropTypes.string,
+    textTransform: PropTypes.func
 }
 
 const ConnectedButton = connect(state => ({

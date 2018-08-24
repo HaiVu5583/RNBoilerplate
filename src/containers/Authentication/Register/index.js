@@ -123,7 +123,6 @@ class Register extends Component {
                         enable={enableContinuePhoneButton}
                         round
                         t={'continue'}
-                        textTransform={String.prototype.toUpperCase}
                         full
                         onPress={this._handlePressContinuePhone} />
                 </Surface>
@@ -174,7 +173,7 @@ class Register extends Component {
                             enable={enableButtonContinueOTP}
                             round
                             t={'continue'}
-                            textTransform={String.prototype.toUpperCase}
+
                             full
                             onPress={this._handlePressContinueOTP}
                             rightComponent={this._renderCountdown}
@@ -185,7 +184,7 @@ class Register extends Component {
                         <Text lightWhite light t={'otp_not_work'} />
                         <Button flat
                             t={'resend'}
-                            textTransform={String.prototype.toUpperCase}
+
                             textStyle={{ color: '#38A5DA' }}
                             onPress={this._handleResend}
                         />
@@ -252,7 +251,6 @@ class Register extends Component {
                     <Button
                         round
                         t={'continue'}
-                        textTransform={String.prototype.toUpperCase}
                         full
                         enable={enableButtonContinueInfo}
                         onPress={this._handlePressContinuePersonalInfo} />
@@ -288,7 +286,6 @@ class Register extends Component {
                     <Button
                         round
                         t={'continue'}
-                        textTransform={String.prototype.toUpperCase}
                         full
                         enable={enableContinueBankAccountButton}
                         onPress={this._handlePressContinueBankAccount} />
@@ -341,7 +338,6 @@ class Register extends Component {
                     <Button
                         round
                         t={'continue'}
-                        textTransform={String.prototype.toUpperCase}
                         full onPress={this._handlePressFinishPassword} />
                 </Surface>
             </Surface>
