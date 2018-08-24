@@ -227,6 +227,7 @@ class Register extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
                     <TextInput
+                        descriptionIcon={'user-active'}
                         placeholder={I18n.t('full_name')}
                         white
                         onChangeText={text => this.setState({ name: text, errName: '' })}
@@ -237,6 +238,7 @@ class Register extends Component {
                     {!!this.state.errIdentityNumber && <Text error body2>{this.state.errIdentityNumber}</Text>}
                     <TextInput
                         placeholder={I18n.t('identity_number')}
+                        descriptionIcon={'code'}
                         white
                         keyboardType='numeric'
                         onChangeText={text => this.setState({ identityNumber: text, errIdentityNumber: '' })}

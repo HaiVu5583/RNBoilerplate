@@ -17,7 +17,8 @@ export const COLORS = {
 }
 
 export const ASSETS = {
-    MAIN_BACKGROUND: require('~/src/assets/background.jpg')
+    MAIN_BACKGROUND: require('~/src/assets/background.jpg'),
+    LIGHT_BACKGROUND: require('~/src/assets/background_light.jpg')
 }
 
 export const DEFAULT_PUSH_ANIMATION = {
@@ -118,6 +119,9 @@ export const TEXT_STYLES = {
     },
     bold: {
         ...getFontStyle(FONT_WEIGHTS.bold),
+    },
+    flex: {
+        flex: 1
     }
 }
 
@@ -127,19 +131,6 @@ export const TEXT_INPUT_STYLES = {
         placeholderTextColor: COLORS.LIGHT_WHITE,
         borderBottomWidth: LINE_HEIGHT,
         borderBottomColor: COLORS.WHITE
-    }
-}
-
-export const BUTTON_STYLES = {
-    round: {
-        borderRadius: 25
-    },
-    flat: {
-        backgroundColor: 'transparent',
-        ...getElevation(0)
-    },
-    full: {
-        width: '100%'
     }
 }
 
@@ -194,6 +185,9 @@ export const SURFACE_STYLES = {
     pd20: {
         padding: 20
     },
+    pv20: {
+        paddingVertical: 20
+    },
     white: {
         backgroundColor: COLORS.WHITE
     },
@@ -208,6 +202,24 @@ export const SURFACE_STYLES = {
     }
 }
 
+export const BUTTON_STYLES = {
+    ...SURFACE_STYLES,
+    round: {
+        borderRadius: 25
+    },
+    flat: {
+        backgroundColor: 'transparent',
+        ...getElevation(0)
+    },
+    full: {
+        width: '100%'
+    },
+    noPadding: {
+        padingLeft: 0,
+        paddingRight: 0
+    }
+}
+
 export const TOOLBAR_HEIGHT = 56
 
 export default {
@@ -218,7 +230,8 @@ export default {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
         ...getElevation(2)
     },
     buttonText: {
@@ -232,7 +245,8 @@ export default {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
         ...getElevation(0)
     },
     buttonTextDisable: {
@@ -280,6 +294,15 @@ export default {
         },
         iconRight: {
             fontSize: 19,
+        },
+    },
+    textInput: {
+        input: {
+            flex: 1
+        },
+        descriptionIcon: {
+            fontSize: 24,
+            marginRight: 15
         }
     }
 }

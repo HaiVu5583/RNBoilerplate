@@ -196,6 +196,7 @@ const language = {
     'err_otp_retry_too_fast': 'Thử lại OTP quá nhanh. Vui lòng đợi 60s và thử lại.',
     'err_timeout': 'Oops... Có lỗi kết nối. Bạn vui lòng thử lại.',
     'err_display_name': 'Vui lòng nhập tên hiển thị có độ dài từ 5 đến 50 ký tự.',
+    'account_number': 'Số tài khoản',
 
     //cashback
     'cashback_today': 'Hôm nay',

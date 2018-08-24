@@ -79,9 +79,9 @@ class Login extends Component {
     _renderStepPhone = () => {
         const enableContinuePhoneButton = (this.state.phone && this.state.phone.trim())
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('login').toUpperCase()}</Text>
+                    <Text white h6 center>{I18n.t('login')}</Text>
                 </Surface>
                 {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                 <Surface themeable={false} fullWidth mb20>
@@ -106,11 +106,22 @@ class Login extends Component {
     }
 
     _handlePressFinish = () => {
-        Navigation.setStackRoot('mainStack', {
-            component: {
-                name: 'gigabankclient.HomeScreen',
-            }
-        })
+        Navigation.setStackRoot('mainStack',
+            {
+                sideMenu: {
+                    id: 'sideMenu',
+                    left: {
+                        component: {
+                            name: 'gigabankclient.Drawer',
+                        }
+                    },
+                    center: {
+                        component: {
+                            name: 'gigabankclient.HomeScreen',
+                        }
+                    },
+                }
+            })
     }
 
     _handlePressForgotPassword = () => {
@@ -124,9 +135,9 @@ class Login extends Component {
     _renderStepPassword = () => {
         const { placeholderTextColor, color, ...restStyle } = TEXT_INPUT_STYLES.white
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('password').toUpperCase()}</Text>
+                    <Text white h6 center>{I18n.t('password')}</Text>
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Password
