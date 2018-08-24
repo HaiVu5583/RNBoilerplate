@@ -10,6 +10,10 @@ import FingerprintScanner from 'react-native-fingerprint-scanner'
 import { TouchableOpacity } from 'react-native-ui-lib';
 import FingerprintPopup from './FingerprintPopup'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
+import { LANGUAGES } from '~/src/constants'
+import { languageSelector } from '~/src/store/selectors/ui'
+import { changeLanguage } from '~/src/store/actions/ui'
+import Ripple from 'react-native-material-ripple'
 
 class Authentication extends Component {
     static get options() {
@@ -70,11 +74,32 @@ class Authentication extends Component {
         alert('Fingerprint Authenticate Successful!')
     }
 
+    _handleChangeLanguage = (language) => {
+        I18n.locale = language.toLowerCase()
+        this.props.changeLanguage(language)
+    }
+
+    _renderLanguageSelection = () => {
+        return (
+            <Surface themeable={false} rowEnd>
+                <Ripple rippleColor={'white'} onPress={() => this._handleChangeLanguage(LANGUAGES.VI)}>
+                    <Text body1 white thin bold={this.props.language == LANGUAGES.VI}>{LANGUAGES.VI}</Text>
+                </Ripple>
+                <Text body1 white thin>/</Text>
+                <Ripple rippleColor={'white'} onPress={() => this._handleChangeLanguage(LANGUAGES.EN)}>
+                    <Text body1 white thin bold={this.props.language == LANGUAGES.EN}>{LANGUAGES.EN}</Text>
+                </Ripple>
+
+            </Surface>
+        )
+    }
+
     render() {
 
         return (
             <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
                 <Surface themeable={false} flex pd20>
+                    {this._renderLanguageSelection()}
                     <FingerprintPopup
                         ref={ref => this.fingerprintPopup = ref}
                         onAuthenticateSuccess={this._onAuthenticateSuccess}
@@ -121,4 +146,6 @@ class Authentication extends Component {
         )
     }
 }
-export default connect(null, null)(Authentication)
+export default connect(state => ({
+    language: languageSelector(state)
+}), { changeLanguage })(Authentication)

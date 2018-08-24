@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { themeSelector } from '~/src/store/selectors/Theme'
+import { themeSelector } from '~/src/store/selectors/ui'
 import { connect } from 'react-redux'
 import { getTheme } from './utils'
 import Icon from '~/src/components/FontIcon'

@@ -32,3 +32,7 @@ export const BUILD_INFO = {
 
 export const TIMEOUT_TIME = 30000
 export const TIMEOUT = 'REQUEST_TIME_OUT'
+export const LANGUAGES = {
+    VI: 'VI',
+    EN: 'EN'
+}

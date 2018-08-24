@@ -10,7 +10,7 @@ import { Surface, Background, Text, Button, Toolbar } from '~/src/themes/ThemeCo
 import { changeTheme } from '~/src/store/actions/ui'
 import { THEMES } from '~/src/themes/common.js'
 import { connect } from 'react-redux'
-import { themeSelector } from '~/src/store/selectors/Theme'
+import { themeSelector } from '~/src/store/selectors/ui'
 import { changeBottomTabColor } from '~/src/utils'
 import { getTheme } from '~/src/themes/utils'
 
