@@ -2,8 +2,10 @@ import React from 'react';
 import { View, TextInput, TouchableWithoutFeedback } from 'react-native';
 import Icon from '~/src/components/FontIcon'
 import styles from './styles'
-
-export default class Password extends React.PureComponent {
+import { languageSelector } from '~/src/store/selectors/ui'
+import { connect } from 'react-redux'
+import I18n from '~/src/I18n'
+class Password extends React.PureComponent {
 
     constructor(props) {
         super(props)
@@ -27,6 +29,7 @@ export default class Password extends React.PureComponent {
     }
 
     render() {
+        const { placeholder, placeholderT, ...restProps } = this.props
         if (!this.state.showing) {
 
             return (
@@ -51,7 +54,8 @@ export default class Password extends React.PureComponent {
                             }
                         }}
                         selection={this.changeShowToHide ? this.passwordShowingSelection : this.state.selectionHiding}
-                        {...this.props}
+                        placeholder={placeholderT ? I18n.t(placeholderT) : (placeholder || '')}
+                        {...restProps}
                     />
                     <TouchableWithoutFeedback onPress={this._onPressShowHide}>
                         <View style={styles.iconContainer}>
@@ -83,7 +87,8 @@ export default class Password extends React.PureComponent {
                         }
                     }}
                     selection={this.changeHideToShow ? this.passwordHidingSelection : this.state.selectionShowing}
-                    {...this.props}
+                    placeholder={placeholderT ? I18n.t(placeholderT) : (placeholder || '')}
+                    {...restProps}
                 />
                 <TouchableWithoutFeedback onPress={this._onPressShowHide}>
                     <View style={styles.iconContainer}>
@@ -94,3 +99,11 @@ export default class Password extends React.PureComponent {
         )
     }
 }
+
+const ConnectedPassword = connect(state => ({
+    language: languageSelector(state)
+}))(Password)
+
+export default React.forwardRef((props, ref) => {
+    return <ConnectedPassword {...props} forwardedRef={ref} />
+})

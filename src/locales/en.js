@@ -6,7 +6,9 @@ const language = {
     'continue': 'Continue',
     'password': 'Password',
     'forgot_password_question': 'Forgot Password?',
-    'finish': 'Finish'
+    'finish': 'Finish',
+    'phone': 'Phone Number',
+    'hint_input_password': 'Type Password'
 }
 
 // export default language;

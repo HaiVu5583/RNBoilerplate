@@ -96,7 +96,7 @@ class ForgotPassword extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
                     <TextInput
-                        placeholder={I18n.t('full_name')}
+                        placeholderT={'full_name'}
                         white
                         onChangeText={text => this.setState({ name: text, errName: '' })}
                         value={this.state.name}
@@ -105,7 +105,7 @@ class ForgotPassword extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errIdentityNumber && <Text error body2>{this.state.errIdentityNumber}</Text>}
                     <TextInput
-                        placeholder={I18n.t('identity_number')}
+                        placeholderT={'identity_number'}
                         white
                         keyboardType='numeric'
                         onChangeText={text => this.setState({ identityNumber: text, errIdentityNumber: '' })}
@@ -115,7 +115,7 @@ class ForgotPassword extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errBankAccount && <Text error body2>{this.state.errBankAccount}</Text>}
                     <TextInput
-                        placeholder={I18n.t('hint_input_bank_account_number')}
+                        placeholderT={'hint_input_bank_account_number'}
                         white
                         keyboardType='numeric'
                         onChangeText={text => this.setState({ bankAccount: text, errBankAccount: '' })}
@@ -144,7 +144,7 @@ class ForgotPassword extends Component {
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Password
-                        placeholder={I18n.t('hint_input_password')}
+                        placeholderT={'hint_input_password'}
                         containerStyle={styles.textInput}
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
@@ -157,7 +157,7 @@ class ForgotPassword extends Component {
 
                 <Surface themeable={false} fullWidth mb20>
                     <Password
-                        placeholder={I18n.t('hint_reinput_password')}
+                        placeholderT={'hint_reinput_password'}
                         containerStyle={styles.textInput}
                         onChangeText={text => this.setState({ repassword: text })}
                         value={this.state.repassword}

@@ -86,7 +86,7 @@ class Login extends Component {
                 {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                 <Surface themeable={false} fullWidth mb20>
                     <TextInput
-                        placeholder={I18n.t('phone')}
+                        placeholderT={'phone'}
                         white
                         keyboardType='numeric'
                         onChangeText={this._onChangePhoneNumber}
@@ -142,7 +142,7 @@ class Login extends Component {
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Password
-                        placeholder={I18n.t('hint_input_password')}
+                        placeholderT={'hint_input_password'}
                         containerStyle={styles.textInput}
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}

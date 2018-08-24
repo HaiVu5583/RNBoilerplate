@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
-import { themeSelector } from '~/src/store/selectors/ui'
+import { themeSelector, languageSelector } from '~/src/store/selectors/ui'
 import { connect } from 'react-redux'
 import { getTheme } from './utils'
 import { TextInput } from 'react-native'
 import { Surface, Icon } from '~/src/themes/ThemeComponent'
 import commonStyle, { TEXT_INPUT_STYLES } from '~/src/themes/common'
+import I18n from '~/src/I18n'
 
 class ThemeTextInput extends Component {
     render() {
-        const { forwardedRef, style, theme, themeable, descriptionIcon, ...rest } = this.props
+        const { forwardedRef, style, theme, themeable, descriptionIcon, placeholderT, placeholder, ...rest } = this.props
         const themeStyle = getTheme(theme)
         let textThemeStyle = themeable ?
             [{ color: themeStyle.textInputTextColor }, commonStyle.textInput.input, style]
@@ -39,6 +40,7 @@ class ThemeTextInput extends Component {
                 {!!descriptionIcon && <Icon name={descriptionIcon} style={descriptionIconStyle} />}
                 <TextInput
                     {...rest}
+                    placeholder={placeholderT ? I18n.t(placeholderT) : (placeholder || '')}
                     placeholderTextColor={placeholderTextColorTheme}
                     style={textThemeStyle}
                 />
@@ -48,7 +50,8 @@ class ThemeTextInput extends Component {
 }
 
 const ConnectedTextInput = connect(state => ({
-    theme: themeSelector(state)
+    theme: themeSelector(state),
+    language: languageSelector(state)
 }))(ThemeTextInput)
 
 export default React.forwardRef((props, ref) => {
