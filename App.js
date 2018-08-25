@@ -81,17 +81,8 @@ YellowBox.ignoreWarnings([
     'Warning: Module SafeAreaManager requires',
 ]);
 
-let loadStoreDone = false
 
 export const run = () => {
-    _persist(store).then(() => {
-        loadStoreDone = true
-        // Apply language after restore store
-        const state = store.getState()
-        const language = languageSelector(state)
-        I18n.locale = language.toLowerCase()
-    })
-
     registerScreens(store)
     Navigation.events().registerAppLaunchedListener(() => {
         Navigation.setDefaultOptions({
@@ -115,8 +106,17 @@ export const run = () => {
                 titleDisplayMode: 'alwaysShow'
             }
         })
-
-        _getBottomTabIcon(BOTTOM_TABS, 24, '#F16654').then(bottomTabs => {
+        console.log('Before Promise', new Date().getTime())
+        Promise.all([
+            _getBottomTabIcon(BOTTOM_TABS, 24, '#F16654'),
+            _persist(store)
+        ]).then((values) => {
+            // Apply language after restore store
+            const state = store.getState()
+            const language = languageSelector(state)
+            I18n.locale = language.toLowerCase()
+            
+            const bottomTabs = values[0]
             _setRoot(bottomTabs)
         })
     })
