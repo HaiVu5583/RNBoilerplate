@@ -82,7 +82,6 @@ YellowBox.ignoreWarnings([
 ]);
 
 let loadStoreDone = false
-let intervalID = -1
 
 export const run = () => {
     _persist(store).then(() => {
@@ -118,16 +117,7 @@ export const run = () => {
         })
 
         _getBottomTabIcon(BOTTOM_TABS, 24, '#F16654').then(bottomTabs => {
-            if (loadStoreDone) {
-                _setRoot(bottomTabs)
-            } else {
-                invervalID = setInterval(() => {
-                    if (loadStoreDone) {
-                        _setRoot(bottomTabs)
-                        clearInterval(intervalID)
-                    }
-                }, 50)
-            }
+            _setRoot(bottomTabs)
         })
     })
 }
