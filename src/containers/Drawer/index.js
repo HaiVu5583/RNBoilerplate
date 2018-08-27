@@ -73,14 +73,6 @@ class Drawer extends Component {
     }
 
     _handleCloseDrawer = () => {
-        // Navigation.mergeOptions('sideMenu', {
-        //     sideMenu: {
-        //         left: {
-        //             visible: false
-        //         }
-        //     }
-        // })
-        console.log('Drawer Props', this.props)
         this.props.navigation.closeDrawer()
     }
 
@@ -94,13 +86,6 @@ class Drawer extends Component {
     }
 
     _handlePressFeature = (item) => {
-        // Navigation.mergeOptions('sideMenu', {
-        //     sideMenu: {
-        //         left: {
-        //             visible: false
-        //         }
-        //     }
-        // })
         this.props.navigation.closeDrawer()
     }
 

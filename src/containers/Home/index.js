@@ -107,14 +107,6 @@ class Home extends Component {
     }
 
     _handlePressHambergerIcon = () => {
-        // Navigation.mergeOptions('sideMenu', {
-        //     sideMenu: {
-        //         left: {
-        //             visible: true
-        //         }
-        //     }
-        // })
-        console.log('Current Navigation', this.navigation)
         this.props.navigation.openDrawer()
     }
 
