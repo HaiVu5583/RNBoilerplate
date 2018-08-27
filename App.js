@@ -97,7 +97,9 @@ sagaMiddleware.run(rootSaga)
 const persistor = persistStore(store, undefined, () => {
     const state = store.getState()
     const language = languageSelector(state)
-    I18n.locale = language.toLowerCase()
+    if (language){
+        I18n.locale = language.toLowerCase()
+    }
 })
 
 export default class Root extends React.Component {
