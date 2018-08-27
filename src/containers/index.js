@@ -95,10 +95,24 @@ import Login from '~/src/containers/Authentication/Login'
 import Register from '~/src/containers/Authentication/Register'
 import ForgotPassword from '~/src/containers/Authentication/ForgotPassword'
 import Drawer from '~/src/containers/Drawer'
-export default AppRouteConfig = {
+import { createDrawerNavigator } from 'react-navigation'
+import React from 'react'
+
+export const AppDrawerRouteConfig = {
     Home: {
         screen: HomeScreen
-    },
+    }
+}
+
+const HomeDrawer = createDrawerNavigator(
+    AppDrawerRouteConfig,
+    {
+        initialRouteName: 'Home',
+        contentComponent: props => <Drawer {...props} />
+    }
+)
+
+export const AppStackRouteConfig = {
     Splash: {
         screen: SplashScreen
     },
@@ -120,7 +134,7 @@ export default AppRouteConfig = {
     ForgotPassword: {
         screen: ForgotPassword
     },
-    Drawer: {
-        screen: Drawer
+    Home: {
+        screen: HomeDrawer
     }
 }

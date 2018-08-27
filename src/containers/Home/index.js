@@ -107,13 +107,15 @@ class Home extends Component {
     }
 
     _handlePressHambergerIcon = () => {
-        Navigation.mergeOptions('sideMenu', {
-            sideMenu: {
-                left: {
-                    visible: true
-                }
-            }
-        })
+        // Navigation.mergeOptions('sideMenu', {
+        //     sideMenu: {
+        //         left: {
+        //             visible: true
+        //         }
+        //     }
+        // })
+        console.log('Current Navigation', this.navigation)
+        this.props.navigation.openDrawer()
     }
 
     _handlePressFeature = (item) => {
@@ -141,7 +143,6 @@ class Home extends Component {
     }
 
     render() {
-
         return (
             <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: '100%', height: '100%' }}>
                 <Toolbar

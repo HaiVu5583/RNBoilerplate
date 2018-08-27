@@ -126,17 +126,15 @@
 
 import React from 'react'
 import { createStackNavigator } from 'react-navigation'
-import AppRouteConfig from '~/src/containers'
+import { AppStackRouteConfig } from '~/src/containers'
 import {
     createStore,
     applyMiddleware,
     combineReducers,
-    compose
 } from 'redux'
 import {
     reduxifyNavigator,
     createReactNavigationReduxMiddleware,
-    createNavigationReducer,
 } from 'react-navigation-redux-helpers'
 import { Provider, connect } from 'react-redux'
 import logger from 'redux-logger';
@@ -145,11 +143,16 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from '~/src/store/sagas'
-import { Animated, Easing } from 'react-native'
+import { Animated, Easing, ActivityIndicator, View, Platform } from 'react-native'
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import I18n from '~/src/I18n'
+import { languageSelector } from '~/src/store/selectors/ui'
+
 
 
 const AppNavigator = createStackNavigator(
-    AppRouteConfig,
+    AppStackRouteConfig,
     {
         initialRouteName: 'Authentication',
         navigationOptions: {
@@ -164,25 +167,11 @@ const AppNavigator = createStackNavigator(
             screenInterpolator: sceneProps => {
                 const { layout, position, scene } = sceneProps;
                 const { index } = scene;
-
-                const height = layout.initHeight;
                 const width = layout.initWidth
-
-                // const translateY = position.interpolate({
-                //     inputRange: [index - 1, index, index + 1],
-                //     outputRange: [height, 0, 0],
-                // });
-
-                // const opacity = position.interpolate({
-                //     inputRange: [index - 1, index - 0.99, index],
-                //     outputRange: [0, 1, 1],
-                // });
-
                 const translateX = position.interpolate({
                     inputRange: [index - 1, index],
                     outputRange: [width, 0],
                 })
-
                 return { transform: [{ translateX }] };
             },
         }),
@@ -219,31 +208,41 @@ const persistConfig = {
 }
 const persistedReducer = persistReducer(persistConfig, appReducer)
 const sagaMiddleware = createSagaMiddleware()
-let composeAll
+let middlewares
 if (__DEV__) {
-    composeAll = compose(
-        applyMiddleware(middleware),
-        applyMiddleware(sagaMiddleware),
-        applyMiddleware(logger)
-    )
+    middlewares = applyMiddleware(middleware, sagaMiddleware, logger)
 } else {
-    composeAll = compose(
-        applyMiddleware(middleware),
-        applyMiddleware(sagaMiddleware)
-    )
+    middlewares = applyMiddleware(middleware, sagaMiddleware)
 }
 
 const store = createStore(
     persistedReducer,
-    composeAll
+    middlewares
 )
 sagaMiddleware.run(rootSaga)
+const persistor = persistStore(store, undefined, () => {
+    console.log('Store State', store.getState())
+    const state = store.getState()
+    const language = languageSelector(state)
+    I18n.locale = language.toLowerCase()
+})
 
 export default class Root extends React.Component {
+    _renderLoadingPersist = () => {
+        return (
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <ActivityIndicator size={Platform.OS == 'ios' ? 'large' : 80} color={'black'} />
+            </View>
+        )
+    }
     render() {
         return (
             <Provider store={store}>
-                <AppWithNavigationState />
+                <PersistGate
+                    loading={this._renderLoadingPersist()}
+                    persistor={persistor}>
+                    <AppWithNavigationState />
+                </PersistGate>
             </Provider>
         );
     }

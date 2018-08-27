@@ -73,13 +73,15 @@ class Drawer extends Component {
     }
 
     _handleCloseDrawer = () => {
-        Navigation.mergeOptions('sideMenu', {
-            sideMenu: {
-                left: {
-                    visible: false
-                }
-            }
-        })
+        // Navigation.mergeOptions('sideMenu', {
+        //     sideMenu: {
+        //         left: {
+        //             visible: false
+        //         }
+        //     }
+        // })
+        console.log('Drawer Props', this.props)
+        this.props.navigation.closeDrawer()
     }
 
     _renderLogo = () => {
@@ -92,13 +94,14 @@ class Drawer extends Component {
     }
 
     _handlePressFeature = (item) => {
-        Navigation.mergeOptions('sideMenu', {
-            sideMenu: {
-                left: {
-                    visible: false
-                }
-            }
-        })
+        // Navigation.mergeOptions('sideMenu', {
+        //     sideMenu: {
+        //         left: {
+        //             visible: false
+        //         }
+        //     }
+        // })
+        this.props.navigation.closeDrawer()
     }
 
     _renderFeatureItem = ({ item, index }) => {
