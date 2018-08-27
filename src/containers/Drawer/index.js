@@ -57,7 +57,8 @@ class Drawer extends Component {
             {
                 id: 7,
                 icon: 'help-line',
-                name: 'Feature 7'
+                name: 'Logout',
+                onPress: this._handleLogout
             }
         ]
     }
@@ -70,6 +71,10 @@ class Drawer extends Component {
                     style={{ width: 40, height: 40, borderRadius: 20 }} />
             </Surface>
         )
+    }
+
+    _handleLogout = () => {
+        this.props.navigation.replace('Authentication')
     }
 
     _handleCloseDrawer = () => {
@@ -87,6 +92,9 @@ class Drawer extends Component {
 
     _handlePressFeature = (item) => {
         this.props.navigation.closeDrawer()
+        if (item.onPress) {
+            item.onPress.call()
+        }
     }
 
     _renderFeatureItem = ({ item, index }) => {

@@ -17,7 +17,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import createSagaMiddleware from 'redux-saga'
 import rootSaga from '~/src/store/sagas'
-import { Animated, Easing, ActivityIndicator, View, Platform } from 'react-native'
+import { Animated, Easing, ActivityIndicator, View, Platform, StatusBar } from 'react-native'
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
 import I18n from '~/src/I18n'
@@ -114,6 +114,10 @@ export default class Root extends React.Component {
                 <PersistGate
                     loading={this._renderLoadingPersist()}
                     persistor={persistor}>
+                    <StatusBar
+                        barStyle="light-content"
+                        backgroundColor="#1F73B6"
+                    />
                     <AppWithNavigationState />
                 </PersistGate>
             </Provider>
