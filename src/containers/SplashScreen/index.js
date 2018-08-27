@@ -4,7 +4,6 @@ import {
     StyleSheet,
     Image, BackHandler
 } from 'react-native';
-import { Navigation } from 'react-native-navigation'
 import {Icon} from '~/src/themes/ThemeComponent'
 import { Colors } from 'react-native-ui-lib';
 import { View } from '~/src/themes/ThemeComponent'
@@ -24,7 +23,6 @@ export default class SplashScreen extends Component {
 
     constructor(props) {
         super(props);
-        Navigation.events().bindComponent(this);
     }
 
     componentDidAppear() {

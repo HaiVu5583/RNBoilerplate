@@ -32,6 +32,9 @@ const AppNavigator = createStackNavigator(
         navigationOptions: {
             header: null
         },
+        cardStyle: {
+            backgroundColor: 'transparent'
+        },
         transitionConfig: () => ({
             transitionSpec: {
                 duration: 300,

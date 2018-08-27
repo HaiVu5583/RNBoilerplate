@@ -1,90 +1,3 @@
-// import { Navigation } from 'react-native-navigation'
-// import { getHOCScreen } from '~/src/utils'
-// import React, { Component } from 'react';
-// import { Provider } from 'react-redux';
-
-// export function registerContainerWithRedux(
-//     containerName,
-//     requireComponentFunction,
-//     store,
-//     needPreloadComponent = false
-// ) {
-
-//     const generatorWrapper = function () {
-//         const preloadComponent = needPreloadComponent ? requireComponentFunction().default : null
-//         return class Scene extends Component {
-//             static InternalComponent = null
-//             static initInternalComponent() {
-//                 if (!Scene.InternalComponent) {
-//                     Scene.InternalComponent = preloadComponent || requireComponentFunction().default
-//                 }
-//             }
-
-//             static get options() {
-//                 Scene.initInternalComponent()
-//                 return Scene.InternalComponent.options ? { ...Scene.InternalComponent.options } : {}
-//             }
-
-//             constructor(props) {
-//                 super(props);
-//                 Scene.initInternalComponent()
-//             }
-//             render() {
-//                 return (
-//                     <Provider store={store}>
-//                         <Scene.InternalComponent
-//                             ref="child"
-//                             {...this.props}
-//                         />
-//                     </Provider>
-//                 );
-//             }
-
-//             componentDidAppear(id) {
-//                 instance = this.refs.child.getWrappedInstance();
-//                 if (instance && instance.componentDidAppear) {
-//                     instance.componentDidAppear(id);
-//                 }
-//             }
-
-//             componentDidDisappear(id) {
-//                 instance = this.refs.child.getWrappedInstance();
-//                 if (instance && instance.componentDidDisappear) {
-//                     instance.componentDidDisappear(id);
-//                 }
-//             }
-
-//             navigationButtonPressed(id) {
-//                 instance = this.refs.child.getWrappedInstance();
-//                 if (instance && instance.navigationButtonPressed) {
-//                     instance.navigationButtonPressed(id);
-//                 }
-//             }
-//         };
-//     };
-
-//     registerContainer(containerName, generatorWrapper);
-// }
-
-// function registerContainer(containerName, generator) {
-//     Navigation.registerComponent(containerName, generator);
-// }
-
-// export default registerScreens = (store) => {
-
-//     registerContainerWithRedux(`gigabankclient.HomeScreen`, () => require('~/src/containers/Home'), store)
-//     registerContainerWithRedux(`gigabankclient.SplashScreen`, () => require('~/src/containers/SplashScreen'), store)
-//     registerContainerWithRedux(`gigabankclient.AnimatedScreen`, () => require('~/src/containers/AnimatedScreen'), store)
-//     registerContainerWithRedux(`gigabankclient.FeedScreen`, () => require('~/src/containers/FeedScreen'), store)
-//     registerContainerWithRedux(`gigabankclient.PictureBrowserScreen`, () => require('~/src/containers/PictureBrowserScreen'), store)
-//     registerContainerWithRedux(`gigabankclient.Authentication`, () => require('~/src/containers/Authentication'), store)
-//     registerContainerWithRedux(`gigabankclient.Login`, () => require('~/src/containers/Authentication/Login'), store)
-//     registerContainerWithRedux(`gigabankclient.Register`, () => require('~/src/containers/Authentication/Register'), store)
-//     registerContainerWithRedux(`gigabankclient.ForgotPassword`, () => require('~/src/containers/Authentication/ForgotPassword'), store)
-//     registerContainerWithRedux(`gigabankclient.Drawer`, () => require('~/src/containers/Drawer'), store)
-// }
-
-
 import HomeScreen from '~/src/containers/Home'
 import SplashScreen from '~/src/containers/SplashScreen'
 import AnimatedScreen from '~/src/containers/AnimatedScreen'
@@ -95,12 +8,81 @@ import Login from '~/src/containers/Authentication/Login'
 import Register from '~/src/containers/Authentication/Register'
 import ForgotPassword from '~/src/containers/Authentication/ForgotPassword'
 import Drawer from '~/src/containers/Drawer'
-import { createDrawerNavigator } from 'react-navigation'
+import { createDrawerNavigator, createBottomTabNavigator } from 'react-navigation'
+import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs'
+import BottomTab from '~/src/components/BottomTab'
+import BottomTabItem from '~/src/components/BottomTab/BottomTabItem'
 import React from 'react'
+import Icon from '~/src/components/FontIcon'
+import COLORS from '~/src/themes/common'
+import { TouchableOpacity } from 'react-native';
+
+
+
+export const AppTabRouteConfig = {
+    Home: {
+        screen: HomeScreen
+    },
+    Splash: {
+        screen: SplashScreen
+    },
+    Animated: {
+        screen: AnimatedScreen
+    },
+}
+
+const HomeTab = createMaterialBottomTabNavigator(
+    AppTabRouteConfig,
+    {
+        initialRouteName: 'Home',
+        activeTintColor: '#f0edf6',
+        inactiveTintColor: '#3e2465',
+        barStyle: { backgroundColor: '#694fad' },
+        // tabBarComponent: props => <BottomTab {...props} />,
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused, tintColor }) => {
+                const { routeName } = navigation.state;
+                let iconName;
+                if (routeName === 'Home') {
+                    iconName = 'home-active';
+                } else if (routeName === 'Splash') {
+                    iconName = 'camera';
+                } else if (routeName === 'Animated') {
+                    iconName = 'ring-active'
+                }
+                return <Icon name={iconName}
+                    style={{
+                        fontSize: 22,
+                        color: tintColor
+                    }}
+                />;
+            },
+            tabBarButtonComponent: BottomTabItem
+        }),
+        tabBarOptions: {
+            activeTintColor: COLORS.BLUE,
+            inactiveTintColor: 'gray',
+            tabStyle: {
+                backgroundColor: 'transparent'
+            },
+            barStyle: {
+                backgroundColor: 'red'
+            },
+            style: {
+                backgroundColor: 'transparent',
+                position: 'absolute',
+                borderTopWidth: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+            },
+        },
+    }
+)
 
 export const AppDrawerRouteConfig = {
     Home: {
-        screen: HomeScreen
+        screen: HomeTab
     }
 }
 
@@ -108,17 +90,12 @@ const HomeDrawer = createDrawerNavigator(
     AppDrawerRouteConfig,
     {
         initialRouteName: 'Home',
-        contentComponent: props => <Drawer {...props} />
+        contentComponent: props => <Drawer {...props} />,
+        drawerBackgroundColor: 'transparent'
     }
 )
 
 export const AppStackRouteConfig = {
-    Splash: {
-        screen: SplashScreen
-    },
-    Animated: {
-        screen: AnimatedScreen
-    },
     PictureBrowser: {
         screen: PictureBrowserScreen
     },
