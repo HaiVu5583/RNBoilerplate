@@ -40,7 +40,8 @@ class Login extends Component {
 
     _handlePressBackIcon = () => {
         if (this.state.step == STEP.PHONE) {
-            Navigation.pop(this.props.componentId)
+            // Navigation.pop(this.props.componentId)
+            this.props.navigation.pop()
         } else if (this.state.step == STEP.PASSWORD) {
             this.setState({ step: STEP.PHONE })
         }
@@ -107,22 +108,23 @@ class Login extends Component {
     }
 
     _handlePressFinish = () => {
-        Navigation.setStackRoot('mainStack',
-            {
-                sideMenu: {
-                    id: 'sideMenu',
-                    left: {
-                        component: {
-                            name: 'gigabankclient.Drawer',
-                        }
-                    },
-                    center: {
-                        component: {
-                            name: 'gigabankclient.HomeScreen',
-                        }
-                    },
-                }
-            })
+        // Navigation.setStackRoot('mainStack',
+        //     {
+        //         sideMenu: {
+        //             id: 'sideMenu',
+        //             left: {
+        //                 component: {
+        //                     name: 'gigabankclient.Drawer',
+        //                 }
+        //             },
+        //             center: {
+        //                 component: {
+        //                     name: 'gigabankclient.HomeScreen',
+        //                 }
+        //             },
+        //         }
+        //     })
+        this.props.navigation.replace('Home')
     }
 
     _handlePressForgotPassword = () => {

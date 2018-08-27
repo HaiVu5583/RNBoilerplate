@@ -51,7 +51,8 @@ class ForgotPassword extends Component {
 
     _handlePressBackIcon = () => {
         if (this.state.step == STEP.INFO) {
-            Navigation.pop(this.props.componentId)
+            // Navigation.pop(this.props.componentId)
+            this.props.navigation.pop()
         } else if (this.state.step == STEP.OTP) {
             this.setState({ step: STEP.INFO })
         } else if (this.state.step == STEP.PASSWORD) {

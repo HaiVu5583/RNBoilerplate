@@ -39,7 +39,7 @@ class Authentication extends Component {
         //         name: 'gigabankclient.Login'
         //     }
         // })
-        this.props.navigation.navigate('Login')
+        this.props.navigation.push('Login')
     }
 
     _handlePressRegister = () => {
@@ -51,7 +51,7 @@ class Authentication extends Component {
         //         }
         //     }
         // })
-        this.props.navigation.navigate('Register')
+        this.props.navigation.push('Register')
     }
 
 

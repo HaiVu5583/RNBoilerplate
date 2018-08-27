@@ -56,7 +56,8 @@ class Register extends Component {
 
     _handlePressBackIcon = () => {
         if (this.state.step == STEP.PHONE) {
-            Navigation.pop(this.props.componentId)
+            // Navigation.pop(this.props.componentId)
+            this.props.navigation.pop()
         } else if (this.state.step == STEP.OTP) {
             this.setState({ step: STEP.PHONE })
         } else if (this.state.step == STEP.INFO) {
@@ -381,6 +382,7 @@ class Register extends Component {
                         onPressIconLeft={this._handlePressBackIcon}
                         themeable={false}
                         iconStyle={{ color: 'white' }}
+                        navigation={this.props.navigation}
                     />
                     <PopupConfirm
                         animationType='none'
