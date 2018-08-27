@@ -34,22 +34,24 @@ class Authentication extends Component {
     }
 
     _handlePressLogin = () => {
-        Navigation.push('mainStack', {
-            component: {
-                name: 'gigabankclient.Login'
-            }
-        })
+        // Navigation.push('mainStack', {
+        //     component: {
+        //         name: 'gigabankclient.Login'
+        //     }
+        // })
+        this.props.navigation.navigate('Login')
     }
 
     _handlePressRegister = () => {
-        Navigation.push('mainStack', {
-            component: {
-                name: 'gigabankclient.Register',
-                passProps: {
-                    text: 'This is tab 1'
-                }
-            }
-        })
+        // Navigation.push('mainStack', {
+        //     component: {
+        //         name: 'gigabankclient.Register',
+        //         passProps: {
+        //             text: 'This is tab 1'
+        //         }
+        //     }
+        // })
+        this.props.navigation.navigate('Register')
     }
 
 
