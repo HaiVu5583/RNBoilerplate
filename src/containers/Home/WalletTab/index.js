@@ -18,6 +18,9 @@ class WalletTab extends Component {
             <Surface themeable={false} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                 <Surface themeable={false} columnCenter>
                     <Text white>WalletTab</Text>
+                    <Text white>
+                        When the state object gets persisted, it first gets serialized with JSON.stringify(). If parts of your state object are not mappable to JSON objects, the serialization process may transform these parts of your state in unexpected ways. For example, the javascript Set type does not exist in JSON. When you try to serialize a Set via JSON.stringify(), it gets converted to an empty object. Probably not what you wan
+                    </Text>
                 </Surface>
             </Surface>
         )

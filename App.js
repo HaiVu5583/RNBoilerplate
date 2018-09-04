@@ -46,61 +46,45 @@ const _persist = (store) => {
 
 const _setRoot = (bottomTabs) => {
 
-    Navigation.setRoot({
-        root: {
-            stack: {
-                id: 'mainStack',
-                children: [
-                    {
-                        sideMenu: {
-                            id: 'sideMenu',
-                            left: {
-                                component: {
-                                    name: 'gigabankclient.Drawer',
-                                }
-                            },
-                            center: {
-                                component: {
-                                    name: 'gigabankclient.HomeScreen',
-                                }
-                            },
-                        }
-                    }
-                ]
-            },
-        }
-    })
-
     // Navigation.setRoot({
     //     root: {
     //         stack: {
     //             id: 'mainStack',
     //             children: [
-    //                 // {
-    //                 //     sideMenu: {
-    //                 //         id: 'sideMenu',
-    //                 //         left: {
-    //                 //             component: {
-    //                 //                 name: 'gigabankclient.SplashScreen',
-    //                 //             }
-    //                 //         },
-    //                 //         center: {
-    //                 //             bottomTabs: {
-    //                 //                 id: 'bottomTabs',
-    //                 //                 children: _getBottomTabs(bottomTabs)
-    //                 //             }
-    //                 //         },
-    //                 //     }
-    //                 // },
     //                 {
-    //                     component: {
-    //                         name: 'gigabankclient.Authentication'
+    //                     sideMenu: {
+    //                         id: 'sideMenu',
+    //                         left: {
+    //                             component: {
+    //                                 name: 'gigabankclient.Drawer',
+    //                             }
+    //                         },
+    //                         center: {
+    //                             component: {
+    //                                 name: 'gigabankclient.HomeScreen',
+    //                             }
+    //                         },
     //                     }
     //                 }
     //             ]
     //         },
     //     }
     // })
+
+    Navigation.setRoot({
+        root: {
+            stack: {
+                id: 'mainStack',
+                children: [
+                    {
+                        component: {
+                            name: 'gigabankclient.Authentication'
+                        }
+                    }
+                ]
+            },
+        }
+    })
 }
 
 YellowBox.ignoreWarnings([
