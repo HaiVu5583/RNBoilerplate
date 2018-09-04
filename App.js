@@ -10,30 +10,30 @@ import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/comm
 import { languageSelector } from '~/src/store/selectors/ui'
 import I18n from '~/src/I18n'
 
-const _getBottomTabIcon = (tabs, size, color) => {
-    const promiseList = []
-    for (let tab of tabs) {
-        promiseList.push(Icon.getImageSource(tab.icon, size, color))
-    }
-    return Promise.all(promiseList)
-}
+// const _getBottomTabIcon = (tabs, size, color) => {
+//     const promiseList = []
+//     for (let tab of tabs) {
+//         promiseList.push(Icon.getImageSource(tab.icon, size, color))
+//     }
+//     return Promise.all(promiseList)
+// }
 
-const _getBottomTabs = (bottomTabs) => {
-    return BOTTOM_TABS.map((tab, index) => ({
-        component: {
-            name: tab.component,
-            id: tab.id,
-            options: {
-                bottomTab: {
-                    text: tab.name,
-                    icon: bottomTabs[index],
-                    iconColor: 'gray',
-                    selectedIconColor: '#F16654',
-                }
-            },
-        }
-    }))
-}
+// const _getBottomTabs = (bottomTabs) => {
+//     return BOTTOM_TABS.map((tab, index) => ({
+//         component: {
+//             name: tab.component,
+//             id: tab.id,
+//             options: {
+//                 bottomTab: {
+//                     text: tab.name,
+//                     icon: bottomTabs[index],
+//                     iconColor: 'gray',
+//                     selectedIconColor: '#F16654',
+//                 }
+//             },
+//         }
+//     }))
+// }
 
 
 const _persist = (store) => {
@@ -134,7 +134,7 @@ export const run = () => {
         })
         console.log('Before Promise', new Date().getTime())
         Promise.all([
-            _getBottomTabIcon(BOTTOM_TABS, 24, '#F16654'),
+            // _getBottomTabIcon(BOTTOM_TABS, 24, '#F16654'),
             _persist(store)
         ]).then((values) => {
             // Apply language after restore store
