@@ -127,10 +127,17 @@ export const TEXT_STYLES = {
 
 export const TEXT_INPUT_STYLES = {
     white: {
-        color: COLORS.WHITE,
-        placeholderTextColor: COLORS.LIGHT_WHITE,
-        borderBottomWidth: LINE_HEIGHT,
-        borderBottomColor: COLORS.WHITE
+        container: {
+            borderBottomWidth: LINE_HEIGHT,
+            borderBottomColor: COLORS.WHITE
+        },
+        icon: {
+            color: COLORS.WHITE,
+        },
+        input: {
+            color: COLORS.WHITE,
+        },
+        placeholderColor: COLORS.LIGHT_WHITE
     }
 }
 
