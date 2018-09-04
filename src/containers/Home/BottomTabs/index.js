@@ -7,29 +7,13 @@ import { DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple'
 import LinearGradient from 'react-native-linear-gradient'
 const TAB_ITEM_WIDTH = 80
+import { BOTTOM_TABS } from '~/src/constants'
 
 class BottomTabs extends Component {
     constructor(props) {
         super(props)
         this.tabActiveTranslateX = new Animated.Value(0)
 
-    }
-
-    get tabs() {
-        return [
-            {
-                id: 1,
-                icon: 'home',
-            },
-            {
-                id: 2,
-                icon: 'Clingmepay-line',
-            },
-            {
-                id: 3,
-                icon: 'user-info-line',
-            }
-        ]
     }
 
     _handlePressTab = (item) => {
@@ -86,7 +70,7 @@ class BottomTabs extends Component {
                         }]
                     }}
                 />
-                {this.tabs.map(item => this._renderTabItem(item))}
+                {BOTTOM_TABS.map(item => this._renderTabItem(item))}
             </LinearGradient>
         )
     }
