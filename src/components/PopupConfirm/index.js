@@ -191,7 +191,7 @@ export default class PopupConfirm extends React.PureComponent {
     }
 
     render() {
-        const { useNormalView } = this.props
+        const { useNormalView, mode = 'neutral' } = this.props
 
         if (!!useNormalView) {
             return (

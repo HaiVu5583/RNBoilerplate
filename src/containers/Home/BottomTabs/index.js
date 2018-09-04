@@ -46,10 +46,10 @@ class BottomTabs extends Component {
     render() {
         return (
             <LinearGradient
-                colors={['#1F6CAF', '#2499CF']}
+                colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
                 start={{ x: 0.0, y: 0.0 }}
-                end={{ x: 1.0, y: 1.0 }}
-                locations={[0.35, 0.65]}
+                end={{ x: 1.0, y: 0.0 }}
+                locations={[0.0, 1.0]}
                 style={{
                     flexDirection: 'row',
                     alignItems: 'center',

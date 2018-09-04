@@ -18,7 +18,7 @@ export default {
     popupContainer: {
         backgroundColor: 'white',
         overflow: 'hidden',
-        borderRadius: 3,
+        borderRadius: 10,
         paddingTop: 14,
         paddingHorizontal: getWidth(20),
         paddingBottom: 12,

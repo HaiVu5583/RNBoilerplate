@@ -90,7 +90,9 @@ class Register extends Component {
     }
 
     _renderStepPhone = () => {
-        const enableContinuePhoneButton = (this.state.phone && this.state.phone.trim())
+        const enableContinuePhoneButton = !!(this.state.phone && this.state.phone.trim() &&
+            this.state.name && this.state.name.trim()
+        )
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowStart>
@@ -130,7 +132,8 @@ class Register extends Component {
 
                 <Surface themeable={false} fullWidth mb20>
                     <Button
-                        enable={enableContinuePhoneButton}
+                        enable={!!enableContinuePhoneButton}
+                        gradientButton={true}
                         round
                         t={'continue'}
                         full
@@ -157,7 +160,7 @@ class Register extends Component {
     }
 
     _renderStepOTP = () => {
-        const enableButtonContinueOTP = (this.state.otp && this.state.otp.length >= 4)
+        const enableButtonContinueOTP = !!(this.state.otp && this.state.otp.length >= 4)
         return (
             <Surface themeable={false} flex>
                 <Surface pd20 themeable={false} flex>
@@ -179,7 +182,8 @@ class Register extends Component {
                     </Surface>
                     <Surface themeable={false} fullWidth mb20>
                         <Button
-                            enable={enableButtonContinueOTP}
+                            enable={!!enableButtonContinueOTP}
+                            gradientButton={true}
                             round
                             t={'continue'}
 
@@ -212,6 +216,9 @@ class Register extends Component {
 
     _renderStepPassword = () => {
         const { placeholderTextColor, color, ...restStyle } = TEXT_INPUT_STYLES.white
+        const enableButtonFinish = !!(this.state.password && this.state.repassword
+            && this.state.password.trim() && this.state.repassword.trim())
+
         return (
             <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowStart>
@@ -255,6 +262,8 @@ class Register extends Component {
 
                 <Surface themeable={false} fullWidth mb20>
                     <Button
+                        enable={!!enableButtonFinish}
+                        gradientButton={true}
                         round
                         t={'finish'}
                         full onPress={this._handlePressFinishPassword} />

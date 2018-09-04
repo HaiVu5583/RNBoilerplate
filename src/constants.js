@@ -51,3 +51,8 @@ export const LANGUAGES = {
     VI: 'VI',
     EN: 'EN'
 }
+
+export const DIALOG_MODE = {
+    NEUTRAL: 'NEUTRAL',
+    CONFIRM: 'CONFIRM'
+}
