@@ -11,7 +11,8 @@ export const COLORS = {
     LIGHT_WHITE: 'rgba(255, 255, 255, 0.7)',
     ERROR: 'rgba(255, 0, 0, 0.7)',
     BLUE: '#1F73B6',
-    DARK_BLUE: '#43597B'
+    DARK_BLUE: '#43597B',
+    TRANSPARENT: 'transparent'
 }
 
 export const ASSETS = {
