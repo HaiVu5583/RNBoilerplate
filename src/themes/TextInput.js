@@ -2,14 +2,19 @@ import React, { Component } from 'react'
 import { themeSelector, languageSelector } from '~/src/store/selectors/ui'
 import { connect } from 'react-redux'
 import { getTheme } from './utils'
-import { TextInput } from 'react-native'
+import { TextInput, TouchableOpacity, View } from 'react-native'
 import { Surface, Icon } from '~/src/themes/ThemeComponent'
 import commonStyle, { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import I18n from '~/src/I18n'
 
 class ThemeTextInput extends Component {
+
+    _handlePressIconRight = () => {
+        this.props.onPressIconRight && this.props.onPressIconRight()
+    }
+
     render() {
-        const { forwardedRef, style, textInputStyle, theme, themeable, descriptionIcon, placeholderT, placeholder, ...rest } = this.props
+        const { forwardedRef, style, textInputStyle, theme, themeable, descriptionIcon, iconRight, placeholderT, placeholder, showIconRight = true, ...rest } = this.props
         const themeStyle = getTheme(theme)
         let textInputThemeStyle = themeable ?
             [{ color: themeStyle.textInputTextColor }, commonStyle.textInput.input, textInputStyle]
@@ -18,11 +23,18 @@ class ThemeTextInput extends Component {
         let descriptionIconStyle = themeable ?
             [{ color: themeStyle.textInputTextColor }, commonStyle.textInput.descriptionIcon]
             : [commonStyle.textInput.descriptionIcon]
-        let textInputContainerStyle = [style]
+        let iconRightStyle = themeable ?
+            [{ color: themeStyle.textInputTextColor }, commonStyle.textInput.iconRight]
+            : [commonStyle.textInput.iconRight]
+
+        let textInputContainerStyle = [commonStyle.textInput.textInputContainer, style]
         for (let identifier in rest) {
             if (TEXT_INPUT_STYLES[identifier] && rest[identifier]) {
                 const { container, icon, input, placeholderColor } = TEXT_INPUT_STYLES[identifier]
-                icon && descriptionIconStyle.push(icon)
+                if (icon) {
+                    descriptionIconStyle.push(icon)
+                    iconRightStyle.push(icon)
+                }
                 container && textInputContainerStyle.push(container)
                 placeholderColor && (placeholderTextColorTheme = placeholderColor)
                 input && textInputThemeStyle.push(input)
@@ -38,6 +50,11 @@ class ThemeTextInput extends Component {
                     placeholderTextColor={placeholderTextColorTheme}
                     style={textInputThemeStyle}
                 />
+                {!!iconRight && !!showIconRight && <TouchableOpacity onPress={this._handlePressIconRight}>
+                    <View style={commonStyle.textInput.iconRightContainer}>
+                        <Icon name={iconRight} style={iconRightStyle} />
+                    </View>
+                </TouchableOpacity>}
             </Surface>
         )
     }

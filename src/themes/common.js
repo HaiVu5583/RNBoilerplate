@@ -305,9 +305,21 @@ export default {
         input: {
             flex: 1
         },
+        textInputContainer: {
+            height: 40,
+        },
         descriptionIcon: {
-            fontSize: 24,
+            fontSize: 20,
             marginRight: 15
+        },
+        iconRight: {
+            fontSize: 16,
+        },
+        iconRightContainer: {
+            paddingHorizontal: 5,
+            height: '100%',
+            alignItems: 'center',
+            justifyContent: 'center'
         }
     }
 }

@@ -26,7 +26,8 @@ class Authentication extends Component {
         super(props)
         this.state = {
             phone: '',
-            password: ''
+            password: '',
+            secure: true
         }
     }
 
@@ -58,6 +59,8 @@ class Authentication extends Component {
     }
 
     _handlePressForgotPassword = () => {
+        this.setState({ secure: !this.state.secure })
+        return
         Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.ForgotPassword',
@@ -103,8 +106,11 @@ class Authentication extends Component {
                             placeholderT={'phone'}
                             white
                             onChangeText={text => this.setState({ phone: text })}
-                            keyboardType='numeric'
+                            keyboardType='number-pad'
                             value={this.state.phone}
+                            iconRight={'close2'}
+                            onPressIconRight={() => this.setState({ phone: '' })}
+                            showIconRight={(this.state.phone && this.state.phone.trim())}
                         />
                     </Surface>
                     <Surface themeable={false} fullWidth mb20>
@@ -114,7 +120,7 @@ class Authentication extends Component {
                             white
                             onChangeText={text => this.setState({ password: text })}
                             value={this.state.password}
-                            secureTextEntry={true}
+                            secureTextEntry={this.state.secure}
                         />
                     </Surface>
 

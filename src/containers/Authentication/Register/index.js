@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
 import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
 import PopupConfirm from '~/src/components/PopupConfirm'
-import Password from '~/src/components/Password'
 import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
@@ -38,17 +37,15 @@ class Register extends Component {
             phone: '',
             otp: '',
             name: '',
-            identityNumber: '',
-            bankAccount: '',
             password: '',
             repassword: '',
             errPhone: '',
             errOTP: '',
             errName: '',
-            errIdentityNumber: '',
-            errBankAccount: '',
             errPassword: '',
-            errRepassword: ''
+            errRepassword: '',
+            showPassword: false,
+            showRepassword: false
         }
     }
 
@@ -108,7 +105,7 @@ class Register extends Component {
                         descriptionIcon={'phone'}
                         placeholderT={'phone'}
                         white
-                        keyboardType='numeric'
+                        keyboardType='number-pad'
                         onChangeText={this._onChangePhoneNumber}
                         value={this.state.phone}
                     />
@@ -224,31 +221,33 @@ class Register extends Component {
                         <Text body2 lightWhite light t={'hint_create_password'} />
                     </Text>
                 </Surface>
-                
+
                 <Surface themeable={false} fullWidth mb20>
-                    <Password
+                    <TextInput
+                        descriptionIcon={'password-line'}
                         placeholderT={'hint_input_password'}
-                        containerStyle={styles.textInput}
+                        white
+                        keyboardType='number-pad'
                         onChangeText={text => this.setState({ password: text, errRepassword: '' })}
                         value={this.state.password}
-                        placeholderTextColor={placeholderTextColor}
-                        iconStyle={{ color }}
-                        style={{ flex: 1, padding: 2, color }}
-                        containerStyle={restStyle}
+                        iconRight={this.state.showPassword ? 'eye-off' : 'eye-on'}
+                        onPressIconRight={() => this.setState({ showPassword: !this.state.showPassword })}
+                        secureTextEntry={!this.state.showPassword}
                     />
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errRepassword && <Text error body2>{this.state.errRepassword}</Text>}
-                    <Password
+                    <TextInput
+                        descriptionIcon={'password-line'}
                         placeholderT={'hint_reinput_password'}
-                        containerStyle={styles.textInput}
+                        white
+                        keyboardType='number-pad'
                         onChangeText={text => this.setState({ repassword: text, errRepassword: '' })}
                         value={this.state.repassword}
-                        placeholderTextColor={placeholderTextColor}
-                        iconStyle={{ color }}
-                        style={{ flex: 1, padding: 2, color }}
-                        containerStyle={restStyle}
+                        iconRight={this.state.showRepassword ? 'eye-off' : 'eye-on'}
+                        onPressIconRight={() => this.setState({ showRepassword: !this.state.showRepassword })}
+                        secureTextEntry={!this.state.showRepassword}
                     />
                 </Surface>
 

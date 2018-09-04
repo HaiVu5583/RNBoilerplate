@@ -107,7 +107,7 @@ class ForgotPassword extends Component {
                     <TextInput
                         placeholderT={'identity_number'}
                         white
-                        keyboardType='numeric'
+                        keyboardType='number-pad'
                         onChangeText={text => this.setState({ identityNumber: text, errIdentityNumber: '' })}
                         value={this.state.identityNumber}
                     />
@@ -117,7 +117,7 @@ class ForgotPassword extends Component {
                     <TextInput
                         placeholderT={'hint_input_bank_account_number'}
                         white
-                        keyboardType='numeric'
+                        keyboardType='number-pad'
                         onChangeText={text => this.setState({ bankAccount: text, errBankAccount: '' })}
                         value={this.state.bankAccount}
                     />
