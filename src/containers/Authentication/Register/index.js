@@ -100,7 +100,6 @@ class Register extends Component {
                     <Text body2 lightWhite light t={'hint_register_phone_info_input'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                     <TextInput
                         descriptionIcon={'phone'}
                         placeholderT={'phone'}
@@ -108,17 +107,20 @@ class Register extends Component {
                         keyboardType='number-pad'
                         onChangeText={this._onChangePhoneNumber}
                         value={this.state.phone}
+                        hasError={!!this.state.errPhone}
+                        errorText={this.state.errPhone}
                     />
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
                     <TextInput
                         descriptionIcon={'user-active'}
                         placeholderT={'full_name'}
                         white
                         onChangeText={text => this.setState({ name: text, errName: '' })}
                         value={this.state.name}
+                        hasError={!!this.state.errName}
+                        errorText={this.state.errName}
                     />
                 </Surface>
 

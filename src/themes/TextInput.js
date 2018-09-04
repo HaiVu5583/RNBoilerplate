@@ -3,9 +3,10 @@ import { themeSelector, languageSelector } from '~/src/store/selectors/ui'
 import { connect } from 'react-redux'
 import { getTheme } from './utils'
 import { TextInput, TouchableOpacity, View } from 'react-native'
-import { Surface, Icon } from '~/src/themes/ThemeComponent'
+import { Surface, Icon, Text } from '~/src/themes/ThemeComponent'
 import commonStyle, { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import I18n from '~/src/I18n'
+import { COLORS } from '~/src/themes/common'
 
 class ThemeTextInput extends Component {
 
@@ -14,7 +15,9 @@ class ThemeTextInput extends Component {
     }
 
     render() {
-        const { forwardedRef, style, textInputStyle, theme, themeable, descriptionIcon, iconRight, placeholderT, placeholder, showIconRight = true, ...rest } = this.props
+        const { forwardedRef, style, textInputStyle, theme, themeable,
+            descriptionIcon, iconRight, placeholderT, placeholder, showIconRight = true,
+            hasError, errorText, ...rest } = this.props
         const themeStyle = getTheme(theme)
         let textInputThemeStyle = themeable ?
             [{ color: themeStyle.textInputTextColor }, commonStyle.textInput.input, textInputStyle]
@@ -41,20 +44,31 @@ class ThemeTextInput extends Component {
             }
         }
 
+        if (hasError) {
+            textInputThemeStyle.push({ color: COLORS.ERROR })
+            textInputContainerStyle.push({ borderBottomColor: COLORS.ERROR })
+        }
+
         return (
-            <Surface themeable={false} rowStart style={textInputContainerStyle}>
-                {!!descriptionIcon && <Icon name={descriptionIcon} style={descriptionIconStyle} />}
-                <TextInput
-                    {...rest}
-                    placeholder={placeholderT ? I18n.t(placeholderT) : (placeholder || '')}
-                    placeholderTextColor={placeholderTextColorTheme}
-                    style={textInputThemeStyle}
-                />
-                {!!iconRight && !!showIconRight && <TouchableOpacity onPress={this._handlePressIconRight}>
-                    <View style={commonStyle.textInput.iconRightContainer}>
-                        <Icon name={iconRight} style={iconRightStyle} />
-                    </View>
-                </TouchableOpacity>}
+            <Surface themeable={false} columnStart>
+                <Surface themeable={false} rowStart style={textInputContainerStyle}>
+                    {!!descriptionIcon && <Icon name={descriptionIcon} style={descriptionIconStyle} />}
+                    <TextInput
+                        {...rest}
+                        placeholder={placeholderT ? I18n.t(placeholderT) : (placeholder || '')}
+                        placeholderTextColor={placeholderTextColorTheme}
+                        style={textInputThemeStyle}
+                    />
+                    {!!iconRight && !!showIconRight && <TouchableOpacity onPress={this._handlePressIconRight}>
+                        <View style={commonStyle.textInput.iconRightContainer}>
+                            <Icon name={iconRight} style={iconRightStyle} />
+                        </View>
+                    </TouchableOpacity>}
+                </Surface>
+                {!!hasError && <Surface themeable={false} rowSpacebetween fullWidth>
+                    <Text themeable={false} error>{errorText}</Text>
+                    <Icon name='report-error' style={commonStyle.textInput.iconError} />
+                </Surface>}
             </Surface>
         )
     }

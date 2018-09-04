@@ -9,7 +9,7 @@ export const DEVICE_HEIGHT = window.height
 export const COLORS = {
     WHITE: 'rgba(255, 255, 255, 1)',
     LIGHT_WHITE: 'rgba(255, 255, 255, 0.7)',
-    ERROR: 'rgba(255, 0, 0, 0.7)',
+    ERROR: '#FDB040',
     BLUE: '#1F73B6',
     DARK_BLUE: '#43597B',
     TRANSPARENT: 'transparent'
@@ -314,6 +314,10 @@ export default {
         },
         iconRight: {
             fontSize: 16,
+        },
+        iconError: {
+            fontSize: 16,
+            color: COLORS.ERROR
         },
         iconRightContainer: {
             paddingHorizontal: 5,
