@@ -103,6 +103,7 @@ class Authentication extends Component {
                             placeholderT={'phone'}
                             white
                             onChangeText={text => this.setState({ phone: text })}
+                            keyboardType='numeric'
                             value={this.state.phone}
                         />
                     </Surface>

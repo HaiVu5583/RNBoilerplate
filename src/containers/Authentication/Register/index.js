@@ -18,8 +18,6 @@ import CircleCountdown from '~/src/components/CircleCountdown'
 const STEP = {
     PHONE: 'PHONE',
     OTP: 'OTP',
-    INFO: 'INFO',
-    BANK_ACCOUNT: 'BANK_ACCOUNT',
     PASSWORD: 'PASSWORD'
 }
 
@@ -59,12 +57,8 @@ class Register extends Component {
             Navigation.pop(this.props.componentId)
         } else if (this.state.step == STEP.OTP) {
             this.setState({ step: STEP.PHONE })
-        } else if (this.state.step == STEP.INFO) {
-            this.setState({ step: STEP.OTP })
-        } else if (this.state.step == STEP.BANK_ACCOUNT) {
-            this.setState({ step: STEP.INFO })
         } else if (this.state.step == STEP.PASSWORD) {
-            this.setState({ step: STEP.BANK_ACCOUNT })
+            this.setState({ step: STEP.OTP })
         }
         return true
     }
@@ -102,15 +96,16 @@ class Register extends Component {
         const enableContinuePhoneButton = (this.state.phone && this.state.phone.trim())
         return (
             <Surface pd20 themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center t={'register_account'} />
+                <Surface themeable={false} fullWidth mb20 rowStart>
+                    <Text white h5 bold t={'register'} />
                 </Surface>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text center body2 lightWhite light t={'hint_register_phone_input'} />
+                <Surface themeable={false} fullWidth mb20 rowStart>
+                    <Text body2 lightWhite light t={'hint_register_phone_info_input'} />
                 </Surface>
-                {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                 <Surface themeable={false} fullWidth mb20>
+                    {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                     <TextInput
+                        descriptionIcon={'phone'}
                         placeholderT={'phone'}
                         white
                         keyboardType='numeric'
@@ -118,6 +113,22 @@ class Register extends Component {
                         value={this.state.phone}
                     />
                 </Surface>
+
+                <Surface themeable={false} fullWidth mb20>
+                    {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
+                    <TextInput
+                        descriptionIcon={'user-active'}
+                        placeholderT={'full_name'}
+                        white
+                        onChangeText={text => this.setState({ name: text, errName: '' })}
+                        value={this.state.name}
+                    />
+                </Surface>
+
+
+
+
+
                 <Surface themeable={false} fullWidth mb20>
                     <Button
                         enable={enableContinuePhoneButton}
@@ -135,7 +146,7 @@ class Register extends Component {
             this.setState({ errOTP: I18n.t('err_invalid_otp') })
             return
         }
-        this.setState({ step: STEP.INFO })
+        this.setState({ step: STEP.PASSWORD })
     }
 
     _renderCountdown = () => {
@@ -151,17 +162,12 @@ class Register extends Component {
         return (
             <Surface themeable={false} flex>
                 <Surface pd20 themeable={false} flex>
-                    <Surface themeable={false} fullWidth mb20 rowCenter>
-                        <Text white h6 center t={'verify_phone_number'} />
+                    <Surface themeable={false} fullWidth mb20 rowStart>
+                        <Text white h5 bold t={'verify'} />
                     </Surface>
-                    <Surface themeable={false} fullWidth mb20 rowCenter>
-                        <Text body2 lightWhite light center>
-                            <Text body2 lightWhite light t={'input'} />
-                            {' '}
-                            <Text body2 lightWhite bold t={'otp_with_hint'} />
-                            {' '}
-                            <Text body2 lightWhite light t={'hint_input_opt2'} />
-                            {' '}
+                    <Surface themeable={false} fullWidth mb20 rowStart>
+                        <Text body2 lightWhite light>
+                            <Text body2 lightWhite light t={'hint_input_opt'} />
                             {this.state.phone}
                         </Text>
                     </Surface>
@@ -199,105 +205,6 @@ class Register extends Component {
         )
     }
 
-    _handlePressContinuePersonalInfo = () => {
-        const wordOnlyRegex = /^([a-zA-Z]|\s)+$/
-        const numberOnlyRegex = /^\d+$/
-        console.log('Name normalize', toNormalCharacter(this.state.name))
-        console.log('Test', wordOnlyRegex.test(toNormalCharacter(this.state.name)))
-        if (!this.state.name || !wordOnlyRegex.test(toNormalCharacter(this.state.name))) {
-            this.setState({
-                errName: I18n.t('err_format_username'),
-            })
-            return
-        } else if (!this.state.identityNumber || !numberOnlyRegex.test(this.state.identityNumber)) {
-            this.setState({
-                errIdentityNumber: I18n.t('err_invalid_identity_number')
-            })
-            return
-        }
-        this.popupHaveBankAccount && this.popupHaveBankAccount.open()
-    }
-
-    _onConfirmHaveBankAccount = () => {
-        this.setState({ step: STEP.BANK_ACCOUNT })
-    }
-
-    _renderStepInfo = () => {
-        const enableButtonContinueInfo = (this.state.name && this.state.name.trim()
-            && this.state.identityNumber && this.state.identityNumber.trim())
-        return (
-            <Surface pd20 themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center t={'personal_info'} />
-                </Surface>
-                <Surface themeable={false} fullWidth mb20>
-                    {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
-                    <TextInput
-                        descriptionIcon={'user-active'}
-                        placeholderT={'full_name'}
-                        white
-                        onChangeText={text => this.setState({ name: text, errName: '' })}
-                        value={this.state.name}
-                    />
-                </Surface>
-                <Surface themeable={false} fullWidth mb20>
-                    {!!this.state.errIdentityNumber && <Text error body2>{this.state.errIdentityNumber}</Text>}
-                    <TextInput
-                        placeholderT={'identity_number'}
-                        descriptionIcon={'code'}
-                        white
-                        keyboardType='numeric'
-                        onChangeText={text => this.setState({ identityNumber: text, errIdentityNumber: '' })}
-                        value={this.state.identityNumber}
-                    />
-                </Surface>
-                <Surface themeable={false} fullWidth mb20>
-                    <Button
-                        round
-                        t={'continue'}
-                        full
-                        enable={enableButtonContinueInfo}
-                        onPress={this._handlePressContinuePersonalInfo} />
-                </Surface>
-            </Surface>
-        )
-    }
-
-    _handlePressContinueBankAccount = () => {
-        console.log('Continue Bank Account')
-        this.setState({ step: STEP.PASSWORD })
-    }
-
-    _renderStepBankAccount = () => {
-        const enableContinueBankAccountButton = (this.state.bankAccount && this.state.bankAccount.trim())
-        return (
-            <Surface pd20 themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center t={'personal_info'} />
-                </Surface>
-                <Surface themeable={false} fullWidth mb20>
-                    {!!this.state.errBankAccount && <Text error body2>{this.state.errBankAccount}</Text>}
-                    <TextInput
-                        placeholderT={'hint_input_bank_account_number'}
-                        white
-                        keyboardType='numeric'
-                        onChangeText={text => this.setState({ bankAccount: text, errBankAccount: '' })}
-                        value={this.state.bankAccount}
-                    />
-                </Surface>
-
-                <Surface themeable={false} fullWidth mb20>
-                    <Button
-                        round
-                        t={'continue'}
-                        full
-                        enable={enableContinueBankAccountButton}
-                        onPress={this._handlePressContinueBankAccount} />
-                </Surface>
-            </Surface>
-        )
-    }
-
     _handlePressFinishPassword = () => {
         if (this.state.password != this.state.repassword) {
             this.setState({ errRepassword: I18n.t('err_invalid_repassword') })
@@ -308,9 +215,16 @@ class Register extends Component {
         const { placeholderTextColor, color, ...restStyle } = TEXT_INPUT_STYLES.white
         return (
             <Surface pd20 themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center t={'password'} />
+                <Surface themeable={false} fullWidth mb20 rowStart>
+                    <Text white h5 bold t={'password'} />
                 </Surface>
+
+                <Surface themeable={false} fullWidth mb20 rowStart>
+                    <Text body2 lightWhite light>
+                        <Text body2 lightWhite light t={'hint_create_password'} />
+                    </Text>
+                </Surface>
+                
                 <Surface themeable={false} fullWidth mb20>
                     <Password
                         placeholderT={'hint_input_password'}
@@ -341,7 +255,7 @@ class Register extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     <Button
                         round
-                        t={'continue'}
+                        t={'finish'}
                         full onPress={this._handlePressFinishPassword} />
                 </Surface>
             </Surface>
@@ -364,10 +278,6 @@ class Register extends Component {
                 return this._renderStepPhone()
             case STEP.OTP:
                 return this._renderStepOTP()
-            case STEP.INFO:
-                return this._renderStepInfo()
-            case STEP.BANK_ACCOUNT:
-                return this._renderStepBankAccount()
             case STEP.PASSWORD:
                 return this._renderStepPassword()
         }
@@ -391,14 +301,6 @@ class Register extends Component {
                         onPressButton1={() => { }}
                         onPressButton2={() => this._onConfirmPhone()}
                         ref={ref => this.popupConfirm = ref} />
-                    <PopupConfirm
-                        animationType='none'
-                        contentT={'already_have_bank_account'}
-                        textButton1={'disagree'}
-                        textButton2={'popup_confirmed'}
-                        onPressButton1={() => { }}
-                        onPressButton2={() => this._onConfirmHaveBankAccount()}
-                        ref={ref => this.popupHaveBankAccount = ref} />
                     {this._render()}
                 </Surface>
             </ImageBackground >
