@@ -7,6 +7,7 @@ import Ripple from 'react-native-material-ripple'
 import { Icon, Text, Surface } from '~/src/themes/ThemeComponent'
 import { BUTTON_STYLES } from '~/src/themes/common'
 import PropTypes from 'prop-types'
+import LinearGradient from 'react-native-linear-gradient'
 
 class Button extends Component {
     static defaultProps = {
@@ -17,7 +18,9 @@ class Button extends Component {
         const { forwardedRef, children, style, theme, icon, iconStyle, textStyle, enable,
             buttonEnableStyle, buttonDisableStyle, buttonTextEnableStyle, buttonTextDisableStyle,
             leftComponent, rightComponent, centerComponent, innerExpand,
-            t, textTransform, text, ...rest } = this.props
+            t, textTransform, text,
+            gradientButton = false, gradientProps = {},
+            ...rest } = this.props
         let buttonThemeStyle = [commonStyle.button, style]
         let textButtonStyle = [commonStyle.buttonText, textStyle]
         if (enable != null && typeof (enable) != 'undefined') {
@@ -44,6 +47,27 @@ class Button extends Component {
                 {buttonTextElement}
             </Surface>
         )
+
+        if (gradientButton) {
+            if (typeof (enable) === 'undefined' || enable === true) {
+                return (
+                    <Ripple ref={forwardedRef} rippleColor={'white'} {...rest}>
+                        <LinearGradient
+                            colors={['#1F6CAF', '#2499CF']}
+                            start={{ x: 0.0, y: 0.0 }}
+                            end={{ x: 1.0, y: 1.0 }}
+                            locations={[0.35, 0.65]}
+                            style={buttonThemeStyle}
+                            {...gradientProps}
+                        >
+                            {!!leftComponent && leftComponent()}
+                            {center}
+                            {!!rightComponent && rightComponent()}
+                        </LinearGradient>
+                    </Ripple>
+                )
+            }
+        }
 
         return (
             <Ripple ref={forwardedRef} {...rest}

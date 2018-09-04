@@ -90,7 +90,9 @@ class Authentication extends Component {
 
 
     render() {
-
+        const enableLoginButton = (this.state.phone && this.state.phone.trim()
+            && this.state.password && this.state.password.trim()
+        )
         return (
             <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
                 <Surface themeable={false} flex pd20>
@@ -129,6 +131,8 @@ class Authentication extends Component {
                         <Button round full
                             t={'login'}
                             onPress={this._handlePressLogin}
+                            enable={!!enableLoginButton}
+                            gradientButton={true}
                         />
                     </Surface>
                     <Surface themeable={false} rowSpacebetween fullWidth>
