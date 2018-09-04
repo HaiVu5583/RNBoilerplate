@@ -37,6 +37,12 @@ export const getFontStyle = (style = 'regular') => {
     let iOSFontWeight = '400'
     let androidFontFamily = 'sans-serif'
     switch (style) {
+        case 'thin':
+            {
+                iOSFontWeight = '100'
+                androidFontFamily = 'sans-serif-thin'
+                break;
+            }
         case 'light':
             {
                 iOSFontWeight = '300'

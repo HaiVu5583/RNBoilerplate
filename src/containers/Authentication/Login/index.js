@@ -9,7 +9,7 @@ import Password from '~/src/components/Password'
 import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
-import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import { ImageBackground } from 'react-native'
 
 const STEP = {
@@ -77,15 +77,16 @@ class Login extends Component {
     }
 
     _renderStepPhone = () => {
+        const enableContinuePhoneButton = (this.state.phone && this.state.phone.trim())
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('login').toUpperCase()}</Text>
+                    <Text white h6 center t={'login'} />
                 </Surface>
                 {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                 <Surface themeable={false} fullWidth mb20>
                     <TextInput
-                        placeholder={I18n.t('phone')}
+                        placeholderT={'phone'}
                         white
                         keyboardType='numeric'
                         onChangeText={this._onChangePhoneNumber}
@@ -93,14 +94,35 @@ class Login extends Component {
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinuePhone} />
+                    <Button
+                        round
+                        t={'continue'}
+                        textTransform={String.prototype.toUpperCase}
+                        full
+                        enable={enableContinuePhoneButton}
+                        onPress={this._handlePressContinuePhone} />
                 </Surface>
             </Surface>
         )
     }
 
     _handlePressFinish = () => {
-
+        Navigation.setStackRoot('mainStack',
+            {
+                sideMenu: {
+                    id: 'sideMenu',
+                    left: {
+                        component: {
+                            name: 'gigabankclient.Drawer',
+                        }
+                    },
+                    center: {
+                        component: {
+                            name: 'gigabankclient.HomeScreen',
+                        }
+                    },
+                }
+            })
     }
 
     _handlePressForgotPassword = () => {
@@ -114,13 +136,13 @@ class Login extends Component {
     _renderStepPassword = () => {
         const { placeholderTextColor, color, ...restStyle } = TEXT_INPUT_STYLES.white
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('password').toUpperCase()}</Text>
+                    <Text white h6 center t={'password'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Password
-                        placeholder={I18n.t('hint_input_password')}
+                        placeholderT={'hint_input_password'}
                         containerStyle={styles.textInput}
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
@@ -132,12 +154,16 @@ class Login extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('finish').toUpperCase()} full onPress={this._handlePressFinish} />
+                    <Button round
+                        t={'finish'}
+                        textTransform={String.prototype.toUpperCase}
+                        full
+                        onPress={this._handlePressFinish} />
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20 center>
                     <Button flat
-                        text={I18n.t('forgot_password_question')}
+                        t={'forgot_password_question'}
                         textStyle={{ color: '#38A5DA' }}
                         onPress={this._handlePressForgotPassword}
                     />
@@ -166,7 +192,7 @@ class Login extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
                 <Surface themeable={false} flex>
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}
@@ -175,15 +201,15 @@ class Login extends Component {
                     />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('err_account_not_register')}
-                        textButton1={I18n.t('close').toUpperCase()}
+                        contentT={'err_account_not_register'}
+                        textButton1={'close'}
                         onPressButton1={() => { }}
                         ref={ref => this.popupAccountNotRegister = ref} />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('already_have_bank_account')}
-                        textButton1={I18n.t('disagree').toUpperCase()}
-                        textButton2={I18n.t('popup_confirmed').toUpperCase()}
+                        contentT={'already_have_bank_account'}
+                        textButton1={'disagree'}
+                        textButton2={'popup_confirmed'}
                         onPressButton1={() => { }}
                         onPressButton2={() => this._onConfirmHaveBankAccount()}
                         ref={ref => this.popupHaveBankAccount = ref} />

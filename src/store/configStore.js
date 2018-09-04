@@ -9,6 +9,7 @@ import rootSaga from './sagas'
 const persistConfig = {
     key: 'root',
     storage,
+    blacklist: ['ui']
 }
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 const sagaMiddleware = createSagaMiddleware()

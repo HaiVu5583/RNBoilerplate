@@ -9,9 +9,11 @@ import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
-import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
+import NumberKeyboard from '~/src/components/NumberKeyboard'
+import CircleCountdown from '~/src/components/CircleCountdown'
 
 const STEP = {
     INFO: 'INFO',
@@ -89,12 +91,12 @@ class ForgotPassword extends Component {
         return (
             <Surface style={{ padding: 20 }} themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('forgot_password').toUpperCase()}</Text>
+                    <Text white h6 center t={'forgot_password'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
                     <TextInput
-                        placeholder={I18n.t('full_name')}
+                        placeholderT={'full_name'}
                         white
                         onChangeText={text => this.setState({ name: text, errName: '' })}
                         value={this.state.name}
@@ -103,7 +105,7 @@ class ForgotPassword extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errIdentityNumber && <Text error body2>{this.state.errIdentityNumber}</Text>}
                     <TextInput
-                        placeholder={I18n.t('identity_number')}
+                        placeholderT={'identity_number'}
                         white
                         keyboardType='numeric'
                         onChangeText={text => this.setState({ identityNumber: text, errIdentityNumber: '' })}
@@ -113,7 +115,7 @@ class ForgotPassword extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errBankAccount && <Text error body2>{this.state.errBankAccount}</Text>}
                     <TextInput
-                        placeholder={I18n.t('hint_input_bank_account_number')}
+                        placeholderT={'hint_input_bank_account_number'}
                         white
                         keyboardType='numeric'
                         onChangeText={text => this.setState({ bankAccount: text, errBankAccount: '' })}
@@ -121,7 +123,9 @@ class ForgotPassword extends Component {
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('get_password').toUpperCase()} full onPress={this._handlePressGetPassword} />
+                    <Button
+                        round t={'get_password'}
+                        full onPress={this._handlePressGetPassword} />
                 </Surface>
             </Surface>
         )
@@ -136,11 +140,11 @@ class ForgotPassword extends Component {
         return (
             <Surface style={{ padding: 20 }} themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('create_new_password').toUpperCase()}</Text>
+                    <Text white h6 center t={'create_new_password'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Password
-                        placeholder={I18n.t('hint_input_password')}
+                        placeholderT={'hint_input_password'}
                         containerStyle={styles.textInput}
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
@@ -153,7 +157,7 @@ class ForgotPassword extends Component {
 
                 <Surface themeable={false} fullWidth mb20>
                     <Password
-                        placeholder={I18n.t('hint_reinput_password')}
+                        placeholderT={'hint_reinput_password'}
                         containerStyle={styles.textInput}
                         onChangeText={text => this.setState({ repassword: text })}
                         value={this.state.repassword}
@@ -165,7 +169,7 @@ class ForgotPassword extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('finish').toUpperCase()} full onPress={this._handlePressFinish} />
+                    <Button round t={'finish'} full onPress={this._handlePressFinish} />
                 </Surface>
             </Surface>
         )
@@ -179,24 +183,39 @@ class ForgotPassword extends Component {
         this.setState({ step: STEP.PASSWORD })
     }
 
+    _renderCountdown = () => {
+        return <CircleCountdown time={60} size={45} fontSize={18} />
+    }
+
     _renderStepOTP = () => {
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+            <Surface themeable={false} flex>
+                <Surface pd20 themeable={false} flex>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text white h6 center t={'authenticate'} />
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
+                    </Surface>
+                    {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
+                    <Surface themeable={false} fullWidth mb20>
+                        <OTPInput
+                            numberDigit={4}
+                            otp={this.state.otp}
+                        />
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20>
+                        <Button
+                            round
+                            t={'continue'}
+                            full
+                            onPress={this._handlePressContinueOTP}
+                            rightComponent={this._renderCountdown}
+                            innerExpand={true}
+                        />
+                    </Surface>
                 </Surface>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
-                </Surface>
-                {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
-                <Surface themeable={false} fullWidth mb20>
-                    <OTPInput numberDigit={4}
-                        onChangeText={text => this.setState({ otp: text })}
-                    />
-                </Surface>
-                <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
-                </Surface>
+                <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
             </Surface>
         )
     }
@@ -223,8 +242,8 @@ class ForgotPassword extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
-                <Surface blue flex>
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
+                <Surface flex themeable={false}>
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}
                         themeable={false}
@@ -232,17 +251,17 @@ class ForgotPassword extends Component {
                     />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('err_forgot_password_info')}
-                        textButton1={I18n.t('cancel').toUpperCase()}
-                        textButton2={I18n.t('popup_confirmed').toUpperCase()}
+                        contentT={'err_forgot_password_info'}
+                        textButton1T={'cancel'}
+                        textButton2T={'popup_confirmed'}
                         onPressButton1={() => { }}
                         onPressButton2={() => { }}
                         ref={ref => this.popupInvalidInfo = ref} />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('confirm_send_otp')}
-                        textButton1={I18n.t('cancel').toUpperCase()}
-                        textButton2={I18n.t('confirm').toUpperCase()}
+                        contentT={'confirm_send_otp'}
+                        textButton1T={'cancel'}
+                        textButton2T={'confirm'}
                         onPressButton1={() => { }}
                         onPressButton2={() => this._onConfirmSendOTP()}
                         ref={ref => this.popupConfirmSendOTP = ref} />

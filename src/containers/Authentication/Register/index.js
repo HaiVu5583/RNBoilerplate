@@ -11,8 +11,9 @@ import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
-import CircleCountdown from '~/src/components/CircleCountdown'
 import { ImageBackground } from 'react-native'
+import NumberKeyboard from '~/src/components/NumberKeyboard'
+import CircleCountdown from '~/src/components/CircleCountdown'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -89,7 +90,7 @@ class Register extends Component {
     }
 
     _handlePressContinuePhone = () => {
-        if (!this.state.phone || !isValidPhoneNumer(this.state.phone)) {
+        if (!isValidPhoneNumer(this.state.phone)) {
             this.setState({ errPhone: I18n.t('err_invalid_phone_number') })
             return
         } else {
@@ -98,18 +99,19 @@ class Register extends Component {
     }
 
     _renderStepPhone = () => {
+        const enableContinuePhoneButton = (this.state.phone && this.state.phone.trim())
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('register').toUpperCase()}</Text>
+                    <Text white h6 center t={'register_account'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white body1>{I18n.t('hint_register_phone_input')}</Text>
+                    <Text center body2 lightWhite light t={'hint_register_phone_input'} />
                 </Surface>
                 {!!this.state.errPhone && <Text error body2>{this.state.errPhone}</Text>}
                 <Surface themeable={false} fullWidth mb20>
                     <TextInput
-                        placeholder={I18n.t('phone')}
+                        placeholderT={'phone'}
                         white
                         keyboardType='numeric'
                         onChangeText={this._onChangePhoneNumber}
@@ -117,7 +119,12 @@ class Register extends Component {
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinuePhone} />
+                    <Button
+                        enable={enableContinuePhoneButton}
+                        round
+                        t={'continue'}
+                        full
+                        onPress={this._handlePressContinuePhone} />
                 </Surface>
             </Surface>
         )
@@ -131,28 +138,64 @@ class Register extends Component {
         this.setState({ step: STEP.INFO })
     }
 
+    _renderCountdown = () => {
+        return <CircleCountdown time={60} size={45} fontSize={18} />
+    }
+
+    _handleResend = () => {
+
+    }
+
     _renderStepOTP = () => {
+        const enableButtonContinueOTP = (this.state.otp && this.state.otp.length >= 4)
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('authenticate').toUpperCase()}</Text>
+            <Surface themeable={false} flex>
+                <Surface pd20 themeable={false} flex>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text white h6 center t={'verify_phone_number'} />
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20 rowCenter>
+                        <Text body2 lightWhite light center>
+                            <Text body2 lightWhite light t={'input'} />
+                            {' '}
+                            <Text body2 lightWhite bold t={'otp_with_hint'} />
+                            {' '}
+                            <Text body2 lightWhite light t={'hint_input_opt2'} />
+                            {' '}
+                            {this.state.phone}
+                        </Text>
+                    </Surface>
+                    {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
+                    <Surface themeable={false} fullWidth mb20>
+                        <OTPInput
+                            numberDigit={4}
+                            otp={this.state.otp}
+                        />
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20>
+                        <Button
+                            enable={enableButtonContinueOTP}
+                            round
+                            t={'continue'}
+
+                            full
+                            onPress={this._handlePressContinueOTP}
+                            rightComponent={this._renderCountdown}
+                            innerExpand={true}
+                        />
+                    </Surface>
+                    <Surface themeable={false} fullWidth rowSpacebetween>
+                        <Text lightWhite light t={'otp_not_work'} />
+                        <Button flat
+                            t={'resend'}
+
+                            textStyle={{ color: '#38A5DA' }}
+                            onPress={this._handleResend}
+                        />
+                    </Surface>
                 </Surface>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white body1>{I18n.t('hint_input_otp_phone')} {this.state.phone}</Text>
-                </Surface>
-                {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
-                <Surface themeable={false} fullWidth mb20>
-                    <OTPInput numberDigit={4}
-                        onChangeText={text => this.setState({ otp: text })}
-                    />
-                </Surface>
-                <CircleCountdown time={20} onCountToEnd={() => {
-                    console.log('Counto End')
-                }} />
-                <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueOTP} />
-                </Surface>
-            </Surface>
+                <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
+            </Surface >
         )
     }
 
@@ -180,15 +223,18 @@ class Register extends Component {
     }
 
     _renderStepInfo = () => {
+        const enableButtonContinueInfo = (this.state.name && this.state.name.trim()
+            && this.state.identityNumber && this.state.identityNumber.trim())
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('personal_info').toUpperCase()}</Text>
+                    <Text white h6 center t={'personal_info'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errName && <Text error body2>{this.state.errName}</Text>}
                     <TextInput
-                        placeholder={I18n.t('full_name')}
+                        descriptionIcon={'user-active'}
+                        placeholderT={'full_name'}
                         white
                         onChangeText={text => this.setState({ name: text, errName: '' })}
                         value={this.state.name}
@@ -197,7 +243,8 @@ class Register extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errIdentityNumber && <Text error body2>{this.state.errIdentityNumber}</Text>}
                     <TextInput
-                        placeholder={I18n.t('identity_number')}
+                        placeholderT={'identity_number'}
+                        descriptionIcon={'code'}
                         white
                         keyboardType='numeric'
                         onChangeText={text => this.setState({ identityNumber: text, errIdentityNumber: '' })}
@@ -205,7 +252,12 @@ class Register extends Component {
                     />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinuePersonalInfo} />
+                    <Button
+                        round
+                        t={'continue'}
+                        full
+                        enable={enableButtonContinueInfo}
+                        onPress={this._handlePressContinuePersonalInfo} />
                 </Surface>
             </Surface>
         )
@@ -217,15 +269,16 @@ class Register extends Component {
     }
 
     _renderStepBankAccount = () => {
+        const enableContinueBankAccountButton = (this.state.bankAccount && this.state.bankAccount.trim())
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('personal_info').toUpperCase()}</Text>
+                    <Text white h6 center t={'personal_info'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errBankAccount && <Text error body2>{this.state.errBankAccount}</Text>}
                     <TextInput
-                        placeholder={I18n.t('hint_input_bank_account_number')}
+                        placeholderT={'hint_input_bank_account_number'}
                         white
                         keyboardType='numeric'
                         onChangeText={text => this.setState({ bankAccount: text, errBankAccount: '' })}
@@ -234,7 +287,12 @@ class Register extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressContinueBankAccount} />
+                    <Button
+                        round
+                        t={'continue'}
+                        full
+                        enable={enableContinueBankAccountButton}
+                        onPress={this._handlePressContinueBankAccount} />
                 </Surface>
             </Surface>
         )
@@ -249,13 +307,13 @@ class Register extends Component {
     _renderStepPassword = () => {
         const { placeholderTextColor, color, ...restStyle } = TEXT_INPUT_STYLES.white
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
+            <Surface pd20 themeable={false}>
                 <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center>{I18n.t('password').toUpperCase()}</Text>
+                    <Text white h6 center t={'password'} />
                 </Surface>
                 <Surface themeable={false} fullWidth mb20>
                     <Password
-                        placeholder={I18n.t('hint_input_password')}
+                        placeholderT={'hint_input_password'}
                         containerStyle={styles.textInput}
                         onChangeText={text => this.setState({ password: text, errRepassword: '' })}
                         value={this.state.password}
@@ -269,7 +327,7 @@ class Register extends Component {
                 <Surface themeable={false} fullWidth mb20>
                     {!!this.state.errRepassword && <Text error body2>{this.state.errRepassword}</Text>}
                     <Password
-                        placeholder={I18n.t('hint_reinput_password')}
+                        placeholderT={'hint_reinput_password'}
                         containerStyle={styles.textInput}
                         onChangeText={text => this.setState({ repassword: text, errRepassword: '' })}
                         value={this.state.repassword}
@@ -281,13 +339,17 @@ class Register extends Component {
                 </Surface>
 
                 <Surface themeable={false} fullWidth mb20>
-                    <Button round text={I18n.t('continue').toUpperCase()} full onPress={this._handlePressFinishPassword} />
+                    <Button
+                        round
+                        t={'continue'}
+                        full onPress={this._handlePressFinishPassword} />
                 </Surface>
             </Surface>
         )
     }
 
     componentDidMount() {
+        console.log('Register DId Mount', this.props)
         BackHandler.addEventListener('hardwareBackPress', this._handlePressBackIcon)
     }
 
@@ -322,17 +384,18 @@ class Register extends Component {
                     />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('confirm_send_otp')}
-                        textButton1={I18n.t('cancel').toUpperCase()}
-                        textButton2={I18n.t('confirm').toUpperCase()}
+                        contentT={'confirm_send_otp'}
+                        titleT={'register_account'}
+                        textButton1T={'cancel'}
+                        textButton2T={'confirm'}
                         onPressButton1={() => { }}
                         onPressButton2={() => this._onConfirmPhone()}
                         ref={ref => this.popupConfirm = ref} />
                     <PopupConfirm
                         animationType='none'
-                        content={I18n.t('already_have_bank_account')}
-                        textButton1={I18n.t('disagree').toUpperCase()}
-                        textButton2={I18n.t('popup_confirmed').toUpperCase()}
+                        contentT={'already_have_bank_account'}
+                        textButton1={'disagree'}
+                        textButton2={'popup_confirmed'}
                         onPressButton1={() => { }}
                         onPressButton2={() => this._onConfirmHaveBankAccount()}
                         ref={ref => this.popupHaveBankAccount = ref} />

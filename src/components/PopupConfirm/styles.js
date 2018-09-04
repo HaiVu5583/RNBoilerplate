@@ -1,7 +1,8 @@
 import { toElevation, getWidth } from "~/src/utils";
-import {Platform} from "react-native"
-import {Dimensions} from 'react-native'
-const {height, width} = Dimensions.get('window')
+import { Platform } from "react-native"
+import { Dimensions } from 'react-native'
+const { height, width } = Dimensions.get('window')
+import { COLORS } from '~/src/themes/common'
 
 export default {
     fullViewScreen: {
@@ -32,7 +33,8 @@ export default {
     },
     textTitle: {
         fontSize: 17,
-        color: 'rgba(0,0,0,0.9)',
+        color: COLORS.DARK_BLUE,
+        fontWeight: 'bold'
     },
     contentContainer: {
         width: '100%',
@@ -53,8 +55,8 @@ export default {
         marginTop: 18,
     },
     button: {
-        fontSize: 18,
-        color: 'red',
+        fontSize: 16,
+        color: COLORS.BLUE,
         marginLeft: 25,
         fontWeight: Platform.OS == 'ios' ? '600' : 'bold'
     }
