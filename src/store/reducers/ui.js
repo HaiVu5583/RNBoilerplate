@@ -3,7 +3,10 @@ import { LANGUAGES } from '~/src/constants'
 
 const initialState = {
     theme: THEMES.light,
-    language: LANGUAGES.VI 
+    language: LANGUAGES.VI,
+    bottomTabs: {
+        activeTab: 1
+    }
 }
 export const ui = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -17,6 +20,15 @@ export const ui = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 language: payload
+            }
+        }
+        case 'ui/setActiveTab': {
+            return {
+                ...state,
+                bottomTabs: {
+                    ...state.bottomTabs,
+                    activeTab: payload
+                }
             }
         }
         default:

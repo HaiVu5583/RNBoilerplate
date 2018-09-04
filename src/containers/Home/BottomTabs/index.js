@@ -3,8 +3,6 @@ import { Surface, Text, Icon } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import { FlatList, Animated } from 'react-native'
 import styles from './styles'
-import { connect } from 'react-redux'
-import { getData, getTestData } from '~/src/store/actions/home'
 import { DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple'
 import LinearGradient from 'react-native-linear-gradient'
@@ -13,9 +11,6 @@ const TAB_ITEM_WIDTH = 80
 class BottomTabs extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            currentTab: 1
-        }
         this.tabActiveTranslateX = new Animated.Value(0)
 
     }
@@ -38,17 +33,16 @@ class BottomTabs extends Component {
     }
 
     _handlePressTab = (item) => {
-        this.setState({ currentTab: item.id })
         Animated.spring(this.tabActiveTranslateX, {
             toValue: (item.id - 1) * TAB_ITEM_WIDTH,
             bounciness: 10,
             useNativeDriver: true
         }).start()
+        this.props.onPress && this.props.onPress(item)
     }
 
     _renderTabItem = (item) => {
-        // const tabBackgroundColor = item.id == this.state.currentTab ? COLORS.LIGHT_WHITE : COLORS.TRANSPARENT
-        const iconColor = item.id == this.state.currentTab ? COLORS.DARK_BLUE : COLORS.WHITE
+        const iconColor = item.id == this.props.activeTab ? COLORS.DARK_BLUE : COLORS.WHITE
         return (
             <Ripple onPress={() => this._handlePressTab(item)} key={item.id}
                 rippleColor={'white'}

@@ -13,6 +13,8 @@ import HomeTab from './HomeTab'
 import WalletTab from './WalletTab'
 import AccountTab from './AccountTab'
 import BottomTabs from './BottomTabs'
+import { setActiveTab } from '~/src/store/actions/ui'
+import { activeTabSelector } from '~/src/store/selectors/ui'
 
 class Home extends Component {
     static get options() {
@@ -51,6 +53,10 @@ class Home extends Component {
         )
     }
 
+    _handlePressBottomTabItem = (item) => {
+        this.props.setActiveTab(item.id)
+    }
+
     render() {
 
         return (
@@ -68,11 +74,15 @@ class Home extends Component {
                 <AccountTab />
                 <Surface themeable={false} rowCenter
                     style={{ position: 'absolute', left: 0, right: 0, bottom: 10 }}>
-                    <BottomTabs />
+                    <BottomTabs
+                        activeTab={this.props.activeTab}
+                        onPress={this._handlePressBottomTabItem} />
                 </Surface>
             </ImageBackground>
         );
     }
 }
 
-export default connect(null, { getData, getTestData }, null, { withRef: true })(Home)
+export default connect(state => ({
+    activeTab: activeTabSelector(state)
+}), { setActiveTab })(Home)
