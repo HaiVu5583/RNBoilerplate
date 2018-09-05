@@ -5,7 +5,7 @@ import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
-import { ASSETS, COLORS } from '~/src/themes/common'
+import { ASSETS, COLORS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import { DIALOG_MODE } from '~/src/constants'
 import PopupConfirm from '~/src/components/PopupConfirm'
 import { replacePatternString, formatPhoneNumber } from '~/src/utils'
@@ -78,7 +78,7 @@ class Authentication extends Component {
         )
         const forgotPasswordContent = replacePatternString(I18n.t('forgot_password_popup_content'), formatPhoneNumber(I18n.t('hotline')))
         return (
-            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                 <Toolbar transparent={true} />
                 <PopupConfirm
                     animationType='none'

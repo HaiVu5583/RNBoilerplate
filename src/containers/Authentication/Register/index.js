@@ -8,7 +8,7 @@ import PopupConfirm from '~/src/components/PopupConfirm'
 import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
-import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
@@ -262,7 +262,7 @@ class Register extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: '100%', height: '100%' }}>
+            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                 <Surface themeable={false} flex>
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}
