@@ -42,7 +42,7 @@ const SIZES = {
     DIALOG_BUTTON_FIELD: 64,
     DIALOG_SPACE: 28,
 }
-console.log('SIZES', SIZES)
+// console.log('SIZES', SIZES)
 export const ASSETS = {
     MAIN_BACKGROUND: require('~/src/assets/background.jpg'),
     LIGHT_BACKGROUND: require('~/src/assets/background_light.jpg')
@@ -280,7 +280,6 @@ export const SURFACE_STYLES = {
     },
     titleAndDescription: {
         height: SIZES.TITLE_DESCRIPTION,
-        backgroundColor: 'rgba(0, 0, 0, 0.2)'
     },
 
     containerHorizontalSpace: {

@@ -98,12 +98,6 @@ class Register extends Component {
                 <Surface themeable={false} titleAndDescription>
                     <Text white title t={'register'} />
                     <Text body2 white description t={'hint_register_phone_info_input'} />
-                    {/* <Surface themeable={false} fullWidth mb20 rowStart>
-                        
-                    </Surface>
-                    <Surface themeable={false} fullWidth mb20 rowStart>
-                        
-                    </Surface> */}
                 </Surface>
                 <TextInput
                     descriptionIcon={'phone'}
@@ -157,36 +151,30 @@ class Register extends Component {
         const enableButtonContinueOTP = !!(this.state.otp && this.state.otp.length >= 4)
         return (
             <Surface themeable={false} flex>
-                <Surface pd20 themeable={false} flex>
-                    <Surface themeable={false} fullWidth mb20 rowStart>
-                        <Text white h5 bold t={'verify'} />
-                    </Surface>
-                    <Surface themeable={false} fullWidth mb20 rowStart>
-                        <Text body2 lightWhite light>
-                            <Text body2 lightWhite light t={'hint_input_opt'} />
+                <Surface themeable={false} flex containerHorizontalSpace>
+                    <Surface themeable={false} titleAndDescription>
+                        <Text white title t={'verify'} />
+                        <Text white description>
+                            <Text white description t={'hint_input_opt'} />
                             {this.state.phone}
                         </Text>
                     </Surface>
-                    {!!this.state.errOTP && <Text error body2>{this.state.errOTP}</Text>}
-                    <Surface themeable={false} fullWidth mb20>
-                        <OTPInput
-                            numberDigit={4}
-                            otp={this.state.otp}
-                        />
-                    </Surface>
-                    <Surface themeable={false} fullWidth mb20>
-                        <Button
-                            enable={!!enableButtonContinueOTP}
-                            gradientButton={true}
-                            round
-                            t={'continue'}
-
-                            full
-                            onPress={this._handlePressContinueOTP}
-                            rightComponent={this._renderCountdown}
-                            innerExpand={true}
-                        />
-                    </Surface>
+                    <OTPInput
+                        numberDigit={4}
+                        otp={this.state.otp}
+                        hasError={!!this.state.errOTP}
+                        errorText={this.state.errOTP}
+                    />
+                    <Surface space16 themeable={false} />
+                    <Button
+                        enable={!!enableButtonContinueOTP}
+                        gradientButton={true}
+                        round
+                        t={'continue'}
+                        full
+                        onPress={this._handlePressContinueOTP}
+                    />
+                    <Surface space8 themeable={false} />
                     <Surface themeable={false} fullWidth rowSpacebetween>
                         <Text lightWhite light t={'otp_not_work'} />
                         <Button flat
@@ -214,54 +202,46 @@ class Register extends Component {
             && this.state.password.trim() && this.state.repassword.trim())
 
         return (
-            <Surface pd20 themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowStart>
-                    <Text white h5 bold t={'password'} />
+            <Surface themeable={false} flex containerHorizontalSpace>
+
+                <Surface themeable={false} titleAndDescription>
+                    <Text white title t={'password'} />
+                    <Text white description t={'hint_create_password'} />
                 </Surface>
 
-                <Surface themeable={false} fullWidth mb20 rowStart>
-                    <Text body2 lightWhite light>
-                        <Text body2 lightWhite light t={'hint_create_password'} />
-                    </Text>
-                </Surface>
 
-                <Surface themeable={false} fullWidth mb20>
-                    <TextInput
-                        descriptionIcon={'password-line'}
-                        placeholderT={'hint_input_password'}
-                        white
-                        keyboardType='number-pad'
-                        onChangeText={text => this.setState({ password: text, errRepassword: '' })}
-                        value={this.state.password}
-                        iconRight={this.state.showPassword ? 'eye-off' : 'eye-on'}
-                        onPressIconRight={() => this.setState({ showPassword: !this.state.showPassword })}
-                        secureTextEntry={!this.state.showPassword}
-                    />
-                </Surface>
+                <TextInput
+                    descriptionIcon={'password-line'}
+                    placeholderT={'hint_input_password'}
+                    white
+                    keyboardType='number-pad'
+                    onChangeText={text => this.setState({ password: text, errRepassword: '' })}
+                    value={this.state.password}
+                    iconRight={this.state.showPassword ? 'eye-off' : 'eye-on'}
+                    onPressIconRight={() => this.setState({ showPassword: !this.state.showPassword })}
+                    secureTextEntry={!this.state.showPassword}
+                />
 
-                <Surface themeable={false} fullWidth mb20>
-                    {!!this.state.errRepassword && <Text error body2>{this.state.errRepassword}</Text>}
-                    <TextInput
-                        descriptionIcon={'password-line'}
-                        placeholderT={'hint_reinput_password'}
-                        white
-                        keyboardType='number-pad'
-                        onChangeText={text => this.setState({ repassword: text, errRepassword: '' })}
-                        value={this.state.repassword}
-                        iconRight={this.state.showRepassword ? 'eye-off' : 'eye-on'}
-                        onPressIconRight={() => this.setState({ showRepassword: !this.state.showRepassword })}
-                        secureTextEntry={!this.state.showRepassword}
-                    />
-                </Surface>
-
-                <Surface themeable={false} fullWidth mb20>
-                    <Button
-                        enable={!!enableButtonFinish}
-                        gradientButton={true}
-                        round
-                        t={'finish'}
-                        full onPress={this._handlePressFinishPassword} />
-                </Surface>
+                <TextInput
+                    descriptionIcon={'password-line'}
+                    placeholderT={'hint_reinput_password'}
+                    white
+                    keyboardType='number-pad'
+                    onChangeText={text => this.setState({ repassword: text, errRepassword: '' })}
+                    value={this.state.repassword}
+                    iconRight={this.state.showRepassword ? 'eye-off' : 'eye-on'}
+                    onPressIconRight={() => this.setState({ showRepassword: !this.state.showRepassword })}
+                    secureTextEntry={!this.state.showRepassword}
+                    hasError={!!this.state.errRepassword}
+                    errorText={this.state.errRepassword}
+                />
+                <Surface space16 themeable={false} />
+                <Button
+                    enable={!!enableButtonFinish}
+                    gradientButton={true}
+                    round
+                    t={'finish'}
+                    full onPress={this._handlePressFinishPassword} />
             </Surface>
         )
     }
