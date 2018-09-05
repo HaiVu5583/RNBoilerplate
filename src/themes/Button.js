@@ -21,7 +21,7 @@ class Button extends Component {
             t, textTransform, text,
             gradientButton = false, gradientProps = {},
             ...rest } = this.props
-        let buttonThemeStyle = [commonStyle.button, style]
+        let buttonThemeStyle = [commonStyle.button]
         let textButtonStyle = [commonStyle.buttonText, textStyle]
         if (enable != null && typeof (enable) != 'undefined') {
             if (!enable) {
@@ -37,6 +37,7 @@ class Button extends Component {
                 buttonThemeStyle.push(BUTTON_STYLES[identifier])
             }
         }
+        buttonThemeStyle.push(style)
         const buttonTextElement = t ? <Text themeable={false} style={textButtonStyle} t={t} textTransform={textTransform} /> :
             text ? <Text themeable={false} style={textButtonStyle}>{text}</Text> : <Surface themeable={false} />
         const center = centerComponent ? centerComponent() : (

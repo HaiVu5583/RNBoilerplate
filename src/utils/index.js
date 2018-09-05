@@ -4,6 +4,7 @@ import { Platform, PixelRatio, Dimensions } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import { BOTTOM_TABS } from '~/src/constants'
 import I18n from '~/src/I18n'
+const { width, height } = Dimensions.get('window')
 
 export const getHOCScreen = (Component, store) => {
     return class ScreenWrapper extends Component {
@@ -54,6 +55,12 @@ export const getFontStyle = (style = 'regular') => {
             {
                 iOSFontWeight = '600'
                 androidFontFamily = 'sans-serif-medium'
+                break;
+            }
+        case 'black':
+            {
+                iOSFontWeight = '900'
+                androidFontFamily = 'sans-serif-black'
                 break;
             }
         case 'bold':
@@ -134,6 +141,10 @@ export const getWidth = (input) => {
         return (width / 360) * input
     }
     return input
+}
+
+export const scaleWidth = (input) => {
+    return (width / 375) * input
 }
 
 export const isValidEmail = (str) => {

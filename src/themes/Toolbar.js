@@ -2,7 +2,7 @@ import React from 'react'
 import { Dimensions, TouchableWithoutFeedback, TouchableNativeFeedback } from 'react-native'
 import { Surface, Text, Icon, Button } from '~/src/themes/ThemeComponent'
 const { width } = Dimensions.get('window')
-import commonStyle, { TOOLBAR_HEIGHT } from '~/src/themes/common'
+import commonStyle from '~/src/themes/common'
 const { toolbar } = commonStyle
 const styles = {}
 import { Navigation } from 'react-native-navigation'
@@ -33,7 +33,7 @@ export default class Toolbar extends React.PureComponent {
 
     render() {
         const { iconLeft, iconRight, title, style, iconStyle, themeable,
-            leftComponent, centerComponent, rightComponent
+            leftComponent, centerComponent, rightComponent, transparent=false
         } = this.props
 
         const left = leftComponent ? leftComponent() : <Button themeable={themeable} flat onPress={this._onPressBack}
@@ -51,6 +51,11 @@ export default class Toolbar extends React.PureComponent {
             icon={iconRight}
             iconStyle={[toolbar.iconRight, iconStyle]}
         /> : <Surface themeable={false} />)
+        if (transparent){
+            return (
+                <Surface style={[toolbar.container, style]} themeable={false} />
+            )
+        }
 
         return (
             <Surface style={[toolbar.container, style]} themeable={themeable}>

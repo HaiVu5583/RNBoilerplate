@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Surface, Text, Button, Image, TextInput } from '~/src/themes/ThemeComponent'
+import { Surface, Text, Button, Image, TextInput, Toolbar } from '~/src/themes/ThemeComponent'
 import { ImageBackground } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
@@ -95,14 +95,15 @@ class Authentication extends Component {
         )
         return (
             <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
-                <Surface themeable={false} flex pd20>
-                    <Surface themeable={false} style={{ marginTop: 50, marginBottom: 50 }}>
+                <Toolbar transparent={true} />
+                <Surface themeable={false} flex containerHorizontalSpace>
+                    <Surface space20 themeable={false} />
+                    <Surface themeable={false} titleAndDescription>
                         <Surface themeable={false} rowCenter>
-                            <Text white h4 bold>GIGA</Text>
-                            <Text white h4 thin>BANK</Text>
+                            <Text white title bold>GIGA</Text>
+                            <Text white title thin>BANK</Text>
                         </Surface>
                     </Surface>
-                    <Surface themeable={false} fullWidth mb20>
                         <TextInput
                             descriptionIcon={'phone'}
                             placeholderT={'phone'}
@@ -114,8 +115,6 @@ class Authentication extends Component {
                             onPressIconRight={() => this.setState({ phone: '' })}
                             showIconRight={(this.state.phone && this.state.phone.trim())}
                         />
-                    </Surface>
-                    <Surface themeable={false} fullWidth mb20>
                         <TextInput
                             descriptionIcon={'password-line'}
                             placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
@@ -124,17 +123,16 @@ class Authentication extends Component {
                             value={this.state.password}
                             secureTextEntry={this.state.secure}
                         />
-                    </Surface>
 
 
-                    <Surface themeable={false} fullWidth mb20>
-                        <Button round full
-                            t={'login'}
-                            onPress={this._handlePressLogin}
-                            enable={!!enableLoginButton}
-                            gradientButton={true}
-                        />
-                    </Surface>
+                    <Surface space16 themeable={false} />
+                    <Button round full
+                        t={'login'}
+                        onPress={this._handlePressLogin}
+                        enable={!!enableLoginButton}
+                        gradientButton={true}
+                    />
+                    <Surface space8 themeable={false} />
                     <Surface themeable={false} rowSpacebetween fullWidth>
                         <Button flat
                             t={'register'}

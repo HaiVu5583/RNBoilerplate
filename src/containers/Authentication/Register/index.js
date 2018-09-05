@@ -94,51 +94,45 @@ class Register extends Component {
             this.state.name && this.state.name.trim()
         )
         return (
-            <Surface pd20 themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowStart>
-                    <Text white h5 bold t={'register'} />
+            <Surface themeable={false} flex containerHorizontalSpace>
+                <Surface themeable={false} titleAndDescription>
+                    <Text white title t={'register'} />
+                    <Text body2 white description t={'hint_register_phone_info_input'} />
+                    {/* <Surface themeable={false} fullWidth mb20 rowStart>
+                        
+                    </Surface>
+                    <Surface themeable={false} fullWidth mb20 rowStart>
+                        
+                    </Surface> */}
                 </Surface>
-                <Surface themeable={false} fullWidth mb20 rowStart>
-                    <Text body2 lightWhite light t={'hint_register_phone_info_input'} />
-                </Surface>
-                <Surface themeable={false} fullWidth mb20>
-                    <TextInput
-                        descriptionIcon={'phone'}
-                        placeholderT={'phone'}
-                        white
-                        keyboardType='number-pad'
-                        onChangeText={this._onChangePhoneNumber}
-                        value={this.state.phone}
-                        hasError={!!this.state.errPhone}
-                        errorText={this.state.errPhone}
-                    />
-                </Surface>
+                <TextInput
+                    descriptionIcon={'phone'}
+                    placeholderT={'phone'}
+                    white
+                    keyboardType='number-pad'
+                    onChangeText={this._onChangePhoneNumber}
+                    value={this.state.phone}
+                    hasError={!!this.state.errPhone}
+                    errorText={this.state.errPhone}
+                />
+                <TextInput
+                    descriptionIcon={'user-active'}
+                    placeholderT={'full_name'}
+                    white
+                    onChangeText={text => this.setState({ name: text, errName: '' })}
+                    value={this.state.name}
+                    hasError={!!this.state.errName}
+                    errorText={this.state.errName}
+                />
+                <Surface space16 themeable={false} />
+                <Button
+                    enable={!!enableContinuePhoneButton}
+                    gradientButton={true}
+                    round
+                    t={'continue'}
+                    full
+                    onPress={this._handlePressContinuePhone} />
 
-                <Surface themeable={false} fullWidth mb20>
-                    <TextInput
-                        descriptionIcon={'user-active'}
-                        placeholderT={'full_name'}
-                        white
-                        onChangeText={text => this.setState({ name: text, errName: '' })}
-                        value={this.state.name}
-                        hasError={!!this.state.errName}
-                        errorText={this.state.errName}
-                    />
-                </Surface>
-
-
-
-
-
-                <Surface themeable={false} fullWidth mb20>
-                    <Button
-                        enable={!!enableContinuePhoneButton}
-                        gradientButton={true}
-                        round
-                        t={'continue'}
-                        full
-                        onPress={this._handlePressContinuePhone} />
-                </Surface>
             </Surface>
         )
     }
@@ -302,6 +296,7 @@ class Register extends Component {
                         themeable={false}
                         iconStyle={{ color: 'white' }}
                     />
+                    <Surface space20 themeable={false} />
                     <PopupConfirm
                         animationType='none'
                         contentT={'confirm_send_otp'}

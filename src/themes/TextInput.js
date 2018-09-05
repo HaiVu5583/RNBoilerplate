@@ -50,7 +50,7 @@ class ThemeTextInput extends Component {
         }
 
         return (
-            <Surface themeable={false} columnStart>
+            <Surface themeable={false} columnStart style={commonStyle.textInput.textInputColumnContainer}>
                 <Surface themeable={false} rowStart style={textInputContainerStyle}>
                     {!!descriptionIcon && <Icon name={descriptionIcon} style={descriptionIconStyle} />}
                     <TextInput

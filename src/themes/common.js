@@ -1,20 +1,48 @@
 import { getFontStyle } from '~/src/utils'
 import { Dimensions, PixelRatio } from 'react-native'
 const window = Dimensions.get('window')
-import { getElevation } from '~/src/utils'
+import { getElevation, scaleWidth } from '~/src/utils'
 export const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
 export const DEVICE_WIDTH = window.width
 export const DEVICE_HEIGHT = window.height
+console.log('DEVICE WIDTH', DEVICE_WIDTH)
 
 export const COLORS = {
-    WHITE: 'rgba(255, 255, 255, 1)',
+    WHITE: '#FFFFFF',
     LIGHT_WHITE: 'rgba(255, 255, 255, 0.7)',
-    ERROR: '#FDB040',
-    BLUE: '#1F73B6',
-    DARK_BLUE: '#43597B',
-    TRANSPARENT: 'transparent'
+    ERROR: '#ED1C24',
+    BLUE: '#1D76BB',
+    DARK_BLUE: '#233C63',
+    TRANSPARENT: 'transparent',
+    BLACK: '#000000'
 }
 
+// const SIZES = {
+//     TOOLBAR: scaleWidth(44),
+//     CONTAINER_HORIZONTAL_MARGIN: scaleWidth(16),
+//     CONTAINER_HORIZONTAL_SPACE: scaleWidth(32),
+//     CONTAINER_HORIZONTAL_SPACE_AND_MARGIN: scaleWidth(48),
+//     TITLE_DESCRIPTION: scaleWidth(121),
+//     TEXT_INPUT_CONTAINER: scaleWidth(69),
+//     BUTTON_FIELD: scaleWidth(54),
+//     DIALOG_BUTTON: scaleWidth(42),
+//     DIALOG_BUTTON_FIELD: scaleWidth(64),
+//     DIALOG_SPACE: scaleWidth(28),
+// }
+
+const SIZES = {
+    TOOLBAR: 44,
+    CONTAINER_HORIZONTAL_MARGIN: 16,
+    CONTAINER_HORIZONTAL_SPACE: 32,
+    CONTAINER_HORIZONTAL_SPACE_AND_MARGIN: 48,
+    TITLE_DESCRIPTION: 121,
+    TEXT_INPUT_CONTAINER: 69,
+    BUTTON_FIELD: 54,
+    DIALOG_BUTTON: 42,
+    DIALOG_BUTTON_FIELD: 64,
+    DIALOG_SPACE: 28,
+}
+console.log('SIZES', SIZES)
 export const ASSETS = {
     MAIN_BACKGROUND: require('~/src/assets/background.jpg'),
     LIGHT_BACKGROUND: require('~/src/assets/background_light.jpg')
@@ -54,48 +82,94 @@ export const FONT_WEIGHTS = {
     regular: 'regular',
     medium: 'medium',
     bold: 'bold',
-    thin: 'thin'
+    thin: 'thin',
+    black: 'black'
 }
 
 export const TEXT_STYLES = {
-    sologan: {
-        ...getFontStyle(FONT_WEIGHTS.medium),
-        fontSize: 30,
-        color: COLORS.LIGHT_WHITE
+    title: {
+        ...getFontStyle(FONT_WEIGHTS.black),
+        fontSize: 32,
+        lineHeight: 42,
+        // letterSpacing: 5
+    },
+    description: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 14,
+        lineHeight: 18,
+        // letterSpacing: 10
+    },
+    buttonText: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 16,
+        lineHeight: 24,
+        // letterSpacing: 10
+    },
+    textInput: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 16,
+        lineHeight: 24,
+        // letterSpacing: 10
+    },
+    error: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        color: COLORS.ERROR,
+        fontSize: 12,
+        lineHeight: 18,
+        // letterSpacing: 10
+    },
+    dialogTitle: {
+        ...getFontStyle(FONT_WEIGHTS.bold),
+        fontSize: 20,
+        lineHeight: 24,
+        letterSpacing: 10
+    },
+    dialogBody: {
+        ...getFontStyle(FONT_WEIGHTS.bold),
+        fontSize: 16,
+        lineHeight: 24,
+        letterSpacing: 10
     },
 
-    h4: {
-        ...getFontStyle(FONT_WEIGHTS.regular),
-        fontSize: 34
-    },
-    h5: {
-        ...getFontStyle(FONT_WEIGHTS.regular),
-        fontSize: 24
-    },
-    h6: {
-        ...getFontStyle(FONT_WEIGHTS.medium),
-        fontSize: 20
-    },
-    overline: {
-        ...getFontStyle(FONT_WEIGHTS.regular),
-        fontSize: 10
-    },
-    body1: {
-        ...getFontStyle(FONT_WEIGHTS.regular),
-        fontSize: 16
-    },
-    body2: {
-        ...getFontStyle(FONT_WEIGHTS.regular),
-        fontSize: 14
-    },
-    subtitle1: {
-        ...getFontStyle(FONT_WEIGHTS.regular),
-        fontSize: 16
-    },
-    subtitle2: {
-        ...getFontStyle(FONT_WEIGHTS.medium),
-        fontSize: 14
-    },
+
+    // sologan: {
+    //     ...getFontStyle(FONT_WEIGHTS.medium),
+    //     fontSize: 30,
+    //     color: COLORS.LIGHT_WHITE
+    // },
+
+    // h4: {
+    //     ...getFontStyle(FONT_WEIGHTS.regular),
+    //     fontSize: 34
+    // },
+    // h5: {
+    //     ...getFontStyle(FONT_WEIGHTS.regular),
+    //     fontSize: 24
+    // },
+    // h6: {
+    //     ...getFontStyle(FONT_WEIGHTS.medium),
+    //     fontSize: 20
+    // },
+    // overline: {
+    //     ...getFontStyle(FONT_WEIGHTS.regular),
+    //     fontSize: 10
+    // },
+    // body1: {
+    //     ...getFontStyle(FONT_WEIGHTS.regular),
+    //     fontSize: 16
+    // },
+    // body2: {
+    //     ...getFontStyle(FONT_WEIGHTS.regular),
+    //     fontSize: 14
+    // },
+    // subtitle1: {
+    //     ...getFontStyle(FONT_WEIGHTS.regular),
+    //     fontSize: 16
+    // },
+    // subtitle2: {
+    //     ...getFontStyle(FONT_WEIGHTS.medium),
+    //     fontSize: 14
+    // },
     white: {
         color: COLORS.WHITE
     },
@@ -104,9 +178,6 @@ export const TEXT_STYLES = {
     },
     center: {
         textAlign: 'center'
-    },
-    error: {
-        color: COLORS.ERROR
     },
     thin: {
         ...getFontStyle(FONT_WEIGHTS.thin),
@@ -195,6 +266,26 @@ export const SURFACE_STYLES = {
     pv20: {
         paddingVertical: 20
     },
+    space20: {
+        width: '100%',
+        height: 20
+    },
+    space16: {
+        width: '100%',
+        height: 16,
+    },
+    space8: {
+        width: '100%',
+        height: 8
+    },
+    titleAndDescription: {
+        height: SIZES.TITLE_DESCRIPTION,
+        backgroundColor: 'rgba(0, 0, 0, 0.2)'
+    },
+
+    containerHorizontalSpace: {
+        paddingHorizontal: 48
+    },
     white: {
         backgroundColor: COLORS.WHITE
     },
@@ -216,6 +307,8 @@ export const BUTTON_STYLES = {
     },
     flat: {
         backgroundColor: 'transparent',
+        paddingLeft: 0,
+        paddingRight: 0,
         ...getElevation(0)
     },
     full: {
@@ -227,13 +320,11 @@ export const BUTTON_STYLES = {
     }
 }
 
-export const TOOLBAR_HEIGHT = 56
-
 export default {
     button: {
         borderRadius: 2,
-        backgroundColor: '#1B75BB',
-        height: 50,
+        backgroundColor: COLORS.BLUE,
+        height: SIZES.BUTTON_FIELD,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -242,13 +333,13 @@ export default {
         ...getElevation(2)
     },
     buttonText: {
-        fontSize: 14,
+        ...TEXT_STYLES.buttonText,
         color: COLORS.WHITE,
     },
     buttonDisable: {
         borderRadius: 2,
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
-        height: 50,
+        height: SIZES.BUTTON_FIELD,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -257,7 +348,7 @@ export default {
         ...getElevation(0)
     },
     buttonTextDisable: {
-        fontSize: 14,
+        ...TEXT_STYLES.buttonText,
         color: COLORS.LIGHT_WHITE,
     },
     buttonIcon: {
@@ -267,7 +358,7 @@ export default {
     },
     toolbar: {
         container: {
-            height: TOOLBAR_HEIGHT,
+            height: SIZES.TOOLBAR,
             width: DEVICE_WIDTH,
             flexDirection: 'row',
             justifyContent: 'flex-start',
@@ -279,9 +370,9 @@ export default {
             fontSize: 19,
         },
         iconLeftContainer: {
-            paddingLeft: 16,
-            paddingRight: 32,
-            height: TOOLBAR_HEIGHT,
+            paddingLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+            width: SIZES.CONTAINER_HORIZONTAL_SPACE_AND_MARGIN,
+            height: SIZES.TOOLBAR,
             flexDirection: 'row',
             alignItems: 'center',
         },
@@ -292,7 +383,7 @@ export default {
         iconRightContainer: {
             paddingRight: 16,
             paddingLeft: 8,
-            height: TOOLBAR_HEIGHT,
+            height: SIZES.TOOLBAR,
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'flex-end',
@@ -303,10 +394,14 @@ export default {
     },
     textInput: {
         input: {
-            flex: 1
+            flex: 1,
+            ...TEXT_STYLES.textInput
+        },
+        textInputColumnContainer: {
+            height: 69,
         },
         textInputContainer: {
-            height: 40,
+            height: 42,
         },
         descriptionIcon: {
             fontSize: 20,
