@@ -5,8 +5,9 @@ import styles from './styles'
 import { TouchableWithoutFeedback } from 'react-native-vector-icons/lib/react-native';
 import TextAutolink from '~/src/components/TextAutolink'
 import SvgUri from 'react-native-svg-uri'
-import { Text } from '~/src/themes/ThemeComponent'
+import { Text, Surface, Button } from '~/src/themes/ThemeComponent'
 import I18n from '~/src/I18n'
+import { DIALOG_MODE } from '~/src/constants'
 
 export default class PopupConfirm extends React.PureComponent {
 
@@ -97,8 +98,8 @@ export default class PopupConfirm extends React.PureComponent {
                 let { contentStyle } = this.props
                 if (!contentStyle) contentStyle = {}
 
-                return <Text style={{ ...styles.textContent, ...contentStyle }}>{splitArr[0]}
-                    <Text style={{ ...styles.textContent, fontWeight: 'bold' }}>{boldPart}</Text>
+                return <Text dialogBody style={[contentStyle]}>{splitArr[0]}
+                    <Text dialogBody style={[{ fontWeight: 'bold' }]}>{boldPart}</Text>
                     {splitArr[1]}
                 </Text>
             }
@@ -109,7 +110,58 @@ export default class PopupConfirm extends React.PureComponent {
     _renderContentT = (contentT) => {
         const contentStyle = this.props.contentStyle || {}
         return (
-            <Text style={{ ...styles.textContent, ...contentStyle }} t={contentT} />
+            <Text dialogBody style={[contentStyle]} t={contentT} />
+        )
+    }
+
+    _handlePressYes = () => {
+        this.close()
+        this.props.onPressYes && this.props.onPressYes()
+    }
+
+    _handlePressNo = () => {
+        this.close()
+        this.props.onPressNo && this.props.onPressNo()
+    }
+
+    _renderButton = () => {
+        const {
+            textButton1, textButton2, textButton3,
+            textButton1T, textButton2T, textButton3T,
+            textYesT, textNoT,
+            textButton1Transform = String.prototype.toUpperCase,
+            textButton2Transform = String.prototype.toUpperCase,
+            textButton3Transform = String.prototype.toUpperCase,
+            mode = DIALOG_MODE.NEUTRAL
+        } = this.props;
+        if (mode == DIALOG_MODE.NEUTRAL) {
+            const button1 = textButton1T ?
+                <Text t={textButton1T} textTransform={textButton1Transform} onPress={() => this._handlePressButton1()} style={{ ...styles.button, }} /> :
+                textButton1 ? <Text onPress={() => this._handlePressButton1()} style={{ ...styles.button, }}>{textButton1}</Text> : <View />
+
+            const button2 = textButton2T ?
+                <Text t={textButton2T} textTransform={textButton2Transform} onPress={() => this._handlePressButton2()} style={{ ...styles.button, }} /> :
+                textButton2 ? <Text onPress={() => this._handlePressButton2()} style={{ ...styles.button, }}>{textButton2}</Text> : <View />
+
+            const button3 = textButton3T ?
+                <Text t={textButton3T} textTransform={textButton3Transform} onPress={() => this._handlePressButton3()} style={{ ...styles.button, }} /> :
+                textButton3 ? <Text onPress={() => this._handlePressButton3()} style={{ ...styles.button, }}>{textButton3}</Text> : <View />
+            return (
+                <View style={styles.buttonContainer}>
+                    {button1}
+                    {button2}
+                    {button3}
+                </View>
+            )
+        }
+
+        const buttonYes = <Button dialog gradientButton={true} t={textYesT} onPress={this._handlePressYes} />
+        const buttonNo = <Button flat dialog t={textNoT} onPress={this._handlePressNo} textStyle={styles.negativeButtonText}/>
+        return (
+            <View style={styles.buttonContainer}>
+                {buttonNo}
+                {buttonYes}
+            </View>
         )
     }
 
@@ -131,23 +183,12 @@ export default class PopupConfirm extends React.PureComponent {
 
         const modalBackgroundStyle = !!overlayColor ? { ...styles.backgroundModal, backgroundColor: overlayColor } : styles.backgroundModal
 
-        const button1 = textButton1T ?
-            <Text t={textButton1T} textTransform={textButton1Transform} onPress={() => this._handlePressButton1()} style={{ ...styles.button, }} /> :
-            textButton1 ? <Text onPress={() => this._handlePressButton1()} style={{ ...styles.button, }}>{textButton1}</Text> : <View />
-
-        const button2 = textButton2T ?
-            <Text t={textButton2T} textTransform={textButton2Transform} onPress={() => this._handlePressButton2()} style={{ ...styles.button, }} /> :
-            textButton2 ? <Text onPress={() => this._handlePressButton2()} style={{ ...styles.button, }}>{textButton2}</Text> : <View />
-
-        const button3 = textButton3T ?
-            <Text t={textButton3T} textTransform={textButton3Transform} onPress={() => this._handlePressButton3()} style={{ ...styles.button, }} /> :
-            textButton3 ? <Text onPress={() => this._handlePressButton3()} style={{ ...styles.button, }}>{textButton3}</Text> : <View />
-
         const titleElement = (
-            <View style={styles.titleContainer}>
+            <View>
                 {titleT ?
-                    <Text style={[styles.textTitle, this.props.titleStyle]} t={titleT}>{title}</Text> :
-                    title ? <Text style={[styles.textTitle, this.props.titleStyle]}>{title}</Text> : <View />}
+                    <Text dialogTitle style={[this.props.titleStyle]} t={titleT}>{title}</Text> :
+                    title ? <Text dialogTitle style={[this.props.titleStyle]}>{title}</Text> : <View />}
+                <Surface themeable={false} space16 />
             </View>
         )
 
@@ -179,11 +220,7 @@ export default class PopupConfirm extends React.PureComponent {
                                 {this.props.children}
                             </View>
                         }
-                        <View style={styles.buttonContainer}>
-                            {button1}
-                            {button2}
-                            {button3}
-                        </View>
+                        {this._renderButton()}
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -191,7 +228,7 @@ export default class PopupConfirm extends React.PureComponent {
     }
 
     render() {
-        const { useNormalView, mode = 'neutral' } = this.props
+        const { useNormalView, mode = DIALOG_MODE.NEUTRAL } = this.props
 
         if (!!useNormalView) {
             return (

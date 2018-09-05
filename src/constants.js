@@ -54,5 +54,5 @@ export const LANGUAGES = {
 
 export const DIALOG_MODE = {
     NEUTRAL: 'NEUTRAL',
-    CONFIRM: 'CONFIRM'
+    YES_NO: 'YES_NO'
 }

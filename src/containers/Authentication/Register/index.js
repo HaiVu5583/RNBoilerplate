@@ -12,7 +12,8 @@ import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/comm
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
-import CircleCountdown from '~/src/components/CircleCountdown'
+import { DIALOG_MODE } from '~/src/constants'
+
 
 const STEP = {
     PHONE: 'PHONE',
@@ -137,10 +138,6 @@ class Register extends Component {
             return
         }
         this.setState({ step: STEP.PASSWORD })
-    }
-
-    _renderCountdown = () => {
-        return <CircleCountdown time={60} size={45} fontSize={18} />
     }
 
     _handleResend = () => {
@@ -281,10 +278,10 @@ class Register extends Component {
                         animationType='none'
                         contentT={'confirm_send_otp'}
                         titleT={'register_account'}
-                        textButton1T={'cancel'}
-                        textButton2T={'confirm'}
-                        onPressButton1={() => { }}
-                        onPressButton2={() => this._onConfirmPhone()}
+                        textNoT={'cancel'}
+                        textYesT={'confirm'}
+                        mode={DIALOG_MODE.YES_NO}
+                        onPressYes={this._onConfirmPhone}
                         ref={ref => this.popupConfirm = ref} />
                     {this._render()}
                 </Surface>

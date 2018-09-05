@@ -30,7 +30,7 @@ export const COLORS = {
 //     DIALOG_SPACE: scaleWidth(28),
 // }
 
-const SIZES = {
+export const SIZES = {
     TOOLBAR: 44,
     CONTAINER_HORIZONTAL_MARGIN: 16,
     CONTAINER_HORIZONTAL_SPACE: 32,
@@ -101,13 +101,13 @@ export const TEXT_STYLES = {
     },
     buttonText: {
         ...getFontStyle(FONT_WEIGHTS.regular),
-        fontSize: 16,
+        fontSize: 14,
         lineHeight: 24,
         // letterSpacing: 10
     },
     textInput: {
         ...getFontStyle(FONT_WEIGHTS.regular),
-        fontSize: 16,
+        fontSize: 14,
         lineHeight: 24,
         // letterSpacing: 10
     },
@@ -122,13 +122,15 @@ export const TEXT_STYLES = {
         ...getFontStyle(FONT_WEIGHTS.bold),
         fontSize: 20,
         lineHeight: 24,
-        letterSpacing: 10
+        // letterSpacing: 10
+        color: COLORS.DARK_BLUE
     },
     dialogBody: {
-        ...getFontStyle(FONT_WEIGHTS.bold),
+        ...getFontStyle(FONT_WEIGHTS.regular),
         fontSize: 16,
         lineHeight: 24,
-        letterSpacing: 10
+        // letterSpacing: 10
+        color: COLORS.BLACK
     },
 
 
@@ -306,8 +308,6 @@ export const BUTTON_STYLES = {
     },
     flat: {
         backgroundColor: 'transparent',
-        paddingLeft: 0,
-        paddingRight: 0,
         ...getElevation(0)
     },
     full: {
@@ -316,6 +316,10 @@ export const BUTTON_STYLES = {
     noPadding: {
         padingLeft: 0,
         paddingRight: 0
+    },
+    dialog: {
+        height: SIZES.DIALOG_BUTTON,
+        borderRadius: SIZES.DIALOG_BUTTON/2
     }
 }
 
