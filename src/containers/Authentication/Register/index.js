@@ -13,6 +13,7 @@ import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
 import { DIALOG_MODE } from '~/src/constants'
+import OTPCountdown from '~/src/containers/Authentication/OTPCountdown'
 
 
 const STEP = {
@@ -172,14 +173,9 @@ class Register extends Component {
                         onPress={this._handlePressContinueOTP}
                     />
                     <Surface space8 themeable={false} />
-                    <Surface themeable={false} fullWidth rowSpacebetween>
-                        <Text lightWhite light t={'otp_not_work'} />
-                        <Button flat
-                            t={'resend'}
-
-                            textStyle={{ color: '#38A5DA' }}
-                            onPress={this._handleResend}
-                        />
+                    <Surface themeable={false} fullWidth rowCenter>
+                        <OTPCountdown time={20} onResend={() => {
+                        }} />
                     </Surface>
                 </Surface>
                 <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
