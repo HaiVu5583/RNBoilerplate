@@ -182,6 +182,14 @@ export const isValidPhoneNumer = (str) => {
     return phoneRegex.test(str)
 }
 
+const insertString = (string, index, stringInsert) => {
+    return string.slice(0, index) + stringInsert + string.slice(index, string.length);
+}
+
+const insertSpace = (string, index) => {
+    return insertString(string, index, ' ');
+}
+
 export const formatPhoneNumber = (phoneNumber) => {
     if (!phoneNumber) return '';
     let newPhoneNumber = phoneNumber.toString().replace(/ /g, '')
@@ -237,4 +245,8 @@ export const toNormalCharacter = (str) => {
 
 export const isFunction = (obj) => {
     return !!(obj && obj.constructor && obj.call && obj.apply)
+}
+
+export const replacePatternString = (str, repStr, pattern = '*****') => {
+    return str.replace(pattern, repStr)
 }

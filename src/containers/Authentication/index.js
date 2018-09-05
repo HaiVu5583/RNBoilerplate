@@ -5,11 +5,10 @@ import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
-import { Platform } from 'react-native'
-import FingerprintScanner from 'react-native-fingerprint-scanner'
-import { TouchableOpacity } from 'react-native-ui-lib';
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
-import Ripple from 'react-native-material-ripple'
+import { ASSETS, COLORS } from '~/src/themes/common'
+import { DIALOG_MODE } from '~/src/constants'
+import PopupConfirm from '~/src/components/PopupConfirm'
+import { replacePatternString, formatPhoneNumber } from '~/src/utils'
 
 class Authentication extends Component {
     static get options() {
@@ -59,11 +58,12 @@ class Authentication extends Component {
     }
 
     _handlePressForgotPassword = () => {
-        Navigation.push('mainStack', {
-            component: {
-                name: 'gigabankclient.ForgotPassword',
-            }
-        })
+        // Navigation.push('mainStack', {
+        //     component: {
+        //         name: 'gigabankclient.ForgotPassword',
+        //     }
+        // })
+        this.popupForgotPassword && this.popupForgotPassword.open()
     }
 
 
@@ -71,29 +71,23 @@ class Authentication extends Component {
 
     }
 
-    _handlePressFingerprint = () => {
-        this.fingerprintPopup && this.fingerprintPopup.open()
-
-    }
-
-    _onAuthenticateSuccess = () => {
-        alert('Fingerprint Authenticate Successful!')
-    }
-
-    _handleChangeLanguage = (language) => {
-        I18n.locale = language.toLowerCase()
-        this.props.changeLanguage(language)
-    }
-
-
 
     render() {
         const enableLoginButton = (this.state.phone && this.state.phone.trim()
             && this.state.password && this.state.password.trim()
         )
+        const forgotPasswordContent = replacePatternString(I18n.t('forgot_password_popup_content'), formatPhoneNumber(I18n.t('hotline')))
         return (
             <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
                 <Toolbar transparent={true} />
+                <PopupConfirm
+                    animationType='none'
+                    content={forgotPasswordContent}
+                    titleT={'forgot_password'}
+                    textYesT={'close'}
+                    mode={DIALOG_MODE.YES_NO}
+                    ref={ref => this.popupForgotPassword = ref} />
+
                 <Surface themeable={false} flex containerHorizontalSpace>
                     <Surface space20 themeable={false} />
                     <Surface themeable={false} titleAndDescription>
@@ -102,25 +96,25 @@ class Authentication extends Component {
                             <Text white title thin>BANK</Text>
                         </Surface>
                     </Surface>
-                        <TextInput
-                            descriptionIcon={'phone'}
-                            placeholderT={'phone'}
-                            white
-                            onChangeText={text => this.setState({ phone: text })}
-                            keyboardType='number-pad'
-                            value={this.state.phone}
-                            iconRight={'close2'}
-                            onPressIconRight={() => this.setState({ phone: '' })}
-                            showIconRight={(this.state.phone && this.state.phone.trim())}
-                        />
-                        <TextInput
-                            descriptionIcon={'password-line'}
-                            placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
-                            white
-                            onChangeText={text => this.setState({ password: text })}
-                            value={this.state.password}
-                            secureTextEntry={this.state.secure}
-                        />
+                    <TextInput
+                        descriptionIcon={'phone'}
+                        placeholderT={'phone'}
+                        white
+                        onChangeText={text => this.setState({ phone: text })}
+                        keyboardType='number-pad'
+                        value={this.state.phone}
+                        iconRight={'close2'}
+                        onPressIconRight={() => this.setState({ phone: '' })}
+                        showIconRight={(this.state.phone && this.state.phone.trim())}
+                    />
+                    <TextInput
+                        descriptionIcon={'password-line'}
+                        placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
+                        white
+                        onChangeText={text => this.setState({ password: text })}
+                        value={this.state.password}
+                        secureTextEntry={this.state.secure}
+                    />
 
 
                     <Surface space16 themeable={false} />

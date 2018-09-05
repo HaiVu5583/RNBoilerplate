@@ -194,7 +194,7 @@ const language = {
     'err_timeout': 'Oops... Có lỗi kết nối. Bạn vui lòng thử lại.',
     'err_display_name': 'Vui lòng nhập tên hiển thị có độ dài từ 5 đến 50 ký tự.',
     'account_number': 'Số tài khoản',
-
+    'forgot_password_popup_content': 'Bạn vui lòng liên hệ ***** để được hỗ trợ lấy lại mật khẩu nhé.',
     //cashback
     'cashback_today': 'Hôm nay',
     'cashback_monday': 'Thứ Hai',

@@ -156,7 +156,7 @@ export default class PopupConfirm extends React.PureComponent {
         }
 
         const buttonYes = <Button dialog gradientButton={true} t={textYesT} onPress={this._handlePressYes} />
-        const buttonNo = <Button flat dialog t={textNoT} onPress={this._handlePressNo} textStyle={styles.negativeButtonText}/>
+        const buttonNo = <Button flat dialog t={textNoT} onPress={this._handlePressNo} textStyle={styles.negativeButtonText} />
         return (
             <View style={styles.buttonContainer}>
                 {buttonNo}
@@ -183,13 +183,15 @@ export default class PopupConfirm extends React.PureComponent {
 
         const modalBackgroundStyle = !!overlayColor ? { ...styles.backgroundModal, backgroundColor: overlayColor } : styles.backgroundModal
 
-        const titleElement = (
+        const titleElement = ((titleT || title) ?
             <View>
                 {titleT ?
                     <Text dialogTitle style={[this.props.titleStyle]} t={titleT}>{title}</Text> :
                     title ? <Text dialogTitle style={[this.props.titleStyle]}>{title}</Text> : <View />}
                 <Surface themeable={false} space16 />
             </View>
+            :
+            <View />
         )
 
         const contentElement = (
