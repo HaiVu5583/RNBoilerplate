@@ -10,7 +10,7 @@ import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
-import { ImageBackground } from 'react-native'
+import { ImageBackground, StatusBar } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
 import { DIALOG_MODE } from '~/src/constants'
 import OTPCountdown from '~/src/containers/Authentication/OTPCountdown'
@@ -262,7 +262,7 @@ class Register extends Component {
 
     render() {
         return (
-            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
+            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT - StatusBar.currentHeight }}>
                 <Surface themeable={false} flex>
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}
