@@ -6,7 +6,7 @@ import { YellowBox } from 'react-native'
 const store = configStore()
 import { BOTTOM_TABS } from '~/src/constants'
 import { persistStore } from 'redux-persist'
-import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION } from '~/src/themes/common'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, COLORS } from '~/src/themes/common'
 import { languageSelector } from '~/src/store/selectors/ui'
 import I18n from '~/src/I18n'
 
@@ -110,6 +110,7 @@ export const run = () => {
             },
             statusBar: {
                 drawBehind: false,
+                backgroundColor: COLORS.BLUE,
                 visible: true
             },
             bottomTabs: {
