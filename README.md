@@ -66,7 +66,7 @@ NEW
 		//DuongNT: fixed here
 		if ([rootViewController isKindOfClass:RNNRootViewController.class]) {
 			RNNNavigationOptions* options = navigationTopVC.getLeafViewController.options;
-			if (options.animations.showModal.hasCustomAßnimation) {
+			if (options.animations.showModal.hasCustomAnimation) {
 				self.toVC.transitioningDelegate = navigationTopVC;
 			}
 		}
