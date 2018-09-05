@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { getTheme } from './utils'
 import Ripple from 'react-native-material-ripple'
 import { Icon, Text, Surface } from '~/src/themes/ThemeComponent'
+import { View } from 'react-native'
 import { BUTTON_STYLES } from '~/src/themes/common'
 import PropTypes from 'prop-types'
 import LinearGradient from 'react-native-linear-gradient'
@@ -38,8 +39,8 @@ class Button extends Component {
             }
         }
         buttonThemeStyle.push(style)
-        const buttonTextElement = t ? <Text themeable={false} style={textButtonStyle} t={t} textTransform={textTransform} /> :
-            text ? <Text themeable={false} style={textButtonStyle}>{text}</Text> : <Surface themeable={false} />
+        const buttonTextElement = typeof (t) != 'undefined' ? <Text themeable={false} style={textButtonStyle} t={t} textTransform={textTransform} /> :
+            typeof (text) != undefined ? <Text themeable={false} style={textButtonStyle}>{text}</Text> : <Surface themeable={false} />
         const center = centerComponent ? centerComponent() : (
             <Surface themeable={false} rowCenter
                 expand={!!innerExpand}
@@ -48,6 +49,8 @@ class Button extends Component {
                 {buttonTextElement}
             </Surface>
         )
+
+        const ButtonComponent = enable === false ? View : Ripple
 
         if (gradientButton) {
             if (typeof (enable) === 'undefined' || enable === true) {
@@ -60,7 +63,7 @@ class Button extends Component {
                 )
             }
             return (
-                <Ripple ref={forwardedRef} rippleColor={'white'} {...rest}>
+                <ButtonComponent ref={forwardedRef} rippleColor={'white'} {...rest}>
                     <LinearGradient
                         colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
                         start={{ x: 0.0, y: 0.0 }}
@@ -73,12 +76,12 @@ class Button extends Component {
                         {center}
                         {!!rightComponent && rightComponent()}
                     </LinearGradient>
-                </Ripple>
+                </ButtonComponent>
             )
         }
 
         return (
-            <Ripple ref={forwardedRef} {...rest}
+            <ButtonComponent ref={forwardedRef} {...rest}
                 style={buttonThemeStyle}
                 rippleColor={'white'}
             >
@@ -87,7 +90,7 @@ class Button extends Component {
                     {center}
                     {!!rightComponent && rightComponent()}
                 </Surface>
-            </Ripple>
+            </ButtonComponent>
         )
     }
 }
