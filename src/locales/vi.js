@@ -173,6 +173,7 @@ const language = {
     'already_have_account': 'Bạn đã có tài khoản?',
     'authenticate': 'Xác thực',
     'verify': 'Xác thực',
+    'change_password': 'Đổi mật khẩu',
     'verify_phone_number': 'Xác thực số điện thoại',
     'hint_input_opt': 'Nhập mã xác thực\nđã được gửi đến số điện thoại\n',
     'personal_info': 'Thông tin cá nhân',

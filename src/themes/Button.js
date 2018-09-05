@@ -51,23 +51,30 @@ class Button extends Component {
 
         if (gradientButton) {
             if (typeof (enable) === 'undefined' || enable === true) {
-                return (
-                    <Ripple ref={forwardedRef} rippleColor={'white'} {...rest}>
-                        <LinearGradient
-                            colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
-                            start={{ x: 0.0, y: 0.0 }}
-                            end={{ x: 1.0, y: 0.0 }}
-                            locations={[0.0, 1.0]}
-                            style={buttonThemeStyle}
-                            {...gradientProps}
-                        >
-                            {!!leftComponent && leftComponent()}
-                            {center}
-                            {!!rightComponent && rightComponent()}
-                        </LinearGradient>
-                    </Ripple>
+                buttonThemeStyle.push(
+                    { opacity: 1 }
+                )
+            } else if (enable === false) {
+                buttonThemeStyle.push(
+                    { opacity: 0.45 }
                 )
             }
+            return (
+                <Ripple ref={forwardedRef} rippleColor={'white'} {...rest}>
+                    <LinearGradient
+                        colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
+                        start={{ x: 0.0, y: 0.0 }}
+                        end={{ x: 1.0, y: 0.0 }}
+                        locations={[0.0, 1.0]}
+                        style={buttonThemeStyle}
+                        {...gradientProps}
+                    >
+                        {!!leftComponent && leftComponent()}
+                        {center}
+                        {!!rightComponent && rightComponent()}
+                    </LinearGradient>
+                </Ripple>
+            )
         }
 
         return (

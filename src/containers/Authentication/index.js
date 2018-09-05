@@ -8,7 +8,7 @@ import I18n from '~/src/I18n'
 import { Platform } from 'react-native'
 import FingerprintScanner from 'react-native-fingerprint-scanner'
 import { TouchableOpacity } from 'react-native-ui-lib';
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
+import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple'
 
 class Authentication extends Component {
@@ -59,8 +59,6 @@ class Authentication extends Component {
     }
 
     _handlePressForgotPassword = () => {
-        this.setState({ secure: !this.state.secure })
-        return
         Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.ForgotPassword',
@@ -134,14 +132,14 @@ class Authentication extends Component {
                     />
                     <Surface space8 themeable={false} />
                     <Surface themeable={false} rowSpacebetween fullWidth>
-                        <Button flat
+                        <Button flat noPadding
                             t={'register'}
-                            textStyle={{ color: '#38A5DA' }}
+                            textStyle={{ color: COLORS.BLUE }}
                             onPress={this._handlePressRegister}
                         />
-                        <Button flat
+                        <Button flat noPadding
                             t={'forgot_password_question'}
-                            textStyle={{ color: '#38A5DA' }}
+                            textStyle={{ color: COLORS.BLUE }}
                             onPress={this._handlePressForgotPassword}
                         />
                     </Surface>

@@ -178,6 +178,9 @@ export const TEXT_STYLES = {
     lightWhite: {
         color: COLORS.LIGHT_WHITE
     },
+    darkBlue: {
+        color: COLORS.DARK_BLUE
+    },
     center: {
         textAlign: 'center'
     },
@@ -211,6 +214,19 @@ export const TEXT_INPUT_STYLES = {
             color: COLORS.WHITE,
         },
         placeholderColor: COLORS.LIGHT_WHITE
+    },
+    black: {
+        container: {
+            borderBottomWidth: LINE_HEIGHT,
+            borderBottomColor: COLORS.BLACK
+        },
+        icon: {
+            color: COLORS.BLACK,
+        },
+        input: {
+            color: COLORS.BLACK,
+        },
+        placeholderColor: 'rgba(0, 0, 0, 0.4)'
     }
 }
 
@@ -314,12 +330,12 @@ export const BUTTON_STYLES = {
         width: '100%'
     },
     noPadding: {
-        padingLeft: 0,
+        paddingLeft: 0,
         paddingRight: 0
     },
     dialog: {
         height: SIZES.DIALOG_BUTTON,
-        borderRadius: SIZES.DIALOG_BUTTON/2
+        borderRadius: SIZES.DIALOG_BUTTON / 2
     }
 }
 
