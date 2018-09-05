@@ -16,8 +16,6 @@ const language = {
     'share': 'Chia sẻ',
     'upload_photo': 'Đăng ảnh',
     'evaluate': 'đánh giá',
-    'capitalized_evaluate': 'Đánh giá',
-    'evaluate_now': 'ĐÁNH GIÁ NGAY',
     'str_yes_upper': 'CÓ',
     'str_no_upper': 'KHÔNG',
     //replybox
@@ -80,44 +78,22 @@ const language = {
 
     // PlaceDetail/MainTab/Gallery
     'picture_and_video': 'Ảnh & video',
-    'album_picture_and_video': 'Album ảnh & video',
-    'placedetail_maintab_placeorder_mess_1': 'Hãy chia sẻ hình ảnh của bạn ở địa điểm này với mọi người nhé!',
     'album': 'Album',
 
     // PlaceDetail/MainTab/Introduction
     'introduct': 'Giới thiệu',
     'direct': 'Chỉ đường',
-
-    // PlaceDetail/MainTab/PlacesSameTrademark
-    'places_same_trademark': 'Địa điểm cùng thương hiệu',
-
-    // PlaceDetail/MainTab/Support
-    'PlaceDetail_MainTab_Introduction_mess_1': 'Tiện ích/Hỗ trợ',
-
     'all': 'Tất cả',
 
 
 
     // Deal detail
-    'deal_detail_mess_1': 'Ưu đãi đã hết hạn. Bạn vui lòng chọn xem những ưu đãi khác nhé!',
-    'deal_detail_mess_2': "CÁCH NHẬN ƯU ĐÃI\n1. Chọn vào nút \"+ Nhận ưu đãi\" để đăng ký nhận ưu đãi trước khi mua sắm.\n2. Mua sắm tại cửa hàng và thanh toán, lấy hóa đơn thanh toán.\n3. Chụp lại hóa đơn để nhận hoàn tiền từ Clingme.\n\nCó 2 cách để chụp hóa đơn:\n- Cách 1:\n+ Trên ứng dụng, chọn vào biểu tượng máy ảnh ở thanh menu.\n+ Chọn ưu đãi đã đăng ký nhận trước đó, sau đó chụp lại hóa đơn để gửi yêu cầu hoàn tiền.\n\n- Cách 2:\n+ Trong trang chi tiết ưu đãi, chọn vào nút \"...\" ở góc trên bên phải.\n+ Chọn tính năng \"Hoàn tiền\", sau đó chụp lại hóa đơn để gửi yêu cầu hoàn tiền.\n\n(*)Ảnh hoá đơn cần rõ nét với đầy đủ tất cả nội dung. Với hóa đơn dài, bạn có thể chụp nhiều ảnh, mỗi phần của hoá đơn là một ảnh riêng.\n\nTiền được hoàn lại vào tài khoản Clingme Cashback. Bạn có thể rút tiền về tài khoản ngân hàng, nạp tiền vào tài khoản điện thoại, nhận tiền mặt tại văn phòng Clingme.\n\nLưu ý: \n- Bạn là người trực tiếp mua sắm, và gửi ảnh hóa đơn trong vòng 72 giờ sau khi giao dịch; ngoài thời hạn trên, hoá đơn không có giá trị sử dụng.\n- Bạn lưu ý giữ lại hoá đơn, và tránh bị sao chép. Nếu một hoá đơn có từ hai người gửi cho Clingme, thì người gửi đầu tiên và có hóa đơn gốc sẽ được nhận ưu đãi. Clingme có quyền yêu cầu bạn cung cấp hóa đơn gốc để đối soát, và từ chối hoàn tiền nếu bạn không cung cấp được hoá đơn.\n- Khi một hóa đơn có nhiều chương trình khuyến mại, bạn hãy gửi ảnh hoá đơn đó cho mỗi chương trình khuyến mại riêng biệt.\n- Không áp dụng cho nhân viên và người nhà của nhân viên làm việc tại địa điểm và chuỗi cửa hàng này. Clingme có quyền từ chối phục vụ các trường hợp gian lận.",
-    'long_term': 'Dài hạn',
-    'three_week_to_expired': 'Còn 3 tuần',
-    'two_week_to_expired': 'Còn 2 tuần',
     'expired': 'Hết hạn',
-    'applied_place': 'Địa điểm áp dụng',
     'marked_number_of_deal': 'lượt đăng ký nhận ưu đãi',
     'cashback_number_of_deal': 'người đã nhận hoàn tiền từ ưu đãi này',
     'total_rate_deal': 'đánh giá ưu đãi',
     'maybe_you_care': 'Có thể bạn quan tâm',
-    'use_condition': 'Điều kiện sử dụng',
     'describe': 'Mô tả',
-
-    'are_you_sure_unmark_this_deal': 'Bạn có chắc chắn muốn bỏ nhận ưu đãi này?',
-    'unmark_this_deal': 'bỏ nhận ưu đãi',
-    'mark_this_deal': 'Nhận ưu đãi',
-
-    'deal_detail_denied_permission_text': 'Bạn không thuộc nhóm người dùng được nhận ưu đãi này. Vui lòng chọn xem những ưu đãi khác nhé.',
     'go_back_home': 'về trang chủ',
     'capitalized_from': 'Từ',
 
@@ -143,10 +119,10 @@ const language = {
     'display_name': 'Tên hiển thị',
     'password_confirm': 'Xác nhận mật khẩu',
     'hint_register': 'Vui lòng nhập tên hiển thị và mật khẩu để hoàn tất việc đăng ký tài khoản.',
-    'finish': 'Hoàn thành',
+    'finish': 'Hoàn tất',
     'hint_fingerprint_authenticate': 'Xác thực vân tay',
     'err_invalid_phone_number': 'Số điện thoại không hợp lệ.',
-    'hint_register_phone_input': 'Nhập số điện thoại để đăng kí tài khoản Gigabank.',
+    'hint_register_phone_info_input': 'Nhập thông tin\nđể đăng kí tài khoản Gigabank.',
     'err_username_password': 'Tài khoản hoặc mật khẩu không chính xác.',
     'err_account_not_register': 'Bạn chưa đăng ký tài khoản Gigabank. Hãy đăng ký tài khoản để sử dụng dịch vụ nhé.',
     'get_password': 'Lấy lại mật khẩu',
@@ -164,6 +140,7 @@ const language = {
     'already_have_bank_account': 'Bạn đã có tài khoản tại ngân hàng Việt Á. Bạn có muốn đăng kí Gigabank với tài khoản này không?',
     'account_info': 'Thông tin tài khoản',
     'hint_input_bank_account_number': 'Nhập số tài khoản',
+    'hint_create_password': 'Tạo mật khẩu (6 số)\ncho những lần đăng nhập tiếp theo',
     'hint_input_password': 'Nhập mật khẩu',
     'hint_reinput_password': 'Nhập lại mật khẩu',
     'err_forgot_password_info': 'Thông tin bạn nhập không đúng. Vui lòng kiểm tra lại.',
@@ -171,22 +148,19 @@ const language = {
     'register_account': 'Đăng ký tài khoản',
     'already_have_account': 'Bạn đã có tài khoản?',
     'authenticate': 'Xác thực',
+    'verify': 'Xác thực',
+    'change_password': 'Đổi mật khẩu',
     'verify_phone_number': 'Xác thực số điện thoại',
-    'hint_input_opt': 'Nhập mã xác thực',
-    'input': 'Nhập',
-    'otp_with_hint': 'Mã xác thực (OTP)',
-    'hint_input_opt2': 'đã được gửi đến số điện thoại',
+    'hint_input_opt': 'Nhập mã xác thực\nđã được gửi đến số điện thoại\n',
     'personal_info': 'Thông tin cá nhân',
     'full_name': 'Họ tên',
     'identity_number': 'CMND/Hộ chiếu',
-    'otp_not_work': 'Mã xác thực chưa hoạt động?',
-    'resend': 'Gửi lại',
     'ok': 'Ok',
     'ok_vietnamese': 'ĐỒNG Ý',
     'disagree': 'Không đồng ý',
     'support': 'Tổng đài hỗ trợ: ',
     'hint_not_receive_otp': 'Không nhận được mã?',
-    'resend_otp': 'Gửi lại mã',
+    'resend_otp': 'Gửi lại mã xác thực',
     'err_invalid_otp': 'Mã xác thực không chính xác.',
     'err_otp_expire': 'Mã xác thực đã hết hạn.',
     'err_general': 'Có lỗi xảy ra, vui lòng thử lại sau.',
@@ -194,17 +168,8 @@ const language = {
     'err_timeout': 'Oops... Có lỗi kết nối. Bạn vui lòng thử lại.',
     'err_display_name': 'Vui lòng nhập tên hiển thị có độ dài từ 5 đến 50 ký tự.',
     'account_number': 'Số tài khoản',
+    'forgot_password_popup_content': 'Bạn vui lòng liên hệ ***** để được hỗ trợ lấy lại mật khẩu nhé.',
 
-    //cashback
-    'cashback_today': 'Hôm nay',
-    'cashback_monday': 'Thứ Hai',
-    'cashback_tuesday': 'Thứ Ba',
-    'cashback_wednesday': 'Thứ Tư',
-    'cashback_thursday': 'Thứ Năm',
-    'cashback_friday': 'Thứ Sáu',
-    'cashback_saturday': 'Thứ Bảy',
-    'cashback_sunday': 'Chủ nhật',
-    'open_time': 'Giờ mở cửa',
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
     'change_location_title2': 'Vui lòng bật tính năng định vị để Clingme có thể xác định được địa điểm hiện tại của bạn.',

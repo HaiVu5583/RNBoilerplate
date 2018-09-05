@@ -1,46 +1,49 @@
 import { toElevation, getWidth } from "~/src/utils";
 import { Platform } from "react-native"
 import { Dimensions } from 'react-native'
-const { height, width } = Dimensions.get('window')
-import { COLORS } from '~/src/themes/common'
+// const { height, width } = Dimensions.get('window')
+import { COLORS, SIZES, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 
 export default {
     fullViewScreen: {
-        width: width,
-        height: height,
+        width: DEVICE_WIDTH,
+        height: DEVICE_HEIGHT,
     },
     backgroundModal: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0,0.3)',
+        backgroundColor: 'rgba(0,0,0,0.5)',
     },
     popupContainer: {
         backgroundColor: 'white',
         overflow: 'hidden',
-        borderRadius: 3,
-        paddingTop: 14,
-        paddingHorizontal: getWidth(20),
-        paddingBottom: 12,
-        width: '85%',
+        borderRadius: 10,
+        paddingLeft: SIZES.DIALOG_SPACE,
+        paddingRight: SIZES.DIALOG_SPACE,
+        paddingTop: SIZES.DIALOG_SPACE,
+        width: DEVICE_WIDTH - 2 * SIZES.CONTAINER_HORIZONTAL_MARGIN,
         ...toElevation(6),
     },
-    titleContainer: {
-        width: '100%',
-        justifyContent: 'center',
-        alignItems: 'flex-start',
-        marginBottom: 20,
+    negativeButtonText: {
+        color: COLORS.BLUE
     },
-    textTitle: {
-        fontSize: 17,
-        color: COLORS.DARK_BLUE,
-        fontWeight: 'bold'
-    },
+    // titleContainer: {
+    //     width: '100%',
+    //     justifyContent: 'center',
+    //     alignItems: 'flex-start',
+    //     marginBottom: 20,
+    // },
+    // textTitle: {
+    //     fontSize: 17,
+    //     color: COLORS.DARK_BLUE,
+    //     fontWeight: 'bold'
+    // },
     contentContainer: {
         width: '100%',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        marginBottom: 10,
+        // marginBottom: 10,
     },
     textContent: {
         fontSize: 16,
@@ -52,7 +55,7 @@ export default {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        marginTop: 18,
+        height: SIZES.DIALOG_BUTTON_FIELD,
     },
     button: {
         fontSize: 16,

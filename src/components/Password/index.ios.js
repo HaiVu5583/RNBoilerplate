@@ -6,7 +6,7 @@ import { languageSelector } from '~/src/store/selectors/ui'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
 
-export default class Password extends React.PureComponent {
+class Password extends React.PureComponent {
 
     constructor(props) {
         super(props)

@@ -4,9 +4,8 @@ import { Navigation } from 'react-native-navigation'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
 import PopupConfirm from '~/src/components/PopupConfirm'
-import Password from '~/src/components/Password'
 import styles from '~/src/containers/Authentication/styles'
-import { TEXT_INPUT_STYLES } from '~/src/themes/common'
+import { TEXT_INPUT_STYLES, COLORS } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
@@ -14,6 +13,7 @@ import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
 import CircleCountdown from '~/src/components/CircleCountdown'
+import { DIALOG_MODE } from '~/src/constants'
 
 const STEP = {
     INFO: 'INFO',
@@ -34,7 +34,7 @@ class ForgotPassword extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            step: STEP.INFO,
+            step: STEP.PASSWORD,
             otp: '',
             name: '',
             identityNumber: '',
@@ -50,13 +50,14 @@ class ForgotPassword extends Component {
     }
 
     _handlePressBackIcon = () => {
-        if (this.state.step == STEP.INFO) {
-            Navigation.pop(this.props.componentId)
-        } else if (this.state.step == STEP.OTP) {
-            this.setState({ step: STEP.INFO })
-        } else if (this.state.step == STEP.PASSWORD) {
-            this.setState({ step: STEP.OTP })
-        }
+        // if (this.state.step == STEP.INFO) {
+        //     Navigation.pop(this.props.componentId)
+        // } else if (this.state.step == STEP.OTP) {
+        //     this.setState({ step: STEP.INFO })
+        // } else if (this.state.step == STEP.PASSWORD) {
+        //     this.setState({ step: STEP.OTP })
+        // }
+        Navigation.pop(this.props.componentId)
         return true
     }
 
@@ -107,7 +108,7 @@ class ForgotPassword extends Component {
                     <TextInput
                         placeholderT={'identity_number'}
                         white
-                        keyboardType='numeric'
+                        keyboardType='number-pad'
                         onChangeText={text => this.setState({ identityNumber: text, errIdentityNumber: '' })}
                         value={this.state.identityNumber}
                     />
@@ -117,7 +118,7 @@ class ForgotPassword extends Component {
                     <TextInput
                         placeholderT={'hint_input_bank_account_number'}
                         white
-                        keyboardType='numeric'
+                        keyboardType='number-pad'
                         onChangeText={text => this.setState({ bankAccount: text, errBankAccount: '' })}
                         value={this.state.bankAccount}
                     />
@@ -135,45 +136,97 @@ class ForgotPassword extends Component {
 
     }
 
+    // _renderStepPassword = () => {
+    //     const { placeholderTextColor, color, ...restStyle } = TEXT_INPUT_STYLES.white
+    //     return (
+    //         <Surface style={{ padding: 20 }} themeable={false}>
+    //             <Surface themeable={false} fullWidth mb20 rowCenter>
+    //                 <Text white h6 center t={'create_new_password'} />
+    //             </Surface>
+    //             <Surface themeable={false} fullWidth mb20>
+    //                 <Password
+    //                     placeholderT={'hint_input_password'}
+    //                     containerStyle={styles.textInput}
+    //                     onChangeText={text => this.setState({ password: text })}
+    //                     value={this.state.password}
+    //                     placeholderTextColor={placeholderTextColor}
+    //                     iconStyle={{ color }}
+    //                     style={{ flex: 1, padding: 2, color }}
+    //                     containerStyle={restStyle}
+    //                 />
+    //             </Surface>
+
+    //             <Surface themeable={false} fullWidth mb20>
+    //                 <Password
+    //                     placeholderT={'hint_reinput_password'}
+    //                     containerStyle={styles.textInput}
+    //                     onChangeText={text => this.setState({ repassword: text })}
+    //                     value={this.state.repassword}
+    //                     placeholderTextColor={placeholderTextColor}
+    //                     iconStyle={{ color }}
+    //                     style={{ flex: 1, padding: 2, color }}
+    //                     containerStyle={restStyle}
+    //                 />
+    //             </Surface>
+
+    //             <Surface themeable={false} fullWidth mb20>
+    //                 <Button round t={'finish'} full onPress={this._handlePressFinish} />
+    //             </Surface>
+    //         </Surface>
+    //     )
+    // }
+
     _renderStepPassword = () => {
         const { placeholderTextColor, color, ...restStyle } = TEXT_INPUT_STYLES.white
+        const enableButtonFinish = !!(this.state.password && this.state.repassword
+            && this.state.password.trim() && this.state.repassword.trim())
+
         return (
-            <Surface style={{ padding: 20 }} themeable={false}>
-                <Surface themeable={false} fullWidth mb20 rowCenter>
-                    <Text white h6 center t={'create_new_password'} />
-                </Surface>
-                <Surface themeable={false} fullWidth mb20>
-                    <Password
-                        placeholderT={'hint_input_password'}
-                        containerStyle={styles.textInput}
-                        onChangeText={text => this.setState({ password: text })}
-                        value={this.state.password}
-                        placeholderTextColor={placeholderTextColor}
-                        iconStyle={{ color }}
-                        style={{ flex: 1, padding: 2, color }}
-                        containerStyle={restStyle}
-                    />
+            <Surface themeable={false} flex containerHorizontalSpace>
+
+                <Surface themeable={false} titleAndDescription>
+                    <Text darkBlue title t={'change_password'} />
+                    <Text darkBlue description t={'hint_create_password'} />
                 </Surface>
 
-                <Surface themeable={false} fullWidth mb20>
-                    <Password
-                        placeholderT={'hint_reinput_password'}
-                        containerStyle={styles.textInput}
-                        onChangeText={text => this.setState({ repassword: text })}
-                        value={this.state.repassword}
-                        placeholderTextColor={placeholderTextColor}
-                        iconStyle={{ color }}
-                        style={{ flex: 1, padding: 2, color }}
-                        containerStyle={restStyle}
-                    />
-                </Surface>
 
-                <Surface themeable={false} fullWidth mb20>
-                    <Button round t={'finish'} full onPress={this._handlePressFinish} />
-                </Surface>
+                <TextInput
+                    descriptionIcon={'password-line'}
+                    placeholderT={'hint_input_password'}
+                    black
+                    keyboardType='number-pad'
+                    onChangeText={text => this.setState({ password: text, errRepassword: '' })}
+                    value={this.state.password}
+                    iconRight={this.state.showPassword ? 'eye-off' : 'eye-on'}
+                    onPressIconRight={() => this.setState({ showPassword: !this.state.showPassword })}
+                    secureTextEntry={!this.state.showPassword}
+                />
+
+                <TextInput
+                    descriptionIcon={'password-line'}
+                    placeholderT={'hint_reinput_password'}
+                    black
+                    keyboardType='number-pad'
+                    onChangeText={text => this.setState({ repassword: text, errRepassword: '' })}
+                    value={this.state.repassword}
+                    iconRight={this.state.showRepassword ? 'eye-off' : 'eye-on'}
+                    onPressIconRight={() => this.setState({ showRepassword: !this.state.showRepassword })}
+                    secureTextEntry={!this.state.showRepassword}
+                    hasError={!!this.state.errRepassword}
+                    errorText={this.state.errRepassword}
+                />
+                <Surface space16 themeable={false} />
+                <Button
+                    enable={!!enableButtonFinish}
+                    gradientButton={true}
+                    round
+                    t={'finish'}
+                    full onPress={this._handlePressFinishPassword} />
             </Surface>
         )
     }
+
+
 
     _handlePressContinueOTP = () => {
         if (!this.state.otp) {
@@ -242,32 +295,31 @@ class ForgotPassword extends Component {
 
     render() {
         return (
-            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
-                <Surface flex themeable={false}>
-                    <Toolbar
-                        onPressIconLeft={this._handlePressBackIcon}
-                        themeable={false}
-                        iconStyle={{ color: 'white' }}
-                    />
-                    <PopupConfirm
-                        animationType='none'
-                        contentT={'err_forgot_password_info'}
-                        textButton1T={'cancel'}
-                        textButton2T={'popup_confirmed'}
-                        onPressButton1={() => { }}
-                        onPressButton2={() => { }}
-                        ref={ref => this.popupInvalidInfo = ref} />
-                    <PopupConfirm
-                        animationType='none'
-                        contentT={'confirm_send_otp'}
-                        textButton1T={'cancel'}
-                        textButton2T={'confirm'}
-                        onPressButton1={() => { }}
-                        onPressButton2={() => this._onConfirmSendOTP()}
-                        ref={ref => this.popupConfirmSendOTP = ref} />
-                    {this._render()}
-                </Surface>
-            </ImageBackground>
+            <Surface flex themeable={true}>
+                <Toolbar
+                    onPressIconLeft={this._handlePressBackIcon}
+                    themeable={false}
+                    iconStyle={{ color: COLORS.DARK_BLUE }}
+                />
+                <Surface space20 themeable={false} />
+                <PopupConfirm
+                    animationType='none'
+                    contentT={'err_forgot_password_info'}
+                    textNoT={'cancel'}
+                    textYesT={'popup_confirmed'}
+                    onPressButton1={() => { }}
+                    onPressButton2={() => { }}
+                    ref={ref => this.popupInvalidInfo = ref} />
+                <PopupConfirm
+                    animationType='none'
+                    contentT={'confirm_send_otp'}
+                    textNoT={'cancel'}
+                    textYesT={'confirm'}
+                    mode={DIALOG_MODE.YES_NO}
+                    onPressYes={() => this._onConfirmSendOTP()}
+                    ref={ref => this.popupConfirmSendOTP = ref} />
+                {this._render()}
+            </Surface>
         )
     }
 }

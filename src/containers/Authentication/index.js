@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
-import { Surface, Text, Button, Image } from '~/src/themes/ThemeComponent'
+import { Surface, Text, Button, Image, TextInput, Toolbar } from '~/src/themes/ThemeComponent'
 import { ImageBackground } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
-import { Platform } from 'react-native'
-import FingerprintScanner from 'react-native-fingerprint-scanner'
-import { TouchableOpacity } from 'react-native-ui-lib';
-import FingerprintPopup from './FingerprintPopup'
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { LANGUAGES } from '~/src/constants'
-import { languageSelector } from '~/src/store/selectors/ui'
-import { changeLanguage } from '~/src/store/actions/ui'
-import Ripple from 'react-native-material-ripple'
+import { ASSETS, COLORS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
+import { DIALOG_MODE } from '~/src/constants'
+import PopupConfirm from '~/src/components/PopupConfirm'
+import { replacePatternString, formatPhoneNumber } from '~/src/utils'
 
 class Authentication extends Component {
     static get options() {
@@ -29,123 +24,122 @@ class Authentication extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            showFingerprint: false
+            phone: '',
+            password: '',
+            secure: true
         }
     }
 
     _handlePressLogin = () => {
-        Navigation.push('mainStack', {
-            component: {
-                name: 'gigabankclient.Login'
-            }
-        })
+        Navigation.setStackRoot('mainStack',
+            {
+                sideMenu: {
+                    id: 'sideMenu',
+                    left: {
+                        component: {
+                            name: 'gigabankclient.Drawer',
+                        }
+                    },
+                    center: {
+                        component: {
+                            name: 'gigabankclient.HomeScreen',
+                        }
+                    },
+                }
+            })
     }
 
     _handlePressRegister = () => {
         Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.Register',
-                passProps: {
-                    text: 'This is tab 1'
-                }
             }
         })
     }
 
+    _handlePressForgotPassword = () => {
+        // Navigation.push('mainStack', {
+        //     component: {
+        //         name: 'gigabankclient.ForgotPassword',
+        //     }
+        // })
+        this.popupForgotPassword && this.popupForgotPassword.open()
+    }
 
 
     componentDidMount() {
-        if (Platform.OS == 'android') {
-            FingerprintScanner
-                .isSensorAvailable()
-                .then(data => {
-                    this.setState({ showFingerprint: true })
-                })
-                .catch(error => console.log('Error Fingerprint Available', error));
-        }
-    }
-
-    _handlePressFingerprint = () => {
-        this.fingerprintPopup && this.fingerprintPopup.open()
 
     }
 
-    _onAuthenticateSuccess = () => {
-        alert('Fingerprint Authenticate Successful!')
-    }
-
-    _handleChangeLanguage = (language) => {
-        I18n.locale = language.toLowerCase()
-        this.props.changeLanguage(language)
-    }
-
-    _renderLanguageSelection = () => {
-        return (
-            <Surface themeable={false} rowEnd>
-                <Ripple rippleColor={'white'} onPress={() => this._handleChangeLanguage(LANGUAGES.VI)}>
-                    <Text body1 white thin bold={this.props.language == LANGUAGES.VI}>{LANGUAGES.VI}</Text>
-                </Ripple>
-                <Text body1 white thin>/</Text>
-                <Ripple rippleColor={'white'} onPress={() => this._handleChangeLanguage(LANGUAGES.EN)}>
-                    <Text body1 white thin bold={this.props.language == LANGUAGES.EN}>{LANGUAGES.EN}</Text>
-                </Ripple>
-
-            </Surface>
-        )
-    }
 
     render() {
-
+        const enableLoginButton = (this.state.phone && this.state.phone.trim()
+            && this.state.password && this.state.password.trim()
+        )
+        const forgotPasswordContent = replacePatternString(I18n.t('forgot_password_popup_content'), formatPhoneNumber(I18n.t('hotline')))
         return (
-            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: '100%', height: '100%' }}>
-                <Surface themeable={false} flex pd20>
-                    {this._renderLanguageSelection()}
-                    <FingerprintPopup
-                        ref={ref => this.fingerprintPopup = ref}
-                        onAuthenticateSuccess={this._onAuthenticateSuccess}
-                    />
-                    <Surface themeable={false} style={{ marginTop: 50 }}>
-                        <Surface themeable={false} rowStart>
-                            <Text white h4 bold>GIGA</Text>
-                            <Text white h4 thin>BANK</Text>
-                        </Surface>
-                        <Surface themeable={false}
-                            style={styles.sologanSpacer}
-                        />
-                        <Surface themeable={false}>
-                            <Text sologan>PERSONAL</Text>
-                            <Text sologan>DIGITAL FINANCE</Text>
-                            <Text sologan>FOR YOU</Text>
+            <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
+                <Toolbar transparent={true} />
+                <PopupConfirm
+                    animationType='none'
+                    content={forgotPasswordContent}
+                    titleT={'forgot_password'}
+                    textYesT={'close'}
+                    mode={DIALOG_MODE.YES_NO}
+                    ref={ref => this.popupForgotPassword = ref} />
+
+                <Surface themeable={false} flex containerHorizontalSpace>
+                    <Surface space20 themeable={false} />
+                    <Surface themeable={false} titleAndDescription>
+                        <Surface themeable={false} rowCenter>
+                            <Text white title bold>GIGA</Text>
+                            <Text white title thin>BANK</Text>
                         </Surface>
                     </Surface>
-                    <Surface themeable={false} columnEnd flex>
-                        {this.state.showFingerprint && <Surface themeable={false} fullWidth mb20 rowCenter>
-                            <TouchableOpacity onPress={this._handlePressFingerprint}>
-                                <Image
-                                    source={{ uri: 'https://cdn4.iconfinder.com/data/icons/unigrid-flat-security/90/013_016_fingerprint_finger_print_security_touch_id_identity_access_key_lock-512.png' }}
-                                    style={{ width: 60, height: 60 }} />
-                            </TouchableOpacity>
-                        </Surface>}
-                        <Surface themeable={false} fullWidth mb20>
-                            <Button round full
-                                t={'register_account'}
-                                onPress={this._handlePressRegister}
-                            />
-                        </Surface>
-                        <Surface themeable={false} rowSpacebetween fullWidth>
-                            <Text white t={'already_have_account'} />
-                            <Button flat
-                                t={'login'}
-                                textStyle={{ color: '#38A5DA' }}
-                                onPress={this._handlePressLogin}
-                            />
-                        </Surface>
+                    <TextInput
+                        descriptionIcon={'phone'}
+                        placeholderT={'phone'}
+                        white
+                        onChangeText={text => this.setState({ phone: text })}
+                        keyboardType='number-pad'
+                        value={this.state.phone}
+                        iconRight={'close2'}
+                        onPressIconRight={() => this.setState({ phone: '' })}
+                        showIconRight={(this.state.phone && this.state.phone.trim())}
+                    />
+                    <TextInput
+                        descriptionIcon={'password-line'}
+                        placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
+                        white
+                        onChangeText={text => this.setState({ password: text })}
+                        value={this.state.password}
+                        secureTextEntry={this.state.secure}
+                    />
+
+
+                    <Surface space16 themeable={false} />
+                    <Button round full
+                        t={'login'}
+                        onPress={this._handlePressLogin}
+                        enable={!!enableLoginButton}
+                        gradientButton={true}
+                    />
+                    <Surface space8 themeable={false} />
+                    <Surface themeable={false} rowSpacebetween fullWidth>
+                        <Button flat noPadding
+                            t={'register'}
+                            textStyle={{ color: COLORS.BLUE }}
+                            onPress={this._handlePressRegister}
+                        />
+                        <Button flat noPadding
+                            t={'forgot_password_question'}
+                            textStyle={{ color: COLORS.BLUE }}
+                            onPress={this._handlePressForgotPassword}
+                        />
                     </Surface>
                 </Surface>
             </ImageBackground>
         )
     }
 }
-export default connect(state => ({
-    language: languageSelector(state)
-}), { changeLanguage })(Authentication)
+export default connect(null, null)(Authentication)
