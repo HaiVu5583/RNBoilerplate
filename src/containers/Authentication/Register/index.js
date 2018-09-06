@@ -3,7 +3,7 @@ import { TextInput, Surface, Background, Text, Button, Toolbar } from '~/src/the
 import { Navigation } from 'react-native-navigation'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
-import { isValidPhoneNumer, toNormalCharacter } from '~/src/utils'
+import { isValidPhoneNumer, toNormalCharacter, replacePatternString, formatPhoneNumber } from '~/src/utils'
 import PopupConfirm from '~/src/components/PopupConfirm'
 import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
@@ -261,6 +261,7 @@ class Register extends Component {
     }
 
     render() {
+        const popupConfirmSendOTPContent = replacePatternString(I18n.t('confirm_send_otp'), formatPhoneNumber(this.state.phone))
         return (
             <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT - (+StatusBar.currentHeight) }}>
                 <Surface themeable={false} flex>
@@ -272,7 +273,7 @@ class Register extends Component {
                     <Surface space20 themeable={false} />
                     <PopupConfirm
                         animationType='none'
-                        contentT={'confirm_send_otp'}
+                        content={popupConfirmSendOTPContent}
                         titleT={'register_account'}
                         textNoT={'cancel'}
                         textYesT={'confirm'}
