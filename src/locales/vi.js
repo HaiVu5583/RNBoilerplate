@@ -111,7 +111,7 @@ const language = {
     'ignore': 'Bỏ qua',
     'continue': 'Tiếp tục',
     'cancel': 'Hủy',
-    'confirm_send_otp': 'Chúng tôi sẽ gửi mã xác thực đến số điện thoại bạn đã nhập. Bạn có muốn tiếp tục?',
+    'confirm_send_otp': 'Chúng tôi sẽ gửi mã xác thực đến số điện thoại *****. Bạn có muốn tiếp tục?',
     'hint_input_otp_phone': 'Mã xác thực đã được gửi đến số điện thoại',
     'register': 'Đăng ký',
     'confirm': 'Xác nhận',

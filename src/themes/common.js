@@ -108,7 +108,7 @@ export const TEXT_STYLES = {
     textInput: {
         ...getFontStyle(FONT_WEIGHTS.regular),
         fontSize: 14,
-        lineHeight: 24,
+        // lineHeight: 24,
         // letterSpacing: 10
     },
     error: {
