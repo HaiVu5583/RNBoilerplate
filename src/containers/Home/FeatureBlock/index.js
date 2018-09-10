@@ -31,8 +31,6 @@ export default class FeatureBlock extends Component {
 
     render() {
         const { title, showViewMore = true, data } = this.props
-        console.log('Title', title)
-        console.log('Data', data)
         return (
             <Surface themeable={false}>
                 <Surface rowStart containerHorizontalMargin style={{ paddingVertical: 8 }}>

@@ -13,6 +13,7 @@ export const COLORS = {
     ERROR: '#ED1C24',
     BLUE: '#1D76BB',
     DARK_BLUE: '#233C63',
+    LIGHT_BLUE: '#D7E8F8',
     TRANSPARENT: 'transparent',
     BLACK: '#000000',
     GRAY: '#EAEAEC'
@@ -273,6 +274,11 @@ export const SURFACE_STYLES = {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center'
+    },
+    rowAlignStart: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-start'
     },
     rowEnd: {
         flexDirection: 'row',

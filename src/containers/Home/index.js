@@ -164,6 +164,11 @@ class Home extends Component {
 
     _handlePressAccountInfo = () => {
         console.log('Pressing Account Info')
+        Navigation.push('mainStack', {
+            component: {
+                name: 'gigabankclient.AccountScreen',
+            }
+        })
     }
 
     _renderAccountInfoButton = () => {

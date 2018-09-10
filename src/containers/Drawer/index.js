@@ -5,10 +5,9 @@ import { Image, FlatList } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
-import { getData, getTestData } from '~/src/store/actions/home'
-import { FONT_WEIGHTS } from '~/src/themes/common'
+import { COLORS } from '~/src/themes/common'
 import LinearGradient from 'react-native-linear-gradient'
-import I18n from '~/src/I18n'
+import RowItem from '~/src/components/RowItem'
 
 class Drawer extends Component {
     static get options() {
@@ -103,21 +102,12 @@ class Drawer extends Component {
 
     _renderFeatureItem = ({ item, index }) => {
         return (
-            <Button
-                themeable={false}
-                leftComponent={() => (
-                    <Surface themeable={false} rowStart style={{ width: 56, paddingLeft: 16 }}>
-                        <Icon white name={item.icon} style={{ color: 'white', fontSize: 24 }} />
-                    </Surface>
-                )}
-                centerComponent={() => (
-                    <Text body1 light white themeable={false}>{item.name}</Text>
-                )}
-                flat
-                rowStart
-                noPadding
-                style={{ paddingLeft: 0, paddingRight: 0 }}
+            <RowItem
+                icon={item.icon}
+                text={item.name}
                 onPress={() => this._handlePressFeature(item)}
+                iconStyle={{ color: COLORS.WHITE }}
+                textStyle={{ color: COLORS.WHITE }}
             />
         )
     }
@@ -130,20 +120,12 @@ class Drawer extends Component {
                 style={{ flex: 1 }}>
                 <Toolbar
                     themeable={false}
-                    leftComponent={this._renderLeftAvatar}
-                    centerComponent={this._renderLogo}
+                    leftComponent={this._renderLogo}
                     iconRight={'close2'}
                     onPressIconRight={this._handleCloseDrawer}
                     iconStyle={{ color: 'white' }}
                     style={{ width: '100%' }}
                 />
-                <Surface themeable={false} rowStart pv20>
-                    <Surface themeable={false} rowStart style={{ width: 56 }} />
-                    <Surface themeable={false}>
-                        <Text body2 lightWhite light>{I18n.t('account_number')}</Text>
-                        <Text body1 white bold>01234 5678 9101</Text>
-                    </Surface>
-                </Surface>
                 <FlatList
                     data={this.feature}
                     renderItem={this._renderFeatureItem}
@@ -160,4 +142,4 @@ class Drawer extends Component {
     }
 }
 
-export default connect(null, { getData, getTestData }, null, { withRef: true })(Drawer)
+export default connect(null, null, null, { withRef: true })(Drawer)
