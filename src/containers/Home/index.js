@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Surface, Text, Toolbar, Button, Icon } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ImageBackground, FlatList, Animated, Image, ScrollView, StatusBar } from 'react-native'
+import { ImageBackground, FlatList, Animated, ScrollView, StatusBar } from 'react-native'
+import Image from 'react-native-fast-image'
 import styles from './styles'
 import { connect } from 'react-redux'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES } from '~/src/themes/common'
