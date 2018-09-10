@@ -4,16 +4,20 @@ import { connect } from 'react-redux'
 import { View } from 'react-native'
 import { getTheme } from './utils'
 import { SURFACE_STYLES } from '~/src/themes/common'
+import { getElevation } from '~/src/utils'
 
 class ThemeView extends Component {
     render() {
-        const { forwardedRef, children, style, theme, themeable = true, text, icon, ...rest } = this.props
+        const { forwardedRef, children, style, theme, themeable = true, text, icon, elevation, ...rest } = this.props
         const themeStyle = getTheme(theme)
         const viewThemeStyle = themeable ? [{ backgroundColor: themeStyle.surfaceColor }, style] : [style]
         for (let identifier in rest) {
             if (SURFACE_STYLES[identifier] && rest[identifier]) {
                 viewThemeStyle.push(SURFACE_STYLES[identifier])
             }
+        }
+        if (elevation){
+            viewThemeStyle.push(getElevation(elevation))
         }
         return (
             <View ref={forwardedRef} {...rest}

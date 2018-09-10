@@ -96,7 +96,7 @@ export const getElevation = (number) => {
     }
     return {
         shadowColor: "black",
-        shadowOpacity: 0.22,
+        shadowOpacity: 0.3,
         shadowRadius: 1.5,
         shadowOffset: {
             height: number,
