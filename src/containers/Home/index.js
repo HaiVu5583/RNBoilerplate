@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { Surface, Text, Toolbar, Button, Icon } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ImageBackground, FlatList, Animated, Image } from 'react-native'
+import { ImageBackground, FlatList, Animated, Image, ScrollView } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux'
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
+import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple'
 import { setActiveTab } from '~/src/store/actions/ui'
 import { actionTest1, actionTest2 } from '~/src/store/actions/home'
 import { activeTabSelector } from '~/src/store/selectors/ui'
 import Carousel from 'react-native-snap-carousel'
 const COLUMN_WIDTH = DEVICE_WIDTH / 3
-import { getElevation } from '~/src/utils'
+import FeatureBlock from '~/src/containers/Home/FeatureBlock'
 
 class Home extends Component {
     static get options() {
@@ -72,6 +72,34 @@ class Home extends Component {
                 icon: 'help-line',
                 name: 'Feature 7'
             }
+        ]
+
+        this.featureBlock1 = [
+            {
+                id: 1,
+                name: 'Nạp tiền',
+                iconName: 'the-bank',
+                iconColor: '#31764A'
+            },
+            {
+                id: 2,
+                name: 'Tiết kiệm',
+                iconName: 'gift',
+                iconColor: '#C8A57B'
+            },
+            {
+                id: 3,
+                name: 'Chuyển tiền',
+                iconName: 'cash-out',
+                iconColor: '#3F4E6F'
+            },
+            {
+                id: 4,
+                name: 'Nạp tiền điện thoại',
+                iconName: 'phone-card-2',
+                iconColor: '#45B1A8'
+            },
+
         ]
     }
 
@@ -135,27 +163,32 @@ class Home extends Component {
     }
 
     _handlePressAccountInfo = () => {
-
+        console.log('Pressing Account Info')
     }
 
     _renderAccountInfoButton = () => {
         return (
             <Surface fullWidth rowCenter themeable={false} style={{ position: 'absolute', left: 0, right: 0, bottom: 5 }}>
-                <Surface rowStart elevation={4} style={{ borderRadius: 30, paddingHorizontal: 16, height: 60 }}>
+                <Ripple
+                    elevation={4}
+                    style={{ ...SURFACE_STYLES.rowStart, ...SURFACE_STYLES.white, borderRadius: 30, paddingHorizontal: 16, height: 60 }}
+                    rippleColor={'white'}
+                    onPress={this._handlePressAccountInfo}
+                >
                     <Icon name='eye-off' style={{ fontSize: 24, color: 'gray' }} />
                     <Surface style={{ paddingHorizontal: 16 }}>
                         <Text description bold>HOANG THANH GIANG</Text>
                         <Text description>VND | ****</Text>
                     </Surface>
                     <Icon name='right' style={{ fontSize: 24, color: 'gray' }} />
-                </Surface>
+                </Ripple>
             </Surface>
         )
     }
 
     render() {
         return (
-            <Surface flex>
+            <ScrollView showsVerticalScrollIndicator={false}>
                 <Surface style={{ height: 210 }}>
                     <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
                         <Toolbar
@@ -174,26 +207,27 @@ class Home extends Component {
                     </ImageBackground>
                     {this._renderAccountInfoButton()}
                 </Surface>
-                <Surface space20 />
-                <Surface style={{ height: 150 }}>
-                    <Carousel
-                        ref={(c) => { this._carousel = c; }}
-                        data={this.bannerData}
-                        renderItem={this._renderItem}
-                        sliderWidth={DEVICE_WIDTH}
-                        itemWidth={DEVICE_WIDTH - 60}
-                        onSnapToItem={(index) => this.setState({ activeBanner: index })}
-                        loop={false}
+                <Surface flex>
+                    <Surface space8 />
+                    <Surface style={{ height: 150 }}>
+                        <Carousel
+                            ref={(c) => { this._carousel = c; }}
+                            data={this.bannerData}
+                            renderItem={this._renderItem}
+                            sliderWidth={DEVICE_WIDTH}
+                            itemWidth={DEVICE_WIDTH - 60}
+                            onSnapToItem={(index) => this.setState({ activeBanner: index })}
+                            loop={false}
+                        />
+                    </Surface>
+                    <Surface space8 />
+
+                    <FeatureBlock
+                        title={'HAY DÙNG'}
+                        data={this.featureBlock1}
                     />
                 </Surface>
-                <Surface space20 />
-                <FlatList
-                    data={this.feature}
-                    renderItem={this._renderFeatureItem}
-                    keyExtractor={item => '' + item.id}
-                    numColumns={3}
-                />
-            </Surface>
+            </ScrollView>
 
         );
     }

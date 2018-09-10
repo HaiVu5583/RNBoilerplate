@@ -14,7 +14,8 @@ export const COLORS = {
     BLUE: '#1D76BB',
     DARK_BLUE: '#233C63',
     TRANSPARENT: 'transparent',
-    BLACK: '#000000'
+    BLACK: '#000000',
+    GRAY: '#EAEAEC'
 }
 
 // const SIZES = {
@@ -99,6 +100,11 @@ export const TEXT_STYLES = {
         lineHeight: 18,
         // letterSpacing: 10
     },
+    info: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 12,
+        lineHeight: 16,
+    },
     buttonText: {
         ...getFontStyle(FONT_WEIGHTS.regular),
         fontSize: 14,
@@ -180,6 +186,9 @@ export const TEXT_STYLES = {
     },
     darkBlue: {
         color: COLORS.DARK_BLUE
+    },
+    blue: {
+        color: COLORS.BLUE
     },
     center: {
         textAlign: 'center'
@@ -302,6 +311,9 @@ export const SURFACE_STYLES = {
 
     containerHorizontalSpace: {
         paddingHorizontal: 48
+    },
+    containerHorizontalMargin: {
+        paddingHorizontal: 16
     },
     white: {
         backgroundColor: COLORS.WHITE
