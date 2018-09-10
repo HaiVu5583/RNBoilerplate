@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Surface, Text, Toolbar, Button, Icon } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ImageBackground, FlatList, Animated, Image, ScrollView } from 'react-native'
+import { ImageBackground, FlatList, Animated, Image, ScrollView, StatusBar } from 'react-native'
 import styles from './styles'
 import { connect } from 'react-redux'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES } from '~/src/themes/common'
@@ -194,6 +194,11 @@ class Home extends Component {
     render() {
         return (
             <ScrollView showsVerticalScrollIndicator={false}>
+                <StatusBar
+                    backgroundColor="transparent"
+                    barStyle="light-content"
+                    translucent={true}
+                />
                 <Surface style={{ height: 210 }}>
                     <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
                         <Toolbar

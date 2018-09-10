@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Surface, Text, Button, Image, TextInput, Toolbar } from '~/src/themes/ThemeComponent'
-import { ImageBackground } from 'react-native'
+import { ImageBackground, StatusBar } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
@@ -79,6 +79,11 @@ class Authentication extends Component {
         const forgotPasswordContent = replacePatternString(I18n.t('forgot_password_popup_content'), formatPhoneNumber(I18n.t('hotline')))
         return (
             <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
+                <StatusBar
+                    backgroundColor="transparent"
+                    barStyle="light-content"
+                    translucent={true}
+                />
                 <Toolbar transparent={true} />
                 <PopupConfirm
                     animationType='none'

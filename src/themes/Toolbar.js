@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, TouchableWithoutFeedback, TouchableNativeFeedback } from 'react-native'
+import { Dimensions, StatusBar } from 'react-native'
 import { Surface, Text, Icon, Button } from '~/src/themes/ThemeComponent'
 const { width } = Dimensions.get('window')
 import commonStyle from '~/src/themes/common'
@@ -57,11 +57,17 @@ export default class Toolbar extends React.PureComponent {
             )
         }
 
+        const statusBarHeight = StatusBar.currentHeight || 0
+        console.log('Statusbar Height', statusBarHeight)
+
         return (
+            <Surface themeable={false}>
+                <Surface themeable={false} style={{width: '100%', height: statusBarHeight}}/>
             <Surface style={[toolbar.container, style]} themeable={themeable}>
                 {left}
                 {center}
                 {right}
+            </Surface>
             </Surface>
         )
     }
