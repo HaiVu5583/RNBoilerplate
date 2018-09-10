@@ -207,6 +207,10 @@ class Account extends React.PureComponent {
 
 //         os << "cxuserId=" << m_oUserProxy->getUserData()->userId << "&cxsession=" << encodedSession << "&cxlang=" << WalleLocalization::sharedInstance()->getLanguage() << "&xversion=" << GigUtils::getApplicationVersion().c_str();
     }
+
+    _editInfo = () => {
+        alert('Thay đổi thông tin')
+    }
     
     _balanceInquiry = () => {
         alert('Tra cứu số dư')
@@ -242,7 +246,7 @@ class Account extends React.PureComponent {
                     />
                     
                     <CardInfo />
-                    <AccountInfo />
+                    <AccountInfo onPress={this._editInfo} />
                     <Option
                         title={'Tra cứu số dư'}
                         onPress={this._balanceInquiry}   

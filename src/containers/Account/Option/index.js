@@ -28,19 +28,18 @@ class Option extends React.PureComponent {
 
     render() {
         return (
-            <Surface themeable={false}
-                style={{ marginLeft: 10, marginTop: 15, backgroundColor: 'transparent', }}>
-                    <View style={{flexDirection: 'row', backgroundColor: 'transparent'}}>
-                        <Icon name='edit' style={{color: 'white', fontSize: 18}} />
+            <Surface themeable={false} style={styles.surface}>
+                    <View style={styles.wrap}>
+                        <Icon name='edit' style={styles.iconEdit} />
                         <TouchableOpacity onPress={this.props.onPress}>
-                            <Text style={{color: 'white', fontSize: 16, marginLeft: 10,}}>{this.props.title}</Text>
+                            <Text style={styles.title}>{this.props.title}</Text>
                         </TouchableOpacity>
                     </View>
                     <LinearGradient
                         start={{x: 0.0, y: 0.5}} end={{x: 1.0, y: 0.5}}
                         locations={[0.0, 0.5, 1.0]}
                         colors={['transparent', 'green', 'transparent']}
-                        style={{width: '100%', height: 2, marginTop: 15}}
+                        style={styles.linerGradient}
                     />
             </Surface>
         )

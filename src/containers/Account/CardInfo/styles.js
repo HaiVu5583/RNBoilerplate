@@ -1,15 +1,18 @@
 export default {
     cardNumber: {
-        fontSize: 40,
-        flex: 1,
+        fontSize: 26,
         color: '#ffffff',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginTop: 60
     },
-    
-    sologanSpacer: {
-        width: '100%', 
-        height: 1, 
-        backgroundColor: 'white', 
-        marginVertical: 10
+    exp: {
+        fontSize: 15,
+        color: '#ffffff',
+    },
+    cardName: {
+        fontSize: 15,
+        color: '#ffffff',
+        fontWeight: 'bold',
+        marginTop: 30
     }
 }

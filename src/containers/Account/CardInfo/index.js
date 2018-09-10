@@ -217,31 +217,30 @@ class CardInfo extends React.PureComponent {
         //onLoadStart={this._onLoadStart}
         
         return (
-            <View>
-            <LinearGradient
-                        start={{x: 0.65, y: 0}} end={{x: 0, y: 0.9}}
-                        locations={[0.5, 0.5]}
-                        // colors={['transparent', 'green', 'transparent']}
-                        colors={['green', 'red']}
-                        style={{width: '100%', height: 200}}
-                    />
+            // <View>
+            // <LinearGradient
+            //             start={{x: 0.65, y: 0}} end={{x: 0, y: 0.9}}
+            //             locations={[0.5, 0.5]}
+            //             // colors={['transparent', 'green', 'transparent']}
+            //             colors={['green', 'red']}
+            //             style={{width: '100%', height: 200}}
+            //         />
             <ImageBackground source={ASSETS.MAIN_BACKGROUND}
                 style={{ marginLeft: 30, marginRight: 30, height: 200, padding: 18}}
                 imageStyle={{ borderRadius: 25 }}>
                 <Surface themeable={false} flex>
-                    <Text style={{fontSize: 26, color: '#ffffff', fontWeight: 'bold', marginTop: 20}} >
+                    <Text style={styles.cardNumber} >
                         1234 5678 1234 5678
                     </Text>
-                    <Text style={{fontSize: 15, color: '#ffffff',}}>
+                    <Text style={styles.exp}>
                         12/20
                     </Text>
-                    <Text style={{fontSize: 18, color: '#ffffff', fontWeight: 'bold', marginTop: 30}}>
+                    <Text style={styles.cardName}>
                         HOANG THANH GIANF
                     </Text>
                 </Surface>
             </ImageBackground>
-            {/* // </LinearGradient> */}
-            </View>
+            // </View>
         )
     }
 }
