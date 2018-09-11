@@ -404,7 +404,7 @@ export default {
             zIndex: 10000
         },
         iconLeft: {
-            fontSize: 19,
+            fontSize: 24,
         },
         iconLeftContainer: {
             paddingLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
@@ -426,7 +426,7 @@ export default {
             justifyContent: 'flex-end',
         },
         iconRight: {
-            fontSize: 19,
+            fontSize: 24,
         },
     },
     textInput: {
