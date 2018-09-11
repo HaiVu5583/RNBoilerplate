@@ -11,8 +11,8 @@ import { setActiveTab } from '~/src/store/actions/ui'
 import { actionTest1, actionTest2 } from '~/src/store/actions/home'
 import { activeTabSelector } from '~/src/store/selectors/ui'
 import Carousel from 'react-native-snap-carousel'
-const COLUMN_WIDTH = DEVICE_WIDTH / 3
 import FeatureBlock from '~/src/containers/Home/FeatureBlock'
+import { getElevation } from '~/src/utils'
 
 class Home extends Component {
     static get options() {
@@ -168,17 +168,6 @@ class Home extends Component {
 
     }
 
-    _renderFeatureItem = ({ item, index }) => {
-        return (
-            <Ripple onPress={() => this._handlePressFeature(item)} rippleColor={'white'}>
-                <Surface themeable={false} columnCenter style={{ width: COLUMN_WIDTH, paddingVertical: 20 }}>
-                    <Icon white name={item.icon} style={{ color: 'white', fontSize: 24 }} />
-                    <Text body2 white light>{item.name}</Text>
-                </Surface>
-            </Ripple>
-        )
-    }
-
     _handlePressAccountInfo = () => {
         console.log('Pressing Account Info')
         Navigation.push('mainStack', {
@@ -190,10 +179,9 @@ class Home extends Component {
 
     _renderAccountInfoButton = () => {
         return (
-            <Surface fullWidth rowCenter themeable={false} style={{ position: 'absolute', left: 0, right: 0, bottom: 5 }}>
+            <Surface fullWidth rowCenter themeable={false} style={{ position: 'absolute', left: 0, right: 0, bottom: 5, zIndex: 100 }}>
                 <Ripple
-                    elevation={4}
-                    style={{ ...SURFACE_STYLES.rowStart, ...SURFACE_STYLES.white, borderRadius: 30, paddingHorizontal: 16, height: 60 }}
+                    style={{ ...SURFACE_STYLES.rowStart, ...SURFACE_STYLES.white, borderRadius: 30, paddingHorizontal: 16, height: 60, ...getElevation(4) }}
                     rippleColor={'white'}
                     onPress={this._handlePressAccountInfo}
                 >
@@ -220,6 +208,7 @@ class Home extends Component {
                     onScroll={Animated.event(
                         [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
                     )}
+                    scrollEventThrottle={16}
                 >
                     <Surface style={{ height: 210 }}>
                         <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
