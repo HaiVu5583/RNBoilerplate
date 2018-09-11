@@ -65,10 +65,10 @@ class Account extends React.PureComponent {
                 </Surface>
 
                 <Surface flex>
-                    <RowItem icon='bill-line' text={I18n.t('account_statement')} iconStyle={styles.rowIcon} />
-                    <RowItem icon='term-line' text={I18n.t('transaction_history')} iconStyle={styles.rowIcon} />
-                    <RowItem icon='payment-line' text={I18n.t('payment_account')} iconStyle={styles.rowIcon} />
-                    <RowItem icon='password-line' text={I18n.t('change_password')} iconStyle={styles.rowIcon} />
+                    <RowItem icon='bill-pay' text={I18n.t('account_statement')} iconStyle={styles.rowIcon} />
+                    <RowItem icon='history' text={I18n.t('transaction_history')} iconStyle={styles.rowIcon} />
+                    <RowItem icon='payment-method' text={I18n.t('payment_account')} iconStyle={styles.rowIcon} />
+                    <RowItem icon='pass' text={I18n.t('change_password')} iconStyle={styles.rowIcon} />
                 </Surface>
             </ScrollView>
         )

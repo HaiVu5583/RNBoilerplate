@@ -80,3 +80,7 @@ NEW
 		self.toVC = nil;
 	}];
 }
+
+#Generate Font Icon
+cd react-native/node_modules/react-native-vector-icons/bin
+node generate-icon.js ~/Desktop/GB/style.css --componentName=GB --fontFamily=GB > ~/Desktop/icon2.js

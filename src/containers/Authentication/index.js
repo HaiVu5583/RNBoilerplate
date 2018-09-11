@@ -113,7 +113,7 @@ class Authentication extends Component {
                         showIconRight={(this.state.phone && this.state.phone.trim())}
                     />
                     <TextInput
-                        descriptionIcon={'password-line'}
+                        descriptionIcon={'pass'}
                         placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
                         white
                         onChangeText={text => this.setState({ password: text })}

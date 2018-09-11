@@ -25,37 +25,37 @@ class Drawer extends Component {
         this.feature = [
             {
                 id: 1,
-                icon: 'map',
+                icon: 'account-balance',
                 name: 'Feature 1'
             },
             {
                 id: 2,
-                icon: 'gift-code-line',
+                icon: 'account-balance',
                 name: 'Feature 2'
             },
             {
                 id: 3,
-                icon: 'group-line',
+                icon: 'account-balance',
                 name: 'Feature 3'
             },
             {
                 id: 4,
-                icon: 'about-line',
+                icon: 'account-balance',
                 name: 'Feature 4'
             },
             {
                 id: 5,
-                icon: 'email-line',
+                icon: 'account-balance',
                 name: 'Feature 5'
             },
             {
                 id: 6,
-                icon: 'Clingmepay-line',
+                icon: 'account-balance',
                 name: 'Feature 6'
             },
             {
                 id: 7,
-                icon: 'help-line',
+                icon: 'account-balance',
                 name: 'Feature 7'
             }
         ]
@@ -134,7 +134,7 @@ class Drawer extends Component {
 
                 <Surface themeable={false} columnEnd flex pd20>
                     <Surface themeable={false} rowCenter>
-                        <Text white light center>Version: <Text white bold> 1.0.1 </Text>Android</Text>
+                        <Text white description light center>Version: <Text white bold> 1.0.1 </Text>Android</Text>
                     </Surface>
                 </Surface>
             </LinearGradient>

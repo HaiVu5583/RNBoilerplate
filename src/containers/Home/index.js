@@ -79,25 +79,25 @@ class Home extends Component {
             {
                 id: 1,
                 name: 'Nạp tiền',
-                iconName: 'the-bank',
+                iconName: 'money-in',
                 iconColor: '#31764A'
             },
             {
                 id: 2,
                 name: 'Tiết kiệm',
-                iconName: 'gift',
+                iconName: 'save',
                 iconColor: '#C8A57B'
             },
             {
                 id: 3,
                 name: 'Chuyển tiền',
-                iconName: 'cash-out',
+                iconName: 'money-tranfer',
                 iconColor: '#3F4E6F'
             },
             {
                 id: 4,
                 name: 'Nạp tiền điện thoại',
-                iconName: 'phone-card-2',
+                iconName: 'mobile-money-in',
                 iconColor: '#45B1A8'
             },
 
