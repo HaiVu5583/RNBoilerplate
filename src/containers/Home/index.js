@@ -81,7 +81,8 @@ class Home extends Component {
                 id: 1,
                 name: 'Nạp tiền',
                 iconName: 'money-in',
-                iconColor: '#31764A'
+                iconColor: '#31764A',
+                onPress: this._handlePressMoneyIn
             },
             {
                 id: 2,
@@ -118,6 +119,14 @@ class Home extends Component {
             },
 
         ]
+    }
+
+    _handlePressMoneyIn = () => {
+        Navigation.push('mainStack', {
+            component: {
+                name: 'gigabankclient.Charge',
+            }
+        })
     }
 
     _handlePressHambergerIcon = () => {

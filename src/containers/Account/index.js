@@ -33,7 +33,7 @@ class Account extends React.PureComponent {
                     <Toolbar
                         themeable={false}
                         iconStyle={{ color: 'white' }}
-                        title={I18n.t('account')}
+                        titleT={'account'}
                         titleStyle={{ color: 'white' }}
                         componentId={this.props.componentId}
                     />
@@ -65,10 +65,10 @@ class Account extends React.PureComponent {
                 </Surface>
 
                 <Surface flex>
-                    <RowItem icon='bill-pay' text={I18n.t('account_statement')} iconStyle={styles.rowIcon} />
-                    <RowItem icon='history' text={I18n.t('transaction_history')} iconStyle={styles.rowIcon} />
-                    <RowItem icon='payment-method' text={I18n.t('payment_account')} iconStyle={styles.rowIcon} />
-                    <RowItem icon='pass' text={I18n.t('change_password')} iconStyle={styles.rowIcon} />
+                    <RowItem icon='bill-pay' textT={'account_statement'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='history' textT={'transaction_history'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='payment-method' textT={'payment_account'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='pass' textT={'change_password'} iconStyle={styles.rowIcon} />
                 </Surface>
             </ScrollView>
         )

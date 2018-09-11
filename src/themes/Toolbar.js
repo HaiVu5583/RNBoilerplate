@@ -32,7 +32,7 @@ export default class Toolbar extends React.PureComponent {
     }
 
     render() {
-        const { iconLeft, iconRight, title, titleStyle, style, iconStyle, themeable,
+        const { iconLeft, iconRight, title, titleT, titleStyle, style, iconStyle, themeable,
             leftComponent, centerComponent, rightComponent, transparent = false
         } = this.props
 
@@ -41,10 +41,14 @@ export default class Toolbar extends React.PureComponent {
             icon={!!iconLeft ? iconLeft : 'GB_icon-21'}
             iconStyle={[toolbar.iconLeft, iconStyle]}
         />
-        const center = centerComponent ? centerComponent() : (!!title ?
-            <Text style={[toolbar.title, titleStyle]} numberOfLines={1} themeable={themeable}>{" " + title + " "}</Text>
-            :
-            <Surface themeable={themeable} flex />
+        const center = centerComponent ? centerComponent() : (
+            typeof (titleT) != 'undefined' ? <Text style={[toolbar.title, titleStyle]} numberOfLines={1} themeable={themeable} t={titleT} /> :
+                (
+                    !!title ?
+                        <Text style={[toolbar.title, titleStyle]} numberOfLines={1} themeable={themeable}>{" " + title + " "}</Text>
+                        :
+                        <Surface themeable={themeable} flex />
+                )
         )
         const right = rightComponent ? rightComponent() : (iconRight ? <Button themeable={themeable} flat onPress={this._onPressIconRight}
             style={toolbar.iconRightContainer}
