@@ -1,12 +1,13 @@
 import { getFontStyle } from '~/src/utils'
-import { Dimensions, PixelRatio } from 'react-native'
+import { Dimensions, PixelRatio, StatusBar } from 'react-native'
+import { getStatusBarHeight } from 'react-native-iphone-x-helper'
 const window = Dimensions.get('window')
 import { getElevation, scaleWidth } from '~/src/utils'
 export const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
 export const DEVICE_WIDTH = window.width
 export const DEVICE_HEIGHT = window.height
-console.log('DEVICE WIDTH', DEVICE_WIDTH)
 
+export const STATUS_BAR_HEIGHT = getStatusBarHeight(true)
 export const COLORS = {
     WHITE: '#FFFFFF',
     LIGHT_WHITE: 'rgba(255, 255, 255, 0.7)',
@@ -34,6 +35,7 @@ export const COLORS = {
 
 export const SIZES = {
     TOOLBAR: 44,
+    TOOLBAR_AND_STATUSBAR: 44 + STATUS_BAR_HEIGHT,
     CONTAINER_HORIZONTAL_MARGIN: 16,
     CONTAINER_HORIZONTAL_SPACE: 32,
     CONTAINER_HORIZONTAL_SPACE_AND_MARGIN: 48,

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Surface, Text, Toolbar, Button, Icon } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ImageBackground, FlatList, Animated, ScrollView, StatusBar } from 'react-native'
+import { ImageBackground, ScrollView, StatusBar, Animated } from 'react-native'
 import Image from 'react-native-fast-image'
 import styles from './styles'
 import { connect } from 'react-redux'
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES } from '~/src/themes/common'
+import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES, COLORS, SIZES } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple'
 import { setActiveTab } from '~/src/store/actions/ui'
 import { actionTest1, actionTest2 } from '~/src/store/actions/home'
@@ -31,6 +31,7 @@ class Home extends Component {
 
         }
         this.pageTranslateX = new Animated.Value(0)
+        this.scrollY = new Animated.Value(0)
         this.state = {
             activeBanner: 0
         }
@@ -209,59 +210,96 @@ class Home extends Component {
 
     render() {
         return (
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <Surface themeable={false} flex>
                 <StatusBar
                     backgroundColor="transparent"
                     barStyle="light-content"
                     translucent={true}
                 />
-                <Surface style={{ height: 210 }}>
-                    <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
-                        <Toolbar
-                            themeable={false}
-                            iconLeft='GB_icon-25'
-                            iconRight='GB_icon-26'
-                            onPressIconLeft={this._handlePressHambergerIcon}
-                            iconStyle={{ color: 'white' }}
-                            centerComponent={this._renderLogo}
-                        />
-                        <Surface themeable={false} columnCenter>
-                            <Image
-                                source={{ uri: 'https://yt3.ggpht.com/a-/ACSszfHXWBb_x1MUBtpuEa9xBBmFVuSRdvi02bquEQ=s900-mo-c-c0xffffffff-rj-k-no' }}
-                                style={{ width: 60, height: 60, borderRadius: 30 }} />
-                        </Surface>
-                    </ImageBackground>
-                    {this._renderAccountInfoButton()}
-                </Surface>
-                <Surface flex>
-                    <Surface space8 />
-                    <Surface style={{ height: 150 }}>
-                        <Carousel
-                            ref={(c) => { this._carousel = c; }}
-                            data={this.bannerData}
-                            renderItem={this._renderItem}
-                            sliderWidth={DEVICE_WIDTH}
-                            itemWidth={DEVICE_WIDTH - 60}
-                            onSnapToItem={(index) => this.setState({ activeBanner: index })}
-                            loop={false}
-                        />
+                <Animated.ScrollView showsVerticalScrollIndicator={false}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
+                    )}
+                >
+                    <Surface style={{ height: 210 }}>
+                        <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
+                            <Surface themeable={false} flex columnCenter>
+                                <Image
+                                    source={{ uri: 'https://yt3.ggpht.com/a-/ACSszfHXWBb_x1MUBtpuEa9xBBmFVuSRdvi02bquEQ=s900-mo-c-c0xffffffff-rj-k-no' }}
+                                    style={{ width: 60, height: 60, borderRadius: 30 }} />
+                            </Surface>
+                        </ImageBackground>
+                        {this._renderAccountInfoButton()}
                     </Surface>
-                    <Surface space8 />
+                    <Surface flex>
+                        <Surface space8 />
+                        <Surface style={{ height: 150 }}>
+                            <Carousel
+                                ref={(c) => { this._carousel = c; }}
+                                data={this.bannerData}
+                                renderItem={this._renderItem}
+                                sliderWidth={DEVICE_WIDTH}
+                                itemWidth={DEVICE_WIDTH - 60}
+                                onSnapToItem={(index) => this.setState({ activeBanner: index })}
+                                loop={false}
+                            />
+                        </Surface>
+                        <Surface space8 />
 
-                    <FeatureBlock
-                        title={'HAY DÙNG'}
-                        data={this.featureBlock1}
-                    />
+                        <FeatureBlock
+                            title={'HAY DÙNG'}
+                            data={this.featureBlock1}
+                        />
 
-                    <FeatureBlock
-                        title={'THANH TOÁN DỊCH VỤ'}
-                        data={this.featureBlock2}
+                        <FeatureBlock
+                            title={'THANH TOÁN DỊCH VỤ'}
+                            data={this.featureBlock2}
+                        />
+                        <FeatureBlock
+                            title={'HAY DÙNG'}
+                            data={this.featureBlock1}
+                        />
+
+                        <FeatureBlock
+                            title={'THANH TOÁN DỊCH VỤ'}
+                            data={this.featureBlock2}
+                        />
+                        <FeatureBlock
+                            title={'HAY DÙNG'}
+                            data={this.featureBlock1}
+                        />
+
+                        <FeatureBlock
+                            title={'THANH TOÁN DỊCH VỤ'}
+                            data={this.featureBlock2}
+                        />
+
+                    </Surface>
+                </Animated.ScrollView>
+                <Animated.View style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 100,
+                    backgroundColor: COLORS.BLUE,
+                    opacity: this.scrollY.interpolate({
+                        inputRange: [0, 210],
+                        outputRange: [0, 1],
+                    }),
+                    height: SIZES.TOOLBAR_AND_STATUSBAR
+                }}>
+                </Animated.View>
+                <Surface themeable={false} style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 200
+                }}>
+                    <Toolbar
+                        themeable={false}
+                        iconLeft='GB_icon-25'
+                        iconRight='GB_icon-26'
+                        onPressIconLeft={this._handlePressHambergerIcon}
+                        iconStyle={{ color: 'white' }}
+                        centerComponent={this._renderLogo}
                     />
-                    
                 </Surface>
-            </ScrollView>
-
-        );
+            </Surface>
+        )
     }
 }
 
