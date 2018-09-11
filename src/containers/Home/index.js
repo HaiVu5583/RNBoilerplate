@@ -100,6 +100,21 @@ class Home extends Component {
                 iconName: 'mobile-money-in',
                 iconColor: '#45B1A8'
             },
+        ]
+
+        this.featureBlock2 = [
+            {
+                id: 1,
+                name: 'Nạp tiền điện thoại',
+                iconName: 'mobile-money-in',
+                iconColor: '#F27142'
+            },
+            {
+                id: 2,
+                name: 'Thanh toán hoá đơn',
+                iconName: 'bill-pay',
+                iconColor: '#52B4E6'
+            },
 
         ]
     }
@@ -237,6 +252,12 @@ class Home extends Component {
                         title={'HAY DÙNG'}
                         data={this.featureBlock1}
                     />
+
+                    <FeatureBlock
+                        title={'THANH TOÁN DỊCH VỤ'}
+                        data={this.featureBlock2}
+                    />
+                    
                 </Surface>
             </ScrollView>
 
