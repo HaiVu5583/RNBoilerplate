@@ -179,9 +179,9 @@ class Home extends Component {
 
     _renderAccountInfoButton = () => {
         return (
-            <Surface fullWidth rowCenter themeable={false} style={{ position: 'absolute', left: 0, right: 0, bottom: 5, zIndex: 100 }}>
+            <Surface fullWidth rowCenter themeable={false} style={{ position: 'absolute', left: 0, right: 0, bottom: 0, zIndex: 100 }}>
                 <Ripple
-                    style={{ ...SURFACE_STYLES.rowStart, ...SURFACE_STYLES.white, borderRadius: 30, paddingHorizontal: 16, height: 60, ...getElevation(4) }}
+                    style={{ ...SURFACE_STYLES.rowStart, ...SURFACE_STYLES.white, borderRadius: 30, paddingHorizontal: 16, height: 60, ...getElevation(4), marginBottom: 5 }}
                     rippleColor={'white'}
                     onPress={this._handlePressAccountInfo}
                 >

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Surface, Text, Button, Image, TextInput, Toolbar } from '~/src/themes/ThemeComponent'
-import { ImageBackground, StatusBar } from 'react-native'
+import { Surface, Text, Button, Image, TextInput, Toolbar, Icon } from '~/src/themes/ThemeComponent'
+import { ImageBackground, StatusBar, Platform } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
@@ -9,6 +9,9 @@ import { ASSETS, COLORS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common
 import { DIALOG_MODE } from '~/src/constants'
 import PopupConfirm from '~/src/components/PopupConfirm'
 import { replacePatternString, formatPhoneNumber } from '~/src/utils'
+import Ripple from 'react-native-material-ripple'
+import FingerprintPopup from './FingerprintPopup'
+import FingerprintScanner from 'react-native-fingerprint-scanner'
 
 class Authentication extends Component {
     static get options() {
@@ -26,7 +29,8 @@ class Authentication extends Component {
         this.state = {
             phone: '',
             password: '',
-            secure: true
+            secure: true,
+            showFingerprint: false
         }
     }
 
@@ -66,9 +70,25 @@ class Authentication extends Component {
         this.popupForgotPassword && this.popupForgotPassword.open()
     }
 
+    _handlePressFingerprint = () => {
+        this.fingerprintPopup && this.fingerprintPopup.open()
+    }
+
+    _onAuthenticateFingerprintSuccess = () => {
+        // alert('YOLO')
+        this._handlePressLogin()
+    }
 
     componentDidMount() {
-
+        if (Platform.OS == 'android') {
+            FingerprintScanner
+                .isSensorAvailable()
+                .then(isAvailable => {
+                    if (isAvailable === true) {
+                        this.setState({ showFingerprint: true })
+                    }
+                })
+        }
     }
 
 
@@ -85,6 +105,10 @@ class Authentication extends Component {
                     translucent={true}
                 />
                 <Toolbar transparent={true} />
+                <FingerprintPopup
+                    ref={ref => this.fingerprintPopup = ref}
+                    onAuthenticateSuccess={this._onAuthenticateFingerprintSuccess}
+                />
                 <PopupConfirm
                     animationType='none'
                     content={forgotPasswordContent}
@@ -141,6 +165,11 @@ class Authentication extends Component {
                             textStyle={{ color: COLORS.BLUE }}
                             onPress={this._handlePressForgotPassword}
                         />
+                    </Surface>
+                    <Surface themeable={false} flex columnEnd>
+                        {!!this.state.showFingerprint && <Ripple rippleColor={COLORS.WHITE} style={{ padding: 10 }} onPress={this._handlePressFingerprint}>
+                            <Icon name='GB_icon-30' style={{ fontSize: 40, color: COLORS.BLUE }} />
+                        </Ripple>}
                     </Surface>
                 </Surface>
             </ImageBackground>
