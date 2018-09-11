@@ -230,6 +230,18 @@ class Home extends Component {
                             </Surface>
                         </ImageBackground>
                         {this._renderAccountInfoButton()}
+                        <Animated.View style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 30,
+                            backgroundColor: COLORS.BLUE,
+                            opacity: this.scrollY.interpolate({
+                                inputRange: [0, 70],
+                                outputRange: [0, 1],
+                            }),
+                        }} />
                     </Surface>
                     <Surface flex>
                         <Surface space8 />
@@ -280,8 +292,8 @@ class Home extends Component {
                     position: 'absolute', top: 0, left: 0, right: 0, zIndex: 100,
                     backgroundColor: COLORS.BLUE,
                     opacity: this.scrollY.interpolate({
-                        inputRange: [0, 210],
-                        outputRange: [0, 1],
+                        inputRange: [0, 70, 71],
+                        outputRange: [0, 0, 1],
                     }),
                     height: SIZES.TOOLBAR_AND_STATUSBAR
                 }}>
