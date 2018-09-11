@@ -145,6 +145,16 @@ android {
 }
 
 dependencies {
+
+    compile project(':react-native-toast-native')
+    // compile project(':react-native-system-setting')
+    // compile project(':react-native-shimmer')
+    // compile project(':react-native-fast-image')
+    // compile project(':react-native-app-settings')
+    // compile project(':react-native-vector-icons')
+    // compile project(':react-native-svg')
+    // compile project(':react-native-i18n')
+
     implementation project(':react-native-camera')
     implementation project(':react-native-shimmer')
     implementation project(':react-native-i18n')
@@ -152,7 +162,8 @@ dependencies {
     implementation project(':react-native-app-settings')
     implementation project(':react-native-svg')
     implementation project(':react-native-system-setting')
-    implementation project(':react-native-vector-icons')
+    // implementation project(':react-native-vector-icons')
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules

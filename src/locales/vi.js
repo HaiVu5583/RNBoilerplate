@@ -1,5 +1,9 @@
 
 const language = {
+    
+    // Screen name
+    'account': 'Tài khoản',
+
     'time_remain': 'Thời gian kết thúc',
     'category': 'Danh mục',
     'pay': 'Thanh toán',
@@ -127,7 +131,6 @@ const language = {
     'err_account_not_register': 'Bạn chưa đăng ký tài khoản Gigabank. Hãy đăng ký tài khoản để sử dụng dịch vụ nhé.',
     'get_password': 'Lấy lại mật khẩu',
     'hint_account_exists_part': 'đã tồn tại. Bạn có muốn đăng nhập tiếp trên thiết bị này không?',
-    'account': 'Tài khoản',
     'account_not_exists': 'Tài khoản không tồn tại.',
     'err_invalid_email_phone': 'Email/số điện thoại không hợp lệ.',
     'err_password_atleast_8_character': 'Mật khẩu phải có ít nhất 8 kí tự.',
@@ -252,6 +255,11 @@ const language = {
         '77', '76', '78', '83', '84', '85', '81', '82', '56', '58', '59'
     ],
     'hotline': '0938432858',
+
+    // Account screen
+    'transaction_history': 'Lịch sử giao dịch',
+    'payment_account': 'Tài khoản thanh toán',
+    'account_statement': 'Sao kê tài khoản'
 }
 
 // export default language;

@@ -110,7 +110,7 @@ export const run = () => {
             },
             statusBar: {
                 drawBehind: false,
-                backgroundColor: COLORS.BLUE,
+                backgroundColor: 'transparent',
                 visible: true
             },
             bottomTabs: {

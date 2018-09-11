@@ -263,7 +263,7 @@ class Register extends Component {
     render() {
         const popupConfirmSendOTPContent = replacePatternString(I18n.t('confirm_send_otp'), formatPhoneNumber(this.state.phone))
         return (
-            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT - (+StatusBar.currentHeight) }}>
+            <ImageBackground source={require('~/src/assets/background.jpg')} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                 <Surface themeable={false} flex>
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}

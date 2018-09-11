@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dimensions, TouchableWithoutFeedback, TouchableNativeFeedback } from 'react-native'
+import { Dimensions, StatusBar } from 'react-native'
 import { Surface, Text, Icon, Button } from '~/src/themes/ThemeComponent'
 const { width } = Dimensions.get('window')
 import commonStyle from '~/src/themes/common'
@@ -32,7 +32,7 @@ export default class Toolbar extends React.PureComponent {
     }
 
     render() {
-        const { iconLeft, iconRight, title, style, iconStyle, themeable,
+        const { iconLeft, iconRight, title, titleStyle, style, iconStyle, themeable,
             leftComponent, centerComponent, rightComponent, transparent=false
         } = this.props
 
@@ -42,7 +42,7 @@ export default class Toolbar extends React.PureComponent {
             iconStyle={[toolbar.iconLeft, iconStyle]}
         />
         const center = centerComponent ? centerComponent() : (!!title ?
-            <Text style={toolbar.title} numberOfLines={1} themeable={themeable}>{" " + title + " "}</Text>
+            <Text style={[toolbar.title, titleStyle]} numberOfLines={1} themeable={themeable}>{" " + title + " "}</Text>
             :
             <Surface themeable={themeable} flex />
         )
@@ -57,11 +57,17 @@ export default class Toolbar extends React.PureComponent {
             )
         }
 
+        const statusBarHeight = StatusBar.currentHeight || 0
+        console.log('Statusbar Height', statusBarHeight)
+
         return (
+            <Surface themeable={false}>
+                <Surface themeable={false} style={{width: '100%', height: statusBarHeight}}/>
             <Surface style={[toolbar.container, style]} themeable={themeable}>
                 {left}
                 {center}
                 {right}
+            </Surface>
             </Surface>
         )
     }
