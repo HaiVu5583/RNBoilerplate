@@ -172,7 +172,9 @@ const language = {
     'err_display_name': 'Vui lòng nhập tên hiển thị có độ dài từ 5 đến 50 ký tự.',
     'account_number': 'Số tài khoản',
     'forgot_password_popup_content': 'Bạn vui lòng liên hệ ***** để được hỗ trợ lấy lại mật khẩu nhé.',
-
+    'call': 'Gọi điện',
+    'phone_not_register': 'SĐT chưa đăng ký',
+    'phone_not_register_content': 'Bạn chưa đăng ký tài khoản Gigabank. Hãy đăng ký tài khoản để sử dụng dịch vụ nhé.',
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
     'change_location_title2': 'Vui lòng bật tính năng định vị để Clingme có thể xác định được địa điểm hiện tại của bạn.',

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Surface, Text, Button, Image, TextInput, Toolbar, Icon } from '~/src/themes/ThemeComponent'
-import { ImageBackground, StatusBar, Platform } from 'react-native'
+import { ImageBackground, StatusBar, Platform, Linking } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
@@ -35,6 +35,10 @@ class Authentication extends Component {
     }
 
     _handlePressLogin = () => {
+        if (this.state.phone == 1) {
+            this.popupNotRegister.open()
+            return
+        }
         Navigation.setStackRoot('mainStack',
             {
                 sideMenu: {
@@ -79,6 +83,18 @@ class Authentication extends Component {
         this._handlePressLogin()
     }
 
+    _handleCallHotline = () => {
+        const hotline = I18n.t('hotline')
+        const url = 'tel: ' + hotline
+        Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+                console.log('Can\'t handle url: ' + url);
+            } else {
+                return Linking.openURL(url);
+            }
+        }).catch(err => console.error('An error occurred', err));
+    }
+
     componentDidMount() {
         if (Platform.OS == 'android') {
             FingerprintScanner
@@ -113,9 +129,20 @@ class Authentication extends Component {
                     animationType='none'
                     content={forgotPasswordContent}
                     titleT={'forgot_password'}
-                    textYesT={'close'}
+                    textYesT={'call'}
+                    textNoT={'cancel'}
+                    onPressYes={this._handleCallHotline}
                     mode={DIALOG_MODE.YES_NO}
                     ref={ref => this.popupForgotPassword = ref} />
+
+                <PopupConfirm
+                    animationType='none'
+                    contentT={'phone_not_register_content'}
+                    titleT={'phone_not_register'}
+                    textYesT={'register'}
+                    onPressYes={this._handlePressRegister}
+                    mode={DIALOG_MODE.YES_NO}
+                    ref={ref => this.popupNotRegister = ref} />
 
                 <Surface themeable={false} flex containerHorizontalSpace>
                     <Surface space20 themeable={false} />
