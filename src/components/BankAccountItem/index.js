@@ -34,7 +34,6 @@ export default class BankAccountItem extends React.PureComponent {
                             ...SURFACE_STYLES.rowStart
                         }}
                     >
-
                         <Image
                             source={{ uri: bankImage }}
                             style={styles.image}

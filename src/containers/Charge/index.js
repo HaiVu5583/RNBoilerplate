@@ -10,6 +10,7 @@ import BankAccountItem from '~/src/components/BankAccountItem'
 import MaskBalanceView from '~/src/components/MaskBalanceView'
 
 
+
 class Charge extends React.PureComponent {
     static get options() {
         return {
@@ -23,11 +24,39 @@ class Charge extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
+            selecteCard: 1
         }
+        this.bankAccount = [
+            {
+                id: 1,
+                bankImage: 'https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit: 500%2C316&ssl: 1',
+                bankAccount: '7813737375432',
+                expireDate: '09/19',
+            },
+            {
+                id: 2,
+                bankImage: 'https://banner2.kisspng.com/20171216/dcc/mastercard-icon-png-5a3556c6e81b34.5328243515134450629507.jpg',
+                bankAccount: '7813737375432',
+                expireDate: '09/19',
+            },
+            {
+                id: 3,
+                bankImage: 'https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1',
+                bankAccount: '7813737375432',
+                expireDate: '09/19',
+            }
+        ]
     }
 
     _handlePressAddCard = () => {
         console.log('Handle Press AddCard')
+    }
+
+    _handlePressBankItem = (item) => {
+        console.log('Press Item', item)
+        if (item.id != this.state.selecteCard) {
+            this.setState({ selecteCard: item.id })
+        }
     }
 
     render() {
@@ -52,25 +81,28 @@ class Charge extends React.PureComponent {
                     </Surface>
                     <Surface containerHorizontalMargin flex>
                         <Surface themeable={false} space20 />
-                        <BankAccountItem
-                            bankImage='https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1'
-                            bankAccount='7813737375432'
-                            expireDate='09/19'
-                            active={true}
-                        />
-                        <Surface themeable={false} space16 />
-                        <BankAccountItem
-                            bankImage='https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1'
-                            bankAccount='7813737375432'
-                            expireDate='09/19'
-                            active={false}
-                        />
-                        <Surface themeable={false} space16 />
-                        <BankAccountItem
-                            bankImage='https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1'
-                            bankAccount='7813737375432'
-                            expireDate='09/19'
-                            active={false}
+                        {this.bankAccount.map((item) => (
+                            <Surface themeable={false} key={item.id}>
+                                <BankAccountItem
+                                    bankImage={item.bankImage}
+                                    bankAccount={item.bankAccount}
+                                    expireDate={item.expireDate}
+                                    onPress={() => this._handlePressBankItem(item)}
+                                    active={this.state.selecteCard == item.id}
+                                />
+                                <Surface themeable={false} space16 />
+                            </Surface>
+                        ))}
+                        <Button
+                            flat
+                            rowStart
+                            leftComponent={() => (
+                                <Icon name='GB_icon-41' style={{ fontSize: 24, color: COLORS.BLUE }} />
+                            )}
+                            centerComponent={() => (
+                                <Text blue t='add_link_card' />
+                            )}
+                            style={{ paddingLeft: 0, paddingRight: 0 }}
                         />
                         <Surface themeable={false} space16 />
                         <Button round full

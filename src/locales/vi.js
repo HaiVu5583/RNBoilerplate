@@ -180,6 +180,7 @@ const language = {
     'charge_gigabank': 'Nạp tiền vào Gigabank',
     'charge_gigabank_hint': 'Nạp tiền vào tài khoản Gigabank\ntừ các thẻ ngân hàng đã liên kết',
     'add_card': 'Thêm thẻ',
+    'add_link_card': 'Thêm thẻ liên kết',
 
     
     //bat vi tri

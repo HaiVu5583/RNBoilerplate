@@ -4,7 +4,8 @@ export default {
         width: 90,
         height: 60,
         borderRadius: 10,
-        marginRight: 5
+        marginRight: 5,
+        backgroundColor: COLORS.WHITE
     },
     container: {
         padding: 5,
