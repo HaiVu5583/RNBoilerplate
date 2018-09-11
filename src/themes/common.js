@@ -17,7 +17,8 @@ export const COLORS = {
     LIGHT_BLUE: '#D7E8F8',
     TRANSPARENT: 'transparent',
     BLACK: '#000000',
-    GRAY: '#EAEAEC'
+    GRAY: '#EAEAEC',
+    LIGHT_GRAY: '#F2F2F2'
 }
 
 // const SIZES = {
@@ -266,6 +267,11 @@ export const SURFACE_STYLES = {
         flexDirection: 'column',
         justifyContent: 'flex-end',
         alignItems: 'center'
+    },
+    columnAlignEnd: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-end'
     },
     rowCenter: {
         flexDirection: 'row',

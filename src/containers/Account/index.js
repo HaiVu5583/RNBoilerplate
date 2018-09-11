@@ -8,6 +8,7 @@ import Image from 'react-native-fast-image'
 import { COLORS } from '~/src/themes/common'
 import RowItem from '~/src/components/RowItem'
 import styles from './styles'
+import MaskBalanceView from '~/src/components/MaskBalanceView'
 
 class Account extends React.PureComponent {
     static get options() {
@@ -59,10 +60,7 @@ class Account extends React.PureComponent {
                         <Icon name='GB_icon-27' style={{ fontSize: 24, color: COLORS.DARK_BLUE }} />
                     </Surface>
                 </ImageBackground>
-                <Surface style={{ backgroundColor: COLORS.LIGHT_BLUE, paddingVertical: 16 }} rowSpacebetween containerHorizontalMargin>
-                    <Text description>VNĐ | {'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}</Text>
-                    <Icon name={'GB_icon-24'} style={{ fontSize: 24, marginRight: 3 }} />
-                </Surface>
+                <MaskBalanceView style={{ backgroundColor: COLORS.LIGHT_BLUE }} color={COLORS.BLACK} />
 
                 <Surface flex>
                     <RowItem icon='bill-pay' textT={'account_statement'} iconStyle={styles.rowIcon} />

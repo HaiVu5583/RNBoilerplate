@@ -6,7 +6,9 @@ import { ImageBackground, ScrollView } from 'react-native'
 import { Surface, Toolbar, Text, Icon, Button } from '~/src/themes/ThemeComponent'
 import Image from 'react-native-fast-image'
 import { COLORS } from '~/src/themes/common'
-import RowItem from '~/src/components/RowItem'
+import BankAccountItem from '~/src/components/BankAccountItem'
+import MaskBalanceView from '~/src/components/MaskBalanceView'
+
 
 class Charge extends React.PureComponent {
     static get options() {
@@ -41,14 +43,54 @@ class Charge extends React.PureComponent {
                         componentId={this.props.componentId}
                     />
                     <Surface themeable={false} space20 />
-                    <Surface themeable={false} containerHorizontalSpace flex>
-                        <Text white description t='charge_gigabank_hint' />
+                    <Surface themeable={false} style={{ height: 120 }}>
+                        <Surface themeable={false} containerHorizontalSpace>
+                            <Text white description t='charge_gigabank_hint' />
+                        </Surface>
+                        <Surface themeable={false} space16 />
+                        <MaskBalanceView money={'120000'} />
+                    </Surface>
+                    <Surface containerHorizontalMargin flex>
+                        <Surface themeable={false} space20 />
+                        <BankAccountItem
+                            bankImage='https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1'
+                            bankAccount='7813737375432'
+                            expireDate='09/19'
+                            active={true}
+                        />
+                        <Surface themeable={false} space16 />
+                        <BankAccountItem
+                            bankImage='https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1'
+                            bankAccount='7813737375432'
+                            expireDate='09/19'
+                            active={false}
+                        />
+                        <Surface themeable={false} space16 />
+                        <BankAccountItem
+                            bankImage='https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1'
+                            bankAccount='7813737375432'
+                            expireDate='09/19'
+                            active={false}
+                        />
+                        <Surface themeable={false} space16 />
+                        <Button round full
+                            t={'continue'}
+                            onPress={this._handlePressAddCard}
+                            enable={true}
+                            gradientButton={true}
+                            style={{ marginBottom: 10 }}
+                        />
                     </Surface>
 
-                    <Surface style={{ height: 200 }}>
-
+                    {/* <Surface style={{ height: 200 }}>
                         <Surface containerHorizontalSpace flex rowAlignEnd>
                             <Surface themeable={false} flex>
+                                <BankAccountItem
+                                    bankImage='https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1'
+                                    bankAccount='7813737375432'
+                                    expireDate='09/19'
+                                    active={true}
+                                />
                                 <Button round full
                                     t={'add_card'}
                                     onPress={this._handlePressAddCard}
@@ -58,7 +100,7 @@ class Charge extends React.PureComponent {
                                 />
                             </Surface>
                         </Surface>
-                    </Surface>
+                    </Surface> */}
                 </ImageBackground>
             </Surface >
         )
