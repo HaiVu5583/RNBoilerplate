@@ -121,7 +121,7 @@ class Drawer extends Component {
                 <Toolbar
                     themeable={false}
                     leftComponent={this._renderLogo}
-                    iconRight={'close2'}
+                    iconRight={'GB_icon-31'}
                     onPressIconRight={this._handleCloseDrawer}
                     iconStyle={{ color: 'white' }}
                     style={{ width: '100%' }}

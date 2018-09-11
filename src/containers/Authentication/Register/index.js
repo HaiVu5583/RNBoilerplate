@@ -102,7 +102,7 @@ class Register extends Component {
                     <Text body2 white description t={'hint_register_phone_info_input'} />
                 </Surface>
                 <TextInput
-                    descriptionIcon={'phone'}
+                    descriptionIcon={'GB_icon-34'}
                     placeholderT={'phone'}
                     white
                     keyboardType='number-pad'
@@ -112,7 +112,7 @@ class Register extends Component {
                     errorText={this.state.errPhone}
                 />
                 <TextInput
-                    descriptionIcon={'user-active'}
+                    descriptionIcon={'GB_icon-37'}
                     placeholderT={'full_name'}
                     white
                     onChangeText={text => this.setState({ name: text, errName: '' })}
@@ -204,25 +204,25 @@ class Register extends Component {
 
 
                 <TextInput
-                    descriptionIcon={'password-line'}
+                    descriptionIcon={'GB_icon-28'}
                     placeholderT={'hint_input_password'}
                     white
                     keyboardType='number-pad'
                     onChangeText={text => this.setState({ password: text, errRepassword: '' })}
                     value={this.state.password}
-                    iconRight={this.state.showPassword ? 'eye-off' : 'eye-on'}
+                    iconRight={this.state.showPassword ? 'GB_icon-24' : 'GB_icon-23'}
                     onPressIconRight={() => this.setState({ showPassword: !this.state.showPassword })}
                     secureTextEntry={!this.state.showPassword}
                 />
 
                 <TextInput
-                    descriptionIcon={'password-line'}
+                    descriptionIcon={'GB_icon-29'}
                     placeholderT={'hint_reinput_password'}
                     white
                     keyboardType='number-pad'
                     onChangeText={text => this.setState({ repassword: text, errRepassword: '' })}
                     value={this.state.repassword}
-                    iconRight={this.state.showRepassword ? 'eye-off' : 'eye-on'}
+                    iconRight={this.state.showRepassword ? 'GB_icon-24' : 'GB_icon-23'}
                     onPressIconRight={() => this.setState({ showRepassword: !this.state.showRepassword })}
                     secureTextEntry={!this.state.showRepassword}
                     hasError={!!this.state.errRepassword}

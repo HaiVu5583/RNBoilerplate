@@ -181,12 +181,12 @@ class Home extends Component {
                     rippleColor={'white'}
                     onPress={this._handlePressAccountInfo}
                 >
-                    <Icon name='eye-off' style={{ fontSize: 24, color: 'gray' }} />
+                    <Icon name='GB_icon-24' style={{ fontSize: 24, color: 'gray' }} />
                     <Surface style={{ paddingHorizontal: 16 }}>
                         <Text description bold>HOANG THANH GIANG</Text>
                         <Text description>VND | ****</Text>
                     </Surface>
-                    <Icon name='right' style={{ fontSize: 24, color: 'gray' }} />
+                    <Icon name='GB_icon-22' style={{ fontSize: 24, color: 'gray' }} />
                 </Ripple>
             </Surface>
         )
@@ -204,8 +204,8 @@ class Home extends Component {
                     <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
                         <Toolbar
                             themeable={false}
-                            iconLeft='menu'
-                            iconRight='ring'
+                            iconLeft='GB_icon-25'
+                            iconRight='GB_icon-26'
                             onPressIconLeft={this._handlePressHambergerIcon}
                             iconStyle={{ color: 'white' }}
                             centerComponent={this._renderLogo}

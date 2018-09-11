@@ -46,22 +46,22 @@ class Account extends React.PureComponent {
                             <Text description white>HOANG THANH GIANG</Text>
                             <Surface themeable={false} space8 />
                             <Surface themeable={false} rowStart>
-                                <Icon name={'phone-line'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
+                                <Icon name={'GB_icon-34'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
                                 <Text info white>0912 233 3444</Text>
                             </Surface>
 
 
                             <Surface themeable={false} rowStart>
-                                <Icon name={'email-line'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
+                                <Icon name={'GB_icon-35'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
                                 <Text info white>htgiang@gmail.com</Text>
                             </Surface>
                         </Surface>
-                        <Icon name='edit' style={{ fontSize: 24, color: COLORS.DARK_BLUE }} />
+                        <Icon name='GB_icon-27' style={{ fontSize: 24, color: COLORS.DARK_BLUE }} />
                     </Surface>
                 </ImageBackground>
                 <Surface style={{ backgroundColor: COLORS.LIGHT_BLUE, paddingVertical: 16 }} rowSpacebetween containerHorizontalMargin>
                     <Text description>VNĐ | {'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}</Text>
-                    <Icon name={'eye-off'} style={{ fontSize: 24, marginRight: 3 }} />
+                    <Icon name={'GB_icon-24'} style={{ fontSize: 24, marginRight: 3 }} />
                 </Surface>
 
                 <Surface flex>

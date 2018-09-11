@@ -102,18 +102,18 @@ class Authentication extends Component {
                         </Surface>
                     </Surface>
                     <TextInput
-                        descriptionIcon={'phone'}
+                        descriptionIcon={'GB_icon-34'}
                         placeholderT={'phone'}
                         white
                         onChangeText={text => this.setState({ phone: text })}
                         keyboardType='number-pad'
                         value={this.state.phone}
-                        iconRight={'close2'}
+                        iconRight={'GB_icon-31'}
                         onPressIconRight={() => this.setState({ phone: '' })}
                         showIconRight={(this.state.phone && this.state.phone.trim())}
                     />
                     <TextInput
-                        descriptionIcon={'pass'}
+                        descriptionIcon={'GB_icon-28'}
                         placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
                         white
                         onChangeText={text => this.setState({ password: text })}
