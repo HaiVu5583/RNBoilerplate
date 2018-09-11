@@ -8,6 +8,7 @@ import Image from 'react-native-fast-image'
 import { COLORS } from '~/src/themes/common'
 import RowItem from '~/src/components/RowItem'
 import styles from './styles'
+import MaskBalanceView from '~/src/components/MaskBalanceView'
 
 class Account extends React.PureComponent {
     static get options() {
@@ -32,10 +33,10 @@ class Account extends React.PureComponent {
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
                     <Toolbar
                         themeable={false}
-                        onPressIconLeft={this._handlePressHambergerIcon}
                         iconStyle={{ color: 'white' }}
-                        title={I18n.t('account')}
+                        titleT={'account'}
                         titleStyle={{ color: 'white' }}
+                        componentId={this.props.componentId}
                     />
                     <Surface themeable={false} space20 />
                     <Surface themeable={false} rowAlignStart containerHorizontalMargin>
@@ -46,29 +47,26 @@ class Account extends React.PureComponent {
                             <Text description white>HOANG THANH GIANG</Text>
                             <Surface themeable={false} space8 />
                             <Surface themeable={false} rowStart>
-                                <Icon name={'phone-line'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
+                                <Icon name={'GB_icon-34'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
                                 <Text info white>0912 233 3444</Text>
                             </Surface>
 
 
                             <Surface themeable={false} rowStart>
-                                <Icon name={'email-line'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
+                                <Icon name={'GB_icon-35'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
                                 <Text info white>htgiang@gmail.com</Text>
                             </Surface>
                         </Surface>
-                        <Icon name='edit' style={{ fontSize: 24, color: COLORS.DARK_BLUE }} />
+                        <Icon name='GB_icon-27' style={{ fontSize: 24, color: COLORS.DARK_BLUE }} />
                     </Surface>
                 </ImageBackground>
-                <Surface style={{ backgroundColor: COLORS.LIGHT_BLUE, paddingVertical: 16 }} rowSpacebetween containerHorizontalMargin>
-                    <Text description>VNĐ | {'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}</Text>
-                    <Icon name={'eye-off'} style={{ fontSize: 24, marginRight: 3 }} />
-                </Surface>
+                <MaskBalanceView style={{ backgroundColor: COLORS.LIGHT_BLUE }} color={COLORS.BLACK} />
 
                 <Surface flex>
-                    <RowItem icon='bill-line' text={I18n.t('account_statement')} iconStyle={styles.rowIcon} />
-                    <RowItem icon='term-line' text={I18n.t('transaction_history')} iconStyle={styles.rowIcon} />
-                    <RowItem icon='payment-line' text={I18n.t('payment_account')} iconStyle={styles.rowIcon} />
-                    <RowItem icon='password-line' text={I18n.t('change_password')} iconStyle={styles.rowIcon} />
+                    <RowItem icon='bill-pay' textT={'account_statement'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='history' textT={'transaction_history'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='payment-method' textT={'payment_account'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='pass' textT={'change_password'} iconStyle={styles.rowIcon} />
                 </Surface>
             </ScrollView>
         )

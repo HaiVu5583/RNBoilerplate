@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Surface, Text, Button, Image, TextInput, Toolbar } from '~/src/themes/ThemeComponent'
-import { ImageBackground, StatusBar } from 'react-native'
+import { Surface, Text, Button, Image, TextInput, Toolbar, Icon } from '~/src/themes/ThemeComponent'
+import { ImageBackground, StatusBar, Platform, Linking } from 'react-native'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { connect } from 'react-redux'
@@ -9,6 +9,9 @@ import { ASSETS, COLORS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common
 import { DIALOG_MODE } from '~/src/constants'
 import PopupConfirm from '~/src/components/PopupConfirm'
 import { replacePatternString, formatPhoneNumber } from '~/src/utils'
+import Ripple from 'react-native-material-ripple'
+import FingerprintPopup from './FingerprintPopup'
+import FingerprintScanner from 'react-native-fingerprint-scanner'
 
 class Authentication extends Component {
     static get options() {
@@ -26,11 +29,16 @@ class Authentication extends Component {
         this.state = {
             phone: '',
             password: '',
-            secure: true
+            secure: true,
+            showFingerprint: false
         }
     }
 
     _handlePressLogin = () => {
+        if (this.state.phone == 1) {
+            this.popupNotRegister.open()
+            return
+        }
         Navigation.setStackRoot('mainStack',
             {
                 sideMenu: {
@@ -66,9 +74,37 @@ class Authentication extends Component {
         this.popupForgotPassword && this.popupForgotPassword.open()
     }
 
+    _handlePressFingerprint = () => {
+        this.fingerprintPopup && this.fingerprintPopup.open()
+    }
+
+    _onAuthenticateFingerprintSuccess = () => {
+        // alert('YOLO')
+        this._handlePressLogin()
+    }
+
+    _handleCallHotline = () => {
+        const hotline = I18n.t('hotline')
+        const url = 'tel: ' + hotline
+        Linking.canOpenURL(url).then(supported => {
+            if (!supported) {
+                console.log('Can\'t handle url: ' + url);
+            } else {
+                return Linking.openURL(url);
+            }
+        }).catch(err => console.error('An error occurred', err));
+    }
 
     componentDidMount() {
-
+        if (Platform.OS == 'android') {
+            FingerprintScanner
+                .isSensorAvailable()
+                .then(isAvailable => {
+                    if (isAvailable === true) {
+                        this.setState({ showFingerprint: true })
+                    }
+                })
+        }
     }
 
 
@@ -85,13 +121,28 @@ class Authentication extends Component {
                     translucent={true}
                 />
                 <Toolbar transparent={true} />
+                <FingerprintPopup
+                    ref={ref => this.fingerprintPopup = ref}
+                    onAuthenticateSuccess={this._onAuthenticateFingerprintSuccess}
+                />
                 <PopupConfirm
                     animationType='none'
                     content={forgotPasswordContent}
                     titleT={'forgot_password'}
-                    textYesT={'close'}
+                    textYesT={'call'}
+                    textNoT={'cancel'}
+                    onPressYes={this._handleCallHotline}
                     mode={DIALOG_MODE.YES_NO}
                     ref={ref => this.popupForgotPassword = ref} />
+
+                <PopupConfirm
+                    animationType='none'
+                    contentT={'phone_not_register_content'}
+                    titleT={'phone_not_register'}
+                    textYesT={'register'}
+                    onPressYes={this._handlePressRegister}
+                    mode={DIALOG_MODE.YES_NO}
+                    ref={ref => this.popupNotRegister = ref} />
 
                 <Surface themeable={false} flex containerHorizontalSpace>
                     <Surface space20 themeable={false} />
@@ -102,18 +153,18 @@ class Authentication extends Component {
                         </Surface>
                     </Surface>
                     <TextInput
-                        descriptionIcon={'phone'}
+                        descriptionIcon={'GB_icon-34'}
                         placeholderT={'phone'}
                         white
                         onChangeText={text => this.setState({ phone: text })}
                         keyboardType='number-pad'
                         value={this.state.phone}
-                        iconRight={'close2'}
+                        iconRight={'GB_icon-31'}
                         onPressIconRight={() => this.setState({ phone: '' })}
                         showIconRight={(this.state.phone && this.state.phone.trim())}
                     />
                     <TextInput
-                        descriptionIcon={'password-line'}
+                        descriptionIcon={'GB_icon-28'}
                         placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
                         white
                         onChangeText={text => this.setState({ password: text })}
@@ -141,6 +192,11 @@ class Authentication extends Component {
                             textStyle={{ color: COLORS.BLUE }}
                             onPress={this._handlePressForgotPassword}
                         />
+                    </Surface>
+                    <Surface themeable={false} flex columnEnd>
+                        {!!this.state.showFingerprint && <Ripple rippleColor={COLORS.WHITE} style={{ padding: 10 }} onPress={this._handlePressFingerprint}>
+                            <Icon name='GB_icon-30' style={{ fontSize: 40, color: COLORS.BLUE }} />
+                        </Ripple>}
                     </Surface>
                 </Surface>
             </ImageBackground>

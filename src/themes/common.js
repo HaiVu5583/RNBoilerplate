@@ -1,12 +1,13 @@
 import { getFontStyle } from '~/src/utils'
-import { Dimensions, PixelRatio } from 'react-native'
+import { Dimensions, PixelRatio, StatusBar } from 'react-native'
+import { getStatusBarHeight } from 'react-native-iphone-x-helper'
 const window = Dimensions.get('window')
 import { getElevation, scaleWidth } from '~/src/utils'
 export const LINE_HEIGHT = PixelRatio.roundToNearestPixel(0.5)
 export const DEVICE_WIDTH = window.width
 export const DEVICE_HEIGHT = window.height
-console.log('DEVICE WIDTH', DEVICE_WIDTH)
 
+export const STATUS_BAR_HEIGHT = getStatusBarHeight(true)
 export const COLORS = {
     WHITE: '#FFFFFF',
     LIGHT_WHITE: 'rgba(255, 255, 255, 0.7)',
@@ -16,7 +17,8 @@ export const COLORS = {
     LIGHT_BLUE: '#D7E8F8',
     TRANSPARENT: 'transparent',
     BLACK: '#000000',
-    GRAY: '#EAEAEC'
+    GRAY: '#EAEAEC',
+    LIGHT_GRAY: '#F2F2F2'
 }
 
 // const SIZES = {
@@ -34,6 +36,7 @@ export const COLORS = {
 
 export const SIZES = {
     TOOLBAR: 44,
+    TOOLBAR_AND_STATUSBAR: 44 + STATUS_BAR_HEIGHT,
     CONTAINER_HORIZONTAL_MARGIN: 16,
     CONTAINER_HORIZONTAL_SPACE: 32,
     CONTAINER_HORIZONTAL_SPACE_AND_MARGIN: 48,
@@ -265,6 +268,11 @@ export const SURFACE_STYLES = {
         justifyContent: 'flex-end',
         alignItems: 'center'
     },
+    columnAlignEnd: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-end'
+    },
     rowCenter: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -279,6 +287,11 @@ export const SURFACE_STYLES = {
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'flex-start'
+    },
+    rowAlignEnd: {
+        flexDirection: 'row',
+        justifyContent: 'flex-start',
+        alignItems: 'flex-end'
     },
     rowEnd: {
         flexDirection: 'row',
@@ -404,7 +417,7 @@ export default {
             zIndex: 10000
         },
         iconLeft: {
-            fontSize: 19,
+            fontSize: 24,
         },
         iconLeftContainer: {
             paddingLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
@@ -426,7 +439,7 @@ export default {
             justifyContent: 'flex-end',
         },
         iconRight: {
-            fontSize: 19,
+            fontSize: 24,
         },
     },
     textInput: {

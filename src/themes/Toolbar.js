@@ -2,7 +2,7 @@ import React from 'react'
 import { Dimensions, StatusBar } from 'react-native'
 import { Surface, Text, Icon, Button } from '~/src/themes/ThemeComponent'
 const { width } = Dimensions.get('window')
-import commonStyle from '~/src/themes/common'
+import commonStyle, { STATUS_BAR_HEIGHT } from '~/src/themes/common'
 const { toolbar } = commonStyle
 const styles = {}
 import { Navigation } from 'react-native-navigation'
@@ -32,42 +32,43 @@ export default class Toolbar extends React.PureComponent {
     }
 
     render() {
-        const { iconLeft, iconRight, title, titleStyle, style, iconStyle, themeable,
-            leftComponent, centerComponent, rightComponent, transparent=false
+        const { iconLeft, iconRight, title, titleT, titleStyle, style, iconStyle, themeable,
+            leftComponent, centerComponent, rightComponent, transparent = false
         } = this.props
 
         const left = leftComponent ? leftComponent() : <Button themeable={themeable} flat noPadding onPress={this._onPressBack}
             style={toolbar.iconLeftContainer}
-            icon={!!iconLeft ? iconLeft : 'back'}
+            icon={!!iconLeft ? iconLeft : 'GB_icon-21'}
             iconStyle={[toolbar.iconLeft, iconStyle]}
         />
-        const center = centerComponent ? centerComponent() : (!!title ?
-            <Text style={[toolbar.title, titleStyle]} numberOfLines={1} themeable={themeable}>{" " + title + " "}</Text>
-            :
-            <Surface themeable={themeable} flex />
+        const center = centerComponent ? centerComponent() : (
+            typeof (titleT) != 'undefined' ? <Text style={[toolbar.title, titleStyle]} numberOfLines={1} themeable={themeable} t={titleT} /> :
+                (
+                    !!title ?
+                        <Text style={[toolbar.title, titleStyle]} numberOfLines={1} themeable={themeable}>{" " + title + " "}</Text>
+                        :
+                        <Surface themeable={themeable} flex />
+                )
         )
         const right = rightComponent ? rightComponent() : (iconRight ? <Button themeable={themeable} flat onPress={this._onPressIconRight}
             style={toolbar.iconRightContainer}
             icon={iconRight}
             iconStyle={[toolbar.iconRight, iconStyle]}
         /> : <Surface themeable={false} />)
-        if (transparent){
+        if (transparent) {
             return (
                 <Surface style={[toolbar.container, style]} themeable={false} />
             )
         }
 
-        const statusBarHeight = StatusBar.currentHeight || 0
-        console.log('Statusbar Height', statusBarHeight)
-
         return (
             <Surface themeable={false}>
-                <Surface themeable={false} style={{width: '100%', height: statusBarHeight}}/>
-            <Surface style={[toolbar.container, style]} themeable={themeable}>
-                {left}
-                {center}
-                {right}
-            </Surface>
+                <Surface themeable={false} style={{ width: '100%', height: STATUS_BAR_HEIGHT }} />
+                <Surface style={[toolbar.container, style]} themeable={themeable}>
+                    {left}
+                    {center}
+                    {right}
+                </Surface>
             </Surface>
         )
     }

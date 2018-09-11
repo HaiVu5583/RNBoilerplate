@@ -14,9 +14,8 @@ export default class FeatureBlock extends Component {
 
 
     _renderFeatureItem = ({ item, index }) => {
-        const { data } = this.props
         return (
-            <Ripple rippleColor={'white'}>
+            <Ripple rippleColor={'white'} onPress={() => { item.onPress && item.onPress() }}>
                 <Surface themeable={false} columnStart style={{ width: 100 }}>
                     <Surface themeable={false} columnCenter style={{ width: 70, height: 70, borderRadius: 35, backgroundColor: COLORS.GRAY }}>
                         <Icon name={item.iconName} style={{ fontSize: 32, color: item.iconColor }} />

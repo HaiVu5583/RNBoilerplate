@@ -10,7 +10,7 @@ export default class RowItem extends Component {
 
 
     render() {
-        const { icon, text, onPress, iconStyle, textStyle } = this.props
+        const { icon, text, textT, onPress, iconStyle, textStyle } = this.props
         return (
             <Ripple onPress={onPress}>
                 <Surface themeable={false} rowStart style={{ paddingHorizontal: 16 }}>
@@ -20,7 +20,9 @@ export default class RowItem extends Component {
                         borderBottomColor: COLORS.BLUE,
                         paddingVertical: 16
                     }}>
-                        <Text description style={textStyle}>{text}</Text>
+                        {!!textT ?
+                            <Text description style={textStyle} t={textT} /> :
+                            <Text description style={textStyle}>{text}</Text>}
                     </Surface>
                 </Surface>
             </Ripple>

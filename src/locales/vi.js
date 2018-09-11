@@ -172,7 +172,17 @@ const language = {
     'err_display_name': 'Vui lòng nhập tên hiển thị có độ dài từ 5 đến 50 ký tự.',
     'account_number': 'Số tài khoản',
     'forgot_password_popup_content': 'Bạn vui lòng liên hệ ***** để được hỗ trợ lấy lại mật khẩu nhé.',
+    'call': 'Gọi điện',
+    'phone_not_register': 'SĐT chưa đăng ký',
+    'phone_not_register_content': 'Bạn chưa đăng ký tài khoản Gigabank. Hãy đăng ký tài khoản để sử dụng dịch vụ nhé.',
 
+    // Charge Screen
+    'charge_gigabank': 'Nạp tiền vào Gigabank',
+    'charge_gigabank_hint': 'Nạp tiền vào tài khoản Gigabank\ntừ các thẻ ngân hàng đã liên kết',
+    'add_card': 'Thêm thẻ',
+    'add_link_card': 'Thêm thẻ liên kết',
+
+    
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
     'change_location_title2': 'Vui lòng bật tính năng định vị để Clingme có thể xác định được địa điểm hiện tại của bạn.',
@@ -211,7 +221,6 @@ const language = {
     'forgot_transaction_password': 'Quên mật khẩu giao dịch',
     'hint_input_new_password': 'Tạo mật khẩu giao dịch gồm 6 chữ số',
     'hint_input_retype_new_password': 'Xác nhận mật khẩu giao dịch',
-    'add_card': 'Thêm thẻ thanh toán',
     'international_card': 'Thẻ quốc tế',
     'domestic_card': 'Thẻ nội địa',
     'hint_input_phone_create_transaction_password': 'Số điện thoại này được sử dụng để đặt lại mật khẩu giao dịch khi cần.',

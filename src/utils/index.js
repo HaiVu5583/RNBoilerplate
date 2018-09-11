@@ -251,3 +251,9 @@ export const isFunction = (obj) => {
 export const replacePatternString = (str, repStr, pattern = '*****') => {
     return str.replace(pattern, repStr)
 }
+
+export const maskBankAccount = (bankAccountNumber) => {
+    if (!bankAccountNumber) return ''
+    const last4Digit = bankAccountNumber.substr(bankAccountNumber.length - 4)
+    return `\u2022 \u2022 \u2022 \u2022  \u2022 \u2022 \u2022 \u2022  \u2022 \u2022 \u2022 \u2022  ${last4Digit}`
+}
