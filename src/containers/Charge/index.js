@@ -79,40 +79,47 @@ class Charge extends React.PureComponent {
                         <Surface themeable={false} space16 />
                         <MaskBalanceView money={'120000'} />
                     </Surface>
-                    <Surface containerHorizontalMargin flex>
-                        <Surface themeable={false} space20 />
-                        {this.bankAccount.map((item) => (
-                            <Surface themeable={false} key={item.id}>
-                                <BankAccountItem
-                                    bankImage={item.bankImage}
-                                    bankAccount={item.bankAccount}
-                                    expireDate={item.expireDate}
-                                    onPress={() => this._handlePressBankItem(item)}
-                                    active={this.state.selecteCard == item.id}
+                    <Surface flex>
+                        <ScrollView>
+                            <Surface containerHorizontalMargin flex>
+                                <Surface themeable={false} space20 />
+                                {this.bankAccount.map((item) => (
+                                    <Surface themeable={false} key={item.id}>
+                                        <BankAccountItem
+                                            bankImage={item.bankImage}
+                                            bankAccount={item.bankAccount}
+                                            expireDate={item.expireDate}
+                                            onPress={() => this._handlePressBankItem(item)}
+                                            active={this.state.selecteCard == item.id}
+                                        />
+                                        <Surface themeable={false} space16 />
+                                    </Surface>
+                                ))}
+                                <Button
+                                    flat
+                                    rowStart
+                                    leftComponent={() => (
+                                        <Icon name='GB_icon-41' style={{ fontSize: 24, color: COLORS.BLUE }} />
+                                    )}
+                                    centerComponent={() => (
+                                        <Text blue t='add_link_card' />
+                                    )}
+                                    style={{ paddingLeft: 0, paddingRight: 0 }}
                                 />
-                                <Surface themeable={false} space16 />
                             </Surface>
-                        ))}
-                        <Button
-                            flat
-                            rowStart
-                            leftComponent={() => (
-                                <Icon name='GB_icon-41' style={{ fontSize: 24, color: COLORS.BLUE }} />
-                            )}
-                            centerComponent={() => (
-                                <Text blue t='add_link_card' />
-                            )}
-                            style={{ paddingLeft: 0, paddingRight: 0 }}
-                        />
+                        </ScrollView>
                         <Surface themeable={false} space16 />
-                        <Button round full
-                            t={'continue'}
-                            onPress={this._handlePressAddCard}
-                            enable={true}
-                            gradientButton={true}
-                            style={{ marginBottom: 10 }}
-                        />
+                        <Surface containerHorizontalSpace rowAlignEnd>
+                            <Button round full
+                                t={'continue'}
+                                onPress={this._handlePressAddCard}
+                                enable={true}
+                                gradientButton={false}
+                                style={{ marginBottom: 10 }}
+                            />
+                        </Surface>
                     </Surface>
+
 
                     {/* <Surface style={{ height: 200 }}>
                         <Surface containerHorizontalSpace flex rowAlignEnd>
