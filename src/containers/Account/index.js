@@ -32,10 +32,10 @@ class Account extends React.PureComponent {
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
                     <Toolbar
                         themeable={false}
-                        onPressIconLeft={this._handlePressHambergerIcon}
                         iconStyle={{ color: 'white' }}
                         title={I18n.t('account')}
                         titleStyle={{ color: 'white' }}
+                        componentId={this.props.componentId}
                     />
                     <Surface themeable={false} space20 />
                     <Surface themeable={false} rowAlignStart containerHorizontalMargin>
