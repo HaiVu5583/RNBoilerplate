@@ -29,7 +29,7 @@ class Account extends React.PureComponent {
     render() {
 
         return (
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <Surface themeable={false} flex>
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
                     <Toolbar
                         themeable={false}
@@ -68,7 +68,7 @@ class Account extends React.PureComponent {
                     <RowItem icon='payment-method' textT={'payment_account'} iconStyle={styles.rowIcon} />
                     <RowItem icon='pass' textT={'change_password'} iconStyle={styles.rowIcon} />
                 </Surface>
-            </ScrollView>
+            </Surface>
         )
     }
 }
