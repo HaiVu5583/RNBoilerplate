@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import I18n from '~/src/I18n'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView } from 'react-native'
+import { ImageBackground, ScrollView, BackHandler } from 'react-native'
 import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
-import Image from 'react-native-fast-image'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import MaskBalanceView from '~/src/components/MaskBalanceView'
@@ -61,6 +59,7 @@ class Charge extends React.PureComponent {
         } else if (this.state.step == STEP.INPUT) {
             this.setState({ step: STEP.CHOOSE_CARD })
         }
+        return true
     }
 
     _handlePressAddCard = () => {
@@ -212,6 +211,14 @@ class Charge extends React.PureComponent {
         }
 
 
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this._handleBack)
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this._handleBack)
     }
 
     render() {
