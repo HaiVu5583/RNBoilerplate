@@ -158,7 +158,7 @@ class Charge extends React.PureComponent {
                     <TextInput
                         descriptionIcon={'GB_icon-14'}
                         placeholderT={'charge_input_money_hint'}
-                        black
+                        blackWithDarkblueIcon
                         onChangeText={text => this.setState({ money: text })}
                         keyboardType='number-pad'
                         value={this.state.money}
@@ -169,7 +169,7 @@ class Charge extends React.PureComponent {
                     <TextInput
                         descriptionIcon={'GB_icon-28'}
                         placeholderT={'hint_input_password'}
-                        black
+                        blackWithDarkblueIcon
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
                         secureTextEntry={true}

@@ -240,6 +240,19 @@ export const TEXT_INPUT_STYLES = {
             color: COLORS.BLACK,
         },
         placeholderColor: 'rgba(0, 0, 0, 0.4)'
+    },
+    blackWithDarkblueIcon: {
+        container: {
+            borderBottomWidth: LINE_HEIGHT,
+            borderBottomColor: COLORS.BLACK
+        },
+        icon: {
+            color: COLORS.DARK_BLUE,
+        },
+        input: {
+            color: COLORS.BLACK,
+        },
+        placeholderColor: 'rgba(0, 0, 0, 0.4)'
     }
 }
 
