@@ -1,16 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import I18n from '~/src/I18n'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView } from 'react-native'
-import { Surface, Toolbar, Text, Icon, Button } from '~/src/themes/ThemeComponent'
-import Image from 'react-native-fast-image'
+import { ImageBackground, ScrollView, BackHandler } from 'react-native'
+import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import MaskBalanceView from '~/src/components/MaskBalanceView'
+import { Navigation } from 'react-native-navigation'
 
 
-
+const STEP = {
+    CHOOSE_CARD: 'CHOOSE_CARD',
+    INPUT: 'INPUT'
+}
 class Charge extends React.PureComponent {
     static get options() {
         return {
@@ -24,7 +26,10 @@ class Charge extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            selecteCard: 1
+            selecteCard: 1,
+            step: STEP.CHOOSE_CARD,
+            money: '',
+            password: ''
         }
         this.bankAccount = [
             {
@@ -48,6 +53,15 @@ class Charge extends React.PureComponent {
         ]
     }
 
+    _handleBack = () => {
+        if (this.state.step == STEP.CHOOSE_CARD) {
+            Navigation.pop(this.props.componentId)
+        } else if (this.state.step == STEP.INPUT) {
+            this.setState({ step: STEP.CHOOSE_CARD })
+        }
+        return true
+    }
+
     _handlePressAddCard = () => {
         console.log('Handle Press AddCard')
     }
@@ -59,65 +73,175 @@ class Charge extends React.PureComponent {
         }
     }
 
-    render() {
+    _handleContinueChooseCard = () => {
+        console.log('Continue Choose Card')
+        this.setState({ step: STEP.INPUT })
+    }
 
+    _handleChargeMoney = () => {
+        console.log('Press Charge Money')
+    }
+
+    _renderHeaderByStep = () => {
+        const hintT = (this.state.step == STEP.CHOOSE_CARD ? 'charge_gigabank_hint' :
+            this.state.step == STEP.INPUT ? 'charge_input_hint' : ''
+        )
+        const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
+        return (
+            <Surface themeable={false}>
+                <Surface themeable={false} containerHorizontalSpace>
+                    <Text white description t={hintT} />
+                </Surface>
+                <Surface themeable={false} space16 />
+                {(this.state.step == STEP.CHOOSE_CARD) && <MaskBalanceView money={'120000'} />}
+                {(this.state.step == STEP.INPUT) && <Surface themeable={false}>
+                    <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
+                        <BankAccountItem
+                            bankImage={selectedCardItem.bankImage}
+                            bankAccount={selectedCardItem.bankAccount}
+                            expireDate={selectedCardItem.expireDate}
+                            onPress={() => { }}
+                            active={true}
+                        />
+                    </Surface>
+                    <Surface style={{
+                        position: 'absolute',
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        height: 35,
+                        zIndex: 0
+                    }} />
+                </Surface>
+                }
+            </Surface>
+        )
+    }
+
+    _renderContentByStep = () => {
+        if (this.state.step == STEP.CHOOSE_CARD) {
+            return (
+                <ScrollView>
+                    <Surface containerHorizontalMargin flex>
+                        <Surface themeable={false} space20 />
+                        {this.bankAccount.map((item) => (
+                            <Surface themeable={false} key={item.id}>
+                                <BankAccountItem
+                                    bankImage={item.bankImage}
+                                    bankAccount={item.bankAccount}
+                                    expireDate={item.expireDate}
+                                    onPress={() => this._handlePressBankItem(item)}
+                                    active={this.state.selecteCard == item.id}
+                                />
+                                <Surface themeable={false} space16 />
+                            </Surface>
+                        ))}
+                        <Button
+                            flat
+                            rowStart
+                            leftComponent={() => (
+                                <Icon name='GB_icon-41' style={{ fontSize: 24, color: COLORS.BLUE }} />
+                            )}
+                            centerComponent={() => (
+                                <Text blue t='add_link_card' />
+                            )}
+                            style={{ paddingLeft: 0, paddingRight: 0 }}
+                        />
+                    </Surface>
+                </ScrollView>
+            )
+        } else if (this.state.step == STEP.INPUT) {
+            return (
+                <Surface containerHorizontalSpace flex>
+                    <Surface themeable={false} space16 />
+                    <TextInput
+                        descriptionIcon={'GB_icon-14'}
+                        placeholderT={'charge_input_money_hint'}
+                        blackWithDarkblueIcon
+                        onChangeText={text => this.setState({ money: text })}
+                        keyboardType='number-pad'
+                        value={this.state.money}
+                        iconRight={'GB_icon-31'}
+                        onPressIconRight={() => this.setState({ money: '' })}
+                        showIconRight={(this.state.money && this.state.money.trim())}
+                    />
+                    <TextInput
+                        descriptionIcon={'GB_icon-28'}
+                        placeholderT={'hint_input_password'}
+                        blackWithDarkblueIcon
+                        onChangeText={text => this.setState({ password: text })}
+                        value={this.state.password}
+                        secureTextEntry={true}
+                    />
+                </Surface>
+            )
+        }
+    }
+
+    _renderBottomButtonByStep = () => {
+        if (this.state.step == STEP.CHOOSE_CARD) {
+            return (
+                <Surface containerHorizontalSpace rowAlignEnd>
+                    <Button
+                        round full
+                        noPadding
+                        t={'continue'}
+                        onPress={this._handleContinueChooseCard}
+                        enable={true}
+                        gradientButton={true}
+                        rippleStyle={{ marginBottom: 10, width: '100%' }}
+                    />
+                </Surface>
+            )
+        } else if (this.state.step == STEP.INPUT) {
+            const enableChargeButton = !!(this.state.money && this.state.password)
+            return (
+                <Surface containerHorizontalSpace rowAlignEnd>
+                    <Button
+                        round full
+                        noPadding
+                        t={'charge_money'}
+                        onPress={this._handleChargeMoney}
+                        enable={enableChargeButton}
+                        gradientButton={true}
+                        rippleStyle={{ marginBottom: 10, width: '100%' }}
+                    />
+                </Surface>
+            )
+        }
+
+
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this._handleBack)
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this._handleBack)
+    }
+
+    render() {
+        const titleT = (this.state.step == STEP.CHOOSE_CARD ? 'charge_gigabank' :
+            this.state.step == STEP.INPUT ? 'charge_info' : ''
+        )
         return (
             <Surface flex>
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                     <Toolbar
                         themeable={false}
                         iconStyle={{ color: 'white' }}
-                        titleT={'charge_gigabank'}
+                        titleT={titleT}
                         titleStyle={{ color: 'white' }}
                         componentId={this.props.componentId}
+                        onPressIconLeft={this._handleBack}
                     />
                     <Surface themeable={false} space20 />
-                    <Surface themeable={false} style={{ height: 120 }}>
-                        <Surface themeable={false} containerHorizontalSpace>
-                            <Text white description t='charge_gigabank_hint' />
-                        </Surface>
-                        <Surface themeable={false} space16 />
-                        <MaskBalanceView money={'120000'} />
-                    </Surface>
+                    {this._renderHeaderByStep()}
                     <Surface flex>
-                        <ScrollView>
-                            <Surface containerHorizontalMargin flex>
-                                <Surface themeable={false} space20 />
-                                {this.bankAccount.map((item) => (
-                                    <Surface themeable={false} key={item.id}>
-                                        <BankAccountItem
-                                            bankImage={item.bankImage}
-                                            bankAccount={item.bankAccount}
-                                            expireDate={item.expireDate}
-                                            onPress={() => this._handlePressBankItem(item)}
-                                            active={this.state.selecteCard == item.id}
-                                        />
-                                        <Surface themeable={false} space16 />
-                                    </Surface>
-                                ))}
-                                <Button
-                                    flat
-                                    rowStart
-                                    leftComponent={() => (
-                                        <Icon name='GB_icon-41' style={{ fontSize: 24, color: COLORS.BLUE }} />
-                                    )}
-                                    centerComponent={() => (
-                                        <Text blue t='add_link_card' />
-                                    )}
-                                    style={{ paddingLeft: 0, paddingRight: 0 }}
-                                />
-                            </Surface>
-                        </ScrollView>
+                        {this._renderContentByStep()}
                         <Surface themeable={false} space16 />
-                        <Surface containerHorizontalSpace rowAlignEnd>
-                            <Button round full
-                                t={'continue'}
-                                onPress={this._handlePressAddCard}
-                                enable={true}
-                                gradientButton={false}
-                                style={{ marginBottom: 10 }}
-                            />
-                        </Surface>
+                        {this._renderBottomButtonByStep()}
                     </Surface>
 
 

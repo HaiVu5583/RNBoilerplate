@@ -175,6 +175,7 @@ class Authentication extends Component {
 
                     <Surface space16 themeable={false} />
                     <Button round full
+                        noPadding
                         t={'login'}
                         onPress={this._handlePressLogin}
                         enable={!!enableLoginButton}

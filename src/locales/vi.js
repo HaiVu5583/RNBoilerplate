@@ -181,6 +181,10 @@ const language = {
     'charge_gigabank_hint': 'Nạp tiền vào tài khoản Gigabank\ntừ các thẻ ngân hàng đã liên kết',
     'add_card': 'Thêm thẻ',
     'add_link_card': 'Thêm thẻ liên kết',
+    'charge_info': 'Thông tin nạp tiền',
+    'charge_input_hint': 'Nhập thông tin nạp tiền\nvào tài khoản Gigabank từ thẻ đã chọn',
+    'charge_input_money_hint': 'Nhập số tiền cần nạp (VND)',
+    'charge_money': 'Nạp tiền',
 
     
     //bat vi tri
