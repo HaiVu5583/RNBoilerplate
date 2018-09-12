@@ -358,7 +358,7 @@ export const BUTTON_STYLES = {
         ...getElevation(0)
     },
     full: {
-        width: '100%'
+        width: '100%',
     },
     noPadding: {
         paddingLeft: 0,

@@ -59,6 +59,10 @@ class Charge extends React.PureComponent {
         }
     }
 
+    _handleContinueChooseCard = () => {
+        console.log('Continue Choose Card')
+    }
+
     render() {
 
         return (
@@ -110,14 +114,17 @@ class Charge extends React.PureComponent {
                         </ScrollView>
                         <Surface themeable={false} space16 />
                         <Surface containerHorizontalSpace rowAlignEnd>
-                            <Button round full
+                            <Button 
+                                round full
+                                noPadding
                                 t={'continue'}
-                                onPress={this._handlePressAddCard}
+                                onPress={this._handleContinueChooseCard}
                                 enable={true}
-                                gradientButton={false}
-                                style={{ marginBottom: 10 }}
+                                gradientButton={true}
+                                rippleStyle={{marginBottom: 10, width: '100%'}}
                             />
                         </Surface>
+                        
                     </Surface>
 
 
