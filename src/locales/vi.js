@@ -89,18 +89,6 @@ const language = {
     'direct': 'Chỉ đường',
     'all': 'Tất cả',
 
-
-
-    // Deal detail
-    'expired': 'Hết hạn',
-    'marked_number_of_deal': 'lượt đăng ký nhận ưu đãi',
-    'cashback_number_of_deal': 'người đã nhận hoàn tiền từ ưu đãi này',
-    'total_rate_deal': 'đánh giá ưu đãi',
-    'maybe_you_care': 'Có thể bạn quan tâm',
-    'describe': 'Mô tả',
-    'go_back_home': 'về trang chủ',
-    'capitalized_from': 'Từ',
-
     // cashback screen
     'cashback': 'Hoàn tiền',
     'cashback_to': 'Hoàn tiền đến',
@@ -185,7 +173,18 @@ const language = {
     'charge_input_hint': 'Nhập thông tin nạp tiền\nvào tài khoản Gigabank từ thẻ đã chọn',
     'charge_input_money_hint': 'Nhập số tiền cần nạp (VND)',
     'charge_money': 'Nạp tiền',
-
+    'send_account': 'Tài khoản thanh toán',
+    'receive_account': 'Tài khoản nhận tiền',
+    'transaction_result': 'Kết quả giao dịch',
+    'transaction_info': 'Thông tin giao dịch',
+    'transaction_code': 'Mã giao dịch',
+    'money_number': 'Số tiền',
+    'discount': 'Khuyến mại',
+    'fee': 'Phí dịch vụ',
+    'gigabank_balance': 'Số dư Gigabank',
+    'discount_balance': 'Số dư khuyến mại',
+    'transaction_time': 'Thời gian GD',
+    'go_back_home': 'Về trang chủ',
     
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
@@ -199,7 +198,6 @@ const language = {
     'popup_cancel': 'HỦY',
     'popup_confirmed': 'ĐỒNG Ý',
     'popup_deal_cannot_use': 'Ưu đãi chỉ dành cho những người dùng mới đăng kí tài khoản trên Clingme. Bạn vui lòng chọn xem những ưu đãi khác nhé!',
-    'popup_deal_cannot_use_button': 'VỀ TRANG CHỦ',
     'popup_log_out': 'Bạn có chắc chắn muốn đăng xuất tài khoản trên thiết bị này?',
     'popup_log_out_cancel': 'HỦY',
     'popup_log_out_confirmed': 'ĐĂNG XUẤT',
@@ -254,7 +252,6 @@ const language = {
     'create_bill_success_note_part_1_2': 'Hoá đơn của bạn sẽ được xử lý trong vòng 24h, trừ Thứ 7, Chủ Nhật và các ngày nghỉ lễ.',
     'create_bill_success_note_part_2': 'Chúc bạn có những trải nghiệm tuyệt vời\nkhi mua sắm và nhận hoàn tiền cùng Clingme!',
     'request_more_cashback': 'THÊM YÊU CẦU HOÀN TIỀN',
-    'bill_capture_go_back_home': 'VỀ TRANG CHỦ',
     'VND': 'đ',
     'money_amount': 'Số tiền',
     'err_receiver_name': 'Vui lòng nhập tên có độ dài từ 5 đến 50 ký tự.',

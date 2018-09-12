@@ -11,7 +11,8 @@ import { Navigation } from 'react-native-navigation'
 
 const STEP = {
     CHOOSE_CARD: 'CHOOSE_CARD',
-    INPUT: 'INPUT'
+    INPUT: 'INPUT',
+    RESULT: 'RESULT'
 }
 class Charge extends React.PureComponent {
     static get options() {
@@ -58,6 +59,8 @@ class Charge extends React.PureComponent {
             Navigation.pop(this.props.componentId)
         } else if (this.state.step == STEP.INPUT) {
             this.setState({ step: STEP.CHOOSE_CARD })
+        } else if (this.state.step == STEP.RESULT) {
+            this.setState({ step: STEP.INPUT })
         }
         return true
     }
@@ -80,6 +83,11 @@ class Charge extends React.PureComponent {
 
     _handleChargeMoney = () => {
         console.log('Press Charge Money')
+        this.setState({ step: STEP.RESULT })
+    }
+
+    _handleGoHome = () => {
+        Navigation.popTo('sideMenu')
     }
 
     _renderHeaderByStep = () => {
@@ -87,35 +95,89 @@ class Charge extends React.PureComponent {
             this.state.step == STEP.INPUT ? 'charge_input_hint' : ''
         )
         const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
-        return (
-            <Surface themeable={false}>
-                <Surface themeable={false} containerHorizontalSpace>
-                    <Text white description t={hintT} />
+        if (this.state.step == STEP.CHOOSE_CARD) {
+            return (
+                <Surface themeable={false}>
+                    <Surface themeable={false} containerHorizontalSpace>
+                        <Text white description t={hintT} />
+                    </Surface>
+                    <Surface themeable={false} space16 />
+                    <MaskBalanceView money={'120000'} />
                 </Surface>
-                <Surface themeable={false} space16 />
-                {(this.state.step == STEP.CHOOSE_CARD) && <MaskBalanceView money={'120000'} />}
-                {(this.state.step == STEP.INPUT) && <Surface themeable={false}>
-                    <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
+            )
+        } else if (this.state.step == STEP.INPUT) {
+            return (
+                <Surface themeable={false}>
+                    <Surface themeable={false} containerHorizontalSpace>
+                        <Text white description t={hintT} />
+                    </Surface>
+                    <Surface themeable={false} space16 />
+                    <Surface themeable={false}>
+                        <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
+                            <BankAccountItem
+                                bankImage={selectedCardItem.bankImage}
+                                bankAccount={selectedCardItem.bankAccount}
+                                expireDate={selectedCardItem.expireDate}
+                                onPress={() => { }}
+                                active={true}
+                            />
+                        </Surface>
+                        <Surface style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            height: 35,
+                            zIndex: 0
+                        }} />
+                    </Surface>
+                </Surface>
+            )
+        } else if (this.state.step == STEP.RESULT) {
+            return (
+                <Surface themeable={false}>
+                    <Surface themeable={false} containerHorizontalSpace>
+                        <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
+                    </Surface>
+                    <Surface themeable={false} space16 />
+                    <Surface themeable={false} containerHorizontalMargin>
                         <BankAccountItem
                             bankImage={selectedCardItem.bankImage}
                             bankAccount={selectedCardItem.bankAccount}
                             expireDate={selectedCardItem.expireDate}
                             onPress={() => { }}
-                            active={true}
+                            active={false}
                         />
                     </Surface>
-                    <Surface style={{
-                        position: 'absolute',
-                        bottom: 0,
-                        left: 0,
-                        right: 0,
-                        height: 35,
-                        zIndex: 0
-                    }} />
+                    <Surface themeable={false} space16 />
+                    <Surface themeable={false} containerHorizontalSpace>
+                        <Text white description t={'receive_account'} textTransform={String.prototype.toUpperCase} />
+                    </Surface>
+                    <Surface themeable={false} space16 />
+                    <Surface themeable={false}>
+                        <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
+                            <BankAccountItem
+                                bankImage={selectedCardItem.bankImage}
+                                bankAccount={selectedCardItem.bankAccount}
+                                expireDate={selectedCardItem.expireDate}
+                                onPress={() => { }}
+                                active={true}
+                            />
+                        </Surface>
+                        <Surface style={{
+                            position: 'absolute',
+                            bottom: 0,
+                            left: 0,
+                            right: 0,
+                            height: 35,
+                            zIndex: 0
+                        }} />
+                    </Surface>
                 </Surface>
-                }
-            </Surface>
-        )
+            )
+        }
+
+
     }
 
     _renderContentByStep = () => {
@@ -175,6 +237,47 @@ class Charge extends React.PureComponent {
                     />
                 </Surface>
             )
+        } else if (this.state.step == STEP.RESULT) {
+            return (
+                <ScrollView>
+                    <Surface themeable={false} space20 />
+                    <Surface containerHorizontalSpace>
+                        <Text darkBlue description t={'transaction_info'} textTransform={String.prototype.toUpperCase} />
+                    </Surface>
+                    <Surface themeable={false} space20 />
+                    <Surface containerHorizontalMargin>
+                        <Surface rowSpacebetween>
+                            <Text description t='transaction_code' />
+                            <Text description>X12AA22</Text>
+                        </Surface>
+                        <Surface rowSpacebetween>
+                            <Text description t='money_number' />
+                            <Text description>5.000.000VND</Text>
+                        </Surface>
+                        <Surface rowSpacebetween>
+                            <Text description t='discount' />
+                            <Text description>5.000VND</Text>
+                        </Surface>
+
+                        <Surface rowSpacebetween>
+                            <Text description t='fee' />
+                            <Text description>11.000VND</Text>
+                        </Surface>
+                        <Surface rowSpacebetween>
+                            <Text description t='gigabank_balance' />
+                            <Text description>30.000.000VND</Text>
+                        </Surface>
+                        <Surface rowSpacebetween>
+                            <Text description t='discount_balance' />
+                            <Text description>30.000VND</Text>
+                        </Surface>
+                        <Surface rowSpacebetween>
+                            <Text description t='transaction_time' />
+                            <Text description>15:11 17/07/2018</Text>
+                        </Surface>
+                    </Surface>
+                </ScrollView>
+            )
         }
     }
 
@@ -208,6 +311,20 @@ class Charge extends React.PureComponent {
                     />
                 </Surface>
             )
+        }else if (this.state.step == STEP.RESULT){
+            return (
+                <Surface containerHorizontalSpace rowAlignEnd>
+                    <Button
+                        round full
+                        noPadding
+                        t={'go_back_home'}
+                        onPress={this._handleGoHome}
+                        enable={true}
+                        gradientButton={true}
+                        rippleStyle={{ marginBottom: 10, width: '100%' }}
+                    />
+                </Surface>
+            )
         }
 
 
@@ -223,7 +340,7 @@ class Charge extends React.PureComponent {
 
     render() {
         const titleT = (this.state.step == STEP.CHOOSE_CARD ? 'charge_gigabank' :
-            this.state.step == STEP.INPUT ? 'charge_info' : ''
+            this.state.step == STEP.INPUT ? 'charge_info' : 'transaction_result'
         )
         return (
             <Surface flex>
