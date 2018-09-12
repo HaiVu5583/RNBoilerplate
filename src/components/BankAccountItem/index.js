@@ -1,7 +1,7 @@
 import React from 'react'
 import { Surface, Text, Icon } from '~/src/themes/ThemeComponent'
 import Image from 'react-native-fast-image'
-import { maskBankAccount } from '~/src/utils'
+import { maskBankAccount, getElevation } from '~/src/utils'
 import styles from './styles'
 import LinearGradient from 'react-native-linear-gradient'
 import { SURFACE_STYLES } from '~/src/themes/common'
@@ -31,7 +31,11 @@ export default class BankAccountItem extends React.PureComponent {
                         locations={[0.0, 1.0]}
                         style={{
                             ...styles.container,
-                            ...SURFACE_STYLES.rowStart
+                            ...SURFACE_STYLES.rowStart,
+                            ...getElevation(4),
+                            marginHorizontal: 2,
+                            marginTop: 2,
+                            marginBottom: 5
                         }}
                     >
                         <Image
@@ -49,7 +53,12 @@ export default class BankAccountItem extends React.PureComponent {
         }
         return (
             <Ripple onPress={onPress} rippleColor={'white'}>
-                <Surface rowStart style={styles.container}>
+                <Surface rowStart style={{
+                    ...styles.container,
+                    marginHorizontal: 2,
+                    marginTop: 2,
+                    marginBottom: 5
+                }}>
                     <Image
                         source={{ uri: bankImage }}
                         style={styles.image}
