@@ -315,13 +315,12 @@ class Charge extends React.PureComponent {
             return (
                 <Surface containerHorizontalSpace rowAlignEnd>
                     <Button
-                        round full
+                        round full outline-blue
                         noPadding
                         t={'go_back_home'}
                         onPress={this._handleGoHome}
                         enable={true}
-                        gradientButton={true}
-                        rippleStyle={{ marginBottom: 10, width: '100%' }}
+                        style={{marginBottom: 10}}
                     />
                 </Surface>
             )

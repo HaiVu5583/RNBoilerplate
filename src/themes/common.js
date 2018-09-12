@@ -370,6 +370,15 @@ export const BUTTON_STYLES = {
         backgroundColor: 'transparent',
         ...getElevation(0)
     },
+    'outline-blue': {
+        backgroundColor: 'transparent',
+        borderWidth: 2,
+        borderColor: COLORS.BLUE,
+        ...getElevation(0),
+        textStyle: {
+            color: COLORS.BLUE
+        }
+    },
     full: {
         width: '100%',
     },
