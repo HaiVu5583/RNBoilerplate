@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView, BackHandler } from 'react-native'
+import { ImageBackground, ScrollView, BackHandler, Platform } from 'react-native'
 import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
@@ -16,12 +16,15 @@ const STEP = {
 }
 class Charge extends React.PureComponent {
     static get options() {
-        return {
-            animations: {
-                push: DEFAULT_PUSH_ANIMATION,
-                pop: DEFAULT_POP_ANIMATION
+        if (Platform.OS == 'android') {
+            return {
+                animations: {
+                    push: DEFAULT_PUSH_ANIMATION,
+                    pop: DEFAULT_POP_ANIMATION
+                }
             }
         }
+        return {}
     }
 
     constructor(props) {
@@ -56,6 +59,7 @@ class Charge extends React.PureComponent {
 
     _handleBack = () => {
         if (this.state.step == STEP.CHOOSE_CARD) {
+            console.log('Component Id', this.props.componentId)
             Navigation.pop(this.props.componentId)
         } else if (this.state.step == STEP.INPUT) {
             this.setState({ step: STEP.CHOOSE_CARD })
@@ -87,7 +91,16 @@ class Charge extends React.PureComponent {
     }
 
     _handleGoHome = () => {
-        Navigation.popTo('sideMenu')
+        // // Navigation.popToRoot(this.props.componentId)
+        // Navigation.setStackRoot('mainStack',
+        //     {
+        //         component: {
+        //             id: 'HomeScreen',
+        //             name: 'gigabankclient.HomeScreen',
+        //         }
+        //     }
+        // )
+        Navigation.popTo('HomeScreen')
     }
 
     _renderHeaderByStep = () => {
@@ -311,7 +324,7 @@ class Charge extends React.PureComponent {
                     />
                 </Surface>
             )
-        }else if (this.state.step == STEP.RESULT){
+        } else if (this.state.step == STEP.RESULT) {
             return (
                 <Surface containerHorizontalSpace rowAlignEnd>
                     <Button
@@ -320,7 +333,7 @@ class Charge extends React.PureComponent {
                         t={'go_back_home'}
                         onPress={this._handleGoHome}
                         enable={true}
-                        style={{marginBottom: 10}}
+                        style={{ marginBottom: 10 }}
                     />
                 </Surface>
             )

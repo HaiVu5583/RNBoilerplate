@@ -2,22 +2,26 @@ import React from 'react';
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView } from 'react-native'
+import { ImageBackground, ScrollView, Platform } from 'react-native'
 import { Surface, Toolbar, Text, Icon } from '~/src/themes/ThemeComponent'
 import Image from 'react-native-fast-image'
 import { COLORS } from '~/src/themes/common'
 import RowItem from '~/src/components/RowItem'
 import styles from './styles'
 import MaskBalanceView from '~/src/components/MaskBalanceView'
+import { Navigation } from 'react-native-navigation'
 
 class Account extends React.PureComponent {
     static get options() {
-        return {
-            animations: {
-                push: DEFAULT_PUSH_ANIMATION,
-                pop: DEFAULT_POP_ANIMATION
+        if (Platform.OS == 'android') {
+            return {
+                animations: {
+                    push: DEFAULT_PUSH_ANIMATION,
+                    pop: DEFAULT_POP_ANIMATION
+                }
             }
         }
+        return {}
     }
 
     constructor(props) {
@@ -63,7 +67,11 @@ class Account extends React.PureComponent {
                 <MaskBalanceView style={{ backgroundColor: COLORS.LIGHT_BLUE }} color={COLORS.BLACK} />
 
                 <Surface flex>
-                    <RowItem icon='bill-pay' textT={'account_statement'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='bill-pay' textT={'account_statement'} iconStyle={styles.rowIcon}
+                        onPress={() => {
+                            Navigation.pop(this.props.componentId)
+                        }}
+                    />
                     <RowItem icon='history' textT={'transaction_history'} iconStyle={styles.rowIcon} />
                     <RowItem icon='payment-method' textT={'payment_account'} iconStyle={styles.rowIcon} />
                     <RowItem icon='pass' textT={'change_password'} iconStyle={styles.rowIcon} />

@@ -21,6 +21,7 @@ export default class Toolbar extends React.PureComponent {
             return;
         }
         if (componentId) {
+            console.log('Component ID', this.props.componentId)
             Navigation.pop(this.props.componentId)
             return;
         }
@@ -60,7 +61,6 @@ export default class Toolbar extends React.PureComponent {
                 <Surface style={[toolbar.container, style]} themeable={false} />
             )
         }
-
         return (
             <Surface themeable={false}>
                 <Surface themeable={false} style={{ width: '100%', height: STATUS_BAR_HEIGHT }} />

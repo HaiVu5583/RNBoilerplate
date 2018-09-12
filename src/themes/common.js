@@ -8,6 +8,7 @@ export const DEVICE_WIDTH = window.width
 export const DEVICE_HEIGHT = window.height
 
 export const STATUS_BAR_HEIGHT = getStatusBarHeight(true)
+console.log('STATUS_BAR_HEIGHT', STATUS_BAR_HEIGHT)
 export const COLORS = {
     WHITE: '#FFFFFF',
     LIGHT_WHITE: 'rgba(255, 255, 255, 0.7)',

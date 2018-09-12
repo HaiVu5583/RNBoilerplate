@@ -41,20 +41,12 @@ class Authentication extends Component {
         }
         Navigation.setStackRoot('mainStack',
             {
-                sideMenu: {
-                    id: 'sideMenu',
-                    left: {
-                        component: {
-                            name: 'gigabankclient.Drawer',
-                        }
-                    },
-                    center: {
-                        component: {
-                            name: 'gigabankclient.HomeScreen',
-                        }
-                    },
+                component: {
+                    id: 'HomeScreen',
+                    name: 'gigabankclient.HomeScreen',
                 }
-            })
+            }
+        )
     }
 
     _handlePressRegister = () => {
