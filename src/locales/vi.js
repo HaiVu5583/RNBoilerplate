@@ -163,6 +163,8 @@ const language = {
     'call': 'Gọi điện',
     'phone_not_register': 'SĐT chưa đăng ký',
     'phone_not_register_content': 'Bạn chưa đăng ký tài khoản Gigabank. Hãy đăng ký tài khoản để sử dụng dịch vụ nhé.',
+    'err_invalid_password': 'Mật khẩu không đúng',
+
 
     // Charge Screen
     'charge_gigabank': 'Nạp tiền vào Gigabank',

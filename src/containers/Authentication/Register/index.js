@@ -8,13 +8,16 @@ import PopupConfirm from '~/src/components/PopupConfirm'
 import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
-import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground, StatusBar } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
 import { DIALOG_MODE } from '~/src/constants'
 import OTPCountdown from '~/src/containers/Authentication/OTPCountdown'
-
+import { logoStep3 } from '~/src/components/Asset/LogoStep3'
+import { logoStep1 } from '~/src/components/Asset/LogoStep1'
+import { logoStep2 } from '~/src/components/Asset/LogoStep2'
+import SvgUri from 'react-native-svg-uri'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -260,6 +263,32 @@ class Register extends Component {
         }
     }
 
+    _renderLogo = () => {
+        let logo = logoStep1
+        switch (this.state.step) {
+            case STEP.PHONE:
+                logo = logoStep1
+                break;
+            case STEP.OTP:
+                logo = logoStep2
+                break;
+            case STEP.PASSWORD:
+                logo = logoStep3
+                break;
+        }
+        return (
+            <Surface themeable={false} flex rowCenter>
+                <SvgUri
+                    width="140"
+                    height="30"
+                    svgXmlData={logo}
+                    style={{ left: -24 }}
+                />
+            </Surface>
+        )
+
+    }
+
     render() {
         const popupConfirmSendOTPContent = replacePatternString(I18n.t('confirm_send_otp'), formatPhoneNumber(this.state.phone))
         return (
@@ -268,7 +297,8 @@ class Register extends Component {
                     <Toolbar
                         onPressIconLeft={this._handlePressBackIcon}
                         themeable={false}
-                        iconStyle={{ color: 'white' }}
+                        iconStyle={{ color: COLORS.WHITE }}
+                        centerComponent={this._renderLogo}
                     />
                     <Surface space20 themeable={false} />
                     <PopupConfirm

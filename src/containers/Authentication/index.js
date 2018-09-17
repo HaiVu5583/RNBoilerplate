@@ -12,6 +12,11 @@ import { replacePatternString, formatPhoneNumber } from '~/src/utils'
 import Ripple from 'react-native-material-ripple'
 import FingerprintPopup from './FingerprintPopup'
 import FingerprintScanner from 'react-native-fingerprint-scanner'
+import { logoStep3 } from '~/src/components/Asset/LogoStep3'
+import SvgUri from 'react-native-svg-uri'
+import LoadingModal from '~/src/components/LoadingModal'
+import md5 from 'md5'
+import { signIn } from '~/src/store/actions/auth'
 
 class Authentication extends Component {
     static get options() {
@@ -30,23 +35,37 @@ class Authentication extends Component {
             phone: '',
             password: '',
             secure: true,
-            showFingerprint: false
+            showFingerprint: false,
+            loading: false,
+            errPass: ''
         }
     }
 
     _handlePressLogin = () => {
-        if (this.state.phone == 1) {
-            this.popupNotRegister.open()
-            return
-        }
-        Navigation.setStackRoot('mainStack',
-            {
-                component: {
-                    id: 'HomeScreen',
-                    name: 'gigabankclient.HomeScreen',
-                }
+        this.setState({ loading: true })
+        this.props.signIn(this.state.phone, md5(this.state.password), (err, data) => {
+            console.log('Err SignIn', err)
+            console.log('Data SignIn', data)
+            console.log('Data .Code', data.code)
+            if (data && data.user) {
+                this.setState({ loading: false })
+                Navigation.setStackRoot('mainStack',
+                    {
+                        component: {
+                            id: 'HomeScreen',
+                            name: 'gigabankclient.HomeScreen',
+                        }
+                    }
+                )
+            } else if (data && data.code && data.code == 1201) {
+                this.setState({ loading: false })
+                this.popupNotRegister.open()
+                return
+            } else if (data && data.code && data.code == 1104) {
+                this.setState({ loading: false, errPass: I18n.t('err_invalid_password') })
             }
-        )
+            this.setState({ loading: false })
+        })
     }
 
     _handlePressRegister = () => {
@@ -112,6 +131,7 @@ class Authentication extends Component {
                     barStyle="light-content"
                     translucent={true}
                 />
+                <LoadingModal visible={this.state.loading} />
                 <Toolbar transparent={true} />
                 <FingerprintPopup
                     ref={ref => this.fingerprintPopup = ref}
@@ -140,8 +160,11 @@ class Authentication extends Component {
                     <Surface space20 themeable={false} />
                     <Surface themeable={false} titleAndDescription>
                         <Surface themeable={false} rowCenter>
-                            <Text white title bold>GIGA</Text>
-                            <Text white title thin>BANK</Text>
+                            <SvgUri
+                                width="200"
+                                height="50"
+                                svgXmlData={logoStep3}
+                            />
                         </Surface>
                     </Surface>
                     <TextInput
@@ -159,9 +182,11 @@ class Authentication extends Component {
                         descriptionIcon={'GB_icon-28'}
                         placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
                         white
-                        onChangeText={text => this.setState({ password: text })}
+                        onChangeText={text => this.setState({ password: text, errPass: '' })}
                         value={this.state.password}
                         secureTextEntry={this.state.secure}
+                        hasError={!!this.state.errPass}
+                        errorText={this.state.errPass}
                     />
 
 
@@ -196,4 +221,4 @@ class Authentication extends Component {
         )
     }
 }
-export default connect(null, null)(Authentication)
+export default connect(null, { signIn })(Authentication)

@@ -15,6 +15,8 @@ import FeatureBlock from '~/src/containers/Home/FeatureBlock'
 import { getElevation } from '~/src/utils'
 import Drawer from 'react-native-drawer'
 import Sidebar from '~/src/containers/Drawer'
+import { logoStep3 } from '~/src/components/Asset/LogoStep3'
+import SvgUri from 'react-native-svg-uri'
 
 class Home extends Component {
     static get options() {
@@ -160,8 +162,11 @@ class Home extends Component {
     _renderLogo = () => {
         return (
             <Surface themeable={false} flex rowCenter>
-                <Text center h5 white bold>GIGA</Text>
-                <Text center h5 white thin>BANK</Text>
+                <SvgUri
+                    width="140"
+                    height="30"
+                    svgXmlData={logoStep3}
+                />
             </Surface>
         )
     }

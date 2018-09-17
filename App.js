@@ -9,6 +9,7 @@ import { persistStore } from 'redux-persist'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, COLORS } from '~/src/themes/common'
 import { languageSelector } from '~/src/store/selectors/ui'
 import I18n from '~/src/I18n'
+import { chainParse } from '~/src/utils'
 
 // const _getBottomTabIcon = (tabs, size, color) => {
 //     const promiseList = []
@@ -45,34 +46,11 @@ const _persist = (store) => {
 }
 
 const _setRoot = (bottomTabs) => {
-
-    // Navigation.setRoot({
-    //     root: {
-    //         stack: {
-    //             id: 'mainStack',
-    //             children: [
-    //                 {
-    //                     sideMenu: {
-    //                         id: 'sideMenu',
-    //                         left: {
-    //                             component: {
-    //                                 name: 'gigabankclient.Drawer',
-    //                             }
-    //                         },
-    //                         center: {
-    //                             component: {
-    //                                 name: 'gigabankclient.HomeScreen',
-    //                             }
-    //                         },
-    //                     }
-    //                 }
-    //             ]
-    //         },
-    //     }
-    // })
-
-
-
+    const state = store.getState()
+    let rootScreen = 'gigabankclient.Authentication'
+    if (chainParse(state, ['auth', 'userSession', 'sessionId'])){
+        rootScreen = 'gigabankclient.HomeScreen'
+    } 
     Navigation.setRoot({
         root: {
             stack: {
@@ -80,7 +58,7 @@ const _setRoot = (bottomTabs) => {
                 children: [
                     {
                         component: {
-                            name: 'gigabankclient.Authentication',
+                            name: rootScreen,
                         }
                     }
                 ]
