@@ -119,6 +119,15 @@ class MoneySource extends React.PureComponent {
 
     }
 
+    _handleAddCard = () => {
+        console.log('Pressing Add Card')
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.AddCard',
+            }
+        })
+    }
+
     _renderHeaderByStep = () => {
 
         let hintT = ''
@@ -243,6 +252,7 @@ class MoneySource extends React.PureComponent {
                             centerComponent={() => (
                                 <Text blue t='add_link_card' />
                             )}
+                            onPress={this._handleAddCard}
                             style={{ paddingLeft: 0, paddingRight: 0 }}
                         />
                     </Surface>
@@ -403,9 +413,9 @@ class MoneySource extends React.PureComponent {
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                     <Toolbar
                         themeable={false}
-                        iconStyle={{ color: 'white' }}
+                        iconStyle={{ color: COLORS.WHITE }}
                         titleT={titleT}
-                        titleStyle={{ color: 'white' }}
+                        titleStyle={{ color: COLORS.WHITE }}
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}
                     />
@@ -416,27 +426,6 @@ class MoneySource extends React.PureComponent {
                         <Surface themeable={false} space16 />
                         {this._renderBottomButtonByStep()}
                     </Surface>
-
-
-                    {/* <Surface style={{ height: 200 }}>
-                        <Surface containerHorizontalSpace flex rowAlignEnd>
-                            <Surface themeable={false} flex>
-                                <BankAccountItem
-                                    bankImage='https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1'
-                                    bankAccount='7813737375432'
-                                    expireDate='09/19'
-                                    active={true}
-                                />
-                                <Button round full
-                                    t={'add_card'}
-                                    onPress={this._handlePressAddCard}
-                                    enable={true}
-                                    gradientButton={true}
-                                    style={{marginBottom: 10}}
-                                />
-                            </Surface>
-                        </Surface>
-                    </Surface> */}
                 </ImageBackground>
             </Surface >
         )
