@@ -189,6 +189,10 @@ const language = {
     // Money Source
     'money_source': 'Nguồn tiền thanh toán',
     'money_source_hint': 'Tài khoản Gigabank và các tài khoản/\nthẻ ngân hàng đã liên kết',
+    'delete_linked_card': 'Huỷ liên kết thẻ',
+    'delete_linked_card_hint': 'Bạn muốn huỷ liên kết thẻ?',
+    'delete_card': 'Xoá thẻ',
+
     
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
