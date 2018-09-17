@@ -13,9 +13,8 @@ import Ripple from 'react-native-material-ripple'
 import FingerprintPopup from './FingerprintPopup'
 import FingerprintScanner from 'react-native-fingerprint-scanner'
 import { logoStep3 } from '~/src/components/Asset/LogoStep3'
-import { logoStep1 } from '~/src/components/Asset/LogoStep1'
-import { logoStep2 } from '~/src/components/Asset/LogoStep2'
 import SvgUri from 'react-native-svg-uri'
+import LoadingModal from '~/src/components/LoadingModal'
 
 class Authentication extends Component {
     static get options() {
@@ -34,7 +33,8 @@ class Authentication extends Component {
             phone: '',
             password: '',
             secure: true,
-            showFingerprint: false
+            showFingerprint: false,
+            loading: false
         }
     }
 
@@ -43,14 +43,19 @@ class Authentication extends Component {
             this.popupNotRegister.open()
             return
         }
-        Navigation.setStackRoot('mainStack',
-            {
-                component: {
-                    id: 'HomeScreen',
-                    name: 'gigabankclient.HomeScreen',
-                }
-            }
-        )
+        this.setState({ loading: true })
+        setTimeout(() => {
+            this.setState({ loading: false }, () => {
+                Navigation.setStackRoot('mainStack',
+                    {
+                        component: {
+                            id: 'HomeScreen',
+                            name: 'gigabankclient.HomeScreen',
+                        }
+                    }
+                )
+            })
+        }, 1000);
     }
 
     _handlePressRegister = () => {
@@ -116,6 +121,7 @@ class Authentication extends Component {
                     barStyle="light-content"
                     translucent={true}
                 />
+                <LoadingModal visible={this.state.loading} />
                 <Toolbar transparent={true} />
                 <FingerprintPopup
                     ref={ref => this.fingerprintPopup = ref}
