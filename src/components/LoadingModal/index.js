@@ -44,7 +44,7 @@ export default class LoadingModal extends Component {
                 onRequestClose={() => { }}>
                 <View style={styles.modalOverlay}>
                     <View style={styles.spinnerContainer}>
-                        <ActivityIndicator size={'large'} color={COLORS.BLUE}/>
+                        <ActivityIndicator size={Platform.OS=='android' ? 60 : 'large'} color={COLORS.BLUE}/>
                     </View>
 
                     {/* {!!canCancel && <TouchableOpacity onPress={this._onCancel} style={styles.webviewCancelButton}>
