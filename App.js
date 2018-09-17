@@ -71,6 +71,8 @@ const _setRoot = (bottomTabs) => {
     //     }
     // })
 
+
+
     Navigation.setRoot({
         root: {
             stack: {
@@ -78,11 +80,12 @@ const _setRoot = (bottomTabs) => {
                 children: [
                     {
                         component: {
-                            name: 'gigabankclient.Authentication'
+                            name: 'gigabankclient.Authentication',
                         }
                     }
                 ]
             },
+
         }
     })
 }

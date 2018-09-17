@@ -19,6 +19,7 @@
     "react-native-autolink": "^1.4.0",
     "react-native-camera": "^1.2.0",
     "react-native-device-info": "^0.22.4",
+    "react-native-drawer": "^2.5.0",
     "react-native-fast-image": "^4.0.14",
     "react-native-fingerprint-scanner": "^2.3.2",
     "react-native-i18n": "^2.0.15",

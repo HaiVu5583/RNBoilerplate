@@ -36,7 +36,11 @@ class Button extends Component {
         }
         for (let identifier in rest) {
             if (BUTTON_STYLES[identifier]) {
-                buttonThemeStyle.push(BUTTON_STYLES[identifier])
+                const { textStyle, ...restButtonStyle } = BUTTON_STYLES[identifier]
+                buttonThemeStyle.push(restButtonStyle)
+                if (textStyle) {
+                    textButtonStyle.push(textStyle)
+                }
             }
         }
         buttonThemeStyle.push(style)
@@ -67,8 +71,8 @@ class Button extends Component {
                 getElevation(0)
             )
             return (
-                <ButtonComponent ref={forwardedRef} 
-                    rippleColor={'white'} 
+                <ButtonComponent ref={forwardedRef}
+                    rippleColor={'white'}
                     style={rippleStyle}
                     {...rest}>
                     <LinearGradient

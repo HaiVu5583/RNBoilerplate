@@ -9,7 +9,7 @@ import { COLORS } from '~/src/themes/common'
 import LinearGradient from 'react-native-linear-gradient'
 import RowItem from '~/src/components/RowItem'
 
-class Drawer extends Component {
+export default class Drawer extends Component {
     static get options() {
         return {
             topBar: {
@@ -72,13 +72,14 @@ class Drawer extends Component {
     }
 
     _handleCloseDrawer = () => {
-        Navigation.mergeOptions('sideMenu', {
-            sideMenu: {
-                left: {
-                    visible: false
-                }
-            }
-        })
+        this.props.onPressClose && this.props.onPressClose()
+        // Navigation.mergeOptions('sideMenu', {
+        //     sideMenu: {
+        //         left: {
+        //             visible: false
+        //         }
+        //     }
+        // })
     }
 
     _renderLogo = () => {
@@ -91,13 +92,13 @@ class Drawer extends Component {
     }
 
     _handlePressFeature = (item) => {
-        Navigation.mergeOptions('sideMenu', {
-            sideMenu: {
-                left: {
-                    visible: false
-                }
-            }
-        })
+        // Navigation.mergeOptions('sideMenu', {
+        //     sideMenu: {
+        //         left: {
+        //             visible: false
+        //         }
+        //     }
+        // })
     }
 
     _renderFeatureItem = ({ item, index }) => {
@@ -142,4 +143,4 @@ class Drawer extends Component {
     }
 }
 
-export default connect(null, null, null, { withRef: true })(Drawer)
+// export default connect(null, null, null, { withRef: true })(Drawer)
