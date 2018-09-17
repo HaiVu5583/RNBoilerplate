@@ -103,7 +103,14 @@ export default class BankAccountItem extends React.PureComponent {
                         ...styles.iconContainer,
                     }}>
                         <Ripple onPress={() => {
-                            console.log('Press Delete')
+                            Animated.spring(this.translateX, {
+                                toValue: 0,
+                                useNativeDriver: true
+                            }).start(() => {
+                                this.animationRunning = false
+                                this.showingIconFunction = false
+                                onDelete && onDelete()
+                            })
                         }}
                             rippleColor={'white'}>
                             <Icon name='GB_icon-43' style={styles.icon} />
