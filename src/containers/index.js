@@ -71,7 +71,6 @@ function registerContainer(containerName, generator) {
 }
 
 export default registerScreens = (store) => {
-
     registerContainerWithRedux(`gigabankclient.HomeScreen`, () => require('~/src/containers/Home'), store)
     registerContainerWithRedux(`gigabankclient.SplashScreen`, () => require('~/src/containers/SplashScreen'), store)
     registerContainerWithRedux(`gigabankclient.AnimatedScreen`, () => require('~/src/containers/AnimatedScreen'), store)
@@ -85,4 +84,5 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.Drawer`, () => require('~/src/containers/Drawer'), store)
     registerContainerWithRedux(`gigabankclient.Charge`, () => require('~/src/containers/Charge'), store)
     registerContainerWithRedux(`gigabankclient.MoneySource`, () => require('~/src/containers/MoneySource'), store)
+    registerContainerWithRedux(`gigabankclient.AddCard`, () => require('~/src/containers/AddCard'), store)
 }

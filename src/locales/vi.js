@@ -192,7 +192,8 @@ const language = {
     'delete_linked_card': 'Huỷ liên kết thẻ',
     'delete_linked_card_hint': 'Bạn muốn huỷ liên kết thẻ?',
     'delete_card': 'Xoá thẻ',
-
+    'add_payment_card': 'Thêm thẻ thanh toán',
+    'add_card_hint': 'Chọn loại thẻ thanh toán bạn đang sở hữu',
     
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
