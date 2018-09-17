@@ -37,6 +37,12 @@ class Home extends Component {
         this.state = {
             activeBanner: 0
         }
+        this.bankItem = {
+            id: 2,
+            bankImage: 'https://banner2.kisspng.com/20171216/dcc/mastercard-icon-png-5a3556c6e81b34.5328243515134450629507.jpg',
+            bankAccount: '7813737375432',
+            expireDate: '09/19',
+        }
         this.bannerData = [
             'Banner 1', 'Banner 2', 'Banner 3', 'Banner 4', 'Banner 5'
         ]
@@ -90,7 +96,8 @@ class Home extends Component {
                 id: 2,
                 name: 'Tiết kiệm',
                 iconName: 'GB_icon-17',
-                iconColor: '#F7A03F'
+                iconColor: '#F7A03F',
+                onPress: this._handlePressSave
             },
             {
                 id: 3,
@@ -121,6 +128,14 @@ class Home extends Component {
             },
 
         ]
+    }
+
+    _handlePressSave = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.MoneySource',
+            }
+        })
     }
 
     _handlePressMoneyIn = () => {

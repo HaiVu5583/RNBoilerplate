@@ -84,4 +84,5 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.AccountScreen`, () => require('~/src/containers/Account'), store)
     registerContainerWithRedux(`gigabankclient.Drawer`, () => require('~/src/containers/Drawer'), store)
     registerContainerWithRedux(`gigabankclient.Charge`, () => require('~/src/containers/Charge'), store)
+    registerContainerWithRedux(`gigabankclient.MoneySource`, () => require('~/src/containers/MoneySource'), store)
 }
