@@ -12,3 +12,5 @@ export const invokeCallback = (callback, ...args) => ({
 
 export const openDrawer = () => ({ type: 'app/openDrawer' })
 export const closeDrawer = () => ({ type: 'app/closeDrawer' })
+
+export const logout = () => ({type: 'app/logout'})

@@ -36,34 +36,36 @@ class Authentication extends Component {
             password: '',
             secure: true,
             showFingerprint: false,
-            loading: false
+            loading: false,
+            errPass: ''
         }
     }
 
     _handlePressLogin = () => {
-        if (this.state.phone == 1) {
-            this.popupNotRegister.open()
-            return
-        }
         this.setState({ loading: true })
-        // md5(this.state.)
-        this.props.signIn(this.state.phone, '25d55ad283aa400af464c76d713c07ad', (err, data) => {
+        this.props.signIn(this.state.phone, md5(this.state.password), (err, data) => {
             console.log('Err SignIn', err)
             console.log('Data SignIn', data)
+            console.log('Data .Code', data.code)
+            if (data && data.user) {
+                this.setState({ loading: false })
+                Navigation.setStackRoot('mainStack',
+                    {
+                        component: {
+                            id: 'HomeScreen',
+                            name: 'gigabankclient.HomeScreen',
+                        }
+                    }
+                )
+            } else if (data && data.code && data.code == 1201) {
+                this.setState({ loading: false })
+                this.popupNotRegister.open()
+                return
+            } else if (data && data.code && data.code == 1104) {
+                this.setState({ loading: false, errPass: I18n.t('err_invalid_password') })
+            }
             this.setState({ loading: false })
         })
-        // setTimeout(() => {
-        //     this.setState({ loading: false }, () => {
-        //         Navigation.setStackRoot('mainStack',
-        //             {
-        //                 component: {
-        //                     id: 'HomeScreen',
-        //                     name: 'gigabankclient.HomeScreen',
-        //                 }
-        //             }
-        //         )
-        //     })
-        // }, 1000);
     }
 
     _handlePressRegister = () => {
@@ -180,9 +182,11 @@ class Authentication extends Component {
                         descriptionIcon={'GB_icon-28'}
                         placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
                         white
-                        onChangeText={text => this.setState({ password: text })}
+                        onChangeText={text => this.setState({ password: text, errPass: '' })}
                         value={this.state.password}
                         secureTextEntry={this.state.secure}
+                        hasError={!!this.state.errPass}
+                        errorText={this.state.errPass}
                     />
 
 

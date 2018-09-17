@@ -11,6 +11,10 @@ export const requestSignIn = createRequestSaga({
     success: [
         (data) => {
             console.log('Data SignIn Saga', data)
+            if (data && data.user) {
+                const { args, ...rest } = data
+                return saveUserData(rest)
+            }
             return noop('')
         }
     ]

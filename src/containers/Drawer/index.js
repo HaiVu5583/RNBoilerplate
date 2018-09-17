@@ -10,8 +10,9 @@ import LinearGradient from 'react-native-linear-gradient'
 import RowItem from '~/src/components/RowItem'
 import { logoStep3 } from '~/src/components/Asset/LogoStep3'
 import SvgUri from 'react-native-svg-uri'
+import { logout } from '~/src/store/actions/common'
 
-export default class Drawer extends Component {
+class Drawer extends Component {
     static get options() {
         return {
             topBar: {
@@ -58,7 +59,7 @@ export default class Drawer extends Component {
             {
                 id: 7,
                 icon: 'account-balance',
-                name: 'Feature 7'
+                name: 'Logout'
             }
         ]
     }
@@ -75,13 +76,6 @@ export default class Drawer extends Component {
 
     _handleCloseDrawer = () => {
         this.props.onPressClose && this.props.onPressClose()
-        // Navigation.mergeOptions('sideMenu', {
-        //     sideMenu: {
-        //         left: {
-        //             visible: false
-        //         }
-        //     }
-        // })
     }
 
     _renderLogo = () => {
@@ -97,13 +91,16 @@ export default class Drawer extends Component {
     }
 
     _handlePressFeature = (item) => {
-        // Navigation.mergeOptions('sideMenu', {
-        //     sideMenu: {
-        //         left: {
-        //             visible: false
-        //         }
-        //     }
-        // })
+        if (item.id == 7) {
+            this.props.logout()
+            Navigation.setStackRoot('mainStack',
+                {
+                    component: {
+                        name: 'gigabankclient.Authentication',
+                    }
+                }
+            )
+        }
     }
 
     _renderFeatureItem = ({ item, index }) => {
@@ -148,4 +145,4 @@ export default class Drawer extends Component {
     }
 }
 
-// export default connect(null, null, null, { withRef: true })(Drawer)
+export default connect(null, { logout }, null, { withRef: true })(Drawer)

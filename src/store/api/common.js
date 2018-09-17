@@ -10,8 +10,6 @@ const hashSHA256 = (strData) => {
 }
 
 const resolveResponse = async (res, extractHeaders) => {
-    console.log('Res', res)
-    console.log('extractHeaders', extractHeaders)
     let headerObj = {}
     if (extractHeaders) {
         for (let i = 0; i < extractHeaders.length; i++) {
@@ -22,7 +20,6 @@ const resolveResponse = async (res, extractHeaders) => {
     try {
         let jsonBody = JSON.parse(responseText)
         if (jsonBody && typeof (jsonBody) == 'object') {
-            checkSystemError(res, jsonBody)
             if (headerObj && Object.keys(headerObj).length > 0) {
                 return {
                     ...headerObj,
@@ -88,7 +85,6 @@ export const post = (url, body, api, extractHeaders) => {
         'X-VERSION': BUILD_INFO['X-VERSION'],
         'X-UNIQUE-DEVICE': 'FAKE_DEVICE',
         'X-LANGUAGE': 'vi',
-
     }
     let timeStamp = Math.floor((new Date().getTime()) / 1000)
     let xAuthStr = (url) + sendHeader['X-UNIQUE-DEVICE'] + sendHeader['X-DATA-VERSION'] + sendHeader['X-VERSION']
@@ -103,12 +99,12 @@ export const post = (url, body, api, extractHeaders) => {
         method: 'POST',
         credentials: 'omit',
         headers: {
-            // 'Content-Type': 'application/json',
-            // 'Accept': 'application/json',
-            // 'X-AUTH': xAuth,
-            // 'X-TIMESTAMP': timeStamp,
-            // // 'X-NO-SESSION': getSessiauthonFromCookie(sendHeader['Cookie']),
-            // ...sendHeader
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'X-AUTH': xAuth,
+            'X-TIMESTAMP': timeStamp,
+            // 'X-NO-SESSION': getSessiauthonFromCookie(sendHeader['Cookie']),
+            ...sendHeader
         },
         body: stringifyBody
     })
