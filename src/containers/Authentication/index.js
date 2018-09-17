@@ -15,6 +15,8 @@ import FingerprintScanner from 'react-native-fingerprint-scanner'
 import { logoStep3 } from '~/src/components/Asset/LogoStep3'
 import SvgUri from 'react-native-svg-uri'
 import LoadingModal from '~/src/components/LoadingModal'
+import md5 from 'md5'
+import { signIn } from '~/src/store/actions/auth'
 
 class Authentication extends Component {
     static get options() {
@@ -44,18 +46,24 @@ class Authentication extends Component {
             return
         }
         this.setState({ loading: true })
-        setTimeout(() => {
-            this.setState({ loading: false }, () => {
-                Navigation.setStackRoot('mainStack',
-                    {
-                        component: {
-                            id: 'HomeScreen',
-                            name: 'gigabankclient.HomeScreen',
-                        }
-                    }
-                )
-            })
-        }, 1000);
+        // md5(this.state.)
+        this.props.signIn(this.state.phone, '25d55ad283aa400af464c76d713c07ad', (err, data) => {
+            console.log('Err SignIn', err)
+            console.log('Data SignIn', data)
+            this.setState({ loading: false })
+        })
+        // setTimeout(() => {
+        //     this.setState({ loading: false }, () => {
+        //         Navigation.setStackRoot('mainStack',
+        //             {
+        //                 component: {
+        //                     id: 'HomeScreen',
+        //                     name: 'gigabankclient.HomeScreen',
+        //                 }
+        //             }
+        //         )
+        //     })
+        // }, 1000);
     }
 
     _handlePressRegister = () => {
@@ -209,4 +217,4 @@ class Authentication extends Component {
         )
     }
 }
-export default connect(null, null)(Authentication)
+export default connect(null, { signIn })(Authentication)
