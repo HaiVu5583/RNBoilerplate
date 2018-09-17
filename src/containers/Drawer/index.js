@@ -8,6 +8,8 @@ import { connect } from 'react-redux'
 import { COLORS } from '~/src/themes/common'
 import LinearGradient from 'react-native-linear-gradient'
 import RowItem from '~/src/components/RowItem'
+import { logoStep3 } from '~/src/components/Asset/LogoStep3'
+import SvgUri from 'react-native-svg-uri'
 
 export default class Drawer extends Component {
     static get options() {
@@ -85,8 +87,11 @@ export default class Drawer extends Component {
     _renderLogo = () => {
         return (
             <Surface themeable={false} flex rowCenter>
-                <Text center h5 white bold>GIGA</Text>
-                <Text center h5 white thin>BANK</Text>
+                <SvgUri
+                    width="90"
+                    height="40"
+                    svgXmlData={logoStep3}
+                />
             </Surface>
         )
     }

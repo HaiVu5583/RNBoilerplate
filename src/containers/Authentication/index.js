@@ -12,6 +12,10 @@ import { replacePatternString, formatPhoneNumber } from '~/src/utils'
 import Ripple from 'react-native-material-ripple'
 import FingerprintPopup from './FingerprintPopup'
 import FingerprintScanner from 'react-native-fingerprint-scanner'
+import { logoStep3 } from '~/src/components/Asset/LogoStep3'
+import { logoStep1 } from '~/src/components/Asset/LogoStep1'
+import { logoStep2 } from '~/src/components/Asset/LogoStep2'
+import SvgUri from 'react-native-svg-uri'
 
 class Authentication extends Component {
     static get options() {
@@ -140,8 +144,11 @@ class Authentication extends Component {
                     <Surface space20 themeable={false} />
                     <Surface themeable={false} titleAndDescription>
                         <Surface themeable={false} rowCenter>
-                            <Text white title bold>GIGA</Text>
-                            <Text white title thin>BANK</Text>
+                            <SvgUri
+                                width="200"
+                                height="50"
+                                svgXmlData={logoStep3}
+                            />
                         </Surface>
                     </Surface>
                     <TextInput
