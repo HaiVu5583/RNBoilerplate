@@ -77,7 +77,6 @@ class MoneySource extends React.PureComponent {
     }
 
     _handlePressBankItem = (item) => {
-        console.log('Press Item', item)
         if (item.id != this.state.selecteCard) {
             this.setState({ selecteCard: item.id })
         }

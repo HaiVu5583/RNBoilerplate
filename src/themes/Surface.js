@@ -10,15 +10,16 @@ class ThemeView extends Component {
     render() {
         const { forwardedRef, children, style, theme, themeable = true, text, icon, elevation, ...rest } = this.props
         const themeStyle = getTheme(theme)
-        const viewThemeStyle = themeable ? [{ backgroundColor: themeStyle.surfaceColor }, style] : [style]
+        const viewThemeStyle = themeable ? [{ backgroundColor: themeStyle.surfaceColor }] : []
         for (let identifier in rest) {
             if (SURFACE_STYLES[identifier] && rest[identifier]) {
                 viewThemeStyle.push(SURFACE_STYLES[identifier])
             }
         }
-        if (elevation){
+        if (elevation) {
             viewThemeStyle.push(getElevation(elevation))
         }
+        viewThemeStyle.push(style)
         return (
             <View ref={forwardedRef} {...rest}
                 style={viewThemeStyle}
