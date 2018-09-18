@@ -234,12 +234,13 @@ class Home extends Component {
         console.log('Status Bar HEI render', -STATUS_BAR_HEIGHT)
 
         return (
-            < Drawer
+            <Drawer
                 type="overlay"
-                content={< Sidebar onPressClose={() => {
-                    this._drawer && this._drawer.close()
-                }
-                } />}
+                content={<Sidebar 
+                    onPressClose={() => {
+                        this._drawer && this._drawer.close()
+                    }}
+                />}
                 tapToClose={true}
                 acceptPan={true}
                 captureGestures={true}

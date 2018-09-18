@@ -42,11 +42,19 @@ class Authentication extends Component {
     }
 
     _handlePressLogin = () => {
+        Navigation.setStackRoot('mainStack',
+            {
+                component: {
+                    id: 'HomeScreen',
+                    name: 'gigabankclient.HomeScreen',
+                }
+            }
+        )
+        return
         this.setState({ loading: true })
         this.props.signIn(this.state.phone, md5(this.state.password), (err, data) => {
             console.log('Err SignIn', err)
             console.log('Data SignIn', data)
-            console.log('Data .Code', data.code)
             if (data && data.user) {
                 this.setState({ loading: false })
                 Navigation.setStackRoot('mainStack',
