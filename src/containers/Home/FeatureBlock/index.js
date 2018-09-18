@@ -43,7 +43,7 @@ export default class FeatureBlock extends Component {
                     keyExtractor={item => item.id + ''}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
-                    style={{ paddingLeft: SIZES.CONTAINER_HORIZONTAL_SPACE10_AND_MARGIN }}
+                    contentContainerStyle={{ paddingHorizontal: SIZES.CONTAINER_HORIZONTAL_SPACE10_AND_MARGIN }}
                 />
             </Surface>
         )
