@@ -191,6 +191,36 @@ const insertSpace = (string, index) => {
     return insertString(string, index, ' ');
 }
 
+const isValidPhoneNumerWithCountryCode = (str) => {
+    if (!str) return false
+    if (str.length < 9 || str.length > 13) return false
+    if (str[0] == 0 && str.length < 10) return false
+    const START_VALID_PHONE_NUMBER = I18n.t('START_VALID_PHONE_NUMBER')
+    let validStart = [
+        ...START_VALID_PHONE_NUMBER.map(number => '84' + number),
+        ...START_VALID_PHONE_NUMBER.map(number => '\\+84' + number)
+    ]
+
+    let joinCondition = validStart.join('|')
+    let phoneRegexStr = '^(' + joinCondition + ')\\\d{7}$'
+    let phoneRegex = new RegExp(phoneRegexStr)
+    return phoneRegex.test(str)
+}
+
+const isValidPhoneNumerWithoutZero = (str) => {
+    if (!str) return false
+    if (str.length < 9 || str.length > 13) return false
+    if (str[0] == 0 && str.length < 10) return false
+    const START_VALID_PHONE_NUMBER = I18n.t('START_VALID_PHONE_NUMBER')
+    let validStart = [
+        ...START_VALID_PHONE_NUMBER,
+    ]
+    let joinCondition = validStart.join('|')
+    let phoneRegexStr = '^(' + joinCondition + ')\\\d{7}$'
+    let phoneRegex = new RegExp(phoneRegexStr)
+    return phoneRegex.test(str)
+}
+
 export const formatPhoneNumber = (phoneNumber) => {
     if (!phoneNumber) return '';
     let newPhoneNumber = phoneNumber.toString().replace(/ /g, '')
