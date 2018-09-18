@@ -80,7 +80,8 @@ const _setRoot = (bottomTabs) => {
                 children: [
                     {
                         component: {
-                            name: 'gigabankclient.Authentication',
+                            // name: 'gigabankclient.Authentication',
+                            name: 'gigabankclient.AddCard'
                         }
                     }
                 ]
