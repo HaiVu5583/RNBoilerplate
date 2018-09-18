@@ -49,8 +49,12 @@ export const SIZES = {
     DIALOG_BUTTON: 42,
     DIALOG_BUTTON_FIELD: 64,
     DIALOG_SPACE: 28,
-    BLOCK_TITLE_HEIGHT: 40
+    BLOCK_TITLE_HEIGHT: 40,
+    IMAGE_BACKGROUND_HEIGHT: 180,
+    BANNER_WIDTH: DEVICE_WIDTH - 52,
+    BANNER_HEIGHT: 128
 }
+
 // console.log('SIZES', SIZES)
 export const ASSETS = {
     MAIN_BACKGROUND: require('~/src/assets/background.jpg'),
