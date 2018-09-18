@@ -8,7 +8,7 @@ import I18n from '~/src/I18n'
 import { ASSETS, COLORS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import { DIALOG_MODE } from '~/src/constants'
 import PopupConfirm from '~/src/components/PopupConfirm'
-import { replacePatternString, formatPhoneNumber } from '~/src/utils'
+import { replacePatternString, formatPhoneNumber, isValidPhoneNumer } from '~/src/utils'
 import Ripple from 'react-native-material-ripple'
 import FingerprintPopup from './FingerprintPopup'
 import FingerprintScanner from 'react-native-fingerprint-scanner'
@@ -37,20 +37,16 @@ class Authentication extends Component {
             secure: true,
             showFingerprint: false,
             loading: false,
-            errPass: ''
+            errPass: '',
+            errPhone: ''
         }
     }
 
     _handlePressLogin = () => {
-        Navigation.setStackRoot('mainStack',
-            {
-                component: {
-                    id: 'HomeScreen',
-                    name: 'gigabankclient.HomeScreen',
-                }
-            }
-        )
-        return
+        if (!isValidPhoneNumer(this.state.phone)) {
+            this.setState({ errPhone: I18n.t('err_invalid_phone_number') })
+            return
+        }
         this.setState({ loading: true })
         this.props.signIn(this.state.phone, md5(this.state.password), (err, data) => {
             console.log('Err SignIn', err)
@@ -183,8 +179,10 @@ class Authentication extends Component {
                         keyboardType='number-pad'
                         value={this.state.phone}
                         iconRight={'GB_icon-31'}
-                        onPressIconRight={() => this.setState({ phone: '' })}
+                        onPressIconRight={() => this.setState({ phone: '', errPhone: '' })}
                         showIconRight={(this.state.phone && this.state.phone.trim())}
+                        hasError={!!this.state.errPhone}
+                        errorText={this.state.errPhone}
                     />
                     <TextInput
                         descriptionIcon={'GB_icon-28'}
