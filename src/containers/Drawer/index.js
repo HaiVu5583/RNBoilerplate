@@ -92,6 +92,7 @@ class Drawer extends Component {
 
     _handlePressFeature = (item) => {
         if (item.id == 7) {
+            this.props.onPressClose && this.props.onPressClose()
             this.props.logout()
             Navigation.setStackRoot('mainStack',
                 {

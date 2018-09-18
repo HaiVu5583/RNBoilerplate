@@ -14,5 +14,10 @@ export default {
     },
     block: {
         margin: 8
+    },
+    avatar: {
+        width: 64, 
+        height: 64, 
+        borderRadius: 32
     }
 }

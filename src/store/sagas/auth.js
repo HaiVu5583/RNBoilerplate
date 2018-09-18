@@ -20,11 +20,16 @@ export const requestSignIn = createRequestSaga({
     ]
 })
 
+export const requestSignUp = createRequestSaga({
+    request: api.auth.signUp,
+    key: 'auth/signUp',
+})
 
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
         takeLatest('auth/signIn', requestSignIn),
+        takeLatest('auth/signUp', requestSignUp),
     ])
 }
 

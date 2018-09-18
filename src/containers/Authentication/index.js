@@ -8,7 +8,7 @@ import I18n from '~/src/I18n'
 import { ASSETS, COLORS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import { DIALOG_MODE } from '~/src/constants'
 import PopupConfirm from '~/src/components/PopupConfirm'
-import { replacePatternString, formatPhoneNumber } from '~/src/utils'
+import { replacePatternString, formatPhoneNumber, isValidPhoneNumer } from '~/src/utils'
 import Ripple from 'react-native-material-ripple'
 import FingerprintPopup from './FingerprintPopup'
 import FingerprintScanner from 'react-native-fingerprint-scanner'
@@ -37,16 +37,22 @@ class Authentication extends Component {
             secure: true,
             showFingerprint: false,
             loading: false,
-            errPass: ''
+            errPass: '',
+            errPhone: ''
         }
     }
 
     _handlePressLogin = () => {
+        console.log('Press Login State', this.state)
+        const phoneNumber = this.state.phone.replace(/\s/g, '')
+        if (!isValidPhoneNumer(phoneNumber)) {
+            this.setState({ errPhone: I18n.t('err_invalid_phone_number') })
+            return
+        }
         this.setState({ loading: true })
-        this.props.signIn(this.state.phone, md5(this.state.password), (err, data) => {
+        this.props.signIn(phoneNumber, md5(this.state.password), (err, data) => {
             console.log('Err SignIn', err)
             console.log('Data SignIn', data)
-            console.log('Data .Code', data.code)
             if (data && data.user) {
                 this.setState({ loading: false })
                 Navigation.setStackRoot('mainStack',
@@ -173,10 +179,12 @@ class Authentication extends Component {
                         white
                         onChangeText={text => this.setState({ phone: text })}
                         keyboardType='number-pad'
-                        value={this.state.phone}
+                        value={formatPhoneNumber(this.state.phone)}
                         iconRight={'GB_icon-31'}
-                        onPressIconRight={() => this.setState({ phone: '' })}
+                        onPressIconRight={() => this.setState({ phone: '', errPhone: '' })}
                         showIconRight={(this.state.phone && this.state.phone.trim())}
+                        hasError={!!this.state.errPhone}
+                        errorText={this.state.errPhone}
                     />
                     <TextInput
                         descriptionIcon={'GB_icon-28'}
