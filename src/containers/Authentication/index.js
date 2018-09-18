@@ -43,12 +43,14 @@ class Authentication extends Component {
     }
 
     _handlePressLogin = () => {
-        if (!isValidPhoneNumer(this.state.phone)) {
+        console.log('Press Login State', this.state)
+        const phoneNumber = this.state.phone.replace(/\s/g, '')
+        if (!isValidPhoneNumer(phoneNumber)) {
             this.setState({ errPhone: I18n.t('err_invalid_phone_number') })
             return
         }
         this.setState({ loading: true })
-        this.props.signIn(this.state.phone, md5(this.state.password), (err, data) => {
+        this.props.signIn(phoneNumber, md5(this.state.password), (err, data) => {
             console.log('Err SignIn', err)
             console.log('Data SignIn', data)
             if (data && data.user) {
@@ -177,7 +179,7 @@ class Authentication extends Component {
                         white
                         onChangeText={text => this.setState({ phone: text })}
                         keyboardType='number-pad'
-                        value={this.state.phone}
+                        value={formatPhoneNumber(this.state.phone)}
                         iconRight={'GB_icon-31'}
                         onPressIconRight={() => this.setState({ phone: '', errPhone: '' })}
                         showIconRight={(this.state.phone && this.state.phone.trim())}
