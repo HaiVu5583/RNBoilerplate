@@ -27,5 +27,6 @@ export default {
         marginTop: 30,
         marginLeft: 65,
         fontSize: 18,
+        color: '#233C63'
     }
 }

@@ -135,26 +135,22 @@ class AddCard extends Component {
         let itemCardStyle = {}
         let itemCardImageStyle = {}
         let itemWidth = (width - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2 - 20*2)/3
-
-        // width 375
-        // if (width/3 >= 125) {
-            itemCardContainerStyle = {
-                width: itemWidth,
-                height: 95,
-                marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
-                // marginRight: 15,
-            }
-            itemCardStyle = {
-                width: itemWidth,
-                height: itemWidth/1.35,
-                borderRadius: 17,
-                // marginTop: 20
-            }
+        
+        itemCardContainerStyle = {
+            width: itemWidth,
+            height: 95,
+            marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+        }
+        itemCardStyle = {
+            width: itemWidth,
+            height: itemWidth/1.35,
+            borderRadius: 17,
+        }
         itemCardImageStyle = {
-            width: itemWidth - 6,
-            height: (itemWidth - 6)/1.35,
+            width: itemWidth - 7,
+            height: (itemWidth - 7)/1.35,
             borderRadius: 15,
-            marginLeft: 3,
+            marginLeft: 3.5,
         }
 
         if (index != this.numberItems - 1) {
@@ -183,29 +179,26 @@ class AddCard extends Component {
         }
     }
 
-    _renderItemFlatList2 = (item, index) => {
+    _renderItemFlatListDomesticCard = (item, index) => {
         let itemCardContainerStyle = {}
         let itemCardStyle = {}
         let itemCardImageStyle = {}
         let itemWidth = (width - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2 - 20*2)/3
-
-        // width 375
-        // if (width/3 >= 125) {
-            itemCardContainerStyle = {
-                width: itemWidth,
-                height: 95,
-            }
-            itemCardStyle = {
-                width: itemWidth,
-                height: itemWidth/1.35,
-                borderRadius: 17,
-                // marginTop: 20
-            }
+        
+        itemCardContainerStyle = {
+            width: itemWidth,
+            height: 95,
+        }
+        itemCardStyle = {
+            width: itemWidth,
+            height: itemWidth/1.35,
+            borderRadius: 17,
+        }
         itemCardImageStyle = {
-            width: itemWidth - 6,
-            height: (itemWidth - 6)/1.35,
+            width: itemWidth - 7,
+            height: (itemWidth - 7)/1.35,
             borderRadius: 15,
-            marginLeft: 3,
+            marginLeft: 3.5,
         }
         if (index%3 == 0) {
             return (
@@ -216,7 +209,7 @@ class AddCard extends Component {
                     <ItemCard iconBank = {item.iconBank}
                         itemCardStyle = {itemCardStyle}
                         itemCardImageStyle = {itemCardImageStyle}
-                        colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.05)']}
+                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
                     />
                 </View>
             )
@@ -227,7 +220,7 @@ class AddCard extends Component {
                     <ItemCard iconBank = {item.iconBank}
                         itemCardStyle = {itemCardStyle}
                         itemCardImageStyle = {itemCardImageStyle}
-                        colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.05)']}
+                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
                     />
                 </View>
             )
@@ -238,7 +231,7 @@ class AddCard extends Component {
                     <ItemCard iconBank = {item.iconBank}
                         itemCardStyle = {itemCardStyle}
                         itemCardImageStyle = {itemCardImageStyle}
-                        colors={['rgba(0,0,0,0.1)', 'rgba(0,0,0,0.05)']}
+                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
                     />
                 </View>
             )
@@ -296,7 +289,7 @@ class AddCard extends Component {
                         <Surface themeable={false} space16 />
                     </Surface>
                     <Surface flex>
-                        <Text style={styles.internationalCard}>THẺ THANH TOÁN QUỐC TẾ</Text>
+                        <Text style={styles.internationalCard} t={'international_card'} />
                         <View style={styles.actionRowFlatList}>
                             <FlatList
                                 data={items}
@@ -312,11 +305,11 @@ class AddCard extends Component {
                                 }}>
                             </FlatList>
                         </View>
-                        <Text style={styles.internationalCard}>THẺ THANH TOÁN NỘI ĐỊA</Text>
+                        <Text style={styles.internationalCard} t={'domestic_card'} />
                         <View style={{marginTop: 30}}>
                             <FlatList
                                     data={items}
-                                    renderItem={({item, index}) => this._renderItemFlatList2(item, index)}
+                                    renderItem={({item, index}) => this._renderItemFlatListDomesticCard(item, index)}
                                     showsHorizontalScrollIndicator={false}
                                     keyExtractor={(item, index) => item.id + '_' + index}
                                     bounces={false}

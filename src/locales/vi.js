@@ -196,7 +196,15 @@ const language = {
     'delete_card': 'Xoá thẻ',
     'add_payment_card': 'Thêm thẻ thanh toán',
     'add_card_hint': 'Chọn loại thẻ thanh toán bạn đang sở hữu',
-    
+    'international_card': 'THẺ THANH TOÁN QUỐC TẾ',
+    'domestic_card': 'THẺ THANH TOÁN NỘI ĐỊA',
+    'add_card_result': 'Kết quả thêm thẻ',
+    'add_card_success': 'THÊM THẺ THÀNH CÔNG',
+    'add_card_success_1': 'Bạn đã thêm thẻ thành công.',
+    'list_back': 'TRỞ LẠI DANH SÁCH',
+    'add_card_fail': 'THÊM THẺ THẤT BẠI',
+    'add_card_fail_1': 'Thông tin thẻ không chính xác. Vui lòng thử lại sau.',
+
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
     'change_location_title2': 'Vui lòng bật tính năng định vị để Clingme có thể xác định được địa điểm hiện tại của bạn.',
@@ -234,8 +242,8 @@ const language = {
     'forgot_transaction_password': 'Quên mật khẩu giao dịch',
     'hint_input_new_password': 'Tạo mật khẩu giao dịch gồm 6 chữ số',
     'hint_input_retype_new_password': 'Xác nhận mật khẩu giao dịch',
-    'international_card': 'Thẻ quốc tế',
-    'domestic_card': 'Thẻ nội địa',
+    // 'international_card': 'Thẻ quốc tế',
+    // 'domestic_card': 'Thẻ nội địa',
     'hint_input_phone_create_transaction_password': 'Số điện thoại này được sử dụng để đặt lại mật khẩu giao dịch khi cần.',
     'input_phone': 'Nhập số điện thoại',
     'create_transaction_password': 'Tạo mật khẩu giao dịch',

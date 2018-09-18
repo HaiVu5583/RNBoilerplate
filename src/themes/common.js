@@ -353,6 +353,14 @@ export const SURFACE_STYLES = {
         width: '100%',
         height: 8
     },
+    space30: {
+        width: '100%',
+        height: 30
+    },
+    space35: {
+        width: '100%',
+        height: 35
+    },
     titleAndDescription: {
         height: SIZES.TITLE_DESCRIPTION,
     },
