@@ -118,7 +118,6 @@ class AddCard extends Component {
     }
 
     render() {
-        console.log('Status Bar HEI render', -STATUS_BAR_HEIGHT)
 
         return (
             <Surface themeable={false} flex>

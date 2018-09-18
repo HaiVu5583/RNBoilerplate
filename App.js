@@ -3,14 +3,13 @@ import registerScreens from '~/src/containers'
 import configStore from '~/src/store/configStore'
 import Icon from '~/src/components/FontIcon'
 import { YellowBox } from 'react-native'
-const store = configStore()
 import { BOTTOM_TABS } from '~/src/constants'
 import { persistStore } from 'redux-persist'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, COLORS } from '~/src/themes/common'
 import { languageSelector } from '~/src/store/selectors/ui'
 import I18n from '~/src/I18n'
 import { chainParse } from '~/src/utils'
-
+export const store = configStore()
 // const _getBottomTabIcon = (tabs, size, color) => {
 //     const promiseList = []
 //     for (let tab of tabs) {

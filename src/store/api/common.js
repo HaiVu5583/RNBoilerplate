@@ -2,6 +2,8 @@ import SHA256 from 'crypto-js/sha256'
 import CryptoJS from 'crypto-js'
 import { BUILD_INFO } from '~/src/constants'
 import { API_URL, SECRET_KEY } from './constants'
+import { store } from '~/App'
+import { chainParse } from '~/src/utils'
 
 const convertParamToPath = (data, encode = false) => data ? Object.keys(data).map((key) => key + '=' + (encode ? encodeURIComponent(data[key]) : data[key])).join('&') : ''
 
@@ -36,21 +38,14 @@ const resolveResponse = async (res, extractHeaders) => {
 }
 
 export const get = (url, params, api, extractHeaders) => {
+    const state = store.getState()
+    const accessToken = chainParse(state, ['auth', 'accessToken'])
     let sendHeader = {
         'X-DATA-VERSION': BUILD_INFO['X-DATA-VERSION'],
         'X-VERSION': BUILD_INFO['X-VERSION'],
-        'X-UNIQUE-DEVICE': 'FAKE_DEVICE'
+        'X-UNIQUE-DEVICE': 'FAKE_DEVICE',
+        'Authorization': `Bearer ${accessToken}`
     }
-    // delete sendHeader['X-SESSION']
-    // let cookieFromRedux = ClingmeUtils.getCookieFromRedux()
-    // sendHeader['Cookie'] = cookieFromRedux || sendHeader['Cookie']
-    // sendHeader['X-DATA-VERSION'] = X_DATA_VERSION
-    // sendHeader['X-LANGUAGE'] = 'vi'
-    // sendHeader['X-LOCATION'] = getHeaderLocation()
-    // if (isEmptyLocationString(sendHeader['X-LOCATION'])) {
-    //     sendHeader['X-LOCATION'] = getDefaultLocation()
-    // }
-    // sendHeader['IS-OPEN-GPS'] = isOpenGps()
 
     if (!api) {
         api = API_URL
@@ -77,6 +72,8 @@ export const get = (url, params, api, extractHeaders) => {
 }
 
 export const post = (url, body, api, extractHeaders) => {
+    const state = store.getState()
+    const accessToken = chainParse(state, ['auth', 'accessToken'])
 
     // SHA256(X-DATA-VERSION + X-VERSION+ X-TIMESTAMP+SecretKey+Json body)
     let stringifyBody = JSON.stringify(body)
@@ -85,6 +82,7 @@ export const post = (url, body, api, extractHeaders) => {
         'X-VERSION': BUILD_INFO['X-VERSION'],
         'X-UNIQUE-DEVICE': 'FAKE_DEVICE',
         'X-LANGUAGE': 'vi',
+        'Authorization': `Bearer ${accessToken}`
     }
     let timeStamp = Math.floor((new Date().getTime()) / 1000)
     let xAuthStr = (url) + sendHeader['X-UNIQUE-DEVICE'] + sendHeader['X-DATA-VERSION'] + sendHeader['X-VERSION']
