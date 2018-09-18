@@ -19,7 +19,8 @@ export const COLORS = {
     TRANSPARENT: 'transparent',
     BLACK: '#000000',
     GRAY: '#EAEAEC',
-    LIGHT_GRAY: '#F2F2F2'
+    LIGHT_GRAY: '#F2F2F2',
+    FEATURE_BACKGROUND: '#EBF0F0'
 }
 
 // const SIZES = {
@@ -41,12 +42,14 @@ export const SIZES = {
     CONTAINER_HORIZONTAL_MARGIN: 16,
     CONTAINER_HORIZONTAL_SPACE: 32,
     CONTAINER_HORIZONTAL_SPACE_AND_MARGIN: 48,
+    CONTAINER_HORIZONTAL_SPACE10_AND_MARGIN: 26,
     TITLE_DESCRIPTION: 121,
     TEXT_INPUT_CONTAINER: 69,
     BUTTON_FIELD: 54,
     DIALOG_BUTTON: 42,
     DIALOG_BUTTON_FIELD: 64,
     DIALOG_SPACE: 28,
+    BLOCK_TITLE_HEIGHT: 40
 }
 // console.log('SIZES', SIZES)
 export const ASSETS = {
@@ -330,6 +333,14 @@ export const SURFACE_STYLES = {
         width: '100%',
         height: 20
     },
+    space28: {
+        width: '100%',
+        height: 28
+    },
+    space24: {
+        width: '100%',
+        height: 24
+    },
     space16: {
         width: '100%',
         height: 16,
@@ -344,6 +355,9 @@ export const SURFACE_STYLES = {
 
     containerHorizontalSpace: {
         paddingHorizontal: 48
+    },
+    containerHorizontalSpace10: {
+        paddingHorizontal: 26
     },
     containerHorizontalMargin: {
         paddingHorizontal: 16

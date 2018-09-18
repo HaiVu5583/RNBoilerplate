@@ -222,7 +222,7 @@ class Home extends Component {
                     <Icon name='GB_icon-24' style={{ fontSize: 24, color: 'gray' }} />
                     <Surface style={{ paddingHorizontal: 16 }}>
                         <Text description bold>HOANG THANH GIANG</Text>
-                        <Text description>VND | ****</Text>
+                        <Text description>VND | {'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}</Text>
                     </Surface>
                     <Icon name='GB_icon-22' style={{ fontSize: 24, color: 'gray' }} />
                 </Ripple>
@@ -236,7 +236,7 @@ class Home extends Component {
         return (
             <Drawer
                 type="overlay"
-                content={<Sidebar 
+                content={<Sidebar
                     onPressClose={() => {
                         this._drawer && this._drawer.close()
                     }}
@@ -274,10 +274,12 @@ class Home extends Component {
                     >
                         <Surface style={{ height: 210 }}>
                             <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
-                                <Surface themeable={false} flex columnCenter>
+                                <Surface themeable={false} style={{ width: '100%', height: SIZES.TOOLBAR_AND_STATUSBAR }} />
+                                <Surface themeable={false} space8 />
+                                <Surface themeable={false} flex columnStart>
                                     <Image
                                         source={{ uri: 'https://yt3.ggpht.com/a-/ACSszfHXWBb_x1MUBtpuEa9xBBmFVuSRdvi02bquEQ=s900-mo-c-c0xffffffff-rj-k-no' }}
-                                        style={{ width: 60, height: 60, borderRadius: 30 }} />
+                                        style={{ width: 64, height: 64, borderRadius: 32 }} />
                                 </Surface>
                             </ImageBackground>
                             {this._renderAccountInfoButton()}
@@ -294,8 +296,13 @@ class Home extends Component {
                                 }),
                             }} />
                         </Surface>
-                        <Surface flex>
-                            <Surface space8 />
+                        <Surface space20 />
+                        <Surface>
+                            <FeatureBlock
+                                title={'HAY DÙNG'}
+                                data={this.featureBlock1}
+                            />
+                            <Surface themeable={false} space8 />
                             <Surface style={{ height: 150 }}>
                                 <Carousel
                                     ref={(c) => { this._carousel = c; }}
@@ -307,13 +314,7 @@ class Home extends Component {
                                     loop={false}
                                 />
                             </Surface>
-                            <Surface space8 />
-
-                            <FeatureBlock
-                                title={'HAY DÙNG'}
-                                data={this.featureBlock1}
-                            />
-
+                            <Surface themeable={false} space8 />
                             <FeatureBlock
                                 title={'THANH TOÁN DỊCH VỤ'}
                                 data={this.featureBlock2}
