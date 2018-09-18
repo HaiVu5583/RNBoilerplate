@@ -86,7 +86,8 @@ class Register extends Component {
     }
 
     _handlePressContinuePhone = () => {
-        if (!isValidPhoneNumer(this.state.phone)) {
+        const phoneNumber = this.state.phone.replace(/\s/g, '')
+        if (!isValidPhoneNumer(phoneNumber)) {
             this.setState({ errPhone: I18n.t('err_invalid_phone_number') })
             return
         } else {
@@ -110,7 +111,7 @@ class Register extends Component {
                     white
                     keyboardType='number-pad'
                     onChangeText={this._onChangePhoneNumber}
-                    value={this.state.phone}
+                    value={formatPhoneNumber(this.state.phone)}
                     hasError={!!this.state.errPhone}
                     errorText={this.state.errPhone}
                 />
