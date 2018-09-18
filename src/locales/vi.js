@@ -204,7 +204,8 @@ const language = {
     'list_back': 'TRỞ LẠI DANH SÁCH',
     'add_card_fail': 'THÊM THẺ THẤT BẠI',
     'add_card_fail_1': 'Thông tin thẻ không chính xác. Vui lòng thử lại sau.',
-
+    'VND': 'VND',
+    
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
     'change_location_title2': 'Vui lòng bật tính năng định vị để Clingme có thể xác định được địa điểm hiện tại của bạn.',
@@ -271,7 +272,6 @@ const language = {
     'create_bill_success_note_part_1_2': 'Hoá đơn của bạn sẽ được xử lý trong vòng 24h, trừ Thứ 7, Chủ Nhật và các ngày nghỉ lễ.',
     'create_bill_success_note_part_2': 'Chúc bạn có những trải nghiệm tuyệt vời\nkhi mua sắm và nhận hoàn tiền cùng Clingme!',
     'request_more_cashback': 'THÊM YÊU CẦU HOÀN TIỀN',
-    'VND': 'đ',
     'money_amount': 'Số tiền',
     'err_receiver_name': 'Vui lòng nhập tên có độ dài từ 5 đến 50 ký tự.',
     'START_VALID_PHONE_NUMBER': [
