@@ -5,7 +5,7 @@ import { ImageBackground, ScrollView, StatusBar, Animated, Platform } from 'reac
 import Image from 'react-native-fast-image'
 import styles from './styles'
 import { connect } from 'react-redux'
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
+import { ASSETS, DEVICE_WIDTH, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple'
 import { setActiveTab } from '~/src/store/actions/ui'
 import { actionTest1, actionTest2 } from '~/src/store/actions/home'
@@ -15,6 +15,8 @@ import FeatureBlock from '~/src/containers/Home/FeatureBlock'
 import { getElevation } from '~/src/utils'
 import Drawer from 'react-native-drawer'
 import Sidebar from '~/src/containers/Drawer'
+import { logoStep3 } from '~/src/components/Asset/LogoStep3'
+import SvgUri from 'react-native-svg-uri'
 
 class Home extends Component {
     static get options() {
@@ -160,8 +162,11 @@ class Home extends Component {
     _renderLogo = () => {
         return (
             <Surface themeable={false} flex rowCenter>
-                <Text center h5 white bold>GIGA</Text>
-                <Text center h5 white thin>BANK</Text>
+                <SvgUri
+                    width="140"
+                    height="30"
+                    svgXmlData={logoStep3}
+                />
             </Surface>
         )
     }
@@ -176,15 +181,12 @@ class Home extends Component {
     }
 
     _renderItem = ({ item, index }) => {
-        {/* <Surface white themeable={false} rowCenter style={{ height: 150, borderRadius: 4, ...getElevation(4) }}>
-                <Text center>{item}</Text>
-            </Surface> */}
         return (
-            <Surface themeable={false} style={{ width: DEVICE_WIDTH - 60, height: 150, justifyContent: 'center', alignItems: 'center' }}>
+            <Surface themeable={false} style={{ width: SIZES.BANNER_WIDTH, height: SIZES.BANNER_HEIGHT, justifyContent: 'center', alignItems: 'center' }}>
                 <Surface style={{ borderRadius: 4 }} elevation={4}>
                     <Image
                         source={{ uri: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg?auto=compress&cs=tinysrgb&h=350' }}
-                        style={{ width: DEVICE_WIDTH - 70, height: 140, borderRadius: 4 }} />
+                        style={{ width: SIZES.BANNER_WIDTH, height: SIZES.BANNER_HEIGHT, borderRadius: 4 }} />
                 </Surface>
             </Surface>
         )
@@ -197,8 +199,6 @@ class Home extends Component {
 
     _handlePressAccountInfo = () => {
         console.log('Pressing Account Info')
-        // Navigation.pop(this.props.componentId)
-        // return
         Navigation.push('mainStack', {
             component: {
                 name: 'gigabankclient.AccountScreen',
@@ -217,7 +217,7 @@ class Home extends Component {
                     <Icon name='GB_icon-24' style={{ fontSize: 24, color: 'gray' }} />
                     <Surface style={{ paddingHorizontal: 16 }}>
                         <Text description bold>HOANG THANH GIANG</Text>
-                        <Text description>VND | ****</Text>
+                        <Text description>VND | {'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}</Text>
                     </Surface>
                     <Icon name='GB_icon-22' style={{ fontSize: 24, color: 'gray' }} />
                 </Ripple>
@@ -229,12 +229,13 @@ class Home extends Component {
         console.log('Status Bar HEI render', -STATUS_BAR_HEIGHT)
 
         return (
-            < Drawer
+            <Drawer
                 type="overlay"
-                content={< Sidebar onPressClose={() => {
-                    this._drawer && this._drawer.close()
-                }
-                } />}
+                content={<Sidebar
+                    onPressClose={() => {
+                        this._drawer && this._drawer.close()
+                    }}
+                />}
                 tapToClose={true}
                 acceptPan={true}
                 captureGestures={true}
@@ -267,11 +268,13 @@ class Home extends Component {
 
                     >
                         <Surface style={{ height: 210 }}>
-                            <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: 180 }}>
-                                <Surface themeable={false} flex columnCenter>
+                            <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: SIZES.IMAGE_BACKGROUND_HEIGHT }}>
+                                <Surface themeable={false} style={{ width: '100%', height: SIZES.TOOLBAR_AND_STATUSBAR }} />
+                                <Surface themeable={false} space8 />
+                                <Surface themeable={false} flex columnStart>
                                     <Image
                                         source={{ uri: 'https://yt3.ggpht.com/a-/ACSszfHXWBb_x1MUBtpuEa9xBBmFVuSRdvi02bquEQ=s900-mo-c-c0xffffffff-rj-k-no' }}
-                                        style={{ width: 60, height: 60, borderRadius: 30 }} />
+                                        style={styles.avatar} />
                                 </Surface>
                             </ImageBackground>
                             {this._renderAccountInfoButton()}
@@ -288,26 +291,27 @@ class Home extends Component {
                                 }),
                             }} />
                         </Surface>
-                        <Surface flex>
-                            <Surface space8 />
-                            <Surface style={{ height: 150 }}>
+                        <Surface space20 />
+                        <Surface>
+                            <FeatureBlock
+                                title={'HAY DÙNG'}
+                                data={this.featureBlock1}
+                            />
+                            <Surface themeable={false} space8 />
+                            <Surface>
+                                <Surface themeable={false} space24 />
                                 <Carousel
                                     ref={(c) => { this._carousel = c; }}
                                     data={this.bannerData}
                                     renderItem={this._renderItem}
                                     sliderWidth={DEVICE_WIDTH}
-                                    itemWidth={DEVICE_WIDTH - 60}
+                                    itemWidth={SIZES.BANNER_WIDTH}
                                     onSnapToItem={(index) => this.setState({ activeBanner: index })}
                                     loop={false}
                                 />
+                                <Surface themeable={false} space24 />
                             </Surface>
-                            <Surface space8 />
-
-                            <FeatureBlock
-                                title={'HAY DÙNG'}
-                                data={this.featureBlock1}
-                            />
-
+                            <Surface themeable={false} space8 />
                             <FeatureBlock
                                 title={'THANH TOÁN DỊCH VỤ'}
                                 data={this.featureBlock2}

@@ -1,8 +1,9 @@
 import React from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { Surface, Text, Button } from '~/src/themes/ThemeComponent'
-import { DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
+import { DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
 const KEY_WIDTH = DEVICE_WIDTH / 3
+import LinearGradient from 'react-native-linear-gradient'
 
 const KEY_TYPES = {
     NUMBER: 'NUMBER',
@@ -103,7 +104,7 @@ export default class NumberKeyboard extends React.PureComponent {
         if (item.keyType == KEY_TYPES.CLEAR) {
             return (
                 <Button flat
-                    icon='delete'
+                    icon='GB_icon-43'
                     iconStyle={{ color: 'white', fontSize: 20 }}
                     style={{ width: KEY_WIDTH, height: 45 }}
                     onPress={() => this._handlePressKey(item)}
@@ -121,9 +122,22 @@ export default class NumberKeyboard extends React.PureComponent {
     }
 
     render() {
+        const totalHeight = 45 * 4 + 2 * 3
         return (
-            <Surface themeable={false} style={{ height: 180 }}>
+            <Surface themeable={false} style={{ height: totalHeight }}>
+
                 <FlatList
+                    ItemSeparatorComponent={() => (
+                        <LinearGradient
+                            start={{ x: 0.0, y: 0.5 }} end={{ x: 1.0, y: 0.5 }}
+                            locations={[0.0, 0.5, 1.0]}
+                            colors={['transparent', COLORS.BLUE, 'transparent']}
+                            style={{
+                                width: '100%',
+                                height: 2,
+                            }}
+                        />
+                    )}
                     data={this.keyboardData}
                     renderItem={this._renderKeyboard}
                     keyExtractor={item => item.keyID}
