@@ -17,6 +17,7 @@ import Drawer from 'react-native-drawer'
 import Sidebar from '~/src/containers/Drawer'
 import { logoStep3 } from '~/src/components/Asset/LogoStep3'
 import SvgUri from 'react-native-svg-uri'
+import AccountInfo from '~/src/containers/Home/AccountInfo'
 
 class Home extends Component {
     static get options() {
@@ -206,25 +207,6 @@ class Home extends Component {
         })
     }
 
-    _renderAccountInfoButton = () => {
-        return (
-            <Surface fullWidth rowCenter themeable={false} style={{ position: 'absolute', left: 0, right: 0, bottom: 0, zIndex: 100 }}>
-                <Ripple
-                    style={{ ...SURFACE_STYLES.rowStart, ...SURFACE_STYLES.white, borderRadius: 30, paddingHorizontal: 16, height: 60, ...getElevation(4), marginBottom: 5 }}
-                    rippleColor={'white'}
-                    onPress={this._handlePressAccountInfo}
-                >
-                    <Icon name='GB_icon-24' style={{ fontSize: 24, color: 'gray' }} />
-                    <Surface style={{ paddingHorizontal: 16 }}>
-                        <Text description bold>HOANG THANH GIANG</Text>
-                        <Text description>VND | {'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}</Text>
-                    </Surface>
-                    <Icon name='GB_icon-22' style={{ fontSize: 24, color: 'gray' }} />
-                </Ripple>
-            </Surface>
-        )
-    }
-
     render() {
         console.log('Status Bar HEI render', -STATUS_BAR_HEIGHT)
 
@@ -277,7 +259,12 @@ class Home extends Component {
                                         style={styles.avatar} />
                                 </Surface>
                             </ImageBackground>
-                            {this._renderAccountInfoButton()}
+                            <AccountInfo
+                                name={'HOANG THANH GIANG'}
+                                money={120000}
+                                onPress={this._handlePressAccountInfo}
+                                style={{ position: 'absolute', left: 0, right: 0, bottom: 0, zIndex: 100 }}
+                            />
                             <Animated.View style={{
                                 position: 'absolute',
                                 top: 0,
