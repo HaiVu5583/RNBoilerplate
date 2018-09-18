@@ -29,7 +29,7 @@ export default class BankAccountItem extends React.PureComponent {
             },
             onPanResponderMove: (evt, gestureState) => {
                 if (this.animationRunning) return
-                if (!this.showingIconFunction) {
+                if (!this.showingIconFunction && gestureState.dx < 0) {
                     this.animationRunning = true
                     Animated.spring(this.translateX, {
                         toValue: -70,
@@ -38,7 +38,7 @@ export default class BankAccountItem extends React.PureComponent {
                         this.animationRunning = false
                         this.showingIconFunction = true
                     })
-                } else {
+                } else if (this.showingIconFunction && gestureState.dx > 0) {
                     this.animationRunning = true
                     Animated.spring(this.translateX, {
                         toValue: 0,
