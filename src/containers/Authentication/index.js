@@ -43,6 +43,17 @@ class Authentication extends Component {
     }
 
     _handlePressLogin = () => {
+        Navigation.setStackRoot('mainStack',
+            {
+                component: {
+                    id: 'HomeScreen',
+                    name: 'gigabankclient.HomeScreen',
+                }
+            }
+        )
+        return
+        
+
         console.log('Press Login State', this.state)
         const phoneNumber = this.state.phone.replace(/\s/g, '')
         if (!isValidPhoneNumer(phoneNumber)) {
@@ -86,11 +97,6 @@ class Authentication extends Component {
     }
 
     _handlePressForgotPassword = () => {
-        // Navigation.push('mainStack', {
-        //     component: {
-        //         name: 'gigabankclient.ForgotPassword',
-        //     }
-        // })
         this.popupForgotPassword && this.popupForgotPassword.open()
     }
 

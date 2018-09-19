@@ -12,3 +12,13 @@ export const signUp = (...args) => ({
     type: 'auth/signUp',
     args
 })
+
+export const createOTPToken = (...args) => ({
+    type: 'auth/createOTPToken',
+    args
+})
+
+export const verifyOTPToken = (...args) => ({
+    type: 'auth/verifyOTPToken',
+    args
+})
