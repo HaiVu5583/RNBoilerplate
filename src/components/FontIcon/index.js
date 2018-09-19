@@ -198,7 +198,7 @@ const glyphMap = {
     "history": 59657,
     "payment-method": 59658,
     "pass": 59659,
-    "money-in": 59660
+    "money-in": 59660,
 };
 const iconSet = createIconSet(glyphMap, 'GB', 'GB.ttf');
 export default iconSet
@@ -208,4 +208,3 @@ export const TabBarItem = iconSet.TabBarItem;
 export const TabBarItemIOS = iconSet.TabBarItemIOS;
 export const ToolbarAndroid = iconSet.ToolbarAndroid;
 export const getImageSource = iconSet.getImageSource;
-

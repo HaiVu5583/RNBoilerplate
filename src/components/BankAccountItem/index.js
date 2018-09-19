@@ -4,7 +4,7 @@ import Image from 'react-native-fast-image'
 import { maskBankAccount, getElevation } from '~/src/utils'
 import styles from './styles'
 import LinearGradient from 'react-native-linear-gradient'
-import { SURFACE_STYLES } from '~/src/themes/common'
+import { SURFACE_STYLES, SIZES } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple';
 import { Animated, PanResponder, View } from 'react-native'
 
@@ -157,8 +157,10 @@ export default class BankAccountItem extends React.PureComponent {
                 <Surface rowStart style={{
                     ...styles.container,
                     marginHorizontal: 2,
-                    marginTop: 2,
-                    marginBottom: 5
+                    marginTop: 10,
+                    marginBottom: 10,
+                    marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                    marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
                 }}>
                     <Image
                         source={{ uri: bankImage }}

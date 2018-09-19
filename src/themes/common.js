@@ -51,8 +51,10 @@ export const SIZES = {
     DIALOG_SPACE: 28,
     BLOCK_TITLE_HEIGHT: 40,
     IMAGE_BACKGROUND_HEIGHT: 180,
+    IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR: 116,
     BANNER_WIDTH: DEVICE_WIDTH - 52,
-    BANNER_HEIGHT: 128
+    BANNER_HEIGHT: 128,
+    BANK_ITEM_HEIGHT: 68
 }
 
 // console.log('SIZES', SIZES)
@@ -333,25 +335,29 @@ export const SURFACE_STYLES = {
     pv20: {
         paddingVertical: 20
     },
-    space20: {
+    space8: {
         width: '100%',
-        height: 20
+        height: 8
     },
-    space28: {
+    space10: {
         width: '100%',
-        height: 28
-    },
-    space24: {
-        width: '100%',
-        height: 24
+        height: 10
     },
     space16: {
         width: '100%',
         height: 16,
     },
-    space8: {
+    space20: {
         width: '100%',
-        height: 8
+        height: 20
+    },
+    space24: {
+        width: '100%',
+        height: 24
+    },
+    space28: {
+        width: '100%',
+        height: 28
     },
     space30: {
         width: '100%',
@@ -360,6 +366,10 @@ export const SURFACE_STYLES = {
     space35: {
         width: '100%',
         height: 35
+    },
+    space50: {
+        width: '100%',
+        height: 50
     },
     titleAndDescription: {
         height: SIZES.TITLE_DESCRIPTION,
