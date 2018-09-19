@@ -205,6 +205,10 @@ const language = {
     'add_card_fail': 'THÊM THẺ THẤT BẠI',
     'add_card_fail_1': 'Thông tin thẻ không chính xác. Vui lòng thử lại sau.',
     'VND': 'VND',
+
+    // With Draw Screen
+    'with_draw_title': 'Rút tiền từ Gigabank',
+    'with_draw_description': 'Chọn hoặc tìm kiếm ngân hàng bạn muốn rút tiền về từ Gigabank',
     
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
