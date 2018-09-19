@@ -9,7 +9,6 @@ import styles from './styles'
 export default class FeatureBlock extends Component {
     constructor(props) {
         super(props)
-        console.log('Constructor FeatureBlock')
     }
 
 
@@ -43,7 +42,7 @@ export default class FeatureBlock extends Component {
                     keyExtractor={item => item.id + ''}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
-                    style={{ paddingLeft: SIZES.CONTAINER_HORIZONTAL_SPACE10_AND_MARGIN }}
+                    contentContainerStyle={{ paddingHorizontal: SIZES.CONTAINER_HORIZONTAL_SPACE10_AND_MARGIN }}
                 />
             </Surface>
         )

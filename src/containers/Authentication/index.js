@@ -53,7 +53,7 @@ class Authentication extends Component {
         this.props.signIn(phoneNumber, md5(this.state.password), (err, data) => {
             console.log('Err SignIn', err)
             console.log('Data SignIn', data)
-            if (data && data.user) {
+            if (data && data.accessToken) {
                 this.setState({ loading: false })
                 Navigation.setStackRoot('mainStack',
                     {

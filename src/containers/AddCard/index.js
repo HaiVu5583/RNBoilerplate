@@ -240,7 +240,6 @@ class AddCard extends Component {
     
 
     render() {
-        console.log('Status Bar HEI render', -STATUS_BAR_HEIGHT)
 
         const items = [
             {
