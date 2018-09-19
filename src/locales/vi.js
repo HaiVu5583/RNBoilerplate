@@ -152,8 +152,8 @@ const language = {
     'support': 'Tổng đài hỗ trợ: ',
     'hint_not_receive_otp': 'Không nhận được mã?',
     'resend_otp': 'Gửi lại mã xác thực',
-    'err_invalid_otp': 'Mã xác thực không chính xác.',
-    'err_otp_expire': 'Mã xác thực đã hết hạn.',
+    'err_invalid_otp': 'Mã xác thực không đúng.',
+    'err_otp_expire': 'Mã xác thực đã hết hiệu lực.',
     'err_general': 'Có lỗi xảy ra, vui lòng thử lại sau.',
     'err_otp_retry_too_fast': 'Thử lại OTP quá nhanh. Vui lòng đợi 60s và thử lại.',
     'err_timeout': 'Oops... Có lỗi kết nối. Bạn vui lòng thử lại.',
@@ -212,6 +212,7 @@ const language = {
     'money_transfer': 'Chuyển tiền',
     'money_transfer_hint': 'Nhập hoặc chọn số điện thoại từ danh bạ để chuyển tiền',
     'phone_receive_money_hint': 'Số điện thoại nhận tiền',
+    'contact_search_hint': 'Nhập tên hoặc số điện thoại',
 
     
     //bat vi tri

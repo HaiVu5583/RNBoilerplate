@@ -6,4 +6,10 @@ export default {
     signUp: (phone, password, name) => {
         return post('/user/signup', { phone, password, name })
     },
+    createOTPToken: (phone) => {
+        return get('/otp/create-otp-token', { phone })
+    },
+    verifyOTPToken: (otp) => {
+        return get('/otp/verify-otp-token', { otp })
+    }
 }

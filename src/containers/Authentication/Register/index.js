@@ -18,6 +18,9 @@ import { logoStep3 } from '~/src/components/Asset/LogoStep3'
 import { logoStep1 } from '~/src/components/Asset/LogoStep1'
 import { logoStep2 } from '~/src/components/Asset/LogoStep2'
 import SvgUri from 'react-native-svg-uri'
+import { createOTPToken, verifyOTPToken, signUp } from '~/src/store/actions/auth'
+import LoadingModal from '~/src/components/LoadingModal'
+import md5 from 'md5'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -50,8 +53,10 @@ class Register extends Component {
             errPassword: '',
             errRepassword: '',
             showPassword: false,
-            showRepassword: false
+            showRepassword: false,
+            loading: false
         }
+        this.otpToken = ''
     }
 
     _handlePressBackIcon = () => {
@@ -78,7 +83,12 @@ class Register extends Component {
     }
 
     _onConfirmPhone = () => {
-        this.setState({ step: STEP.OTP })
+        if (this.state.loading) return
+        this.setState({ loading: true })
+        this.props.createOTPToken(this.state.phone, (err, data) => {
+            console.log('Data OTP', data)
+            this.setState({ loading: false, step: STEP.OTP })
+        })
     }
 
     _onCancelPhone = () => {
@@ -142,7 +152,27 @@ class Register extends Component {
             this.setState({ errOTP: I18n.t('err_invalid_otp') })
             return
         }
-        this.setState({ step: STEP.PASSWORD })
+        if (this.state.loading) return false
+        this.setState({ loading: true })
+        this.props.verifyOTPToken(this.state.otp, (err, data) => {
+            console.log('Err Verify Token', err)
+            console.log('Data OTP Token', data)
+            if (data && data.otpToken) {
+                this.otpToken = data.otpToken
+            }
+            if (data.status == 0) {
+                this.setState({ loading: false, step: STEP.PASSWORD })
+                return
+            } else if (data.status == 1) {
+                this.setState({ loading: false, errOTP: I18n.t('err_invalid_otp') })
+                return
+            } else if (data.status == 2) {
+                this.setState({ loading: false, errOTP: I18n.t('err_otp_expire') })
+                return
+            }
+            this.setState({ loading: false })
+        })
+
     }
 
     _handleResend = () => {
@@ -311,10 +341,11 @@ class Register extends Component {
                         mode={DIALOG_MODE.YES_NO}
                         onPressYes={this._onConfirmPhone}
                         ref={ref => this.popupConfirm = ref} />
+                    <LoadingModal visible={this.state.loading} />
                     {this._render()}
                 </Surface>
             </ImageBackground >
         )
     }
 }
-export default connect(null, null)(Register)
+export default connect(null, { createOTPToken, verifyOTPToken, signUp })(Register)

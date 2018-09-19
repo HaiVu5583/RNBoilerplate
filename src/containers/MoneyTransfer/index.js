@@ -114,8 +114,19 @@ class MoneyTransfer extends React.PureComponent {
         })
     }
 
-    _handlePressContact = () => {
+    _handleChooseContact = () => {
         
+    }
+
+    _handlePressContact = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.ContactChooser',
+                passProps: {
+                    onChooseContact: this._handleChooseContact
+                }
+            }
+        })
     }
 
     _renderHeaderByStep = () => {

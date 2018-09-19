@@ -106,7 +106,7 @@ class Home extends Component {
                 id: 3,
                 name: 'Chuyển tiền',
                 iconName: 'GB_mobile_tranfer',
-                iconColor: 'GB_mobile_tranfer',
+                iconColor: '#464E65',
                 onPress: this._handlePressTransfer
             },
             {
