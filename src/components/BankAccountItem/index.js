@@ -113,7 +113,7 @@ export default class BankAccountItem extends React.PureComponent {
                             })
                         }}
                             rippleColor={'white'}>
-                            <Icon name='GB_icon-43' style={styles.icon} />
+                            <Icon name='GB_trash' style={styles.icon} />
                         </Ripple>
                     </View>
                 </View>

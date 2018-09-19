@@ -164,6 +164,8 @@ const language = {
     'phone_not_register': 'SĐT chưa đăng ký',
     'phone_not_register_content': 'Bạn chưa đăng ký tài khoản Gigabank. Hãy đăng ký tài khoản để sử dụng dịch vụ nhé.',
     'err_invalid_password': 'Mật khẩu không đúng',
+    'account_suspend': 'Tài khoản đang bị khoá',
+    'account_suspend_popup_content': 'Tài khoản của bạn đã bị khoá. Vui lòng liên hệ ***** để được hỗ trợ.',
 
 
     // Charge Screen

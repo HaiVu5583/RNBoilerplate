@@ -65,10 +65,13 @@ class Authentication extends Component {
                 )
             } else if (data && data.code && data.code == 1201) {
                 this.setState({ loading: false })
-                this.popupNotRegister.open()
+                this.popupNotRegister && this.popupNotRegister.open()
                 return
             } else if (data && data.code && data.code == 1104) {
                 this.setState({ loading: false, errPass: I18n.t('err_invalid_password') })
+            } else if (data && data.code && data.code == 1003) {
+                this.setState({ loading: false })
+                this.popupUserSuspend && this.popupUserSuspend.open()
             }
             this.setState({ loading: false })
         })
@@ -130,6 +133,7 @@ class Authentication extends Component {
             && this.state.password && this.state.password.trim()
         )
         const forgotPasswordContent = replacePatternString(I18n.t('forgot_password_popup_content'), formatPhoneNumber(I18n.t('hotline')))
+        const userSuspendContent = replacePatternString(I18n.t('account_suspend_popup_content'), formatPhoneNumber(I18n.t('hotline')))
         return (
             <ImageBackground source={ASSETS.MAIN_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                 <StatusBar
@@ -162,6 +166,15 @@ class Authentication extends Component {
                     mode={DIALOG_MODE.YES_NO}
                     ref={ref => this.popupNotRegister = ref} />
 
+                <PopupConfirm
+                    animationType='none'
+                    content={userSuspendContent}
+                    titleT={'account_suspend'}
+                    textYesT={'call'}
+                    onPressYes={this._handleCallHotline}
+                    mode={DIALOG_MODE.YES_NO}
+                    ref={ref => this.popupUserSuspend = ref} />
+
                 <Surface themeable={false} flex containerHorizontalSpace>
                     <Surface space20 themeable={false} />
                     <Surface themeable={false} titleAndDescription>
@@ -174,20 +187,20 @@ class Authentication extends Component {
                         </Surface>
                     </Surface>
                     <TextInput
-                        descriptionIcon={'GB_icon-34'}
+                        descriptionIcon={'GB_call'}
                         placeholderT={'phone'}
                         white
                         onChangeText={text => this.setState({ phone: text })}
                         keyboardType='number-pad'
                         value={formatPhoneNumber(this.state.phone)}
-                        iconRight={'GB_icon-31'}
+                        iconRight={'GB_close'}
                         onPressIconRight={() => this.setState({ phone: '', errPhone: '' })}
                         showIconRight={(this.state.phone && this.state.phone.trim())}
                         hasError={!!this.state.errPhone}
                         errorText={this.state.errPhone}
                     />
                     <TextInput
-                        descriptionIcon={'GB_icon-28'}
+                        descriptionIcon={'GB_pass'}
                         placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
                         white
                         onChangeText={text => this.setState({ password: text, errPass: '' })}
@@ -221,7 +234,7 @@ class Authentication extends Component {
                     </Surface>
                     <Surface themeable={false} flex columnEnd>
                         {!!this.state.showFingerprint && <Ripple rippleColor={COLORS.WHITE} style={{ padding: 10 }} onPress={this._handlePressFingerprint}>
-                            <Icon name='GB_icon-30' style={{ fontSize: 40, color: COLORS.BLUE }} />
+                            <Icon name='GB_finger_print' style={{ fontSize: 40, color: COLORS.BLUE }} />
                         </Ripple>}
                     </Surface>
                 </Surface>

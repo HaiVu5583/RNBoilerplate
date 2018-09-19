@@ -28,37 +28,37 @@ class Drawer extends Component {
         this.feature = [
             {
                 id: 1,
-                icon: 'account-balance',
+                icon: 'GB_account-balance',
                 name: 'Feature 1'
             },
             {
                 id: 2,
-                icon: 'account-balance',
+                icon: 'GB_account-balance',
                 name: 'Feature 2'
             },
             {
                 id: 3,
-                icon: 'account-balance',
+                icon: 'GB_account-balance',
                 name: 'Feature 3'
             },
             {
                 id: 4,
-                icon: 'account-balance',
+                icon: 'GB_account-balance',
                 name: 'Feature 4'
             },
             {
                 id: 5,
-                icon: 'account-balance',
+                icon: 'GB_account-balance',
                 name: 'Feature 5'
             },
             {
                 id: 6,
-                icon: 'account-balance',
+                icon: 'GB_account-balance',
                 name: 'Feature 6'
             },
             {
                 id: 7,
-                icon: 'account-balance',
+                icon: 'GB_account-balance',
                 name: 'Logout'
             }
         ]
@@ -125,7 +125,7 @@ class Drawer extends Component {
                 <Toolbar
                     themeable={false}
                     leftComponent={this._renderLogo}
-                    iconRight={'GB_icon-31'}
+                    iconRight={'GB_close'}
                     onPressIconRight={this._handleCloseDrawer}
                     iconStyle={{ color: 'white' }}
                     style={{ width: '100%' }}

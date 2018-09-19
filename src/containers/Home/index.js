@@ -91,28 +91,28 @@ class Home extends Component {
             {
                 id: 1,
                 name: 'Nạp tiền',
-                iconName: 'GB_icon-14',
+                iconName: 'GB_recharge',
                 iconColor: '#31764A',
                 onPress: this._handlePressMoneyIn
             },
             {
                 id: 2,
                 name: 'Tiết kiệm',
-                iconName: 'GB_icon-17',
+                iconName: 'GB_saving',
                 iconColor: '#F7A03F',
                 onPress: this._handlePressSave
             },
             {
                 id: 3,
                 name: 'Chuyển tiền',
-                iconName: 'GB_icon-19',
-                iconColor: '#3F4E6F',
+                iconName: 'GB_mobile_tranfer',
+                iconColor: 'GB_mobile_tranfer',
                 onPress: this._handlePressTransfer
             },
             {
                 id: 4,
                 name: 'Nạp tiền điện thoại',
-                iconName: 'GB_icon-16',
+                iconName: 'GB_scratch_card',
                 iconColor: '#45B1A8'
             },
         ]
@@ -347,8 +347,8 @@ class Home extends Component {
                     }}>
                         <Toolbar
                             themeable={false}
-                            iconLeft='GB_icon-25'
-                            iconRight='GB_icon-26'
+                            iconLeft='GB_hamburger'
+                            iconRight='GB_notify'
                             onPressIconLeft={this._handlePressHambergerIcon}
                             iconStyle={{ color: 'white' }}
                             centerComponent={this._renderLogo}
