@@ -27,3 +27,13 @@ export const checkExistUser = (...args) => ({
     type: 'auth/checkExistUser',
     args
 })
+
+export const changePassword = (...args) => ({
+    type: 'auth/changePassword',
+    args
+})
+
+export const updateAccessToken = (data) => ({
+    type: 'auth/updateAccessToken',
+    payload: data
+})

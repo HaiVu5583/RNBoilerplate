@@ -14,5 +14,8 @@ export default {
     },
     checkExistUser: (phone) => {
         return get('/user/check-existed-user', { phone })
+    },
+    changePassword: (oldPassword, newPassword) => {
+        return post('/user/change-password', { oldPassword, newPassword })
     }
 }

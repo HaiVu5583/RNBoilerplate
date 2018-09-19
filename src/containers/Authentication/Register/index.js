@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { TextInput, Surface, Background, Text, Button, Toolbar } from '~/src/themes/ThemeComponent'
+import { TextInput, Surface, Text, Button, Toolbar } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
-import { isValidPhoneNumer, toNormalCharacter, replacePatternString, formatPhoneNumber } from '~/src/utils'
+import { isValidPhoneNumer, replacePatternString, formatPhoneNumber } from '~/src/utils'
 import PopupConfirm from '~/src/components/PopupConfirm'
-import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
