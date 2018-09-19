@@ -9,7 +9,6 @@ import styles from './styles'
 export default class FeatureBlock extends Component {
     constructor(props) {
         super(props)
-        console.log('Constructor FeatureBlock')
     }
 
 

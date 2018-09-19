@@ -12,6 +12,7 @@ const hashSHA256 = (strData) => {
 }
 
 const resolveResponse = async (res, extractHeaders) => {
+    console.log('Res', res)
     let headerObj = {}
     if (extractHeaders) {
         for (let i = 0; i < extractHeaders.length; i++) {
