@@ -66,7 +66,7 @@ class Authentication extends Component {
                 this.setState({ loading: false })
                 this.popupNotRegister && this.popupNotRegister.open()
                 return
-            } else if (data && data.code && data.code == 1104) {
+            } else if (data && data.code && (data.code == 1104 || data.code == 1004)) {
                 this.setState({ loading: false, errPass: I18n.t('err_invalid_password') })
             } else if (data && data.code && data.code == 1003) {
                 this.setState({ loading: false })
