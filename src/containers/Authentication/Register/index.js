@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { TextInput, Surface, Background, Text, Button, Toolbar } from '~/src/themes/ThemeComponent'
+import { TextInput, Surface, Text, Button, Toolbar } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
-import { isValidPhoneNumer, toNormalCharacter, replacePatternString, formatPhoneNumber } from '~/src/utils'
+import { isValidPhoneNumer, replacePatternString, formatPhoneNumber } from '~/src/utils'
 import PopupConfirm from '~/src/components/PopupConfirm'
-import styles from '~/src/containers/Authentication/styles'
 import { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import { BackHandler } from 'react-native'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS } from '~/src/themes/common'
@@ -18,9 +17,10 @@ import { logoStep3 } from '~/src/components/Asset/LogoStep3'
 import { logoStep1 } from '~/src/components/Asset/LogoStep1'
 import { logoStep2 } from '~/src/components/Asset/LogoStep2'
 import SvgUri from 'react-native-svg-uri'
-import { createOTPToken, verifyOTPToken, signUp } from '~/src/store/actions/auth'
+import { createOTPToken, verifyOTPToken, signUp, checkExistUser } from '~/src/store/actions/auth'
 import LoadingModal from '~/src/components/LoadingModal'
 import md5 from 'md5'
+import { chainParse } from '~/src/utils'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -87,6 +87,11 @@ class Register extends Component {
         this.setState({ loading: true })
         this.props.createOTPToken(this.state.phone, (err, data) => {
             console.log('Data OTP', data)
+            if (data && data.code && data.code == 2002) {
+                this.setState({ errOTP: I18n.t('err_otp_retry_too_fast'), loading: false })
+                return
+            }
+
             this.setState({ loading: false, step: STEP.OTP })
         })
     }
@@ -96,12 +101,24 @@ class Register extends Component {
     }
 
     _handlePressContinuePhone = () => {
+        if (this.state.loading) return
         const phoneNumber = this.state.phone.replace(/\s/g, '')
         if (!isValidPhoneNumer(phoneNumber)) {
             this.setState({ errPhone: I18n.t('err_invalid_phone_number') })
             return
         } else {
-            this.popupConfirm && this.popupConfirm.open()
+            this.setState({ loading: true })
+            this.props.checkExistUser(phoneNumber, (err, data) => {
+                console.log('Err Exist User', err)
+                console.log('Data Exist User', data)
+                if (chainParse(data, ['updated', 'result'])) {
+                    this.setState({ loading: false })
+                    this.popupAlreadyHaveAccount && this.popupAlreadyHaveAccount.open()
+                } else {
+                    this.setState({ loading: false })
+                    this.popupConfirm && this.popupConfirm.open()
+                }
+            })
         }
     }
 
@@ -224,7 +241,7 @@ class Register extends Component {
         }
         if (this.state.loading) return
         this.setState({ loading: true })
-        this.props.signUp(this.state.name, this.state.password, this.otpToken, (err, data) => {
+        this.props.signUp(this.state.name, md5(this.state.password), this.otpToken, (err, data) => {
             console.log('Err Register', err)
             console.log('Data Register', data)
             Navigation.setStackRoot('mainStack',
@@ -288,6 +305,16 @@ class Register extends Component {
                     t={'finish'}
                     full onPress={this._handlePressFinishPassword} />
             </Surface>
+        )
+    }
+
+    _handlePressLogin = () => {
+        Navigation.setStackRoot('mainStack',
+            {
+                component: {
+                    name: 'gigabankclient.Authentication',
+                }
+            }
         )
     }
 
@@ -359,6 +386,16 @@ class Register extends Component {
                         mode={DIALOG_MODE.YES_NO}
                         onPressYes={this._onConfirmPhone}
                         ref={ref => this.popupConfirm = ref} />
+
+                    <PopupConfirm
+                        animationType='none'
+                        contentT={'already_have_account_please_login'}
+                        titleT={'register_account'}
+                        textYesT={'login'}
+                        mode={DIALOG_MODE.YES_NO}
+                        onPressYes={this._handlePressLogin}
+                        ref={ref => this.popupAlreadyHaveAccount = ref} />
+
                     <LoadingModal visible={this.state.loading} />
                     {this._render()}
                 </Surface>
@@ -366,4 +403,4 @@ class Register extends Component {
         )
     }
 }
-export default connect(null, { createOTPToken, verifyOTPToken, signUp })(Register)
+export default connect(null, { createOTPToken, verifyOTPToken, signUp, checkExistUser })(Register)

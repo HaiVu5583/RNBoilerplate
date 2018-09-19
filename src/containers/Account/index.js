@@ -30,6 +30,14 @@ class Account extends React.PureComponent {
         }
     }
 
+    _handlePressChangePassword = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.ChangePassword',
+            }
+        })
+    }
+
     render() {
 
         return (
@@ -74,7 +82,9 @@ class Account extends React.PureComponent {
                     />
                     <RowItem icon='GB_history' textT={'transaction_history'} iconStyle={styles.rowIcon} />
                     <RowItem icon='GB_payment-method' textT={'payment_account'} iconStyle={styles.rowIcon} />
-                    <RowItem icon='GB_pass_code' textT={'change_password'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='GB_pass_code' textT={'change_password'} iconStyle={styles.rowIcon} 
+                        onPress={this._handlePressChangePassword}
+                    />
                 </Surface>
             </Surface>
         )

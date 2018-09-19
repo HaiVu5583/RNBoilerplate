@@ -141,6 +141,9 @@ const language = {
     'authenticate': 'Xác thực',
     'verify': 'Xác thực',
     'change_password': 'Đổi mật khẩu',
+    'old_password': 'Mật khẩu cũ',
+    'new_password': 'Mật khẩu mới',
+    'retype_new_password': 'Nhập lại mật khẩu mới',
     'verify_phone_number': 'Xác thực số điện thoại',
     'hint_input_opt': 'Nhập mã xác thực\nđã được gửi đến số điện thoại\n',
     'personal_info': 'Thông tin cá nhân',
@@ -166,6 +169,7 @@ const language = {
     'err_invalid_password': 'Mật khẩu không đúng',
     'account_suspend': 'Tài khoản đang bị khoá',
     'account_suspend_popup_content': 'Tài khoản của bạn đã bị khoá. Vui lòng liên hệ ***** để được hỗ trợ.',
+    'already_have_account_please_login': 'Bạn đã có tài khoản Gigabank.\nHãy đăng nhập để sử dụng dịch vụ nhé.',
 
 
     // Charge Screen

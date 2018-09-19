@@ -73,7 +73,7 @@ export const get = (url, params, api, extractHeaders) => {
     ).then(res => resolveResponse(res, extractHeaders))
 }
 
-export const post = (url, body, api, extractHeaders) => {
+export const post = (url, body, api, extractHeaders = ['access-token']) => {
     const state = store.getState()
     const accessToken = chainParse(state, ['auth', 'accessToken'])
 

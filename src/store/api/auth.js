@@ -11,5 +11,11 @@ export default {
     },
     verifyOTPToken: (otp) => {
         return get('/otp/verify-otp-token', { otp })
+    },
+    checkExistUser: (phone) => {
+        return get('/user/check-existed-user', { phone })
+    },
+    changePassword: (oldPassword, newPassword) => {
+        return post('/user/change-password', { oldPassword, newPassword })
     }
 }

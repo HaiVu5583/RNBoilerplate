@@ -5,6 +5,7 @@ import {
     invokeCallback,
     logout
 } from '~/src/store/actions/common'
+import { updateAccessToken } from '~/src/store/actions/auth'
 import { TIMEOUT, TIMEOUT_TIME } from '~/src/constants'
 import api from '~/src/store/api'
 export const createRequestSaga = ({ request, key, start, stop, success, failure, cancelled, timeout = TIMEOUT_TIME, cancel }) => {
@@ -50,40 +51,15 @@ export const createRequestSaga = ({ request, key, start, stop, success, failure,
             }
             let res = yield race(raceOptions)
             const { data, isTimeout, cancelRet } = res
-            
-            // Session Expire
-            // if (data && data.code && (data.code == 1903 || data.code == 1000)) {
-            //     console.log('session expired here:', action)
-
-            //     let params = {
-            //         screenName: 'Login',
-            //         isSlided: true,
-            //     }
-
-            //     yield put(logout())
-
-            //     ClingmeUtils.setUserData({
-            //         cookie: '',
-            //         userId: 0,
-            //         nickName: '',
-            //         referralCode: '',
-            //         phoneNumber: '',
-            //         email: ''
-            //     })
-            //         .then(success => {
-            //             // ClingmeUtils.sendNotificationMessage(ClingmeUtils.MSG_PLAY_CLINGME_20_UNIVERSAL_VIEW_MEDIATOR, params)
-            //             //ClingmeUtils.sendNotificationMessage(ClingmeUtils.MSG_PLAY_CLINGME_20_STARTSCREEN_MEDIATOR)
-            //             ClingmeUtils.sendNotificationMessage(ClingmeUtils.CMD_USER_INVALID_SESSION, data)
-            //         })
-
-            //     return
-            // }
-
 
             // Append Argument
             if (data) {
                 data.args = args
+                if (data['access-token']) {
+                    yield put(updateAccessToken(data['access-token']))
+                }
             }
+            console.log('Data Common', data)
 
             if (isTimeout) {
                 throw TIMEOUT
