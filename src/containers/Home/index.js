@@ -208,7 +208,6 @@ class Home extends Component {
     }
 
     render() {
-        console.log('Status Bar HEI render', -STATUS_BAR_HEIGHT)
 
         return (
             <Drawer

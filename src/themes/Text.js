@@ -14,12 +14,14 @@ class ThemeText extends Component {
         const { forwardedRef, children, style, theme, language, themeable = true, dispatch,
             t, textTransform, ...rest } = this.props
         const themeStyle = getTheme(theme)
-        let textThemeStyle = themeable ? [{ color: themeStyle.textColor }, style] : [style]
+        let textThemeStyle = themeable ? [{ color: themeStyle.textColor }] : []
         for (let identifier in rest) {
             if (TEXT_STYLES[identifier] && rest[identifier]) {
                 textThemeStyle.push(TEXT_STYLES[identifier])
             }
         }
+        textThemeStyle.push(style)
+
         if (t != null && typeof (t) != 'undefined') {
             return (
                 <Text ref={forwardedRef} {...rest}
