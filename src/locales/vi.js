@@ -205,6 +205,12 @@ const language = {
     'add_card_fail': 'THÊM THẺ THẤT BẠI',
     'add_card_fail_1': 'Thông tin thẻ không chính xác. Vui lòng thử lại sau.',
     'VND': 'VND',
+
+    // Money Transfer
+    'money_transfer': 'Chuyển tiền',
+    'money_transfer_hint': 'Nhập hoặc chọn số điện thoại từ danh bạ để chuyển tiền',
+    'phone_receive_money_hint': 'Số điện thoại nhận tiền',
+
     
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
