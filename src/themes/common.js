@@ -251,6 +251,10 @@ export const TEXT_INPUT_STYLES = {
         },
         placeholderColor: 'rgba(0, 0, 0, 0.4)'
     },
+    noBorder: {
+        borderBottomWidth: 0,
+        borderBottomColor: 'transparent'
+    },
     blackWithDarkblueIcon: {
         container: {
             borderBottomWidth: LINE_HEIGHT,
