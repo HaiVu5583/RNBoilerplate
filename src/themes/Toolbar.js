@@ -39,7 +39,7 @@ export default class Toolbar extends React.PureComponent {
 
         const left = leftComponent ? leftComponent() : <Button themeable={themeable} flat noPadding onPress={this._onPressBack}
             style={toolbar.iconLeftContainer}
-            icon={!!iconLeft ? iconLeft : 'GB_icon-21'}
+            icon={!!iconLeft ? iconLeft : 'GB_arrow_left'}
             iconStyle={[toolbar.iconLeft, iconStyle]}
         />
         const center = centerComponent ? centerComponent() : (

@@ -78,7 +78,7 @@ class MoneyTransfer extends React.PureComponent {
         }
     }
 
-    _handleContinueChooseCard = () => {
+    _handleContinuePhoneInput = () => {
         console.log('Continue Choose Card')
         this.setState({ step: STEP.INPUT })
     }
@@ -114,6 +114,10 @@ class MoneyTransfer extends React.PureComponent {
         })
     }
 
+    _handlePressContact = () => {
+        
+    }
+
     _renderHeaderByStep = () => {
 
         let hintT = ''
@@ -134,25 +138,6 @@ class MoneyTransfer extends React.PureComponent {
                         <Text white description t={hintT} />
                     </Surface>
                     <Surface themeable={false} space16 />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.DELETE_CARD || this.state.step == STEP.INPUT) {
-            return (
-                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={hintT} />
-                    </Surface>
-                    <Surface themeable={false} flex />
-                    <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                        <BankAccountItem
-                            bankImage={selectedCardItem.bankImage}
-                            bankAccount={selectedCardItem.bankAccount}
-                            expireDate={selectedCardItem.expireDate}
-                            onPress={() => { }}
-                            active={true}
-                        />
-                    </Surface>
-                    <Surface style={styles.fakeFloatPart} />
                 </Surface>
             )
         } else if (this.state.step == STEP.RESULT) {
@@ -204,8 +189,8 @@ class MoneyTransfer extends React.PureComponent {
                         onChangeText={text => this.setState({ phone: text })}
                         keyboardType='number-pad'
                         value={this.state.phone}
-                        iconRight={'GB_icon-19'}
-                        onPressIconRight={() => this.setState({ money: '' })}
+                        iconRight={'GB_contact'}
+                        onPressIconRight={this._handlePressContact}
                         showIconRight={true}
                     />
                 </Surface>
@@ -262,8 +247,8 @@ class MoneyTransfer extends React.PureComponent {
                         round full
                         noPadding
                         t={'continue'}
-                        onPress={this._handleContinueChooseCard}
-                        enable={true}
+                        onPress={this._handleContinuePhoneInput}
+                        enable={!!this.state.phone}
                         gradientButton={true}
                         rippleStyle={{ marginBottom: 10, width: '100%' }}
                     />

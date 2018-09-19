@@ -51,30 +51,30 @@ class Account extends React.PureComponent {
                             <Text description white>HOANG THANH GIANG</Text>
                             <Surface themeable={false} space8 />
                             <Surface themeable={false} rowStart>
-                                <Icon name={'GB_icon-34'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
+                                <Icon name={'GB_call'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
                                 <Text info white>0912 233 3444</Text>
                             </Surface>
 
 
                             <Surface themeable={false} rowStart>
-                                <Icon name={'GB_icon-35'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
+                                <Icon name={'GB_email'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
                                 <Text info white>htgiang@gmail.com</Text>
                             </Surface>
                         </Surface>
-                        <Icon name='GB_icon-27' style={{ fontSize: 24, color: COLORS.DARK_BLUE }} />
+                        <Icon name='GB_edit' style={{ fontSize: 24, color: COLORS.DARK_BLUE }} />
                     </Surface>
                 </ImageBackground>
                 <MaskBalanceView style={{ backgroundColor: COLORS.LIGHT_BLUE }} color={COLORS.BLACK} />
 
                 <Surface flex>
-                    <RowItem icon='bill-pay' textT={'account_statement'} iconStyle={styles.rowIcon}
+                    <RowItem icon='GB_statement' textT={'account_statement'} iconStyle={styles.rowIcon}
                         onPress={() => {
                             Navigation.pop(this.props.componentId)
                         }}
                     />
-                    <RowItem icon='history' textT={'transaction_history'} iconStyle={styles.rowIcon} />
-                    <RowItem icon='payment-method' textT={'payment_account'} iconStyle={styles.rowIcon} />
-                    <RowItem icon='pass' textT={'change_password'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='GB_history' textT={'transaction_history'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='GB_payment-method' textT={'payment_account'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='GB_pass_code' textT={'change_password'} iconStyle={styles.rowIcon} />
                 </Surface>
             </Surface>
         )

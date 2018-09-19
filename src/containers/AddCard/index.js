@@ -119,12 +119,12 @@ class AddCard extends Component {
                     rippleColor={'white'}
                     onPress={this._handlePressAccountInfo}
                 >
-                    <Icon name='GB_icon-24' style={{ fontSize: 24, color: 'gray' }} />
+                    <Icon name='GB_eye_hide' style={{ fontSize: 24, color: 'gray' }} />
                     <Surface style={{ paddingHorizontal: 16 }}>
                         <Text description bold>HOANG THANH GIANG</Text>
                         <Text description>VND | ****</Text>
                     </Surface>
-                    <Icon name='GB_icon-22' style={{ fontSize: 24, color: 'gray' }} />
+                    <Icon name='GB_arrow_right' style={{ fontSize: 24, color: 'gray' }} />
                 </Ripple>
             </Surface>
         )

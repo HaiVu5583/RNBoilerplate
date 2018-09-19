@@ -190,7 +190,7 @@ class Charge extends React.PureComponent {
                             flat
                             rowStart
                             leftComponent={() => (
-                                <Icon name='GB_icon-41' style={{ fontSize: 24, color: COLORS.BLUE }} />
+                                <Icon name='GB_plus' style={{ fontSize: 24, color: COLORS.BLUE }} />
                             )}
                             centerComponent={() => (
                                 <Text blue t='add_link_card' />
@@ -205,18 +205,18 @@ class Charge extends React.PureComponent {
                 <Surface containerHorizontalSpace flex>
                     <Surface themeable={false} space16 />
                     <TextInput
-                        descriptionIcon={'GB_icon-14'}
+                        descriptionIcon={'GB_recharge'}
                         placeholderT={'charge_input_money_hint'}
                         blackWithDarkblueIcon
                         onChangeText={text => this.setState({ money: text })}
                         keyboardType='number-pad'
                         value={this.state.money}
-                        iconRight={'GB_icon-31'}
+                        iconRight={'GB_close'}
                         onPressIconRight={() => this.setState({ money: '' })}
                         showIconRight={(this.state.money && this.state.money.trim())}
                     />
                     <TextInput
-                        descriptionIcon={'GB_icon-28'}
+                        descriptionIcon={'GB_pass'}
                         placeholderT={'hint_input_password'}
                         blackWithDarkblueIcon
                         onChangeText={text => this.setState({ password: text })}

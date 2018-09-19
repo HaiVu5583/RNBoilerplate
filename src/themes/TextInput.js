@@ -67,7 +67,7 @@ class ThemeTextInput extends Component {
                 </Surface>
                 {!!hasError && <Surface themeable={false} rowSpacebetween fullWidth>
                     <Text themeable={false} error>{errorText}</Text>
-                    <Icon name='GB_icon-32' style={commonStyle.textInput.iconError} />
+                    <Icon name='GB_alert' style={commonStyle.textInput.iconError} />
                 </Surface>}
             </Surface>
         )
