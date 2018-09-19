@@ -115,26 +115,17 @@ class Charge extends React.PureComponent {
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false}>
-                        <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                            <BankAccountItem
-                                bankImage={selectedCardItem.bankImage}
-                                bankAccount={selectedCardItem.bankAccount}
-                                expireDate={selectedCardItem.expireDate}
-                                onPress={() => { }}
-                                active={true}
-                            />
-                        </Surface>
-                        <Surface style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 35,
-                            zIndex: 0
-                        }} />
+                    <Surface themeable={false} flex />
+                    <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
+                        <BankAccountItem
+                            bankImage={selectedCardItem.bankImage}
+                            bankAccount={selectedCardItem.bankAccount}
+                            expireDate={selectedCardItem.expireDate}
+                            onPress={() => { }}
+                            active={true}
+                        />
                     </Surface>
+                    <Surface style={styles.fakeFloatPart} />
                 </Surface>
             )
         } else if (this.state.step == STEP.RESULT) {
@@ -168,14 +159,7 @@ class Charge extends React.PureComponent {
                                 active={true}
                             />
                         </Surface>
-                        <Surface style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 35,
-                            zIndex: 0
-                        }} />
+                        <Surface style={styles.fakeFloatPart} />
                     </Surface>
                 </Surface>
             )

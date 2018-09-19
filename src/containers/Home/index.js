@@ -106,7 +106,8 @@ class Home extends Component {
                 id: 3,
                 name: 'Chuyển tiền',
                 iconName: 'GB_icon-19',
-                iconColor: '#3F4E6F'
+                iconColor: '#3F4E6F',
+                onPress: this._handlePressTransfer
             },
             {
                 id: 4,
@@ -131,6 +132,14 @@ class Home extends Component {
             },
 
         ]
+    }
+
+    _handlePressTransfer = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.MoneyTransfer',
+            }
+        })
     }
 
     _handlePressSave = () => {
