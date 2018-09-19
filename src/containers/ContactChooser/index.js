@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView, BackHandler, Platform, TextInput } from 'react-native'
-import { Surface, Toolbar, Text, Icon, Button } from '~/src/themes/ThemeComponent'
+import { ImageBackground, ScrollView, BackHandler, Platform } from 'react-native'
+import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import { Navigation } from 'react-native-navigation'
+import styles from './styles'
 
 
 export default class ContactChooser extends React.PureComponent {
@@ -47,12 +48,13 @@ export default class ContactChooser extends React.PureComponent {
                 <TextInput
                     placeholderT={'contact_search_hint'}
                     blackWithDarkblueIcon
+                    noBorder
                     onChangeText={text => this.setState({ keyword: text })}
                     value={this.state.keyword}
                     iconRight={'GB_search'}
                     onPressIconRight={this._handlePressSearchIcon}
                     showIconRight={true}
-                    style={{ width: '100%', backgroundColor: 'white', borderRadius: 20 }}
+                    containerStyle={styles.searchBox}
                 />
             </Surface>
         )
