@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
-import { Surface, Text, Toolbar, Button, Icon } from '~/src/themes/ThemeComponent'
+import { Surface, Text, Toolbar, Button,
+    Icon,
+} from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ImageBackground, ScrollView, StatusBar, Animated, Platform } from 'react-native'
+import { ImageBackground, ScrollView, StatusBar, Animated, Platform,
+    View, FlatList,
+    Dimensions
+}
+from 'react-native'
 import Image from 'react-native-fast-image'
 import { connect } from 'react-redux'
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
+import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT }
+from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple'
 import { setActiveTab } from '~/src/store/actions/ui'
 import { actionTest1, actionTest2 } from '~/src/store/actions/home'
 import { activeTabSelector } from '~/src/store/selectors/ui'
 import FeatureBlock from '~/src/containers/Home/FeatureBlock'
 import { getElevation } from '~/src/utils'
+import styles from './styles'
+import ItemCard from './ItemCard'
+
+export const { width, height } = Dimensions.get('window')
 
 class AddCard extends Component {
     static get options() {
@@ -39,6 +50,8 @@ class AddCard extends Component {
             bankAccount: '7813737375432',
             expireDate: '09/19',
         }
+
+        this.numberItems = 0
     }
 
     _handlePressSave = () => {
@@ -116,8 +129,142 @@ class AddCard extends Component {
             </Surface>
         )
     }
+    
+    _renderItemFlatList = (item, index) => {
+        let itemCardContainerStyle = {}
+        let itemCardStyle = {}
+        let itemCardImageStyle = {}
+        let itemWidth = (width - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2 - 20*2)/3
+        
+        itemCardContainerStyle = {
+            width: itemWidth,
+            height: 95,
+            marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+        }
+        itemCardStyle = {
+            width: itemWidth,
+            height: itemWidth/1.35,
+            borderRadius: 17,
+        }
+        itemCardImageStyle = {
+            width: itemWidth - 7,
+            height: (itemWidth - 7)/1.35,
+            borderRadius: 15,
+            marginLeft: 3.5,
+        }
+
+        if (index != this.numberItems - 1) {
+
+        return (
+            <View style={{...itemCardContainerStyle}}
+                key={item.id}>
+            <ItemCard iconBank = {item.iconBank}
+                itemCardStyle = {itemCardStyle}
+                itemCardImageStyle = {itemCardImageStyle}
+                colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
+            />
+            </View>
+        )
+        } else {
+            return (
+                <View style={{...itemCardContainerStyle, marginRight:  SIZES.CONTAINER_HORIZONTAL_MARGIN }}
+                    key={item.id}>
+                <ItemCard iconBank = {item.iconBank}
+                    itemCardStyle = {itemCardStyle}
+                    itemCardImageStyle = {itemCardImageStyle}
+                    colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
+                />
+                </View>
+            )
+        }
+    }
+
+    _renderItemFlatListDomesticCard = (item, index) => {
+        let itemCardContainerStyle = {}
+        let itemCardStyle = {}
+        let itemCardImageStyle = {}
+        let itemWidth = (width - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2 - 20*2)/3
+        
+        itemCardContainerStyle = {
+            width: itemWidth,
+            height: 95,
+        }
+        itemCardStyle = {
+            width: itemWidth,
+            height: itemWidth/1.35,
+            borderRadius: 17,
+        }
+        itemCardImageStyle = {
+            width: itemWidth - 7,
+            height: (itemWidth - 7)/1.35,
+            borderRadius: 15,
+            marginLeft: 3.5,
+        }
+        if (index%3 == 0) {
+            return (
+                <View style={{...itemCardContainerStyle,
+                    marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                    marginRight: 10,}}
+                    key={item.id}>
+                    <ItemCard iconBank = {item.iconBank}
+                        itemCardStyle = {itemCardStyle}
+                        itemCardImageStyle = {itemCardImageStyle}
+                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
+                    />
+                </View>
+            )
+        } else if (index%3 == 1) {
+            return (
+                <View style={{...itemCardContainerStyle, marginLeft: 10, marginRight: 10,}}
+                    key={item.id}>
+                    <ItemCard iconBank = {item.iconBank}
+                        itemCardStyle = {itemCardStyle}
+                        itemCardImageStyle = {itemCardImageStyle}
+                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
+                    />
+                </View>
+            )
+        } else {
+            return (
+                <View style={{...itemCardContainerStyle, marginLeft: 10, marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,}}
+                    key={item.id}>
+                    <ItemCard iconBank = {item.iconBank}
+                        itemCardStyle = {itemCardStyle}
+                        itemCardImageStyle = {itemCardImageStyle}
+                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
+                    />
+                </View>
+            )
+        }
+    }
+    
 
     render() {
+
+        const items = [
+            {
+                id: 1,
+                iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg'
+            },
+            {
+                id: 2,
+                iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg'
+            },
+            {
+                id: 3,
+                iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg'
+            },
+            {
+                id: 4,
+                iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg'
+            },
+            {
+                id: 5,
+                iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg'
+            },
+        ]
+
+        this.numberItems = items.length
 
         return (
             <Surface themeable={false} flex>
@@ -141,7 +288,38 @@ class AddCard extends Component {
                         <Surface themeable={false} space16 />
                     </Surface>
                     <Surface flex>
-
+                        <Text style={styles.internationalCard} t={'international_card'} />
+                        <View style={styles.actionRowFlatList}>
+                            <FlatList
+                                data={items}
+                                renderItem={({item, index}) => this._renderItemFlatList(item, index)}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                keyExtractor={(item, index) => item.id + '_' + index}
+                                bounces={false}
+                                style={{
+                                    marginRight: 0,
+                                    paddingTop: 0,
+                                    paddingBottom: 0,
+                                }}>
+                            </FlatList>
+                        </View>
+                        <Text style={styles.internationalCard} t={'domestic_card'} />
+                        <View style={{marginTop: 30}}>
+                            <FlatList
+                                    data={items}
+                                    renderItem={({item, index}) => this._renderItemFlatListDomesticCard(item, index)}
+                                    showsHorizontalScrollIndicator={false}
+                                    keyExtractor={(item, index) => item.id + '_' + index}
+                                    bounces={false}
+                                    style={{
+                                        marginRight: 0,
+                                        paddingTop: 0,
+                                        paddingBottom: 0,
+                                    }}
+                                    numColumns={3}>
+                                </FlatList>
+                        </View>
                     </Surface>
                 </ImageBackground>
             </Surface>
