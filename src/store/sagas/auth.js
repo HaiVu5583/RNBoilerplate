@@ -23,6 +23,16 @@ export const requestSignIn = createRequestSaga({
 export const requestSignUp = createRequestSaga({
     request: api.auth.signUp,
     key: 'auth/signUp',
+    success: [
+        (data) => {
+            console.log('Data SignIn Saga', data)
+            if (data && data.accessToken) {
+                const { args, ...rest } = data
+                return saveUserData(rest)
+            }
+            return noop('')
+        }
+    ]
 })
 
 export const requestCreateOTPToken = createRequestSaga({

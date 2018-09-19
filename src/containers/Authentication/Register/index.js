@@ -220,7 +220,25 @@ class Register extends Component {
     _handlePressFinishPassword = () => {
         if (this.state.password != this.state.repassword) {
             this.setState({ errRepassword: I18n.t('err_invalid_repassword') })
+            return
         }
+        if (this.state.loading) return
+        this.setState({ loading: true })
+        this.props.signUp(this.state.name, this.state.password, this.otpToken, (err, data) => {
+            console.log('Err Register', err)
+            console.log('Data Register', data)
+            Navigation.setStackRoot('mainStack',
+                {
+                    component: {
+                        id: 'HomeScreen',
+                        name: 'gigabankclient.HomeScreen',
+                        passProps: {
+                            isSignUp: true
+                        }
+                    }
+                }
+            )
+        })
     }
 
     _renderStepPassword = () => {
