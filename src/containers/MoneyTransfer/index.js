@@ -8,6 +8,7 @@ import BankAccountItem from '~/src/components/BankAccountItem'
 import MaskBalanceView from '~/src/components/MaskBalanceView'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
+import { PermissionsAndroid } from 'react-native'
 
 
 const STEP = {
@@ -115,18 +116,36 @@ class MoneyTransfer extends React.PureComponent {
     }
 
     _handleChooseContact = () => {
-        
+
     }
 
-    _handlePressContact = () => {
-        Navigation.push(this.props.componentId, {
-            component: {
-                name: 'gigabankclient.ContactChooser',
-                passProps: {
-                    onChooseContact: this._handleChooseContact
+    _handlePressContact = async () => {
+        try {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
+                {
+                    'title': 'Cool Photo App Camera Permission',
+                    'message': 'Cool Photo App needs access to your camera ' +
+                        'so you can take awesome pictures.'
                 }
+            )
+            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                console.log("You can use the camera")
+                Navigation.push(this.props.componentId, {
+                    component: {
+                        name: 'gigabankclient.ContactChooser',
+                        passProps: {
+                            onChooseContact: this._handleChooseContact
+                        }
+                    }
+                })
+            } else {
+                console.log("Camera permission denied")
             }
-        })
+        } catch (err) {
+            console.warn(err)
+        }
+
     }
 
     _renderHeaderByStep = () => {
