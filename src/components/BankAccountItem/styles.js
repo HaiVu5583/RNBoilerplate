@@ -1,10 +1,10 @@
-import { COLORS } from '~/src/themes/common'
+import { COLORS, SIZES } from '~/src/themes/common'
 export default {
     image: {
         width: 90,
-        height: 60,
+        height: SIZES.BANK_ITEM_HEIGHT - 10,
         borderRadius: 10,
-        marginRight: 5,
+        marginRight: 16,
         backgroundColor: COLORS.WHITE
     },
     container: {
