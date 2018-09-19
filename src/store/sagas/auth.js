@@ -45,6 +45,11 @@ export const requestVerifyOTPToken = createRequestSaga({
     key: 'auth/verifyOTPToken',
 })
 
+export const requestCheckExistUser = createRequestSaga({
+    request: api.auth.checkExistUser,
+    key: 'auth/checkExistUser',
+})
+
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
@@ -52,6 +57,7 @@ export default function* fetchWatcher() {
         takeLatest('auth/signUp', requestSignUp),
         takeLatest('auth/createOTPToken', requestCreateOTPToken),
         takeLatest('auth/verifyOTPToken', requestVerifyOTPToken),
+        takeLatest('auth/checkExistUser', requestCheckExistUser)
     ])
 }
 

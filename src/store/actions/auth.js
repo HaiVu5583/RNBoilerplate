@@ -22,3 +22,8 @@ export const verifyOTPToken = (...args) => ({
     type: 'auth/verifyOTPToken',
     args
 })
+
+export const checkExistUser = (...args) => ({
+    type: 'auth/checkExistUser',
+    args
+})
