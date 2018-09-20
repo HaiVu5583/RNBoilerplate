@@ -8,6 +8,7 @@ import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import Contacts from 'react-native-contacts'
 import Ripple from 'react-native-material-ripple'
+import { toNormalCharacter } from '~/src/utils'
 
 export default class ContactChooser extends React.PureComponent {
     static get options() {
@@ -28,6 +29,7 @@ export default class ContactChooser extends React.PureComponent {
             keyword: '',
             contacts: []
         }
+        this.contacts = []
     }
 
     _handleBack = () => {
@@ -39,7 +41,8 @@ export default class ContactChooser extends React.PureComponent {
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this._handleBack)
         Contacts.getAllWithoutPhotos((err, contacts) => {
-            this.setState({ contacts: contacts.filter(item => item.phoneNumbers && item.phoneNumbers.length > 0) })
+            this.contacts = contacts.filter(item => item.phoneNumbers && item.phoneNumbers.length > 0)
+            this.setState({ contacts: this.contacts })
         })
     }
 
@@ -49,9 +52,21 @@ export default class ContactChooser extends React.PureComponent {
 
     _onChangeKeyword = (text) => {
         this.setState({ keyword: text }, () => {
-            Contacts.getContactsMatchingString(text, (err, contacts) => {
-                this.setState({ contacts: contacts.filter(item => item.phoneNumbers && item.phoneNumbers.length > 0) })
+            const filterContacts = this.contacts.filter(item => {
+                let phoneNumber = item.phoneNumbers && item.phoneNumbers.length > 0 ?
+                    item.phoneNumbers[0].number : ''
+                phoneNumber = phoneNumber.replace(/-|\s/g, '')
+
+                let name = (item.givenName || '')
+                if (item.middleName) name += ` ${item.middleName}`
+                if (item.familyName) name += ` ${item.familyName}`
+                name = toNormalCharacter(name.toLowerCase())
+                return (
+                    (phoneNumber.indexOf(text) > -1) ||
+                    (name.indexOf(toNormalCharacter(text.toLowerCase())) > -1)
+                )
             })
+            this.setState({ contacts: filterContacts })
         })
     }
 
@@ -77,8 +92,10 @@ export default class ContactChooser extends React.PureComponent {
     _handlePressContactItem = (item) => {
         const { onChooseContact } = this.props
         Navigation.pop(this.props.componentId)
-        console.log('Item Choose', item)
-        onChooseContact(item.phoneNumbers[0].number)
+        let phoneNumber = item.phoneNumbers && item.phoneNumbers.length > 0 ?
+            item.phoneNumbers[0].number : ''
+        phoneNumber = phoneNumber.replace(/-|\s/g, '')
+        onChooseContact(phoneNumber)
     }
 
     _renderContactItem = ({ item, index }) => {
@@ -98,7 +115,6 @@ export default class ContactChooser extends React.PureComponent {
     }
 
     render() {
-        console.log('Contact Chooser Props', this.props)
         return (
             <Surface flex>
                 <Toolbar
