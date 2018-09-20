@@ -9,8 +9,6 @@ import styles from './styles'
 import Contacts from 'react-native-contacts'
 import Ripple from 'react-native-material-ripple'
 
-
-
 export default class ContactChooser extends React.PureComponent {
     static get options() {
         if (Platform.OS == 'android') {
@@ -79,6 +77,7 @@ export default class ContactChooser extends React.PureComponent {
     _handlePressContactItem = (item) => {
         const { onChooseContact } = this.props
         Navigation.pop(this.props.componentId)
+        console.log('Item Choose', item)
         onChooseContact(item.phoneNumbers[0].number)
     }
 

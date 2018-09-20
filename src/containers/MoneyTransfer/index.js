@@ -9,6 +9,8 @@ import MaskBalanceView from '~/src/components/MaskBalanceView'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import { PermissionsAndroid } from 'react-native'
+import Permissions from 'react-native-permissions'
+import { PERMISSION_RESPONSE } from '~/src/constants'
 
 
 const STEP = {
@@ -120,12 +122,10 @@ class MoneyTransfer extends React.PureComponent {
     }
 
     _handlePressContact = async () => {
-        try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-            )
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log("You can use the camera")
+        Permissions.request('contacts').then(response => {
+            // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+            console.log('check request permsion callback', { response });
+            if (response == PERMISSION_RESPONSE.AUTHORIZED) {
                 Navigation.push(this.props.componentId, {
                     component: {
                         name: 'gigabankclient.ContactChooser',
@@ -135,12 +135,9 @@ class MoneyTransfer extends React.PureComponent {
                     }
                 })
             } else {
-                console.log("Camera permission denied")
+                console.log('Permission Deny')
             }
-        } catch (err) {
-            console.warn(err)
-        }
-
+        })
     }
 
     _renderHeaderByStep = () => {
