@@ -170,6 +170,7 @@ const language = {
     'account_suspend': 'Tài khoản đang bị khoá',
     'account_suspend_popup_content': 'Tài khoản của bạn đã bị khoá. Vui lòng liên hệ ***** để được hỗ trợ.',
     'already_have_account_please_login': 'Bạn đã có tài khoản Gigabank.\nHãy đăng nhập để sử dụng dịch vụ nhé.',
+    'update_password_success': 'Cập nhật mật khẩu thành công.',
 
 
     // Charge Screen
