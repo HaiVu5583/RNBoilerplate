@@ -115,19 +115,14 @@ class MoneyTransfer extends React.PureComponent {
         })
     }
 
-    _handleChooseContact = () => {
-
+    _handleChooseContact = (contact) => {
+        console.log('Choose Contact', contact)
     }
 
     _handlePressContact = async () => {
         try {
             const granted = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-                {
-                    'title': 'Cool Photo App Camera Permission',
-                    'message': 'Cool Photo App needs access to your camera ' +
-                        'so you can take awesome pictures.'
-                }
             )
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
                 console.log("You can use the camera")

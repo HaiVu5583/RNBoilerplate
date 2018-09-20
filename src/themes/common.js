@@ -391,6 +391,10 @@ export const SURFACE_STYLES = {
     },
     transparent: {
         backgroundColor: 'transparent',
+    },
+    borderBottomBlue: {
+        borderBottomWidth: LINE_HEIGHT,
+        borderBottomColor: COLORS.BLUE
     }
 }
 

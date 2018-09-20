@@ -1,6 +1,6 @@
 export default {
     searchBox: { 
-        height: 40, 
+        height: 38, 
         width: '100%', 
         backgroundColor: 'white', 
         borderRadius: 20,
