@@ -95,6 +95,10 @@ class MoneyTransfer extends React.PureComponent {
         this.setState({ step: STEP.OTP })
     }
 
+    _handleContinueOTP = () => {
+        this.setState({ step: STEP.RESULT })
+    }
+
     _handleChargeMoney = () => {
         console.log('Press Charge Money')
         this.setState({ step: STEP.RESULT })
@@ -164,6 +168,8 @@ class MoneyTransfer extends React.PureComponent {
             case STEP.OTP:
                 hintT = 'transaction_authenticate_hint'
                 break
+            case STEP.OTP:
+                hintT = 'send_account'
         }
 
         if (this.state.step == STEP.PHONE_INPUT) {
@@ -175,7 +181,8 @@ class MoneyTransfer extends React.PureComponent {
                     <Surface themeable={false} space16 />
                 </Surface>
             )
-        } else if (this.state.step == STEP.TRANSFER_INFO || this.state.step == STEP.OTP) {
+        } else if (this.state.step == STEP.TRANSFER_INFO || this.state.step == STEP.OTP
+            || this.state.step == STEP.RESULT) {
             return (
                 <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
                     <Surface themeable={false} containerHorizontalSpace>
@@ -192,41 +199,6 @@ class MoneyTransfer extends React.PureComponent {
                         />
                     </Surface>
                     <Surface style={styles.fakeFloatPart} />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.RESULT) {
-            return (
-                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false} containerHorizontalMargin>
-                        <BankAccountItem
-                            bankImage={selectedCardItem.bankImage}
-                            bankAccount={selectedCardItem.bankAccount}
-                            expireDate={selectedCardItem.expireDate}
-                            onPress={() => { }}
-                            active={false}
-                        />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={'receive_account'} textTransform={String.prototype.toUpperCase} />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false}>
-                        <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                            <BankAccountItem
-                                bankImage={selectedCardItem.bankImage}
-                                bankAccount={selectedCardItem.bankAccount}
-                                expireDate={selectedCardItem.expireDate}
-                                onPress={() => { }}
-                                active={true}
-                            />
-                        </Surface>
-                        <Surface style={styles.fakeFloatPart} />
-                    </Surface>
                 </Surface>
             )
         }
@@ -335,7 +307,7 @@ class MoneyTransfer extends React.PureComponent {
                         <Surface rowSpacebetween>
                             <Text description t='money_transfer_amount' />
                             <Text description>{formatMoney(this.state.money)}
-                                <Text description t={'VND'}/>
+                                <Text description t={'VND'} />
                             </Text>
                         </Surface>
                         <Surface rowSpacebetween>
@@ -363,7 +335,7 @@ class MoneyTransfer extends React.PureComponent {
                     </Surface>
                 </ScrollView>
             )
-        }else if (this.state.step == STEP.RESULT) {
+        } else if (this.state.step == STEP.RESULT) {
             return (
                 <ScrollView>
                     <Surface themeable={false} space20 />
@@ -439,16 +411,16 @@ class MoneyTransfer extends React.PureComponent {
                     />
                 </Surface>
             )
-        }else if (this.state.step == STEP.OTP){
-            const enableTransferButton = !!this.state.OTP
+        } else if (this.state.step == STEP.OTP) {
+            const enableContinueOTP = !!this.state.otp
             return (
                 <Surface containerHorizontalSpace rowAlignEnd>
                     <Button
                         round full
                         noPadding
                         t={'money_transfer'}
-                        onPress={this._handlePressTransfer}
-                        enable={enableTransferButton}
+                        onPress={this._handleContinueOTP}
+                        enable={enableContinueOTP}
                         gradientButton={true}
                         rippleStyle={{ marginBottom: 10, width: '100%' }}
                     />
@@ -468,6 +440,7 @@ class MoneyTransfer extends React.PureComponent {
     }
 
     render() {
+        console.log('Screen State', this.state)
         let titleT = ''
         switch (this.state.step) {
             case STEP.PHONE_INPUT:
@@ -479,6 +452,10 @@ class MoneyTransfer extends React.PureComponent {
                 break
             case STEP.OTP:
                 titleT = 'transaction_authenticate'
+                break
+            case STEP.RESULT:
+                titleT = 'transaction_result'
+                break
         }
         return (
             <Surface flex>
