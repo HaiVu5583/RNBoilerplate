@@ -138,6 +138,13 @@ export const TEXT_STYLES = {
         lineHeight: 18,
         // letterSpacing: 10
     },
+    errorNormal: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        color: COLORS.ERROR,
+        fontSize: 14,
+        lineHeight: 24,
+        // letterSpacing: 10
+    },
     dialogTitle: {
         ...getFontStyle(FONT_WEIGHTS.bold),
         fontSize: 20,
@@ -330,6 +337,9 @@ export const SURFACE_STYLES = {
         justifyContent: 'space-between',
         alignItems: 'center'
     },
+    infoRow: {
+        paddingVertical: 5
+    },
     mb20: {
         marginBottom: 20
     },
@@ -391,6 +401,10 @@ export const SURFACE_STYLES = {
     },
     transparent: {
         backgroundColor: 'transparent',
+    },
+    borderBottomBlue: {
+        borderBottomWidth: LINE_HEIGHT,
+        borderBottomColor: COLORS.BLUE
     }
 }
 

@@ -56,3 +56,11 @@ export const DIALOG_MODE = {
     NEUTRAL: 'NEUTRAL',
     YES_NO: 'YES_NO'
 }
+
+export const PERMISSION_RESPONSE = {
+    DENIED: 'denied',
+    UNDEFINED: 'undefined',
+    AUTHORIZED: 'authorized',
+    RESTRICTED: 'restricted',
+    UNDETERMINED: 'undetermined'
+}

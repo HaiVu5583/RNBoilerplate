@@ -5,16 +5,18 @@ import { ImageBackground, ScrollView, BackHandler, Platform } from 'react-native
 import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
-import MaskBalanceView from '~/src/components/MaskBalanceView'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
-import { PermissionsAndroid } from 'react-native'
+import Permissions from 'react-native-permissions'
+import { PERMISSION_RESPONSE } from '~/src/constants'
+import { formatPhoneNumber, isValidPhoneNumer, formatMoney, revertFormatMoney } from '~/src/utils'
+import I18n from '~/src/I18n'
 
 
 const STEP = {
     PHONE_INPUT: 'PHONE_INPUT',
-    DELETE_CARD: 'DELETE_CARD',
-    INPUT: 'INPUT',
+    TRANSFER_INFO: 'TRANSFER_INFO',
+    OTP: 'OTP',
     RESULT: 'RESULT',
 }
 class MoneyTransfer extends React.PureComponent {
@@ -33,38 +35,40 @@ class MoneyTransfer extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            selecteCard: 1,
             step: STEP.PHONE_INPUT,
+
             money: '',
             password: '',
-            phone: ''
+            fee: '',
+            content: '',
+            phone: '',
+            otp: '',
+
+            errPhone: '',
+            errMoney: '',
+            errFee: '',
+            errContent: '',
+            errOTP: '',
+            errPass: ''
         }
-        this.bankAccount = [
-            {
-                id: 1,
-                bankImage: 'https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit: 500%2C316&ssl: 1',
-                bankAccount: '7813737375432',
-                expireDate: '09/19',
-            },
-            {
-                id: 2,
-                bankImage: 'https://banner2.kisspng.com/20171216/dcc/mastercard-icon-png-5a3556c6e81b34.5328243515134450629507.jpg',
-                bankAccount: '7813737375432',
-                expireDate: '09/19',
-            },
-            {
-                id: 3,
-                bankImage: 'https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1',
-                bankAccount: '7813737375432',
-                expireDate: '09/19',
-            }
-        ]
+        this.fakeBankAccount = {
+            id: 2,
+            bankImage: 'https://banner2.kisspng.com/20171216/dcc/mastercard-icon-png-5a3556c6e81b34.5328243515134450629507.jpg',
+            bankAccount: '7813737375432',
+            expireDate: '09/19',
+        }
     }
 
     _handleBack = () => {
         if (this.state.step == STEP.PHONE_INPUT) {
             console.log('Component Id', this.props.componentId)
             Navigation.pop(this.props.componentId)
+        } else if (this.state.step == STEP.TRANSFER_INFO) {
+            this.setState({ step: STEP.PHONE_INPUT })
+        } else if (this.state.step == STEP.OTP) {
+            this.setState({ step: STEP.TRANSFER_INFO })
+        } else if (this.state.step == STEP.RESULT) {
+            this.setState({ step: STEP.OTP })
         }
         return true
     }
@@ -81,7 +85,20 @@ class MoneyTransfer extends React.PureComponent {
 
     _handleContinuePhoneInput = () => {
         console.log('Continue Choose Card')
-        this.setState({ step: STEP.INPUT })
+        const phoneNumber = this.state.phone.replace(/\s/g, '')
+        if (!isValidPhoneNumer(phoneNumber)) {
+            this.setState({ errPhone: I18n.t('err_invalid_phone_number') })
+        } else {
+            this.setState({ step: STEP.TRANSFER_INFO })
+        }
+    }
+
+    _handlePressTransfer = () => {
+        this.setState({ step: STEP.OTP })
+    }
+
+    _handleContinueOTP = () => {
+        this.setState({ step: STEP.RESULT })
     }
 
     _handleChargeMoney = () => {
@@ -115,22 +132,16 @@ class MoneyTransfer extends React.PureComponent {
         })
     }
 
-    _handleChooseContact = () => {
-
+    _handleChooseContact = (contact) => {
+        console.log('Choose Contact', contact)
+        this.setState({ phone: contact })
     }
 
     _handlePressContact = async () => {
-        try {
-            const granted = await PermissionsAndroid.request(
-                PermissionsAndroid.PERMISSIONS.READ_CONTACTS,
-                {
-                    'title': 'Cool Photo App Camera Permission',
-                    'message': 'Cool Photo App needs access to your camera ' +
-                        'so you can take awesome pictures.'
-                }
-            )
-            if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log("You can use the camera")
+        Permissions.request('contacts').then(response => {
+            // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
+            console.log('check request permsion callback', { response });
+            if (response == PERMISSION_RESPONSE.AUTHORIZED) {
                 Navigation.push(this.props.componentId, {
                     component: {
                         name: 'gigabankclient.ContactChooser',
@@ -140,12 +151,9 @@ class MoneyTransfer extends React.PureComponent {
                     }
                 })
             } else {
-                console.log("Camera permission denied")
+                console.log('Permission Deny')
             }
-        } catch (err) {
-            console.warn(err)
-        }
-
+        })
     }
 
     _renderHeaderByStep = () => {
@@ -156,11 +164,16 @@ class MoneyTransfer extends React.PureComponent {
             default:
                 hintT = 'money_transfer_hint'
                 break
-            case STEP.DELETE_CARD:
-                hintT = 'delete_linked_card_hint'
+            case STEP.TRANSFER_INFO:
+                hintT = 'transfer_info_hint'
                 break
+            case STEP.OTP:
+                hintT = 'transaction_authenticate_hint'
+                break
+            case STEP.RESULT:
+                hintT = 'send_account'
         }
-        const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
+
         if (this.state.step == STEP.PHONE_INPUT) {
             return (
                 <Surface themeable={false} style={styles.imageBackgroundSmall}>
@@ -170,39 +183,24 @@ class MoneyTransfer extends React.PureComponent {
                     <Surface themeable={false} space16 />
                 </Surface>
             )
-        } else if (this.state.step == STEP.RESULT) {
+        } else if (this.state.step == STEP.TRANSFER_INFO || this.state.step == STEP.OTP
+            || this.state.step == STEP.RESULT) {
             return (
                 <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
                     <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
+                        <Text white description t={hintT} />
                     </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false} containerHorizontalMargin>
+                    <Surface themeable={false} flex />
+                    <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
                         <BankAccountItem
-                            bankImage={selectedCardItem.bankImage}
-                            bankAccount={selectedCardItem.bankAccount}
-                            expireDate={selectedCardItem.expireDate}
+                            bankImage={this.fakeBankAccount.bankImage}
+                            bankAccount={this.fakeBankAccount.bankAccount}
+                            expireDate={this.fakeBankAccount.expireDate}
                             onPress={() => { }}
                             active={false}
                         />
                     </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={'receive_account'} textTransform={String.prototype.toUpperCase} />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false}>
-                        <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                            <BankAccountItem
-                                bankImage={selectedCardItem.bankImage}
-                                bankAccount={selectedCardItem.bankAccount}
-                                expireDate={selectedCardItem.expireDate}
-                                onPress={() => { }}
-                                active={true}
-                            />
-                        </Surface>
-                        <Surface style={styles.fakeFloatPart} />
-                    </Surface>
+                    <Surface style={styles.fakeFloatPart} />
                 </Surface>
             )
         }
@@ -214,16 +212,130 @@ class MoneyTransfer extends React.PureComponent {
                 <Surface containerHorizontalSpace flex>
                     <Surface themeable={false} space16 />
                     <TextInput
-                        placeholderT={'charge_input_money_hint'}
+                        placeholderT={'phone_receive_money_hint'}
                         blackWithDarkblueIcon
-                        onChangeText={text => this.setState({ phone: text })}
+                        onChangeText={text => this.setState({ phone: text, errPhone: '' })}
                         keyboardType='number-pad'
-                        value={this.state.phone}
+                        value={formatPhoneNumber(this.state.phone)}
                         iconRight={'GB_contact'}
                         onPressIconRight={this._handlePressContact}
                         showIconRight={true}
+                        hasError={!!this.state.errPhone}
+                        errorText={this.state.errPhone}
                     />
                 </Surface>
+            )
+        } else if (this.state.step == STEP.TRANSFER_INFO) {
+            return (
+                <ScrollView>
+                    <Surface themeable={false} space20 />
+                    <Surface containerHorizontalSpace>
+                        <Text darkBlue description t={'receiver_info'} textTransform={String.prototype.toUpperCase} />
+                    </Surface>
+                    <Surface themeable={false} space20 />
+                    <Surface containerHorizontalMargin>
+                        <Surface rowSpacebetween infoRow>
+                            <Text description t='phone' />
+                            <Text description>{formatPhoneNumber(this.state.phone)}</Text>
+                        </Surface>
+                        <Surface rowSpacebetween infoRow>
+                            <Text description t='account_owner' />
+                            <Text description>HOANG THANH GIANG</Text>
+                        </Surface>
+                        <Surface space8 borderBottomBlue />
+                    </Surface>
+
+                    <Surface containerHorizontalSpace>
+                        <TextInput
+                            placeholderT={'money_transfer_amount'}
+                            black
+                            keyboardType='number-pad'
+                            onChangeText={text => this.setState({ money: text, errMoney: '' })}
+                            value={formatMoney(this.state.money)}
+                            hasError={!!this.state.errMoney}
+                            errorText={this.state.errMoney}
+                            rightTextT={'VND'}
+                        />
+                        <TextInput
+                            placeholderT={'fee'}
+                            black
+                            keyboardType='number-pad'
+                            onChangeText={text => this.setState({ fee: text, errFee: '' })}
+                            value={formatMoney(this.state.fee)}
+                            hasError={!!this.state.errFee}
+                            errorText={this.state.errFee}
+                            rightTextT={'VND'}
+                        />
+                        <TextInput
+                            placeholderT={'money_trasfer_content'}
+                            black
+                            keyboardType='number-pad'
+                            onChangeText={text => this.setState({ content: text, errContent: '' })}
+                            value={this.state.content}
+                            hasError={!!this.state.errContent}
+                            errorText={this.state.errContent}
+                        />
+                        <TextInput
+                            descriptionIcon={'GB_pass'}
+                            placeholderT={'password'}
+                            black
+                            onChangeText={text => this.setState({ password: text, errPass: '' })}
+                            value={this.state.password}
+                            secureTextEntry={true}
+                            hasError={!!this.state.errPass}
+                            errorText={this.state.errPass}
+                        />
+                    </Surface>
+                </ScrollView>
+            )
+        } else if (this.state.step == STEP.OTP) {
+            return (
+                <ScrollView>
+                    <Surface themeable={false} space20 />
+                    <Surface containerHorizontalSpace>
+                        <Text darkBlue description t={'receiver_info'} textTransform={String.prototype.toUpperCase} />
+                    </Surface>
+                    <Surface themeable={false} space20 />
+                    <Surface containerHorizontalMargin>
+                        <Surface rowSpacebetween infoRow>
+                            <Text description t='phone' />
+                            <Text description>{formatPhoneNumber(this.state.phone)}</Text>
+                        </Surface>
+                        <Surface rowSpacebetween infoRow>
+                            <Text description t='account_owner' />
+                            <Text description>HOANG THANH GIANG</Text>
+                        </Surface>
+                        <Surface space8 borderBottomBlue />
+                        <Surface rowSpacebetween infoRow>
+                            <Text description t='money_transfer_amount' />
+                            <Text description>{formatMoney(this.state.money)}
+                                <Text description t={'VND'} />
+                            </Text>
+                        </Surface>
+                        <Surface rowSpacebetween infoRow>
+                            <Text description t='fee' />
+                            <Text description>{formatMoney(this.state.fee)}
+                                <Text description t={'VND'} />
+                            </Text>
+                        </Surface>
+                        <Surface space8 borderBottomBlue />
+                        <Surface rowSpacebetween infoRow>
+                            <Text description t='content' />
+                            <Text description>{this.state.content}</Text>
+                        </Surface>
+                    </Surface>
+                    <Surface containerHorizontalSpace>
+                        <TextInput
+                            descriptionIcon={'GB_SMS'}
+                            placeholderT={'otp'}
+                            black
+                            onChangeText={text => this.setState({ otp: text, errOTP: '' })}
+                            value={this.state.otp}
+                            hasError={!!this.state.errOTP}
+                            errorText={this.state.errOTP}
+                        />
+                    </Surface>
+                </ScrollView>
             )
         } else if (this.state.step == STEP.RESULT) {
             return (
@@ -234,32 +346,32 @@ class MoneyTransfer extends React.PureComponent {
                     </Surface>
                     <Surface themeable={false} space20 />
                     <Surface containerHorizontalMargin>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='transaction_code' />
                             <Text description>X12AA22</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='money_number' />
                             <Text description>5.000.000VND</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='discount' />
                             <Text description>5.000VND</Text>
                         </Surface>
 
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='fee' />
                             <Text description>11.000VND</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='gigabank_balance' />
                             <Text description>30.000.000VND</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='discount_balance' />
                             <Text description>30.000VND</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='transaction_time' />
                             <Text description>15:11 17/07/2018</Text>
                         </Surface>
@@ -284,16 +396,35 @@ class MoneyTransfer extends React.PureComponent {
                     />
                 </Surface>
             )
-        } else if (this.state.step == STEP.RESULT) {
+        } else if (this.state.step == STEP.TRANSFER_INFO) {
+            const enableTransferButton = !!(
+                !!this.state.money && !!this.state.fee && !!this.state.content && !!this.state.password
+            )
             return (
                 <Surface containerHorizontalSpace rowAlignEnd>
                     <Button
-                        round full outline-blue
+                        round full
                         noPadding
-                        t={'go_back_home'}
-                        onPress={this._handleGoHome}
-                        enable={true}
-                        style={{ marginBottom: 10 }}
+                        t={'money_transfer'}
+                        onPress={this._handlePressTransfer}
+                        enable={enableTransferButton}
+                        gradientButton={true}
+                        rippleStyle={{ marginBottom: 10, width: '100%' }}
+                    />
+                </Surface>
+            )
+        } else if (this.state.step == STEP.OTP) {
+            const enableContinueOTP = !!this.state.otp
+            return (
+                <Surface containerHorizontalSpace rowAlignEnd>
+                    <Button
+                        round full
+                        noPadding
+                        t={'money_transfer'}
+                        onPress={this._handleContinueOTP}
+                        enable={enableContinueOTP}
+                        gradientButton={true}
+                        rippleStyle={{ marginBottom: 10, width: '100%' }}
                     />
                 </Surface>
             )
@@ -311,14 +442,21 @@ class MoneyTransfer extends React.PureComponent {
     }
 
     render() {
+        console.log('Screen State', this.state)
         let titleT = ''
         switch (this.state.step) {
             case STEP.PHONE_INPUT:
             default:
                 titleT = 'money_transfer'
                 break
-            case STEP.DELETE_CARD:
-                titleT = 'delete_linked_card'
+            case STEP.TRANSFER_INFO:
+                titleT = 'transfer_info'
+                break
+            case STEP.OTP:
+                titleT = 'transaction_authenticate'
+                break
+            case STEP.RESULT:
+                titleT = 'transaction_result'
                 break
         }
         return (

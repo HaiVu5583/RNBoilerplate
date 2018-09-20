@@ -6,10 +6,6 @@ import Image from 'react-native-fast-image'
 import styles from './styles'
 import { connect } from 'react-redux'
 import { ASSETS, DEVICE_WIDTH, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
-import Ripple from 'react-native-material-ripple'
-import { setActiveTab } from '~/src/store/actions/ui'
-import { actionTest1, actionTest2 } from '~/src/store/actions/home'
-import { activeTabSelector } from '~/src/store/selectors/ui'
 import Carousel from 'react-native-snap-carousel'
 import FeatureBlock from '~/src/containers/Home/FeatureBlock'
 import { getElevation } from '~/src/utils'
@@ -18,6 +14,8 @@ import Sidebar from '~/src/containers/Drawer'
 import { logoStep3 } from '~/src/components/Asset/LogoStep3'
 import SvgUri from 'react-native-svg-uri'
 import AccountInfo from '~/src/containers/Home/AccountInfo'
+import Toast from 'react-native-root-toast'
+import I18n from '~/src/I18n'
 
 class Home extends Component {
     static get options() {
@@ -159,13 +157,6 @@ class Home extends Component {
     }
 
     _handlePressHambergerIcon = () => {
-        // Navigation.mergeOptions('sideMenu', {
-        //     sideMenu: {
-        //         left: {
-        //             visible: true
-        //         }
-        //     }
-        // })
         this._drawer && this._drawer.open()
     }
 
@@ -182,12 +173,20 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.actionTest1(1000)
-        // this.props.actionTest1(1100)
-        setTimeout(() => {
-            this.props.actionTest2(300)
-        }, 30)
-
+        const { isSignUp } = this.props
+        if (isSignUp) {
+            let toast = Toast.show(I18n.t('welcome_to_gigabank'), {
+                duration: Toast.durations.LONG,
+                position: Toast.positions.CENTER,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+            });
+            setTimeout(() => {
+                Toast.hide(toast);
+            }, 2500)
+        }
     }
 
     _renderItem = ({ item, index }) => {
@@ -361,6 +360,4 @@ class Home extends Component {
     }
 }
 
-export default connect(state => ({
-    activeTab: activeTabSelector(state)
-}), { setActiveTab, actionTest1, actionTest2 })(Home)
+export default connect(null, null)(Home)

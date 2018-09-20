@@ -5,12 +5,13 @@ import { connect } from 'react-redux'
 import I18n from '~/src/I18n'
 import PopupConfirm from '~/src/components/PopupConfirm'
 import { TEXT_INPUT_STYLES, COLORS } from '~/src/themes/common'
-import { BackHandler, Platform } from 'react-native'
+import { BackHandler, Platform, ToastAndroid } from 'react-native'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import { changePassword } from '~/src/store/actions/auth'
 import md5 from 'md5'
 import LoadingModal from '~/src/components/LoadingModal'
 import { chainParse } from '~/src/utils'
+import Toast from 'react-native-root-toast'
 
 const STEP = {
     PASSWORD: 'PASSWORD',
@@ -65,8 +66,20 @@ class ChangePassword extends Component {
             console.log('Data Change Password', data)
             if (chainParse(data, ['updated', 'result'])) {
                 this.setState({ loading: false })
-                // Navigation.popTo('HomeScreen')
-                Navigation.pop(this.props.componentId)
+                let toast = Toast.show(I18n.t('update_password_success'), {
+                    duration: Toast.durations.LONG,
+                    position: Toast.positions.CENTER,
+                    shadow: true,
+                    animation: true,
+                    hideOnPress: true,
+                    delay: 0,
+                });
+                // You can manually hide the Toast, or it will automatically disappear after a `duration` ms timeout.
+                setTimeout(() => {
+                    Toast.hide(toast);
+                    Navigation.pop(this.props.componentId)
+                }, 500)
+
             } else if (data && data.code == 1005) {
                 this.setState({ errPassword: I18n.t('err_invalid_password'), loading: false })
                 return
