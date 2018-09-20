@@ -10,7 +10,7 @@ export default {
     container: {
         padding: 5,
         borderRadius: 10,
-        backgroundColor: COLORS.LIGHT_GRAY
+        backgroundColor: COLORS.FEATURE_BACKGROUND
     },
     iconContainer: {
         position: 'absolute', 
@@ -21,7 +21,7 @@ export default {
         padding: 10,
         zIndex: -1,
         justifyContent: 'flex-end', alignItems: 'center', flexDirection: 'row',
-        backgroundColor: COLORS.LIGHT_GRAY,
+        backgroundColor: COLORS.FEATURE_BACKGROUND,
         borderRadius: 10
     },
     icon: {

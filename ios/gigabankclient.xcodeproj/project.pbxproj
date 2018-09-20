@@ -466,6 +466,20 @@
 			remoteGlobalIDString = 5DBEB1501B18CEA900B34395;
 			remoteInfo = RNVectorIcons;
 		};
+		EC2794F021534B1100DB20A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09188E332E7E4C50AD6AB752 /* RNPhotosFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 632D5ED01DF19458006A862C;
+			remoteInfo = RNPhotosFrameworkTests;
+		};
+		EC2794FE21534B1100DB20A0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2C425A731E1D467C839882E2 /* RCTContacts.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1441618E1BD0A79300FA4F59;
+			remoteInfo = RCTContacts;
+		};
 		EC27BBCD2148ECA600CEA561 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D1A34264159142F0B2F4C609 /* RNToastNative.xcodeproj */;
@@ -1184,6 +1198,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		EC2794FB21534B1100DB20A0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC2794FF21534B1100DB20A0 /* libRCTContacts.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		EC27BB842148ECA600CEA561 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -1312,7 +1334,7 @@
 			isa = PBXGroup;
 			children = (
 				ECB41DCB212EA42700BACF21 /* libRNPhotosFramework.a */,
-				7ADDA0AA215242BD00392EFA /* RNPhotosFrameworkTests.xctest */,
+				EC2794F121534B1100DB20A0 /* RNPhotosFrameworkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1465,7 +1487,7 @@
 					ProjectRef = ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */;
 				},
 				{
-					ProductGroup = 7ADDA0B4215243F700392EFA /* Products */;
+					ProductGroup = EC2794FB21534B1100DB20A0 /* Products */;
 					ProjectRef = 2C425A731E1D467C839882E2 /* RCTContacts.xcodeproj */;
 				},
 				{
@@ -1984,6 +2006,20 @@
 			fileType = archive.ar;
 			path = libRNVectorIcons.a;
 			remoteRef = C88E26202122F465005B993B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EC2794F121534B1100DB20A0 /* RNPhotosFrameworkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = RNPhotosFrameworkTests.xctest;
+			remoteRef = EC2794F021534B1100DB20A0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		EC2794FF21534B1100DB20A0 /* libRCTContacts.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTContacts.a;
+			remoteRef = EC2794FE21534B1100DB20A0 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		EC27BBCE2148ECA600CEA561 /* libRNToastNative.a */ = {

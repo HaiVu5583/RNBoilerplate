@@ -16,7 +16,7 @@ class ThemeTextInput extends Component {
 
     render() {
         const { forwardedRef, style, containerStyle, textInputStyle, theme, themeable,
-            descriptionIcon, iconRight, placeholderT, placeholder, showIconRight = true,
+            descriptionIcon, iconRight, rightTextT, placeholderT, placeholder, showIconRight = true,
             hasError, errorText, ...rest } = this.props
         const themeStyle = getTheme(theme)
         let textInputThemeStyle = themeable ?
@@ -49,6 +49,18 @@ class ThemeTextInput extends Component {
             textInputContainerStyle.push({ borderBottomColor: COLORS.ERROR })
         }
 
+        const rightPart = (!!iconRight && !!showIconRight) ?
+            (
+                <TouchableOpacity onPress={this._handlePressIconRight}>
+                    <View style={commonStyle.textInput.iconRightContainer}>
+                        <Icon name={iconRight} style={iconRightStyle} />
+                    </View>
+                </TouchableOpacity>
+            ) :
+            (
+                rightTextT ? <Text t={rightTextT} /> : <View />
+            )
+
         return (
             <Surface themeable={false} columnStart style={[commonStyle.textInput.textInputColumnContainer, containerStyle]}>
                 <Surface themeable={false} rowStart style={textInputContainerStyle}>
@@ -59,11 +71,7 @@ class ThemeTextInput extends Component {
                         placeholderTextColor={placeholderTextColorTheme}
                         style={textInputThemeStyle}
                     />
-                    {!!iconRight && !!showIconRight && <TouchableOpacity onPress={this._handlePressIconRight}>
-                        <View style={commonStyle.textInput.iconRightContainer}>
-                            <Icon name={iconRight} style={iconRightStyle} />
-                        </View>
-                    </TouchableOpacity>}
+                    {rightPart}
                 </Surface>
                 {!!hasError
                     && <Surface themeable={false} rowSpacebetween fullWidth style={{marginTop: 3,}}>
