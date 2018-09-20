@@ -337,6 +337,9 @@ export const SURFACE_STYLES = {
         justifyContent: 'space-between',
         alignItems: 'center'
     },
+    infoRow: {
+        paddingVertical: 5
+    },
     mb20: {
         marginBottom: 20
     },

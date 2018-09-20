@@ -9,7 +9,7 @@ import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
-import { formatPhoneNumber, isValidPhoneNumer, formatMoney } from '~/src/utils'
+import { formatPhoneNumber, isValidPhoneNumer, formatMoney, revertFormatMoney } from '~/src/utils'
 import I18n from '~/src/I18n'
 
 
@@ -232,11 +232,11 @@ class MoneyTransfer extends React.PureComponent {
                     </Surface>
                     <Surface themeable={false} space20 />
                     <Surface containerHorizontalMargin>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='phone' />
                             <Text description>{formatPhoneNumber(this.state.phone)}</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='account_owner' />
                             <Text description>HOANG THANH GIANG</Text>
                         </Surface>
@@ -249,7 +249,7 @@ class MoneyTransfer extends React.PureComponent {
                             black
                             keyboardType='number-pad'
                             onChangeText={text => this.setState({ money: text, errMoney: '' })}
-                            value={this.state.money}
+                            value={formatMoney(this.state.money)}
                             hasError={!!this.state.errMoney}
                             errorText={this.state.errMoney}
                             rightTextT={'VND'}
@@ -259,7 +259,7 @@ class MoneyTransfer extends React.PureComponent {
                             black
                             keyboardType='number-pad'
                             onChangeText={text => this.setState({ fee: text, errFee: '' })}
-                            value={this.state.fee}
+                            value={formatMoney(this.state.fee)}
                             hasError={!!this.state.errFee}
                             errorText={this.state.errFee}
                             rightTextT={'VND'}
@@ -295,29 +295,29 @@ class MoneyTransfer extends React.PureComponent {
                     </Surface>
                     <Surface themeable={false} space20 />
                     <Surface containerHorizontalMargin>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='phone' />
                             <Text description>{formatPhoneNumber(this.state.phone)}</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='account_owner' />
                             <Text description>HOANG THANH GIANG</Text>
                         </Surface>
                         <Surface space8 borderBottomBlue />
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='money_transfer_amount' />
                             <Text description>{formatMoney(this.state.money)}
                                 <Text description t={'VND'} />
                             </Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='fee' />
                             <Text description>{formatMoney(this.state.fee)}
                                 <Text description t={'VND'} />
                             </Text>
                         </Surface>
                         <Surface space8 borderBottomBlue />
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='content' />
                             <Text description>{this.state.content}</Text>
                         </Surface>
@@ -344,32 +344,32 @@ class MoneyTransfer extends React.PureComponent {
                     </Surface>
                     <Surface themeable={false} space20 />
                     <Surface containerHorizontalMargin>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='transaction_code' />
                             <Text description>X12AA22</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='money_number' />
                             <Text description>5.000.000VND</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='discount' />
                             <Text description>5.000VND</Text>
                         </Surface>
 
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='fee' />
                             <Text description>11.000VND</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='gigabank_balance' />
                             <Text description>30.000.000VND</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='discount_balance' />
                             <Text description>30.000VND</Text>
                         </Surface>
-                        <Surface rowSpacebetween>
+                        <Surface rowSpacebetween infoRow>
                             <Text description t='transaction_time' />
                             <Text description>15:11 17/07/2018</Text>
                         </Surface>
