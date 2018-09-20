@@ -97,7 +97,9 @@ export default class BankAccountItem extends React.PureComponent {
                             <Surface columnAlignEnd flex themeable={false}>
                                 <Text description white>{bankName}</Text>
                                 <Text description white>{maskBankAccount(bankAccount)}</Text>
-                                <Text description white>VALID {expireDate}</Text>
+                                {!!expireDate
+                                    && <Text description white>VALID {expireDate}</Text>
+                                }
                             </Surface>
                         </LinearGradient>
                     </Animated.View>
@@ -150,7 +152,9 @@ export default class BankAccountItem extends React.PureComponent {
                         <Surface columnAlignEnd flex themeable={false}>
                             <Text description white>{bankName}</Text>
                             <Text description white>{maskBankAccount(bankAccount)}</Text>
-                            <Text description white>VALID {expireDate}</Text>
+                            {!!expireDate
+                                && <Text description white>VALID {expireDate}</Text>
+                            }
                         </Surface>
                     </LinearGradient>
                 </Ripple>
@@ -174,7 +178,9 @@ export default class BankAccountItem extends React.PureComponent {
                     <Surface columnAlignEnd flex themeable={false}>
                         <Text description>{bankName}</Text>
                         <Text description>{maskBankAccount(bankAccount)}</Text>
-                        <Text description>VALID {expireDate}</Text>
+                        {!!expireDate
+                            && <Text description>VALID {expireDate}</Text>
+                        }
                     </Surface>
                 </Surface>
             </Ripple>

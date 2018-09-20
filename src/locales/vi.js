@@ -228,6 +228,13 @@ const language = {
     'alert_block_account_title': 'Tài khoản tạm khoá',
     'alert_block_account': 'Tài khoản Gigabank của bạn tạm thời bị khoá do nhập sai mật khẩu 3 lần liên tiếp. Vui lòng liên hệ 0912 345 678 để được hỗ trợ.',
 
+    // With draw authen
+    'authen_transaction': 'Xác thực giao dịch',
+    'enter_otp': 'Nhập mã OTP đã được gửi tới số điện thoại của bạn',
+    'bank': 'Ngân hàng',
+    'with_draw_money_amount': 'Số tiền rút',
+    'authen_code': 'Mã xác thực',
+
     // Money Transfer
     'money_transfer': 'Chuyển tiền',
     'money_transfer_hint': 'Nhập hoặc chọn số điện thoại từ danh bạ để chuyển tiền',
