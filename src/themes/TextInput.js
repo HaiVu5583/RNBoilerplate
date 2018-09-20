@@ -15,7 +15,7 @@ class ThemeTextInput extends Component {
     }
 
     render() {
-        const { forwardedRef, style, textInputStyle, theme, themeable,
+        const { forwardedRef, style, containerStyle, textInputStyle, theme, themeable,
             descriptionIcon, iconRight, placeholderT, placeholder, showIconRight = true,
             hasError, errorText, ...rest } = this.props
         const themeStyle = getTheme(theme)
@@ -50,7 +50,7 @@ class ThemeTextInput extends Component {
         }
 
         return (
-            <Surface themeable={false} columnStart style={commonStyle.textInput.textInputColumnContainer}>
+            <Surface themeable={false} columnStart style={[commonStyle.textInput.textInputColumnContainer, containerStyle]}>
                 <Surface themeable={false} rowStart style={textInputContainerStyle}>
                     {!!descriptionIcon && <Icon name={descriptionIcon} style={descriptionIconStyle} />}
                     <TextInput

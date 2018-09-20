@@ -78,7 +78,6 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.PictureBrowserScreen`, () => require('~/src/containers/PictureBrowserScreen'), store)
     registerContainerWithRedux(`gigabankclient.Authentication`, () => require('~/src/containers/Authentication'), store)
     registerContainerWithRedux(`gigabankclient.Register`, () => require('~/src/containers/Authentication/Register'), store)
-    registerContainerWithRedux(`gigabankclient.ForgotPassword`, () => require('~/src/containers/Authentication/ForgotPassword'), store)
     registerContainerWithRedux(`gigabankclient.WebView`, () => require('~/src/containers/WebView'), store)
     registerContainerWithRedux(`gigabankclient.AccountScreen`, () => require('~/src/containers/Account'), store)
     registerContainerWithRedux(`gigabankclient.Drawer`, () => require('~/src/containers/Drawer'), store)
@@ -93,4 +92,5 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.ContactChooser`, () => require('~/src/containers/ContactChooser'), store)
     registerContainerWithRedux(`gigabankclient.WithDrawInfo`, () => require('~/src/containers/WithDrawInfo'), store)
     registerContainerWithRedux(`gigabankclient.AlertScreen`, () => require('~/src/containers/AlertScreen'), store)
+    registerContainerWithRedux(`gigabankclient.ChangePassword`, () => require('~/src/containers/ChangePassword'), store)
 }

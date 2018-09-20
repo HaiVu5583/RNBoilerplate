@@ -43,18 +43,6 @@ class Authentication extends Component {
     }
 
     _handlePressLogin = () => {
-        Navigation.setStackRoot('mainStack',
-            {
-                component: {
-                    id: 'HomeScreen',
-                    name: 'gigabankclient.HomeScreen',
-                }
-            }
-        )
-        return
-        
-
-        console.log('Press Login State', this.state)
         const phoneNumber = this.state.phone.replace(/\s/g, '')
         if (!isValidPhoneNumer(phoneNumber)) {
             this.setState({ errPhone: I18n.t('err_invalid_phone_number') })
@@ -74,11 +62,11 @@ class Authentication extends Component {
                         }
                     }
                 )
-            } else if (data && data.code && data.code == 1201) {
+            } else if (data && data.code && (data.code == 1201 || data.code == 1002)) {
                 this.setState({ loading: false })
                 this.popupNotRegister && this.popupNotRegister.open()
                 return
-            } else if (data && data.code && data.code == 1104) {
+            } else if (data && data.code && (data.code == 1104 || data.code == 1004)) {
                 this.setState({ loading: false, errPass: I18n.t('err_invalid_password') })
             } else if (data && data.code && data.code == 1003) {
                 this.setState({ loading: false })
