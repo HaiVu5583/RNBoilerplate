@@ -67,6 +67,8 @@ class MoneyTransfer extends React.PureComponent {
             this.setState({ step: STEP.PHONE_INPUT })
         } else if (this.state.step == STEP.OTP) {
             this.setState({ step: STEP.TRANSFER_INFO })
+        } else if (this.state.step == STEP.RESULT) {
+            this.setState({ step: STEP.OTP })
         }
         return true
     }
@@ -168,7 +170,7 @@ class MoneyTransfer extends React.PureComponent {
             case STEP.OTP:
                 hintT = 'transaction_authenticate_hint'
                 break
-            case STEP.OTP:
+            case STEP.RESULT:
                 hintT = 'send_account'
         }
 
