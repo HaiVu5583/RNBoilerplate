@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { BackHandler, Platform, FlatList } from 'react-native'
+import { BackHandler, Platform, FlatList, ActivityIndicator } from 'react-native'
 import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import { Navigation } from 'react-native-navigation'
@@ -9,6 +9,8 @@ import styles from './styles'
 import Contacts from 'react-native-contacts'
 import Ripple from 'react-native-material-ripple'
 import { toNormalCharacter } from '~/src/utils'
+import { errorUnknownBlue } from '~/src/components/Asset/ErrorUnknownBlue'
+import SvgUri from 'react-native-svg-uri'
 
 export default class ContactChooser extends React.PureComponent {
     static get options() {
@@ -27,7 +29,8 @@ export default class ContactChooser extends React.PureComponent {
         super(props)
         this.state = {
             keyword: '',
-            contacts: []
+            contacts: [],
+            loadingContact: true
         }
         this.contacts = []
     }
@@ -42,7 +45,7 @@ export default class ContactChooser extends React.PureComponent {
         BackHandler.addEventListener('hardwareBackPress', this._handleBack)
         Contacts.getAllWithoutPhotos((err, contacts) => {
             this.contacts = contacts.filter(item => item.phoneNumbers && item.phoneNumbers.length > 0)
-            this.setState({ contacts: this.contacts })
+            this.setState({ contacts: this.contacts, loadingContact: false })
         })
     }
 
@@ -114,6 +117,19 @@ export default class ContactChooser extends React.PureComponent {
         )
     }
 
+    _renderEmptySearchResult = () => {
+        return (
+            <Surface columnStart>
+                <SvgUri
+                    width="375"
+                    height="180"
+                    svgXmlData={errorUnknownBlue}
+                />
+                <Text errorNormal t='no_result' />
+            </Surface>
+        )
+    }
+
     render() {
         return (
             <Surface flex>
@@ -123,12 +139,17 @@ export default class ContactChooser extends React.PureComponent {
                     style={{ paddingRight: 16 }}
                     componentId={this.props.componentId}
                 />
-                <FlatList
-                    data={this.state.contacts}
-                    renderItem={this._renderContactItem}
-                    keyExtractor={item => '' + item.rawContactId}
-                    contentContainerStyle={{ paddingHorizontal: 16 }}
-                />
+                {!!this.state.loadingContact ?
+                    <ActivityIndicator size={Platform.OS == 'android' ? 60 : 'large'} color={COLORS.BLUE} /> :
+                    (this.state.contacts && this.state.contacts.length > 0) ?
+                        <FlatList
+                            data={this.state.contacts}
+                            renderItem={this._renderContactItem}
+                            keyExtractor={item => '' + item.rawContactId}
+                            contentContainerStyle={{ paddingHorizontal: 16 }}
+                        /> :
+                        this._renderEmptySearchResult()
+                }
             </Surface>
         )
     }

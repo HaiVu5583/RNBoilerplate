@@ -287,3 +287,34 @@ export const maskBankAccount = (bankAccountNumber) => {
     const last4Digit = bankAccountNumber.substr(bankAccountNumber.length - 4)
     return `\u2022 \u2022 \u2022 \u2022  \u2022 \u2022 \u2022 \u2022  \u2022 \u2022 \u2022 \u2022  ${last4Digit}`
 }
+
+export const formatMoney = (str) => {
+    if (!str || str.length === 0) return ''
+
+    if (str.length == 2 && str[1] == 0 && str[0] == 0) {
+        return '0'
+    }
+
+    var temp = str
+
+    for (let i = 0; i < temp.length; i++) {
+        if (temp[i] != '0') {
+            temp = temp.substr(i)
+            if (temp.length > 1 && temp[0] == '.') {
+                temp = temp.substr(1)
+            }
+            return temp.toString().replace(/\D/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1\.")
+            // console.log("temp ==", temp.toString().replace(/\D/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1\."))
+
+            break
+        }
+
+    }
+
+    return str.toString().replace(/\D/g, '').replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1\.")
+}
+
+export const revertFormatMoney = (str) => {
+    if (!str || str.length === 0) return ''
+    return str.replace(/\./g, '')
+}

@@ -172,8 +172,8 @@ const language = {
     'already_have_account_please_login': 'Bạn đã có tài khoản Gigabank.\nHãy đăng nhập để sử dụng dịch vụ nhé.',
     'update_password_success': 'Cập nhật mật khẩu thành công.',
     'welcome_to_gigabank': 'Chào mừng bạn gia nhập Gigabank!',
-
-
+    'otp': 'Mã xác thực',
+    
     // Charge Screen
     'charge_gigabank': 'Nạp tiền vào Gigabank',
     'charge_gigabank_hint': 'Nạp tiền vào tài khoản Gigabank\ntừ các thẻ ngân hàng đã liên kết',
@@ -219,6 +219,17 @@ const language = {
     'money_transfer_hint': 'Nhập hoặc chọn số điện thoại từ danh bạ để chuyển tiền',
     'phone_receive_money_hint': 'Số điện thoại nhận tiền',
     'contact_search_hint': 'Nhập tên hoặc số điện thoại',
+    'no_result': 'Không tìm thâý kết quả',
+    'transfer_info': 'Thông tin chuyển tiền',
+    'transfer_info_hint': 'Nhập thông tin cho giao dịch chuyển tiền của bạn',
+    'receiver_info': 'Thông tin người nhận',
+    'account_owner': 'Chủ tài khoản',
+    'money_transfer_amount': 'Số tiền chuyển',
+    'money_trasfer_content': 'Nội dung chuyển tiền (không dấu)',
+    'transaction_authenticate': 'Xác thực giao dịch',
+    'transaction_authenticate_hint': 'Nhập mã OTP đã được gửi tới số điện thoại của bạn để xác nhận giao dịch',
+    'content': 'Nội dung',
+
 
     
     //bat vi tri
@@ -239,14 +250,6 @@ const language = {
     'request_album_permission': 'Bạn cần cho phép truy cập Album ảnh để sử dụng tính năng này.',
     'str_cancel_button': 'Hủy',
     'str_ok_button': 'Đồng ý',
-    // PopupChooseLocation
-    'choose_your_location': 'Vui lòng chọn khu vực của bạn',
-    'choose_your_location_message': 'Vui lòng chọn tỉnh thành để Clingme có thể gợi ý các ưu đãi tốt nhất dành cho bạn.',
-    'upload_photo_limited': 'Bạn chỉ nên chia sẻ tối đa xxx hình mỗi lần để đảm bảo tốc độ tốt nhất.',
-    'please_login': 'Vui lòng đăng nhập để sử dụng tính năng này.',
-    'photo_browser_header_done': 'Xong',
-    'should_mark_deal': 'Bạn cần đăng ký nhận ưu đãi trước khi đánh giá.',
-    'should_mark_deal_button': 'đóng',
 
 
     // popup oops timeout
