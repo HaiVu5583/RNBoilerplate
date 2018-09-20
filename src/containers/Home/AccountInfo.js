@@ -25,7 +25,7 @@ export default class AccountInfo extends Component {
                     style={{ ...SURFACE_STYLES.rowStart, ...SURFACE_STYLES.white, borderRadius: 30, paddingHorizontal: 16, height: 60, ...getElevation(4), marginBottom: 5 }}
                 >
                     <Ripple onPress={this._handlePressShowHideIcon}>
-                        <Icon name={this.state.showingMoney ? 'GB_icon-23' : 'GB_icon-24'} style={{ fontSize: 24, color: 'gray' }} />
+                        <Icon name={this.state.showingMoney ? 'GB_eye_show' : 'GB_eye_hide' } style={{ fontSize: 24, color: 'gray' }} />
                     </Ripple>
                     <Ripple
                         rippleColor={'white'}
@@ -36,7 +36,7 @@ export default class AccountInfo extends Component {
                             <Text description bold>{name}</Text>
                             <Text description>{I18n.t('VND')} | {this.state.showingMoney ? money : '\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}</Text>
                         </Surface>
-                        <Icon name='GB_icon-22' style={{ fontSize: 24, color: 'gray' }} />
+                        <Icon name='GB_arrow_right' style={{ fontSize: 24, color: 'gray' }} />
                     </Ripple>
                 </Surface>
             </Surface>

@@ -152,8 +152,8 @@ const language = {
     'support': 'Tổng đài hỗ trợ: ',
     'hint_not_receive_otp': 'Không nhận được mã?',
     'resend_otp': 'Gửi lại mã xác thực',
-    'err_invalid_otp': 'Mã xác thực không chính xác.',
-    'err_otp_expire': 'Mã xác thực đã hết hạn.',
+    'err_invalid_otp': 'Mã xác thực không đúng.',
+    'err_otp_expire': 'Mã xác thực đã hết hiệu lực.',
     'err_general': 'Có lỗi xảy ra, vui lòng thử lại sau.',
     'err_otp_retry_too_fast': 'Thử lại OTP quá nhanh. Vui lòng đợi 60s và thử lại.',
     'err_timeout': 'Oops... Có lỗi kết nối. Bạn vui lòng thử lại.',
@@ -164,6 +164,8 @@ const language = {
     'phone_not_register': 'SĐT chưa đăng ký',
     'phone_not_register_content': 'Bạn chưa đăng ký tài khoản Gigabank. Hãy đăng ký tài khoản để sử dụng dịch vụ nhé.',
     'err_invalid_password': 'Mật khẩu không đúng',
+    'account_suspend': 'Tài khoản đang bị khoá',
+    'account_suspend_popup_content': 'Tài khoản của bạn đã bị khoá. Vui lòng liên hệ ***** để được hỗ trợ.',
 
 
     // Charge Screen
@@ -206,10 +208,28 @@ const language = {
     'add_card_fail_1': 'Thông tin thẻ không chính xác. Vui lòng thử lại sau.',
     'VND': 'VND',
 
-    // With Draw Screen
+    // With Draw
     'with_draw_title': 'Rút tiền từ Gigabank',
     'with_draw_description': 'Chọn hoặc tìm kiếm ngân hàng bạn muốn rút tiền về từ Gigabank',
-    
+
+    // With Draw Info
+    'with_draw_info_title': 'Thông tin rút tiền',
+    'with_draw_info_description': 'Mời bạn nhập thông tin rút tiền',
+    'bank_number': 'Số tài khoản ngân hàng',
+    'bank_account': 'Chủ tài khoản',
+    'with_draw_money': 'Số tiền cần rút',
+    'service_fee': 'Phí dịch vụ',
+    'enter_pass': 'Nhập mật khẩu để xác nhận',
+    'with_draw_money': 'Rút tiền',
+    'alert_block_account_title': 'Tài khoản tạm khoá',
+    'alert_block_account': 'Tài khoản Gigabank của bạn tạm thời bị khoá do nhập sai mật khẩu 3 lần liên tiếp. Vui lòng liên hệ 0912 345 678 để được hỗ trợ.',
+
+    // Money Transfer
+    'money_transfer': 'Chuyển tiền',
+    'money_transfer_hint': 'Nhập hoặc chọn số điện thoại từ danh bạ để chuyển tiền',
+    'phone_receive_money_hint': 'Số điện thoại nhận tiền',
+    'contact_search_hint': 'Nhập tên hoặc số điện thoại',
+
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
     'change_location_title2': 'Vui lòng bật tính năng định vị để Clingme có thể xác định được địa điểm hiện tại của bạn.',

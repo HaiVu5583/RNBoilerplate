@@ -69,40 +69,48 @@ export default {
         padding: 15,
         fontSize: 18,
     },
+    backIcon: {
+        color: '#ffffff',
+        fontSize: 25,
+    },
+    searchIcon: {
+        color: '#233C63',
+        fontSize: 25,
+    },
 
 
 
 
-    barGradient: {
-        backgroundColor: 'transparent',
-        height: 42,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    icon: {
-        fontSize: 17,
-        color: 'rgba(0,0,0,0.9)',
-        opacity: 1
-    },
-    leftButton: {
-        fontSize: 17,
-        color: linkColor,
-        opacity: 1
-    },
-    rightButtonDisable: {
-        fontSize: 17,
-        color: 'rgba(0, 0, 0, 0.3)',
-        opacity: 1
-    },
-    rightButtonEnable: {
-        fontSize: 17,
-        color: linkColor,
-        opacity: 1
-    },
-    title: {
-        color: 'rgba(0,0,0,0.9)',
-        fontSize: 17,
-        zIndex: 200
-    }
+    // barGradient: {
+    //     backgroundColor: 'transparent',
+    //     height: 42,
+    //     flexDirection: 'row',
+    //     justifyContent: 'center',
+    //     alignItems: 'center',
+    // },
+    // icon: {
+    //     fontSize: 17,
+    //     color: 'rgba(0,0,0,0.9)',
+    //     opacity: 1
+    // },
+    // leftButton: {
+    //     fontSize: 17,
+    //     color: linkColor,
+    //     opacity: 1
+    // },
+    // rightButtonDisable: {
+    //     fontSize: 17,
+    //     color: 'rgba(0, 0, 0, 0.3)',
+    //     opacity: 1
+    // },
+    // rightButtonEnable: {
+    //     fontSize: 17,
+    //     color: linkColor,
+    //     opacity: 1
+    // },
+    // title: {
+    //     color: 'rgba(0,0,0,0.9)',
+    //     fontSize: 17,
+    //     zIndex: 200
+    // }
 }

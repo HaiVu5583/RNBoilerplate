@@ -62,7 +62,7 @@ export default class BankAccountItem extends React.PureComponent {
     }
 
     render() {
-        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false, onDelete } = this.props
+        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false, onDelete, moreStyle } = this.props
         if (draggable) {
             return (
                 <View>
@@ -84,8 +84,10 @@ export default class BankAccountItem extends React.PureComponent {
                                 ...SURFACE_STYLES.rowStart,
                                 ...getElevation(4),
                                 marginHorizontal: 2,
-                                marginTop: 2,
-                                marginBottom: 5,
+                                marginTop: 10,
+                                marginBottom: 10,
+                                marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                                marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
                             }}
                         >
                             <Image
@@ -113,7 +115,7 @@ export default class BankAccountItem extends React.PureComponent {
                             })
                         }}
                             rippleColor={'white'}>
-                            <Icon name='GB_icon-43' style={styles.icon} />
+                            <Icon name='GB_trash' style={styles.icon} />
                         </Ripple>
                     </View>
                 </View>
@@ -134,9 +136,11 @@ export default class BankAccountItem extends React.PureComponent {
                             ...SURFACE_STYLES.rowStart,
                             ...getElevation(4),
                             marginHorizontal: 2,
-                            marginTop: 2,
-                            marginBottom: 5,
-
+                            marginTop: 10,
+                            marginBottom: 10,
+                            marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                            marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                            ...moreStyle
                         }}
                     >
                         <Image
@@ -161,6 +165,7 @@ export default class BankAccountItem extends React.PureComponent {
                     marginBottom: 10,
                     marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
                     marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                    ...moreStyle
                 }}>
                     <Image
                         source={{ uri: bankImage }}

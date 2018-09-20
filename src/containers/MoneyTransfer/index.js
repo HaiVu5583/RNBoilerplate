@@ -7,10 +7,11 @@ import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import MaskBalanceView from '~/src/components/MaskBalanceView'
 import { Navigation } from 'react-native-navigation'
+import styles from './styles'
 
 
 const STEP = {
-    LIST_CARD: 'LIST_CARD',
+    PHONE_INPUT: 'PHONE_INPUT',
     DELETE_CARD: 'DELETE_CARD',
     INPUT: 'INPUT',
     RESULT: 'RESULT',
@@ -32,9 +33,10 @@ class MoneyTransfer extends React.PureComponent {
         super(props)
         this.state = {
             selecteCard: 1,
-            step: STEP.LIST_CARD,
+            step: STEP.PHONE_INPUT,
             money: '',
-            password: ''
+            password: '',
+            phone: ''
         }
         this.bankAccount = [
             {
@@ -59,15 +61,9 @@ class MoneyTransfer extends React.PureComponent {
     }
 
     _handleBack = () => {
-        if (this.state.step == STEP.LIST_CARD) {
+        if (this.state.step == STEP.PHONE_INPUT) {
             console.log('Component Id', this.props.componentId)
             Navigation.pop(this.props.componentId)
-        } else if (this.state.step == STEP.DELETE_CARD) {
-            this.setState({ step: STEP.LIST_CARD })
-        } else if (this.state.step == STEP.INPUT) {
-            this.setState({ step: STEP.LIST_CARD })
-        } else if (this.state.step == STEP.RESULT) {
-            this.setState({ step: STEP.INPUT })
         }
         return true
     }
@@ -82,7 +78,7 @@ class MoneyTransfer extends React.PureComponent {
         }
     }
 
-    _handleContinueChooseCard = () => {
+    _handleContinuePhoneInput = () => {
         console.log('Continue Choose Card')
         this.setState({ step: STEP.INPUT })
     }
@@ -93,15 +89,6 @@ class MoneyTransfer extends React.PureComponent {
     }
 
     _handleGoHome = () => {
-        // // Navigation.popToRoot(this.props.componentId)
-        // Navigation.setStackRoot('mainStack',
-        //     {
-        //         component: {
-        //             id: 'HomeScreen',
-        //             name: 'gigabankclient.HomeScreen',
-        //         }
-        //     }
-        // )
         Navigation.popTo('HomeScreen')
     }
 
@@ -127,59 +114,46 @@ class MoneyTransfer extends React.PureComponent {
         })
     }
 
+    _handleChooseContact = () => {
+        
+    }
+
+    _handlePressContact = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.ContactChooser',
+                passProps: {
+                    onChooseContact: this._handleChooseContact
+                }
+            }
+        })
+    }
+
     _renderHeaderByStep = () => {
 
         let hintT = ''
         switch (this.state.step) {
-            case STEP.LIST_CARD:
+            case STEP.PHONE_INPUT:
             default:
-                hintT = 'money_source_hint'
+                hintT = 'money_transfer_hint'
                 break
             case STEP.DELETE_CARD:
                 hintT = 'delete_linked_card_hint'
                 break
         }
         const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
-        if (this.state.step == STEP.LIST_CARD) {
+        if (this.state.step == STEP.PHONE_INPUT) {
             return (
-                <Surface themeable={false}>
+                <Surface themeable={false} style={styles.imageBackgroundSmall}>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
                     <Surface themeable={false} space16 />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.DELETE_CARD || this.state.step == STEP.INPUT) {
-            return (
-                <Surface themeable={false}>
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={hintT} />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false}>
-                        <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                            <BankAccountItem
-                                bankImage={selectedCardItem.bankImage}
-                                bankAccount={selectedCardItem.bankAccount}
-                                expireDate={selectedCardItem.expireDate}
-                                onPress={() => { }}
-                                active={true}
-                            />
-                        </Surface>
-                        <Surface style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 35,
-                            zIndex: 0
-                        }} />
-                    </Surface>
                 </Surface>
             )
         } else if (this.state.step == STEP.RESULT) {
             return (
-                <Surface themeable={false}>
+                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
                     </Surface>
@@ -208,14 +182,7 @@ class MoneyTransfer extends React.PureComponent {
                                 active={true}
                             />
                         </Surface>
-                        <Surface style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 35,
-                            zIndex: 0
-                        }} />
+                        <Surface style={styles.fakeFloatPart} />
                     </Surface>
                 </Surface>
             )
@@ -223,76 +190,19 @@ class MoneyTransfer extends React.PureComponent {
     }
 
     _renderContentByStep = () => {
-        if (this.state.step == STEP.LIST_CARD) {
-            return (
-                <ScrollView>
-                    <Surface containerHorizontalMargin flex>
-                        <Surface themeable={false} space20 />
-                        {this.bankAccount.map((item, index) => (
-                            <Surface themeable={false} key={item.id}>
-                                <BankAccountItem
-                                    bankImage={item.bankImage}
-                                    bankAccount={item.bankAccount}
-                                    expireDate={item.expireDate}
-                                    onPress={() => this._handlePressBankItem(item)}
-                                    active={(index != 0)}
-                                    draggable={(index != 0)}
-                                    onDelete={() => this._handleDeleteCard(item)}
-                                />
-                                <Surface themeable={false} space16 />
-                            </Surface>
-                        ))}
-                        <Button
-                            flat
-                            rowStart
-                            leftComponent={() => (
-                                <Icon name='GB_icon-41' style={{ fontSize: 24, color: COLORS.BLUE }} />
-                            )}
-                            centerComponent={() => (
-                                <Text blue t='add_link_card' />
-                            )}
-                            onPress={this._handleAddCard}
-                            style={{ paddingLeft: 0, paddingRight: 0 }}
-                        />
-                    </Surface>
-                </ScrollView>
-            )
-        } else if (this.state.step == STEP.DELETE_CARD) {
+        if (this.state.step == STEP.PHONE_INPUT) {
             return (
                 <Surface containerHorizontalSpace flex>
                     <Surface themeable={false} space16 />
                     <TextInput
-                        descriptionIcon={'GB_icon-28'}
-                        placeholderT={'hint_input_password'}
-                        blackWithDarkblueIcon
-                        onChangeText={text => this.setState({ password: text })}
-                        value={this.state.password}
-                        secureTextEntry={true}
-                    />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.INPUT) {
-            return (
-                <Surface containerHorizontalSpace flex>
-                    <Surface themeable={false} space16 />
-                    <TextInput
-                        descriptionIcon={'GB_icon-14'}
                         placeholderT={'charge_input_money_hint'}
                         blackWithDarkblueIcon
-                        onChangeText={text => this.setState({ money: text })}
+                        onChangeText={text => this.setState({ phone: text })}
                         keyboardType='number-pad'
-                        value={this.state.money}
-                        iconRight={'GB_icon-31'}
-                        onPressIconRight={() => this.setState({ money: '' })}
-                        showIconRight={(this.state.money && this.state.money.trim())}
-                    />
-                    <TextInput
-                        descriptionIcon={'GB_icon-28'}
-                        placeholderT={'hint_input_password'}
-                        blackWithDarkblueIcon
-                        onChangeText={text => this.setState({ password: text })}
-                        value={this.state.password}
-                        secureTextEntry={true}
+                        value={this.state.phone}
+                        iconRight={'GB_contact'}
+                        onPressIconRight={this._handlePressContact}
+                        showIconRight={true}
                     />
                 </Surface>
             )
@@ -341,30 +251,15 @@ class MoneyTransfer extends React.PureComponent {
     }
 
     _renderBottomButtonByStep = () => {
-        if (this.state.step == STEP.LIST_CARD) {
+        if (this.state.step == STEP.PHONE_INPUT) {
             return (
                 <Surface containerHorizontalSpace rowAlignEnd>
                     <Button
                         round full
                         noPadding
                         t={'continue'}
-                        onPress={this._handleContinueChooseCard}
-                        enable={true}
-                        gradientButton={true}
-                        rippleStyle={{ marginBottom: 10, width: '100%' }}
-                    />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.DELETE_CARD) {
-            const enableChargeButton = !!(this.state.money && this.state.password)
-            return (
-                <Surface containerHorizontalSpace rowAlignEnd>
-                    <Button
-                        round full
-                        noPadding
-                        t={'delete_card'}
-                        onPress={this._deleteCard}
-                        enable={true}
+                        onPress={this._handleContinuePhoneInput}
+                        enable={!!this.state.phone}
                         gradientButton={true}
                         rippleStyle={{ marginBottom: 10, width: '100%' }}
                     />
@@ -399,9 +294,9 @@ class MoneyTransfer extends React.PureComponent {
     render() {
         let titleT = ''
         switch (this.state.step) {
-            case STEP.LIST_CARD:
+            case STEP.PHONE_INPUT:
             default:
-                titleT = 'money_source'
+                titleT = 'money_transfer'
                 break
             case STEP.DELETE_CARD:
                 titleT = 'delete_linked_card'

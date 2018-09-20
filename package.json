@@ -19,6 +19,7 @@
     "react-native-app-settings": "^2.0.0",
     "react-native-autolink": "^1.4.0",
     "react-native-camera": "^1.2.0",
+    "react-native-contacts": "^2.2.3",
     "react-native-device-info": "^0.22.4",
     "react-native-drawer": "^2.5.0",
     "react-native-fast-image": "^4.0.14",

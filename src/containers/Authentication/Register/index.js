@@ -18,6 +18,9 @@ import { logoStep3 } from '~/src/components/Asset/LogoStep3'
 import { logoStep1 } from '~/src/components/Asset/LogoStep1'
 import { logoStep2 } from '~/src/components/Asset/LogoStep2'
 import SvgUri from 'react-native-svg-uri'
+import { createOTPToken, verifyOTPToken, signUp } from '~/src/store/actions/auth'
+import LoadingModal from '~/src/components/LoadingModal'
+import md5 from 'md5'
 
 const STEP = {
     PHONE: 'PHONE',
@@ -50,8 +53,10 @@ class Register extends Component {
             errPassword: '',
             errRepassword: '',
             showPassword: false,
-            showRepassword: false
+            showRepassword: false,
+            loading: false
         }
+        this.otpToken = ''
     }
 
     _handlePressBackIcon = () => {
@@ -78,7 +83,12 @@ class Register extends Component {
     }
 
     _onConfirmPhone = () => {
-        this.setState({ step: STEP.OTP })
+        if (this.state.loading) return
+        this.setState({ loading: true })
+        this.props.createOTPToken(this.state.phone, (err, data) => {
+            console.log('Data OTP', data)
+            this.setState({ loading: false, step: STEP.OTP })
+        })
     }
 
     _onCancelPhone = () => {
@@ -106,7 +116,7 @@ class Register extends Component {
                     <Text body2 white description t={'hint_register_phone_info_input'} />
                 </Surface>
                 <TextInput
-                    descriptionIcon={'GB_icon-34'}
+                    descriptionIcon={'GB_call'}
                     placeholderT={'phone'}
                     white
                     keyboardType='number-pad'
@@ -116,7 +126,7 @@ class Register extends Component {
                     errorText={this.state.errPhone}
                 />
                 <TextInput
-                    descriptionIcon={'GB_icon-37'}
+                    descriptionIcon={'GB_account1'}
                     placeholderT={'full_name'}
                     white
                     onChangeText={text => this.setState({ name: text, errName: '' })}
@@ -142,7 +152,27 @@ class Register extends Component {
             this.setState({ errOTP: I18n.t('err_invalid_otp') })
             return
         }
-        this.setState({ step: STEP.PASSWORD })
+        if (this.state.loading) return false
+        this.setState({ loading: true })
+        this.props.verifyOTPToken(this.state.otp, (err, data) => {
+            console.log('Err Verify Token', err)
+            console.log('Data OTP Token', data)
+            if (data && data.otpToken) {
+                this.otpToken = data.otpToken
+            }
+            if (data.status == 0) {
+                this.setState({ loading: false, step: STEP.PASSWORD })
+                return
+            } else if (data.status == 1) {
+                this.setState({ loading: false, errOTP: I18n.t('err_invalid_otp') })
+                return
+            } else if (data.status == 2) {
+                this.setState({ loading: false, errOTP: I18n.t('err_otp_expire') })
+                return
+            }
+            this.setState({ loading: false })
+        })
+
     }
 
     _handleResend = () => {
@@ -190,7 +220,25 @@ class Register extends Component {
     _handlePressFinishPassword = () => {
         if (this.state.password != this.state.repassword) {
             this.setState({ errRepassword: I18n.t('err_invalid_repassword') })
+            return
         }
+        if (this.state.loading) return
+        this.setState({ loading: true })
+        this.props.signUp(this.state.name, this.state.password, this.otpToken, (err, data) => {
+            console.log('Err Register', err)
+            console.log('Data Register', data)
+            Navigation.setStackRoot('mainStack',
+                {
+                    component: {
+                        id: 'HomeScreen',
+                        name: 'gigabankclient.HomeScreen',
+                        passProps: {
+                            isSignUp: true
+                        }
+                    }
+                }
+            )
+        })
     }
 
     _renderStepPassword = () => {
@@ -208,25 +256,25 @@ class Register extends Component {
 
 
                 <TextInput
-                    descriptionIcon={'GB_icon-28'}
+                    descriptionIcon={'GB_pass'}
                     placeholderT={'hint_input_password'}
                     white
                     keyboardType='number-pad'
                     onChangeText={text => this.setState({ password: text, errRepassword: '' })}
                     value={this.state.password}
-                    iconRight={this.state.showPassword ? 'GB_icon-24' : 'GB_icon-23'}
+                    iconRight={this.state.showPassword ? 'GB_eye_hide' : 'GB_eye_show'}
                     onPressIconRight={() => this.setState({ showPassword: !this.state.showPassword })}
                     secureTextEntry={!this.state.showPassword}
                 />
 
                 <TextInput
-                    descriptionIcon={'GB_icon-29'}
+                    descriptionIcon={'GB_pass2'}
                     placeholderT={'hint_reinput_password'}
                     white
                     keyboardType='number-pad'
                     onChangeText={text => this.setState({ repassword: text, errRepassword: '' })}
                     value={this.state.repassword}
-                    iconRight={this.state.showRepassword ? 'GB_icon-24' : 'GB_icon-23'}
+                    iconRight={this.state.showRepassword ? 'GB_eye_hide' : 'GB_eye_show'}
                     onPressIconRight={() => this.setState({ showRepassword: !this.state.showRepassword })}
                     secureTextEntry={!this.state.showRepassword}
                     hasError={!!this.state.errRepassword}
@@ -311,10 +359,11 @@ class Register extends Component {
                         mode={DIALOG_MODE.YES_NO}
                         onPressYes={this._onConfirmPhone}
                         ref={ref => this.popupConfirm = ref} />
+                    <LoadingModal visible={this.state.loading} />
                     {this._render()}
                 </Surface>
             </ImageBackground >
         )
     }
 }
-export default connect(null, null)(Register)
+export default connect(null, { createOTPToken, verifyOTPToken, signUp })(Register)

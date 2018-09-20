@@ -3,6 +3,7 @@ package com.gigabankclient;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.rt2zz.reactnativecontacts.ReactNativeContacts;
 import com.toast.RCTToastPackage;
 import com.ninty.system.setting.SystemSettingPackage;
 import com.oblador.shimmer.RNShimmerPackage;
@@ -100,17 +101,8 @@ public class MainApplication extends NavigationApplication {
         // Add additional packages you require here
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
-
-//                new MainReactPackage(),
-                // new VectorIconsPackage(),
-                // new SvgPackage(),
-                // new RNI18nPackage(),
-                // new SystemSettingPackage(),
-                // new RNShimmerPackage(),
-                // new FastImageViewPackage(),
-                // new OpenAppSettingsPackage(),
                 new RCTToastPackage(),
-
+                new ReactNativeContacts(),
                 new VectorIconsPackage(),
                 new RNDeviceInfo(),
                 new FastImageViewPackage(),

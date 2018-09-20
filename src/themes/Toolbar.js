@@ -33,13 +33,12 @@ export default class Toolbar extends React.PureComponent {
     }
 
     render() {
-        const { iconLeft, iconRight, title, titleT, titleStyle, style, iconStyle, themeable,
+        const { iconLeft, iconRight, title, titleT, titleStyle, containerStyle, style, iconStyle, themeable=false,
             leftComponent, centerComponent, rightComponent, transparent = false
         } = this.props
-
         const left = leftComponent ? leftComponent() : <Button themeable={themeable} flat noPadding onPress={this._onPressBack}
             style={toolbar.iconLeftContainer}
-            icon={!!iconLeft ? iconLeft : 'GB_icon-21'}
+            icon={!!iconLeft ? iconLeft : 'GB_arrow_left'}
             iconStyle={[toolbar.iconLeft, iconStyle]}
         />
         const center = centerComponent ? centerComponent() : (
@@ -62,7 +61,7 @@ export default class Toolbar extends React.PureComponent {
             )
         }
         return (
-            <Surface themeable={false}>
+            <Surface themeable={false} style={[containerStyle]}>
                 <Surface themeable={false} style={{ width: '100%', height: STATUS_BAR_HEIGHT }} />
                 <Surface style={[toolbar.container, style]} themeable={themeable}>
                     {left}

@@ -61,7 +61,8 @@ const _setRoot = (bottomTabs) => {
                             // name: 'gigabankclient.AddCardSuccess'
                             // name: 'gigabankclient.AddCardFail'
                             // name: 'gigabankclient.WithDraw'
-                            name: 'gigabankclient.WithDrawSearch'
+                            // name: 'gigabankclient.WithDrawInfo'
+                            name: 'gigabankclient.AlertScreen'
 
 
                             // name: rootScreen,

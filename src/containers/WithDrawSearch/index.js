@@ -147,7 +147,7 @@ class WithDrawSearch extends Component {
                     <View style={styles.bar}>
                         <TouchableWithoutFeedback onPress={this._onPressBack}>
                             <View style={styles.backContainer}>
-                                <Icon name={'back'} />
+                                <Icon name={'GB_arrow_left'} style={styles.backIcon} />
                             </View>
                         </TouchableWithoutFeedback>
                         <View style={styles.searchCover}>
@@ -157,7 +157,7 @@ class WithDrawSearch extends Component {
                                 />
                             <TouchableWithoutFeedback onPress={this._onPressSearch}>
                                 <View style={styles.rightContainer }>
-                                    <Icon name={'GB_search'} />
+                                    <Icon name={'GB_search'} style={styles.searchIcon} />
                                 </View>
                             </TouchableWithoutFeedback>
                         </View>
@@ -173,7 +173,7 @@ class WithDrawSearch extends Component {
                         iconRight={'search'}
                         onPressIconRight={this._onPressSearch}
                     /> */}
-                    <Surface themeable={false} space24 />
+                    <Surface themeable={false} space8 />
                     {/* <Text style={{fontSize: 18,
                         marginLeft: SIZES.CONTAINER_HORIZONTAL_SPACE_AND_MARGIN,
                         marginRight: SIZES.CONTAINER_HORIZONTAL_SPACE_AND_MARGIN,

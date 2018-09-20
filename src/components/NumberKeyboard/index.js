@@ -104,7 +104,7 @@ export default class NumberKeyboard extends React.PureComponent {
         if (item.keyType == KEY_TYPES.CLEAR) {
             return (
                 <Button flat
-                    icon='GB_icon-43'
+                    icon='GB_clear'
                     iconStyle={{ color: 'white', fontSize: 20 }}
                     style={{ width: KEY_WIDTH, height: 45 }}
                     onPress={() => this._handlePressKey(item)}

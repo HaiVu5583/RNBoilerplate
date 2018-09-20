@@ -32,7 +32,7 @@ export default class MaskBalanceView extends React.PureComponent {
                 ]}>
                 <Text description style={{ color }}>VNĐ | {displayMoney}</Text>
                 <Ripple onPress={this._handlePressEye}>
-                    <Icon name={this.state.masking ? 'GB_icon-24' : 'GB_icon-23'}
+                    <Icon name={this.state.masking ? 'GB_eye_hide' : 'GB_eye_show'}
                         style={{ fontSize: 24, marginRight: 3, color }} />
                 </Ripple>
             </Surface>

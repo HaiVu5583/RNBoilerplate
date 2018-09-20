@@ -54,6 +54,7 @@ export const get = (url, params, api, extractHeaders) => {
     let tailUrl = convertParamToPath(params) ? url + '?' + convertParamToPath(params, true) : url
     let tailUrlDecode = convertParamToPath(params) ? url + '?' + convertParamToPath(params) : url
     api += tailUrl
+    console.log('API GET', api)
     let timeStamp = Math.floor((new Date().getTime()) / 1000)
     let xAuthStr = (tailUrlDecode) + sendHeader['X-UNIQUE-DEVICE'] + sendHeader['X-DATA-VERSION'] + sendHeader['X-VERSION']
         + timeStamp + SECRET_KEY

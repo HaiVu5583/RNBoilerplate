@@ -7,6 +7,7 @@ import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import MaskBalanceView from '~/src/components/MaskBalanceView'
 import { Navigation } from 'react-native-navigation'
+import styles from './styles'
 
 
 const STEP = {
@@ -93,15 +94,6 @@ class MoneySource extends React.PureComponent {
     }
 
     _handleGoHome = () => {
-        // // Navigation.popToRoot(this.props.componentId)
-        // Navigation.setStackRoot('mainStack',
-        //     {
-        //         component: {
-        //             id: 'HomeScreen',
-        //             name: 'gigabankclient.HomeScreen',
-        //         }
-        //     }
-        // )
         Navigation.popTo('HomeScreen')
     }
 
@@ -142,7 +134,7 @@ class MoneySource extends React.PureComponent {
         const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
         if (this.state.step == STEP.LIST_CARD) {
             return (
-                <Surface themeable={false}>
+                <Surface themeable={false} style={styles.imageBackgroundSmall}>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
@@ -151,35 +143,26 @@ class MoneySource extends React.PureComponent {
             )
         } else if (this.state.step == STEP.DELETE_CARD || this.state.step == STEP.INPUT) {
             return (
-                <Surface themeable={false}>
+                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false}>
-                        <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                            <BankAccountItem
-                                bankImage={selectedCardItem.bankImage}
-                                bankAccount={selectedCardItem.bankAccount}
-                                expireDate={selectedCardItem.expireDate}
-                                onPress={() => { }}
-                                active={true}
-                            />
-                        </Surface>
-                        <Surface style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 35,
-                            zIndex: 0
-                        }} />
+                    <Surface themeable={false} flex />
+                    <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
+                        <BankAccountItem
+                            bankImage={selectedCardItem.bankImage}
+                            bankAccount={selectedCardItem.bankAccount}
+                            expireDate={selectedCardItem.expireDate}
+                            onPress={() => { }}
+                            active={true}
+                        />
                     </Surface>
+                    <Surface style={styles.fakeFloatPart} />
                 </Surface>
             )
         } else if (this.state.step == STEP.RESULT) {
             return (
-                <Surface themeable={false}>
+                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
                     </Surface>
@@ -208,14 +191,7 @@ class MoneySource extends React.PureComponent {
                                 active={true}
                             />
                         </Surface>
-                        <Surface style={{
-                            position: 'absolute',
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 35,
-                            zIndex: 0
-                        }} />
+                        <Surface style={styles.fakeFloatPart} />
                     </Surface>
                 </Surface>
             )
@@ -246,7 +222,7 @@ class MoneySource extends React.PureComponent {
                             flat
                             rowStart
                             leftComponent={() => (
-                                <Icon name='GB_icon-41' style={{ fontSize: 24, color: COLORS.BLUE }} />
+                                <Icon name='GB_plus' style={{ fontSize: 24, color: COLORS.BLUE }} />
                             )}
                             centerComponent={() => (
                                 <Text blue t='add_link_card' />
@@ -262,7 +238,7 @@ class MoneySource extends React.PureComponent {
                 <Surface containerHorizontalSpace flex>
                     <Surface themeable={false} space16 />
                     <TextInput
-                        descriptionIcon={'GB_icon-28'}
+                        descriptionIcon={'GB_pass'}
                         placeholderT={'hint_input_password'}
                         blackWithDarkblueIcon
                         onChangeText={text => this.setState({ password: text })}
@@ -276,18 +252,18 @@ class MoneySource extends React.PureComponent {
                 <Surface containerHorizontalSpace flex>
                     <Surface themeable={false} space16 />
                     <TextInput
-                        descriptionIcon={'GB_icon-14'}
+                        descriptionIcon={'GB_recharge'}
                         placeholderT={'charge_input_money_hint'}
                         blackWithDarkblueIcon
                         onChangeText={text => this.setState({ money: text })}
                         keyboardType='number-pad'
                         value={this.state.money}
-                        iconRight={'GB_icon-31'}
+                        iconRight={'GB_close'}
                         onPressIconRight={() => this.setState({ money: '' })}
                         showIconRight={(this.state.money && this.state.money.trim())}
                     />
                     <TextInput
-                        descriptionIcon={'GB_icon-28'}
+                        descriptionIcon={'GB_pass'}
                         placeholderT={'hint_input_password'}
                         blackWithDarkblueIcon
                         onChangeText={text => this.setState({ password: text })}
