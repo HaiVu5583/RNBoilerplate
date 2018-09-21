@@ -349,25 +349,29 @@ export const SURFACE_STYLES = {
     pv20: {
         paddingVertical: 20
     },
-    space20: {
+    space8: {
         width: '100%',
-        height: 20
+        height: 8
     },
-    space28: {
+    space10: {
         width: '100%',
-        height: 28
-    },
-    space24: {
-        width: '100%',
-        height: 24
+        height: 10
     },
     space16: {
         width: '100%',
         height: 16,
     },
-    space8: {
+    space20: {
         width: '100%',
-        height: 8
+        height: 20
+    },
+    space24: {
+        width: '100%',
+        height: 24
+    },
+    space28: {
+        width: '100%',
+        height: 28
     },
     space30: {
         width: '100%',
@@ -376,6 +380,14 @@ export const SURFACE_STYLES = {
     space35: {
         width: '100%',
         height: 35
+    },
+    space50: {
+        width: '100%',
+        height: 50
+    },
+    space100: {
+        width: '100%',
+        height: 80
     },
     titleAndDescription: {
         height: SIZES.TITLE_DESCRIPTION,

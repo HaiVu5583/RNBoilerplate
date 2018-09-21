@@ -20,6 +20,7 @@ import FeatureBlock from '~/src/containers/Home/FeatureBlock'
 import { getElevation } from '~/src/utils'
 import styles from './styles'
 import ItemCard from './ItemCard'
+import Cards from '~/src/components/Cards'
 
 export const { width, height } = Dimensions.get('window')
 
@@ -50,8 +51,6 @@ class AddCard extends Component {
             bankAccount: '7813737375432',
             expireDate: '09/19',
         }
-
-        this.numberItems = 0
     }
 
     _handlePressSave = () => {
@@ -179,66 +178,6 @@ class AddCard extends Component {
         }
     }
 
-    _renderItemFlatListDomesticCard = (item, index) => {
-        let itemCardContainerStyle = {}
-        let itemCardStyle = {}
-        let itemCardImageStyle = {}
-        let itemWidth = (width - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2 - 20*2)/3
-        
-        itemCardContainerStyle = {
-            width: itemWidth,
-            height: 95,
-        }
-        itemCardStyle = {
-            width: itemWidth,
-            height: itemWidth/1.35,
-            borderRadius: 17,
-        }
-        itemCardImageStyle = {
-            width: itemWidth - 7,
-            height: (itemWidth - 7)/1.35,
-            borderRadius: 15,
-            marginLeft: 3.5,
-        }
-        if (index%3 == 0) {
-            return (
-                <View style={{...itemCardContainerStyle,
-                    marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
-                    marginRight: 10,}}
-                    key={item.id}>
-                    <ItemCard iconBank = {item.iconBank}
-                        itemCardStyle = {itemCardStyle}
-                        itemCardImageStyle = {itemCardImageStyle}
-                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
-                    />
-                </View>
-            )
-        } else if (index%3 == 1) {
-            return (
-                <View style={{...itemCardContainerStyle, marginLeft: 10, marginRight: 10,}}
-                    key={item.id}>
-                    <ItemCard iconBank = {item.iconBank}
-                        itemCardStyle = {itemCardStyle}
-                        itemCardImageStyle = {itemCardImageStyle}
-                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
-                    />
-                </View>
-            )
-        } else {
-            return (
-                <View style={{...itemCardContainerStyle, marginLeft: 10, marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,}}
-                    key={item.id}>
-                    <ItemCard iconBank = {item.iconBank}
-                        itemCardStyle = {itemCardStyle}
-                        itemCardImageStyle = {itemCardImageStyle}
-                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
-                    />
-                </View>
-            )
-        }
-    }
-    
-
     render() {
 
         const items = [
@@ -263,8 +202,6 @@ class AddCard extends Component {
                 iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg'
             },
         ]
-
-        this.numberItems = items.length
 
         return (
             <Surface themeable={false} flex>
@@ -305,21 +242,12 @@ class AddCard extends Component {
                             </FlatList>
                         </View>
                         <Text style={styles.internationalCard} t={'domestic_card'} />
-                        <View style={{marginTop: 30}}>
-                            <FlatList
-                                    data={items}
-                                    renderItem={({item, index}) => this._renderItemFlatListDomesticCard(item, index)}
-                                    showsHorizontalScrollIndicator={false}
-                                    keyExtractor={(item, index) => item.id + '_' + index}
-                                    bounces={false}
-                                    style={{
-                                        marginRight: 0,
-                                        paddingTop: 0,
-                                        paddingBottom: 0,
-                                    }}
-                                    numColumns={3}>
-                                </FlatList>
-                        </View>
+                        <Surface themeable={false} space30 />
+                        <Cards
+                            datas={items}
+                            numColumns={3}
+                        >
+                        </Cards>
                     </Surface>
                 </ImageBackground>
             </Surface>
