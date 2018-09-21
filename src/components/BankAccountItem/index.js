@@ -62,7 +62,9 @@ export default class BankAccountItem extends React.PureComponent {
     }
 
     render() {
-        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false, onDelete, moreStyle } = this.props
+        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false, onDelete, moreStyle, isGigabank, index, verticalMargin = true } = this.props
+        const marginTop = (verticalMargin && index == 0) ? 24 : 0
+        const marginBottom =  verticalMargin ? 20 : 0
         if (draggable) {
             return (
                 <View>
@@ -83,11 +85,8 @@ export default class BankAccountItem extends React.PureComponent {
                                 ...styles.container,
                                 ...SURFACE_STYLES.rowStart,
                                 ...getElevation(4),
-                                marginHorizontal: 2,
-                                marginTop: 10,
-                                marginBottom: 10,
-                                marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
-                                marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                                marginTop,
+                                marginBottom
                             }}
                         >
                             <Image
@@ -105,6 +104,8 @@ export default class BankAccountItem extends React.PureComponent {
                     </Animated.View>
                     <View style={{
                         ...styles.iconContainer,
+                        top: marginTop,
+                        bottom: marginBottom
                     }}>
                         <Ripple onPress={() => {
                             Animated.spring(this.translateX, {
@@ -137,11 +138,8 @@ export default class BankAccountItem extends React.PureComponent {
                             ...styles.container,
                             ...SURFACE_STYLES.rowStart,
                             ...getElevation(4),
-                            marginHorizontal: 2,
-                            marginTop: 10,
-                            marginBottom: 10,
-                            marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
-                            marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                            marginTop,
+                            marginBottom,
                             ...moreStyle
                         }}
                     >
@@ -160,15 +158,19 @@ export default class BankAccountItem extends React.PureComponent {
                 </Ripple>
             )
         }
+
+        const accountDisplayElement = !isGigabank ?
+            <Text description>{maskBankAccount(bankAccount)}</Text> :
+            <Text description t={'gigabank_account'} />
+        const expireDateElement = isGigabank ?
+            <Text description>123456</Text> :
+            !!expireDate ? <Text description>VALID {expireDate}</Text> : <View />
         return (
             <Ripple onPress={onPress} rippleColor={'white'}>
                 <Surface rowStart style={{
                     ...styles.container,
-                    marginHorizontal: 2,
-                    marginTop: 10,
-                    marginBottom: 10,
-                    marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
-                    marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                    marginTop,
+                    marginBottom,
                     ...moreStyle
                 }}>
                     <Image
@@ -177,10 +179,8 @@ export default class BankAccountItem extends React.PureComponent {
                     />
                     <Surface columnAlignEnd flex themeable={false}>
                         <Text description>{bankName}</Text>
-                        <Text description>{maskBankAccount(bankAccount)}</Text>
-                        {!!expireDate
-                            && <Text description>VALID {expireDate}</Text>
-                        }
+                        {accountDisplayElement}
+                        {expireDateElement}
                     </Surface>
                 </Surface>
             </Ripple>

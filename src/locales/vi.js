@@ -180,7 +180,7 @@ const language = {
     'add_card': 'Thêm thẻ',
     'add_link_card': 'Thêm thẻ liên kết',
     'charge_info': 'Thông tin nạp tiền',
-    'charge_input_hint': 'Nhập thông tin nạp tiền\nvào tài khoản Gigabank từ thẻ đã chọn',
+    'charge_input_hint': 'Nhập thông tin nạp tiền vào tài khoản Gigabank từ thẻ đã chọn',
     'charge_input_money_hint': 'Nhập số tiền cần nạp (VND)',
     'charge_money': 'Nạp tiền',
     'send_account': 'Tài khoản thanh toán',
@@ -195,10 +195,11 @@ const language = {
     'discount_balance': 'Số dư khuyến mại',
     'transaction_time': 'Thời gian GD',
     'go_back_home': 'Về trang chủ',
+    'gigabank_account': 'Tài khoản gigabank',
 
     // Money Source
     'money_source': 'Nguồn tiền thanh toán',
-    'money_source_hint': 'Tài khoản Gigabank và các tài khoản/\nthẻ ngân hàng đã liên kết',
+    'money_source_hint': 'Tài khoản Gigabank và các tài khoản/thẻ ngân hàng đã liên kết',
     'delete_linked_card': 'Huỷ liên kết thẻ',
     'delete_linked_card_hint': 'Bạn muốn huỷ liên kết thẻ?',
     'delete_card': 'Xoá thẻ',
@@ -213,6 +214,7 @@ const language = {
     'add_card_fail': 'THÊM THẺ THẤT BẠI',
     'add_card_fail_1': 'Thông tin thẻ không chính xác. Vui lòng thử lại sau.',
     'VND': 'VND',
+    'back_to_list': 'Trở lại danh sách',
 
     // With Draw
     'with_draw_title': 'Rút tiền từ Gigabank',

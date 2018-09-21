@@ -59,7 +59,6 @@ export const createRequestSaga = ({ request, key, start, stop, success, failure,
                     yield put(updateAccessToken(data['access-token']))
                 }
             }
-            console.log('Data Common', data)
 
             if (isTimeout) {
                 throw TIMEOUT

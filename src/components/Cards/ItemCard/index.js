@@ -29,8 +29,6 @@ class ItemCard extends Component {
 
     }
 
-    // itemCardStyle = {itemCardStyle}
-    //             itemCardImageStyle = {itemCardImageStyle}
     render() {
         return (
             <Surface themeable={false} flex>

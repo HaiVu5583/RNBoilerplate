@@ -1,14 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView, BackHandler, Platform } from 'react-native'
+import { ImageBackground, View, ScrollView, BackHandler, Platform } from 'react-native'
 import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
-import MaskBalanceView from '~/src/components/MaskBalanceView'
 import { Navigation } from 'react-native-navigation'
-import styles from './styles'
-
+import { getListCard } from '~/src/store/actions/credit'
+import { listCardSelector } from '~/src/store/selectors/credit'
+import { ADDED_CARD_TYPE } from '~/src/constants'
 
 const STEP = {
     LIST_CARD: 'LIST_CARD',
@@ -134,7 +134,7 @@ class MoneySource extends React.PureComponent {
         const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
         if (this.state.step == STEP.LIST_CARD) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmall}>
+                <Surface themeable={false} imageBackgroundSmall>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
@@ -143,7 +143,7 @@ class MoneySource extends React.PureComponent {
             )
         } else if (this.state.step == STEP.DELETE_CARD || this.state.step == STEP.INPUT) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
+                <Surface themeable={false} imageBackgroundSmallFloat>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
@@ -157,12 +157,12 @@ class MoneySource extends React.PureComponent {
                             active={true}
                         />
                     </Surface>
-                    <Surface style={styles.fakeFloatPart} />
+                    <Surface floatBankItemPart />
                 </Surface>
             )
         } else if (this.state.step == STEP.RESULT) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
+                <Surface themeable={false} imageBackgroundSmallFloat>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
                     </Surface>
@@ -191,33 +191,37 @@ class MoneySource extends React.PureComponent {
                                 active={true}
                             />
                         </Surface>
-                        <Surface style={styles.fakeFloatPart} />
+                        <Surface floatBankItemPart />
                     </Surface>
                 </Surface>
             )
         }
     }
 
+    _renderCardItem = (item, index) => {
+        return (
+            <Surface themeable={false} key={item.cardId}>
+                <BankAccountItem
+                    bankImage={item.logo}
+                    bankAccount={item.hintCard}
+                    expireDate={item.expiryDate}
+                    onPress={() => this._handlePressBankItem(item)}
+                    active={(item.type == ADDED_CARD_TYPE.ADDED)}
+                    draggable={(item.type == ADDED_CARD_TYPE.ADDED)}
+                    isGigabank={(item.type == ADDED_CARD_TYPE.GIGABANK)}
+                    onDelete={() => this._handleDeleteCard(item)}
+                />
+            </Surface>
+        )
+    }
+
     _renderContentByStep = () => {
         if (this.state.step == STEP.LIST_CARD) {
             return (
-                <ScrollView>
+                <Surface themeable={false} flex>
                     <Surface containerHorizontalMargin flex>
                         <Surface themeable={false} space20 />
-                        {this.bankAccount.map((item, index) => (
-                            <Surface themeable={false} key={item.id}>
-                                <BankAccountItem
-                                    bankImage={item.bankImage}
-                                    bankAccount={item.bankAccount}
-                                    expireDate={item.expireDate}
-                                    onPress={() => this._handlePressBankItem(item)}
-                                    active={(index != 0)}
-                                    draggable={(index != 0)}
-                                    onDelete={() => this._handleDeleteCard(item)}
-                                />
-                                <Surface themeable={false} space16 />
-                            </Surface>
-                        ))}
+                        {this.props.listCard.map(this._renderCardItem)}
                         <Button
                             flat
                             rowStart
@@ -231,7 +235,7 @@ class MoneySource extends React.PureComponent {
                             style={{ paddingLeft: 0, paddingRight: 0 }}
                         />
                     </Surface>
-                </ScrollView>
+                </Surface>
             )
         } else if (this.state.step == STEP.DELETE_CARD) {
             return (
@@ -274,7 +278,7 @@ class MoneySource extends React.PureComponent {
             )
         } else if (this.state.step == STEP.RESULT) {
             return (
-                <ScrollView>
+                <Surface themeable={false} flex>
                     <Surface themeable={false} space20 />
                     <Surface containerHorizontalSpace>
                         <Text darkBlue description t={'transaction_info'} textTransform={String.prototype.toUpperCase} />
@@ -311,7 +315,7 @@ class MoneySource extends React.PureComponent {
                             <Text description>15:11 17/07/2018</Text>
                         </Surface>
                     </Surface>
-                </ScrollView>
+                </Surface>
             )
         }
     }
@@ -319,17 +323,7 @@ class MoneySource extends React.PureComponent {
     _renderBottomButtonByStep = () => {
         if (this.state.step == STEP.LIST_CARD) {
             return (
-                <Surface containerHorizontalSpace rowAlignEnd>
-                    <Button
-                        round full
-                        noPadding
-                        t={'continue'}
-                        onPress={this._handleContinueChooseCard}
-                        enable={true}
-                        gradientButton={true}
-                        rippleStyle={{ marginBottom: 10, width: '100%' }}
-                    />
-                </Surface>
+                <View />
             )
         } else if (this.state.step == STEP.DELETE_CARD) {
             const enableChargeButton = !!(this.state.money && this.state.password)
@@ -365,6 +359,10 @@ class MoneySource extends React.PureComponent {
     }
 
     componentDidMount() {
+        this.props.getListCard((err, data) => {
+            console.log('Err getListCard', err)
+            console.log('Data List Card', data)
+        })
         BackHandler.addEventListener('hardwareBackPress', this._handleBack)
     }
 
@@ -373,6 +371,7 @@ class MoneySource extends React.PureComponent {
     }
 
     render() {
+        console.log('Money Source Props', this.props)
         let titleT = ''
         switch (this.state.step) {
             case STEP.LIST_CARD:
@@ -407,4 +406,6 @@ class MoneySource extends React.PureComponent {
     }
 }
 
-export default connect(null, {})(MoneySource)
+export default connect(state => ({
+    listCard: listCardSelector(state)
+}), { getListCard })(MoneySource)

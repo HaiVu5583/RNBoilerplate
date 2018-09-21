@@ -11,8 +11,7 @@ const hashSHA256 = (strData) => {
     return SHA256(strData).toString(CryptoJS.enc.Hex)
 }
 
-const resolveResponse = async (res, extractHeaders) => {
-    console.log('Res', res)
+const resolveResponse = async (res, extractHeaders = ['access-token']) => {
     let headerObj = {}
     if (extractHeaders) {
         for (let i = 0; i < extractHeaders.length; i++) {
