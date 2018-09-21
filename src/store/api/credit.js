@@ -5,5 +5,8 @@ export default {
     },
     getBankList: () => {
         return get('/bank/list')
+    },
+    getListCard: () => {
+        return get('/credit/list-card')
     }
 }

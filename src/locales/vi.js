@@ -195,10 +195,11 @@ const language = {
     'discount_balance': 'Số dư khuyến mại',
     'transaction_time': 'Thời gian GD',
     'go_back_home': 'Về trang chủ',
+    'gigabank_account': 'Tài khoản gigabank',
 
     // Money Source
     'money_source': 'Nguồn tiền thanh toán',
-    'money_source_hint': 'Tài khoản Gigabank và các tài khoản/\nthẻ ngân hàng đã liên kết',
+    'money_source_hint': 'Tài khoản Gigabank và các tài khoản/thẻ ngân hàng đã liên kết',
     'delete_linked_card': 'Huỷ liên kết thẻ',
     'delete_linked_card_hint': 'Bạn muốn huỷ liên kết thẻ?',
     'delete_card': 'Xoá thẻ',

@@ -14,3 +14,9 @@ export const domesticTokenCardSelector = (state) => {
     if (!bankList || bankList.length == 0) return emptyArray
     return bankList.filter(item => item.type == CARD_TYPE.ATM && item.hasToken == 1)
 }
+
+export const listCardSelector = (state) => {
+    const listCard = chainParse(state, ['credit', 'listCard'])
+    if (!listCard) return emptyArray
+    return listCard
+}

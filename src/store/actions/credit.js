@@ -12,3 +12,13 @@ export const setBankList = (data) => ({
     type: 'credit/setBankList',
     payload: data
 })
+
+export const getListCard = (...args) => ({
+    type: 'credit/getListCard',
+    args
+})
+
+export const setListCard = (data) => ({
+    type: 'credit/setListCard',
+    payload: data
+})

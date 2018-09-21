@@ -1,5 +1,6 @@
 const initialState = {
-    bankCardList: []
+    bankCardList: [],
+    listCard: []
 }
 export const credit = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -8,6 +9,13 @@ export const credit = (state = initialState, { type, payload }) => {
             return {
                 ...state,
                 bankCardList: payload
+            }
+        }
+        case 'credit/setListCard': {
+            console.log('Payload setListCard', payload)
+            return {
+                ...state,
+                listCard: payload
             }
         }
         case 'auth/updateAccessToken': {

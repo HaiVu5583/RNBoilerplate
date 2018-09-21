@@ -69,3 +69,8 @@ export const CARD_TYPE = {
     VISA_MASTER: 2,
     ATM: 3
 }
+
+export const ADDED_CARD_TYPE = {
+    GIGABANK: 1,
+    ADDED: 2
+}
