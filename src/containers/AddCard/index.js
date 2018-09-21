@@ -11,9 +11,14 @@ import styles from './styles'
 import ItemCard from './ItemCard'
 import { addCreditCard } from '~/src/store/actions/credit'
 import LoadingModal from '~/src/components/LoadingModal'
+import AddCardSuccess from '~/src/components/AddCardSuccess'
+import AddCardFail from '~/src/components/AddCardFail'
+
 const STEP = {
     LIST_BANK: 'LIST_BANK',
-    WEBVIEW_ADD_CARD: 'WEBVIEW_ADD_CARD'
+    WEBVIEW_ADD_CARD: 'WEBVIEW_ADD_CARD',
+    ADD_CARD_SUCCESS: 'ADD_CARD_SUCCESS',
+    ADD_CARD_FAIL: 'ADD_CARD_FAIL'
 }
 
 class AddCard extends Component {
@@ -41,6 +46,10 @@ class AddCard extends Component {
 
     }
 
+    _handleBackToList = () => {
+        Navigation.pop(this.props.componentId)
+    }
+
     _renderItem = ({ item, index }) => {
         return (
             <Surface themeable={false} style={{ width: DEVICE_WIDTH - 60, height: 150, justifyContent: 'center', alignItems: 'center' }}>
@@ -62,6 +71,7 @@ class AddCard extends Component {
             console.log('Data AddCreditCard', data)
             if (data && data.gatewayLink) {
                 this.webviewAddCardInfo = data
+                console.log('Webview Card Info', this.webviewAddCardInfo)
                 this.setState({ step: STEP.WEBVIEW_ADD_CARD, loading: false })
                 return
             }
@@ -255,14 +265,11 @@ class AddCard extends Component {
     }
 
     _onLoadWebviewAddCardStart = (e) => {
-        console.log('On load start', e.nativeEvent)
-        if (this.webViewAddCard && this.webViewAddCard.failLink && e.nativeEvent.url.indexOf(this.webViewAddCard.failLink) > -1) {
-            
-        } else if (
-            (this.webViewAddCard && this.webViewAddCard.successLink && e.nativeEvent.url.indexOf(this.webViewAddCard.successLink) > -1)
-            || (e.nativeEvent.url.indexOf(PAYMENT_WEBLINK_SUCCESS_NEXT_TO_LIST) > -1)
-        ) {
-
+        const webviewInfo = this.webviewAddCardInfo
+        if (webviewInfo && webviewInfo.successLink && e.nativeEvent.url.indexOf(webviewInfo.successLink) > -1) {
+            this.setState({ step: STEP.ADD_CARD_SUCCESS })
+        } else if (webviewInfo && webviewInfo.failLink && e.nativeEvent.url.indexOf(webviewInfo.failLink) > -1) {
+            this.setState({ step: STEP.ADD_CARD_FAIL })
         }
     }
 
@@ -289,6 +296,28 @@ class AddCard extends Component {
         )
     }
 
+    _renderAddCardSuccess = () => {
+        return <AddCardSuccess onPress={this._handleBackToList}/>
+    }
+
+    _renderAddCardFail = () => {
+        return <AddCardFail onPress={this._handleBackToList}/>
+    }
+
+    _render = () => {
+        switch (this.state.step) {
+            case STEP.LIST_BANK:
+            default:
+                return this._renderListBank()
+            case STEP.WEBVIEW_ADD_CARD:
+                return this._renderWebviewAddCard()
+            case STEP.ADD_CARD_SUCCESS:
+                return this._renderAddCardSuccess()
+            case STEP.ADD_CARD_FAIL:
+                return this._renderAddCardFail()
+        }
+    }
+
 
     render() {
         return (
@@ -308,11 +337,7 @@ class AddCard extends Component {
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}
                     />
-                    {(this.state.step == STEP.LIST_BANK) ?
-                        this._renderListBank() :
-                        this.state.step == STEP.WEBVIEW_ADD_CARD ? this._renderWebviewAddCard() :
-                            <View />
-                    }
+                    {this._render()}
                 </ImageBackground>
             </Surface>
 

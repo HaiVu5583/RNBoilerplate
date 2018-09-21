@@ -1,34 +1,43 @@
 import React, { Component } from 'react';
-import { Surface, Text } from '~/src/themes/ThemeComponent'
-import { ImageBackground, StatusBar, View, FlatList, WebView } from 'react-native'
-import Image from 'react-native-fast-image'
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES } from '~/src/themes/common'
-const STEP = {
-    LIST_BANK: 'LIST_BANK',
-    WEBVIEW_ADD_CARD: 'WEBVIEW_ADD_CARD'
-}
-
+import { Surface, Text, Button } from '~/src/themes/ThemeComponent'
+import { addCardFail } from '~/src/components/Asset/AddCardFail'
+import SvgUri from 'react-native-svg-uri'
 export default class AddCardFail extends Component {
-
-
     constructor(props) {
         super(props)
         this.state = {
-            loading: false,
-            step: STEP.LIST_BANK
         }
-        this.webviewAddCardInfo = {}
-        this.numberItems = 0
+    }
+
+    _handleBackToList = () => {
+        const { onPress } = this.props
+        onPress && onPress()
     }
 
 
 
     render() {
         return (
-            <Surface themeable={false} flex>
-                <Text white></Text>
+            <Surface themeable={false} columnCenter flex>
+                <Text white bold textTransform={String.prototype.toUpperCase} t={'add_card_fail'}></Text>
+                <SvgUri
+                    width="375"
+                    height="180"
+                    svgXmlData={addCardFail}
+                />
+                <Text white description t='add_card_fail_1' />
+                <Surface flex themeable={false} />
+                <Surface themeable={false} containerHorizontalSpace rowAlignEnd>
+                    <Button
+                        round full outline-blue
+                        noPadding
+                        t={'back_to_list'}
+                        onPress={this._handleBackToList}
+                        enable={true}
+                        style={{ marginBottom: 16 }}
+                    />
+                </Surface>
             </Surface>
-
         )
     }
 }

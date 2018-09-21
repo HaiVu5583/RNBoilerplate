@@ -213,6 +213,7 @@ const language = {
     'add_card_fail': 'THÊM THẺ THẤT BẠI',
     'add_card_fail_1': 'Thông tin thẻ không chính xác. Vui lòng thử lại sau.',
     'VND': 'VND',
+    'back_to_list': 'Trở lại danh sách',
 
     // With Draw
     'with_draw_title': 'Rút tiền từ Gigabank',

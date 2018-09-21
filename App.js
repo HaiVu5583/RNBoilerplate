@@ -47,9 +47,9 @@ const _persist = (store) => {
 const _setRoot = (bottomTabs) => {
     const state = store.getState()
     let rootScreen = 'gigabankclient.Authentication'
-    if (chainParse(state, ['auth', 'accessToken'])){
+    if (chainParse(state, ['auth', 'accessToken'])) {
         rootScreen = 'gigabankclient.HomeScreen'
-    } 
+    }
     Navigation.setRoot({
         root: {
             stack: {
@@ -57,16 +57,7 @@ const _setRoot = (bottomTabs) => {
                 children: [
                     {
                         component: {
-                            // name: 'gigabankclient.AddCard'
-                            // name: 'gigabankclient.AddCardSuccess'
-                            // name: 'gigabankclient.AddCardFail'
-                            // name: 'gigabankclient.WithDraw'
-                            // name: 'gigabankclient.WithDrawSearch'
-                            // name: 'gigabankclient.WithDrawInfo'
-                            name: 'gigabankclient.WithDrawAuthen'
-
-
-                            // name: rootScreen,
+                            name: rootScreen,
                         }
                     }
                 ]
