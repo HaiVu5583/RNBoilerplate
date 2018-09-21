@@ -157,7 +157,7 @@ class WithDrawInfo extends React.PureComponent {
                     iconRight={'GB_close'}
                     onPressIconRight={() => this.setState({ bankAccount: '' })}
                     showIconRight={(this.state.bankAccount && this.state.bankAccount.trim())}
-                    hasError={true}
+                    hasError={this.state.errorMessage != '' ? true : false}
                     errorText={this.state.errorMessage}
                 />
                 <TextInput

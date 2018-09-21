@@ -63,7 +63,10 @@ const _setRoot = (bottomTabs) => {
                             // name: 'gigabankclient.WithDraw'
                             // name: 'gigabankclient.WithDrawSearch'
                             // name: 'gigabankclient.WithDrawInfo'
-                            name: 'gigabankclient.WithDrawAuthen'
+                            // name: 'gigabankclient.WithDrawAuthen'
+                            // name: 'gigabankclient.ChargePhone'
+                            // name: 'gigabankclient.EnterPassword'
+                            name: 'gigabankclient.ChargePhoneAuthen'
 
 
                             // name: rootScreen,

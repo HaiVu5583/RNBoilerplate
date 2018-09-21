@@ -381,6 +381,10 @@ export const SURFACE_STYLES = {
         width: '100%',
         height: 35
     },
+    space40: {
+        width: '100%',
+        height: 40
+    },
     space50: {
         width: '100%',
         height: 50

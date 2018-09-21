@@ -238,6 +238,16 @@ const language = {
     'with_draw_money_amount': 'Số tiền rút',
     'authen_code': 'Mã xác thực',
 
+    // Charge phone
+    'charge_phone': 'Nạp tiền điện thoại',
+    'charge_phone_description': 'Nhập hoặc chọn số điện thoại từ danh bạ để nạp tiền',
+    'charge_phone_money_hint': 'Số điện thoại nạp tiền',
+    'choose_denominations': 'Chọn mệnh giá',
+    'enter_password_please': 'Vui lòng nhập mật khẩu để tiếp tục',
+    'charge_phone_info': 'Thông tin nạp tiền điện thoại',
+    'denominations': 'Mệnh giá',
+    'charge_phone_discount': 'Chiết khấu',
+
     // Money Transfer
     'money_transfer': 'Chuyển tiền',
     'money_transfer_hint': 'Nhập hoặc chọn số điện thoại từ danh bạ để chuyển tiền',
