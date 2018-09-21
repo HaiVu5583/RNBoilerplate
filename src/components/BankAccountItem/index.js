@@ -4,7 +4,7 @@ import Image from 'react-native-fast-image'
 import { maskBankAccount, getElevation } from '~/src/utils'
 import styles from './styles'
 import LinearGradient from 'react-native-linear-gradient'
-import { SURFACE_STYLES } from '~/src/themes/common'
+import { SURFACE_STYLES, SIZES } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple';
 import { Animated, PanResponder, View } from 'react-native'
 
@@ -62,7 +62,7 @@ export default class BankAccountItem extends React.PureComponent {
     }
 
     render() {
-        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false, onDelete } = this.props
+        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false, onDelete, moreStyle } = this.props
         if (draggable) {
             return (
                 <View>
@@ -84,8 +84,10 @@ export default class BankAccountItem extends React.PureComponent {
                                 ...SURFACE_STYLES.rowStart,
                                 ...getElevation(4),
                                 marginHorizontal: 2,
-                                marginTop: 2,
-                                marginBottom: 5,
+                                marginTop: 10,
+                                marginBottom: 10,
+                                marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                                marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
                             }}
                         >
                             <Image
@@ -95,7 +97,9 @@ export default class BankAccountItem extends React.PureComponent {
                             <Surface columnAlignEnd flex themeable={false}>
                                 <Text description white>{bankName}</Text>
                                 <Text description white>{maskBankAccount(bankAccount)}</Text>
-                                <Text description white>VALID {expireDate}</Text>
+                                {!!expireDate
+                                    && <Text description white>VALID {expireDate}</Text>
+                                }
                             </Surface>
                         </LinearGradient>
                     </Animated.View>
@@ -134,9 +138,11 @@ export default class BankAccountItem extends React.PureComponent {
                             ...SURFACE_STYLES.rowStart,
                             ...getElevation(4),
                             marginHorizontal: 2,
-                            marginTop: 2,
-                            marginBottom: 5,
-
+                            marginTop: 10,
+                            marginBottom: 10,
+                            marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                            marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                            ...moreStyle
                         }}
                     >
                         <Image
@@ -146,7 +152,9 @@ export default class BankAccountItem extends React.PureComponent {
                         <Surface columnAlignEnd flex themeable={false}>
                             <Text description white>{bankName}</Text>
                             <Text description white>{maskBankAccount(bankAccount)}</Text>
-                            <Text description white>VALID {expireDate}</Text>
+                            {!!expireDate
+                                && <Text description white>VALID {expireDate}</Text>
+                            }
                         </Surface>
                     </LinearGradient>
                 </Ripple>
@@ -157,8 +165,11 @@ export default class BankAccountItem extends React.PureComponent {
                 <Surface rowStart style={{
                     ...styles.container,
                     marginHorizontal: 2,
-                    marginTop: 2,
-                    marginBottom: 5
+                    marginTop: 10,
+                    marginBottom: 10,
+                    marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                    marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
+                    ...moreStyle
                 }}>
                     <Image
                         source={{ uri: bankImage }}
@@ -167,7 +178,9 @@ export default class BankAccountItem extends React.PureComponent {
                     <Surface columnAlignEnd flex themeable={false}>
                         <Text description>{bankName}</Text>
                         <Text description>{maskBankAccount(bankAccount)}</Text>
-                        <Text description>VALID {expireDate}</Text>
+                        {!!expireDate
+                            && <Text description>VALID {expireDate}</Text>
+                        }
                     </Surface>
                 </Surface>
             </Ripple>

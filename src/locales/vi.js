@@ -214,6 +214,30 @@ const language = {
     'add_card_fail_1': 'Thông tin thẻ không chính xác. Vui lòng thử lại sau.',
     'VND': 'VND',
 
+    // With Draw
+    'with_draw_title': 'Rút tiền từ Gigabank',
+    'with_draw_description': 'Chọn hoặc tìm kiếm ngân hàng bạn muốn rút tiền về từ Gigabank',
+    'search_bank': 'Tìm kiếm ngân hàng...',
+
+    // With Draw Info
+    'with_draw_info_title': 'Thông tin rút tiền',
+    'with_draw_info_description': 'Mời bạn nhập thông tin rút tiền',
+    'bank_number': 'Số tài khoản ngân hàng',
+    'bank_account': 'Chủ tài khoản',
+    'with_draw_money': 'Số tiền cần rút',
+    'service_fee': 'Phí dịch vụ',
+    'enter_pass': 'Nhập mật khẩu để xác nhận',
+    'with_draw_money': 'Rút tiền',
+    'alert_block_account_title': 'Tài khoản tạm khoá',
+    'alert_block_account': 'Tài khoản Gigabank của bạn tạm thời bị khoá do nhập sai mật khẩu 3 lần liên tiếp. Vui lòng liên hệ 0912 345 678 để được hỗ trợ.',
+
+    // With draw authen
+    'authen_transaction': 'Xác thực giao dịch',
+    'enter_otp': 'Nhập mã OTP đã được gửi tới số điện thoại của bạn',
+    'bank': 'Ngân hàng',
+    'with_draw_money_amount': 'Số tiền rút',
+    'authen_code': 'Mã xác thực',
+
     // Money Transfer
     'money_transfer': 'Chuyển tiền',
     'money_transfer_hint': 'Nhập hoặc chọn số điện thoại từ danh bạ để chuyển tiền',
@@ -231,7 +255,6 @@ const language = {
     'content': 'Nội dung',
 
 
-    
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
     'change_location_title2': 'Vui lòng bật tính năng định vị để Clingme có thể xác định được địa điểm hiện tại của bạn.',
