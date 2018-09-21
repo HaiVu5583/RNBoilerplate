@@ -3,19 +3,18 @@ import {
     Surface, Text, Toolbar
 } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import {
-    ImageBackground, StatusBar, Animated, Platform,
-    View, FlatList,
-}
-    from 'react-native'
+import { ImageBackground, StatusBar, View, FlatList, WebView } from 'react-native'
 import Image from 'react-native-fast-image'
 import { connect } from 'react-redux'
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT }
-    from '~/src/themes/common'
+import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES } from '~/src/themes/common'
 import styles from './styles'
 import ItemCard from './ItemCard'
 import { addCreditCard } from '~/src/store/actions/credit'
 import LoadingModal from '~/src/components/LoadingModal'
+const STEP = {
+    LIST_BANK: 'LIST_BANK',
+    WEBVIEW_ADD_CARD: 'WEBVIEW_ADD_CARD'
+}
 
 class AddCard extends Component {
     static get options() {
@@ -31,15 +30,10 @@ class AddCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            loading: false
+            loading: false,
+            step: STEP.LIST_BANK
         }
-        this.bankItem = {
-            id: 2,
-            bankImage: 'https://banner2.kisspng.com/20171216/dcc/mastercard-icon-png-5a3556c6e81b34.5328243515134450629507.jpg',
-            bankAccount: '7813737375432',
-            expireDate: '09/19',
-        }
-
+        this.webviewAddCardInfo = {}
         this.numberItems = 0
     }
 
@@ -59,11 +53,6 @@ class AddCard extends Component {
         )
     }
 
-
-    _handlePressFeature = (item) => {
-
-    }
-
     _handlePressInternationalCard = (item) => {
         console.log('Pressing International Card', item)
         if (this.state.loading) return
@@ -71,6 +60,11 @@ class AddCard extends Component {
         this.props.addCreditCard(item.cardType, (err, data) => {
             console.log('Err AddCreditCard', err)
             console.log('Data AddCreditCard', data)
+            if (data && data.gatewayLink) {
+                this.webviewAddCardInfo = data
+                this.setState({ step: STEP.WEBVIEW_ADD_CARD, loading: false })
+                return
+            }
             this.setState({ loading: false })
         })
     }
@@ -186,9 +180,7 @@ class AddCard extends Component {
         }
     }
 
-
-    render() {
-
+    _renderListBank = () => {
         const items = [
             {
                 id: 1,
@@ -218,7 +210,87 @@ class AddCard extends Component {
         ]
 
         this.numberItems = items.length
+        return (
+            <Surface themeable={false} flex>
+                <Surface themeable={false} containerHorizontalSpace>
+                    <Text white description t={'add_card_hint'} />
+                    <Surface themeable={false} space16 />
+                </Surface>
+                <Surface flex>
+                    <Text style={styles.internationalCard} t={'international_card'} />
+                    <View style={styles.actionRowFlatList}>
+                        <FlatList
+                            data={items}
+                            renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            keyExtractor={(item, index) => item.id + '_' + index}
+                            bounces={false}
+                            style={{
+                                marginRight: 0,
+                                paddingTop: 0,
+                                paddingBottom: 0,
+                            }}>
+                        </FlatList>
+                    </View>
+                    <Text style={styles.internationalCard} t={'domestic_card'} />
+                    <View style={{ marginTop: 30 }}>
+                        <FlatList
+                            data={items}
+                            renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}
+                            showsHorizontalScrollIndicator={false}
+                            keyExtractor={(item, index) => item.id + '_' + index}
+                            bounces={false}
+                            style={{
+                                marginRight: 0,
+                                paddingTop: 0,
+                                paddingBottom: 0,
+                            }}
+                            numColumns={3}>
+                        </FlatList>
+                    </View>
+                </Surface>
+            </Surface>
+        )
+    }
 
+    _onLoadWebviewAddCardStart = (e) => {
+        console.log('On load start', e.nativeEvent)
+        if (this.webViewAddCard && this.webViewAddCard.failLink && e.nativeEvent.url.indexOf(this.webViewAddCard.failLink) > -1) {
+            
+        } else if (
+            (this.webViewAddCard && this.webViewAddCard.successLink && e.nativeEvent.url.indexOf(this.webViewAddCard.successLink) > -1)
+            || (e.nativeEvent.url.indexOf(PAYMENT_WEBLINK_SUCCESS_NEXT_TO_LIST) > -1)
+        ) {
+
+        }
+    }
+
+    _onLoadWebviewAddCardEnd = (e) => {
+        console.log('On load end', e.nativeEvent)
+    }
+
+    _onLoadWebviewAddCardError = (e) => {
+        console.log('On load error', e.nativeEvent)
+    }
+
+    _renderWebviewAddCard = () => {
+        return (
+            <WebView
+                startInLoadingState={true}
+                onLoadStart={this._onLoadWebviewAddCardStart}
+                onLoadEnd={this._onLoadWebviewAddCardEnd}
+                onError={this._onLoadWebviewAddCardError}
+                source={{ uri: this.webviewAddCardInfo.gatewayLink }}
+                ref={ref => this.webViewAddCard = ref}
+                scalesPageToFit={false}
+                style={{ backgroundColor: COLORS.WHITE, width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}
+            />
+        )
+    }
+
+
+    render() {
         return (
             <Surface themeable={false} flex>
                 <StatusBar
@@ -236,45 +308,11 @@ class AddCard extends Component {
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}
                     />
-                    <Surface themeable={false} space20 />
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={'add_card_hint'} />
-                        <Surface themeable={false} space16 />
-                    </Surface>
-                    <Surface flex>
-                        <Text style={styles.internationalCard} t={'international_card'} />
-                        <View style={styles.actionRowFlatList}>
-                            <FlatList
-                                data={items}
-                                renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                keyExtractor={(item, index) => item.id + '_' + index}
-                                bounces={false}
-                                style={{
-                                    marginRight: 0,
-                                    paddingTop: 0,
-                                    paddingBottom: 0,
-                                }}>
-                            </FlatList>
-                        </View>
-                        <Text style={styles.internationalCard} t={'domestic_card'} />
-                        <View style={{ marginTop: 30 }}>
-                            <FlatList
-                                data={items}
-                                renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}
-                                showsHorizontalScrollIndicator={false}
-                                keyExtractor={(item, index) => item.id + '_' + index}
-                                bounces={false}
-                                style={{
-                                    marginRight: 0,
-                                    paddingTop: 0,
-                                    paddingBottom: 0,
-                                }}
-                                numColumns={3}>
-                            </FlatList>
-                        </View>
-                    </Surface>
+                    {(this.state.step == STEP.LIST_BANK) ?
+                        this._renderListBank() :
+                        this.state.step == STEP.WEBVIEW_ADD_CARD ? this._renderWebviewAddCard() :
+                            <View />
+                    }
                 </ImageBackground>
             </Surface>
 
