@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView, BackHandler, Platform } from 'react-native'
+import { ImageBackground, View, ScrollView, BackHandler, Platform } from 'react-native'
 import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import { Navigation } from 'react-native-navigation'
-import styles from './styles'
 import { getListCard } from '~/src/store/actions/credit'
 import { listCardSelector } from '~/src/store/selectors/credit'
 import { ADDED_CARD_TYPE } from '~/src/constants'
@@ -135,7 +134,7 @@ class MoneySource extends React.PureComponent {
         const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
         if (this.state.step == STEP.LIST_CARD) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmall}>
+                <Surface themeable={false} imageBackgroundSmall>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
@@ -144,7 +143,7 @@ class MoneySource extends React.PureComponent {
             )
         } else if (this.state.step == STEP.DELETE_CARD || this.state.step == STEP.INPUT) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
+                <Surface themeable={false} imageBackgroundSmallFloat>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
@@ -158,12 +157,12 @@ class MoneySource extends React.PureComponent {
                             active={true}
                         />
                     </Surface>
-                    <Surface style={styles.fakeFloatPart} />
+                    <Surface floatBankItemPart />
                 </Surface>
             )
         } else if (this.state.step == STEP.RESULT) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
+                <Surface themeable={false} imageBackgroundSmallFloat>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
                     </Surface>
@@ -192,7 +191,7 @@ class MoneySource extends React.PureComponent {
                                 active={true}
                             />
                         </Surface>
-                        <Surface style={styles.fakeFloatPart} />
+                        <Surface floatBankItemPart />
                     </Surface>
                 </Surface>
             )
@@ -201,7 +200,7 @@ class MoneySource extends React.PureComponent {
 
     _renderCardItem = (item, index) => {
         return (
-            <Surface themeable={false} key={item.id}>
+            <Surface themeable={false} key={item.cardId}>
                 <BankAccountItem
                     bankImage={item.logo}
                     bankAccount={item.hintCard}
@@ -324,17 +323,7 @@ class MoneySource extends React.PureComponent {
     _renderBottomButtonByStep = () => {
         if (this.state.step == STEP.LIST_CARD) {
             return (
-                <Surface containerHorizontalSpace rowAlignEnd>
-                    <Button
-                        round full
-                        noPadding
-                        t={'continue'}
-                        onPress={this._handleContinueChooseCard}
-                        enable={true}
-                        gradientButton={true}
-                        rippleStyle={{ marginBottom: 10, width: '100%' }}
-                    />
-                </Surface>
+                <View />
             )
         } else if (this.state.step == STEP.DELETE_CARD) {
             const enableChargeButton = !!(this.state.money && this.state.password)

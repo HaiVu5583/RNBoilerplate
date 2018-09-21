@@ -6,7 +6,6 @@ import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/Th
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import { Navigation } from 'react-native-navigation'
-import styles from './styles'
 import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import { formatPhoneNumber, isValidPhoneNumer, formatMoney, revertFormatMoney } from '~/src/utils'
@@ -176,7 +175,7 @@ class MoneyTransfer extends React.PureComponent {
 
         if (this.state.step == STEP.PHONE_INPUT) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmall}>
+                <Surface themeable={false} imageBackgroundSmall>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
@@ -186,7 +185,7 @@ class MoneyTransfer extends React.PureComponent {
         } else if (this.state.step == STEP.TRANSFER_INFO || this.state.step == STEP.OTP
             || this.state.step == STEP.RESULT) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
+                <Surface themeable={false} imageBackgroundSmallFloat>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
@@ -198,9 +197,10 @@ class MoneyTransfer extends React.PureComponent {
                             expireDate={this.fakeBankAccount.expireDate}
                             onPress={() => { }}
                             active={false}
+                            verticalMargin={false}
                         />
                     </Surface>
-                    <Surface style={styles.fakeFloatPart} />
+                    <Surface floatBankItemPart />
                 </Surface>
             )
         }

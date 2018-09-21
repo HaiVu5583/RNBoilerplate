@@ -3,7 +3,7 @@ import {
     Surface, Text, Toolbar
 } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ImageBackground, StatusBar, View, FlatList, WebView, ScrollView } from 'react-native'
+import { ImageBackground, StatusBar, View, FlatList, WebView, ScrollView, Animated } from 'react-native'
 import { connect } from 'react-redux'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES } from '~/src/themes/common'
 import styles from './styles'
@@ -39,7 +39,7 @@ class AddCard extends Component {
             step: STEP.LIST_BANK
         }
         this.webviewAddCardInfo = {}
-        this.numberItems = 0
+        this.scrollY = new Animated.Value(0)
     }
 
     componentDidMount() {
@@ -91,7 +91,7 @@ class AddCard extends Component {
             marginLeft: 3.5,
         }
 
-        if (index != this.numberItems - 1) {
+        if (index != this.props.internationalCard.length - 1) {
             return (
                 <View style={{ ...itemCardContainerStyle }}
                     key={item.id}>
@@ -180,48 +180,62 @@ class AddCard extends Component {
 
     _renderListBank = () => {
         return (
-            <ScrollView>
-                <Surface themeable={false} flex>
-                    <Surface themeable={false} containerHorizontalSpace>
+            <Animated.ScrollView
+                onScroll={Animated.event(
+                    [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
+                )}
+                scrollEventThrottle={16}
+            >
+                <Surface themeable={false}>
+                    <Surface themeable={false} containerHorizontalSpace imageBackground>
+                        <Surface themeable={false} fakeToolbar />
+                        <Surface themeable={false} space20 />
                         <Text white description t={'add_card_hint'} />
-                        <Surface themeable={false} space16 />
+                        <Animated.View style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: COLORS.BLUE,
+                            opacity: this.scrollY.interpolate({
+                                inputRange: [0, 70],
+                                outputRange: [0, 1],
+                            }),
+                        }} />
                     </Surface>
-                    <Surface flex>
-                        <Text style={styles.internationalCard} t={'international_card'} />
-                        <View style={styles.actionRowFlatList}>
-                            <FlatList
-                                data={this.props.internationalCard}
-                                renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
-                                horizontal={true}
-                                showsHorizontalScrollIndicator={false}
-                                keyExtractor={(item, index) => item.id + '_' + index}
-                                bounces={false}
-                                style={{
-                                    marginRight: 0,
-                                    paddingTop: 0,
-                                    paddingBottom: 0,
-                                }}>
-                            </FlatList>
-                        </View>
-                        <Text style={styles.internationalCard} t={'domestic_card'} />
-                        <View style={{ marginTop: 30 }}>
-                            <FlatList
-                                data={this.props.domesticCard}
-                                renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}
-                                showsHorizontalScrollIndicator={false}
-                                keyExtractor={(item, index) => item.id + '_' + index}
-                                bounces={false}
-                                style={{
-                                    marginRight: 0,
-                                    paddingTop: 0,
-                                    paddingBottom: 0,
-                                }}
-                                numColumns={3}>
-                            </FlatList>
-                        </View>
+                    <Surface>
+                        <Surface themeable={false} space20 />
+                        <Surface containerHorizontalSpace>
+                            <Text bold darkBlue description t={'international_card'} textTransform={String.prototype.toUpperCase} />
+                        </Surface>
+                        <Surface themeable={false} space20 />
+                        <FlatList
+                            data={this.props.internationalCard}
+                            renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                            keyExtractor={(item, index) => item.id + '_' + index}
+                            bounces={false}
+                            scrollEnabled={false}
+                        />
+                        <Surface themeable={false} space20 />
+                        <Surface containerHorizontalSpace>
+                            <Text bold darkBlue description t={'domestic_card'} textTransform={String.prototype.toUpperCase} />
+                        </Surface>
+                        <Surface themeable={false} space20 />
+
+                        <FlatList
+                            data={this.props.domesticCard}
+                            renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}
+                            showsHorizontalScrollIndicator={false}
+                            keyExtractor={(item, index) => item.id + '_' + index}
+                            bounces={false}
+                            numColumns={3}
+                        />
                     </Surface>
                 </Surface>
-            </ScrollView>
+            </Animated.ScrollView>
         )
     }
 
@@ -244,25 +258,32 @@ class AddCard extends Component {
 
     _renderWebviewAddCard = () => {
         return (
-            <WebView
-                startInLoadingState={true}
-                onLoadStart={this._onLoadWebviewAddCardStart}
-                onLoadEnd={this._onLoadWebviewAddCardEnd}
-                onError={this._onLoadWebviewAddCardError}
-                source={{ uri: this.webviewAddCardInfo.gatewayLink }}
-                ref={ref => this.webViewAddCard = ref}
-                scalesPageToFit={false}
-                style={{ backgroundColor: COLORS.WHITE, width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}
-            />
+            <Surface themeable={false} flex>
+                <Surface themeable={false} fakeToolbar />
+                <WebView
+                    startInLoadingState={true}
+                    onLoadStart={this._onLoadWebviewAddCardStart}
+                    onLoadEnd={this._onLoadWebviewAddCardEnd}
+                    onError={this._onLoadWebviewAddCardError}
+                    source={{ uri: this.webviewAddCardInfo.gatewayLink }}
+                    ref={ref => this.webViewAddCard = ref}
+                    scalesPageToFit={false}
+                    style={{ backgroundColor: COLORS.WHITE, width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}
+                />
+            </Surface>
         )
     }
 
     _renderAddCardSuccess = () => {
-        return <AddCardSuccess onPress={this._handleBackToList} />
+        return (
+            <AddCardSuccess onPress={this._handleBackToList} />
+        )
     }
 
     _renderAddCardFail = () => {
-        return <AddCardFail onPress={this._handleBackToList} />
+        return (
+            <AddCardFail onPress={this._handleBackToList} />
+        )
     }
 
     _render = () => {
@@ -291,6 +312,22 @@ class AddCard extends Component {
                 />
                 <LoadingModal visible={this.state.loading} />
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
+                    {this._render()}
+                </ImageBackground>
+                <Animated.View style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 100,
+                    backgroundColor: COLORS.BLUE,
+                    opacity: this.scrollY.interpolate({
+                        inputRange: [0, 70, 71],
+                        outputRange: [0, 0, 1],
+                    }),
+                    height: SIZES.TOOLBAR_AND_STATUSBAR,
+
+                }}>
+                </Animated.View>
+                <Surface themeable={false} style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 200
+                }}>
                     <Toolbar
                         themeable={false}
                         iconStyle={{ color: COLORS.WHITE }}
@@ -299,8 +336,7 @@ class AddCard extends Component {
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}
                     />
-                    {this._render()}
-                </ImageBackground>
+                </Surface>
             </Surface>
 
         )

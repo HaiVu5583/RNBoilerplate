@@ -180,7 +180,7 @@ const language = {
     'add_card': 'Thêm thẻ',
     'add_link_card': 'Thêm thẻ liên kết',
     'charge_info': 'Thông tin nạp tiền',
-    'charge_input_hint': 'Nhập thông tin nạp tiền\nvào tài khoản Gigabank từ thẻ đã chọn',
+    'charge_input_hint': 'Nhập thông tin nạp tiền vào tài khoản Gigabank từ thẻ đã chọn',
     'charge_input_money_hint': 'Nhập số tiền cần nạp (VND)',
     'charge_money': 'Nạp tiền',
     'send_account': 'Tài khoản thanh toán',

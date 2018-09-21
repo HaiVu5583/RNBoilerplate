@@ -18,13 +18,14 @@ export default class AddCardSuccess extends Component {
     render() {
         return (
             <Surface themeable={false} columnCenter flex>
+                <Surface themeable={false} imageBackground style={{backgroundColor: 'red'}}/>
                 <Text bold white textTransform={String.prototype.toUpperCase} t={'add_card_success'}></Text>
                 <SvgUri
                     width="375"
                     height="180"
                     svgXmlData={addCardSuccess}
                 />
-                <Text white description t='add_card_success_1' />
+                <Text center white description t='add_card_success_1' />
                 <Surface flex themeable={false} />
                 <Surface themeable={false} containerHorizontalSpace rowAlignEnd>
                     <Button
