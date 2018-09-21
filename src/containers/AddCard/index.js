@@ -3,16 +3,16 @@ import {
     Surface, Text, Toolbar
 } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ImageBackground, StatusBar, View, FlatList, WebView } from 'react-native'
-import Image from 'react-native-fast-image'
+import { ImageBackground, StatusBar, View, FlatList, WebView, ScrollView } from 'react-native'
 import { connect } from 'react-redux'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES } from '~/src/themes/common'
 import styles from './styles'
 import ItemCard from './ItemCard'
-import { addCreditCard } from '~/src/store/actions/credit'
+import { addCreditCard, getBankList } from '~/src/store/actions/credit'
 import LoadingModal from '~/src/components/LoadingModal'
 import AddCardSuccess from '~/src/components/AddCardSuccess'
 import AddCardFail from '~/src/components/AddCardFail'
+import { internationalTokenCardSelector, domesticTokenCardSelector } from '~/src/store/selectors/credit'
 
 const STEP = {
     LIST_BANK: 'LIST_BANK',
@@ -43,35 +43,24 @@ class AddCard extends Component {
     }
 
     componentDidMount() {
-
+        this.props.getBankList((err, data) => {
+            console.log('Err Get Bank List', err)
+            console.log('Data Get Bank List', data)
+        })
     }
 
     _handleBackToList = () => {
         Navigation.pop(this.props.componentId)
     }
 
-    _renderItem = ({ item, index }) => {
-        return (
-            <Surface themeable={false} style={{ width: DEVICE_WIDTH - 60, height: 150, justifyContent: 'center', alignItems: 'center' }}>
-                <Surface style={{ borderRadius: 4 }} elevation={4}>
-                    <Image
-                        source={{ uri: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg?auto=compress&cs=tinysrgb&h=350' }}
-                        style={{ width: DEVICE_WIDTH - 70, height: 140, borderRadius: 4 }} />
-                </Surface>
-            </Surface>
-        )
-    }
-
     _handlePressInternationalCard = (item) => {
-        console.log('Pressing International Card', item)
         if (this.state.loading) return
         this.setState({ loading: true })
-        this.props.addCreditCard(item.cardType, (err, data) => {
+        this.props.addCreditCard(item.type, (err, data) => {
             console.log('Err AddCreditCard', err)
             console.log('Data AddCreditCard', data)
             if (data && data.gatewayLink) {
                 this.webviewAddCardInfo = data
-                console.log('Webview Card Info', this.webviewAddCardInfo)
                 this.setState({ step: STEP.WEBVIEW_ADD_CARD, loading: false })
                 return
             }
@@ -103,11 +92,10 @@ class AddCard extends Component {
         }
 
         if (index != this.numberItems - 1) {
-
             return (
                 <View style={{ ...itemCardContainerStyle }}
                     key={item.id}>
-                    <ItemCard iconBank={item.iconBank}
+                    <ItemCard iconBank={item.logo}
                         itemCardStyle={itemCardStyle}
                         itemCardImageStyle={itemCardImageStyle}
                         colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
@@ -119,7 +107,7 @@ class AddCard extends Component {
             return (
                 <View style={{ ...itemCardContainerStyle, marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN }}
                     key={item.id}>
-                    <ItemCard iconBank={item.iconBank}
+                    <ItemCard iconBank={item.logo}
                         itemCardStyle={itemCardStyle}
                         itemCardImageStyle={itemCardImageStyle}
                         colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
@@ -158,7 +146,7 @@ class AddCard extends Component {
                     marginRight: 10,
                 }}
                     key={item.id}>
-                    <ItemCard iconBank={item.iconBank}
+                    <ItemCard iconBank={item.logo}
                         itemCardStyle={itemCardStyle}
                         itemCardImageStyle={itemCardImageStyle}
                         colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
@@ -169,7 +157,7 @@ class AddCard extends Component {
             return (
                 <View style={{ ...itemCardContainerStyle, marginLeft: 10, marginRight: 10, }}
                     key={item.id}>
-                    <ItemCard iconBank={item.iconBank}
+                    <ItemCard iconBank={item.logo}
                         itemCardStyle={itemCardStyle}
                         itemCardImageStyle={itemCardImageStyle}
                         colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
@@ -191,76 +179,49 @@ class AddCard extends Component {
     }
 
     _renderListBank = () => {
-        const items = [
-            {
-                id: 1,
-                iconBank: 'https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit: 500%2C316&ssl: 1',
-                cardType: 2,
-            },
-            {
-                id: 2,
-                iconBank: 'https://banner2.kisspng.com/20171216/dcc/mastercard-icon-png-5a3556c6e81b34.5328243515134450629507.jpg',
-                cardType: 2,
-            },
-            {
-                id: 3,
-                iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg',
-                cardType: 3,
-            },
-            {
-                id: 4,
-                iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg',
-                cardType: 3,
-            },
-            {
-                id: 5,
-                iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg',
-                cardType: 3,
-            },
-        ]
-
-        this.numberItems = items.length
         return (
-            <Surface themeable={false} flex>
-                <Surface themeable={false} containerHorizontalSpace>
-                    <Text white description t={'add_card_hint'} />
-                    <Surface themeable={false} space16 />
+            <ScrollView>
+                <Surface themeable={false} flex>
+                    <Surface themeable={false} containerHorizontalSpace>
+                        <Text white description t={'add_card_hint'} />
+                        <Surface themeable={false} space16 />
+                    </Surface>
+                    <Surface flex>
+                        <Text style={styles.internationalCard} t={'international_card'} />
+                        <View style={styles.actionRowFlatList}>
+                            <FlatList
+                                data={this.props.internationalCard}
+                                renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                keyExtractor={(item, index) => item.id + '_' + index}
+                                bounces={false}
+                                style={{
+                                    marginRight: 0,
+                                    paddingTop: 0,
+                                    paddingBottom: 0,
+                                }}>
+                            </FlatList>
+                        </View>
+                        <Text style={styles.internationalCard} t={'domestic_card'} />
+                        <View style={{ marginTop: 30 }}>
+                            <FlatList
+                                data={this.props.domesticCard}
+                                renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}
+                                showsHorizontalScrollIndicator={false}
+                                keyExtractor={(item, index) => item.id + '_' + index}
+                                bounces={false}
+                                style={{
+                                    marginRight: 0,
+                                    paddingTop: 0,
+                                    paddingBottom: 0,
+                                }}
+                                numColumns={3}>
+                            </FlatList>
+                        </View>
+                    </Surface>
                 </Surface>
-                <Surface flex>
-                    <Text style={styles.internationalCard} t={'international_card'} />
-                    <View style={styles.actionRowFlatList}>
-                        <FlatList
-                            data={items}
-                            renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            keyExtractor={(item, index) => item.id + '_' + index}
-                            bounces={false}
-                            style={{
-                                marginRight: 0,
-                                paddingTop: 0,
-                                paddingBottom: 0,
-                            }}>
-                        </FlatList>
-                    </View>
-                    <Text style={styles.internationalCard} t={'domestic_card'} />
-                    <View style={{ marginTop: 30 }}>
-                        <FlatList
-                            data={items}
-                            renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}
-                            showsHorizontalScrollIndicator={false}
-                            keyExtractor={(item, index) => item.id + '_' + index}
-                            bounces={false}
-                            style={{
-                                marginRight: 0,
-                                paddingTop: 0,
-                                paddingBottom: 0,
-                            }}
-                            numColumns={3}>
-                        </FlatList>
-                    </View>
-                </Surface>
-            </Surface>
+            </ScrollView>
         )
     }
 
@@ -297,11 +258,11 @@ class AddCard extends Component {
     }
 
     _renderAddCardSuccess = () => {
-        return <AddCardSuccess onPress={this._handleBackToList}/>
+        return <AddCardSuccess onPress={this._handleBackToList} />
     }
 
     _renderAddCardFail = () => {
-        return <AddCardFail onPress={this._handleBackToList}/>
+        return <AddCardFail onPress={this._handleBackToList} />
     }
 
     _render = () => {
@@ -320,6 +281,7 @@ class AddCard extends Component {
 
 
     render() {
+        console.log('Add Card Props', this.props)
         return (
             <Surface themeable={false} flex>
                 <StatusBar
@@ -345,4 +307,7 @@ class AddCard extends Component {
     }
 }
 
-export default connect(null, { addCreditCard })(AddCard)
+export default connect(state => ({
+    internationalCard: internationalTokenCardSelector(state),
+    domesticCard: domesticTokenCardSelector(state)
+}), { addCreditCard, getBankList })(AddCard)

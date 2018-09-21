@@ -7,11 +7,12 @@ import {
     StyleSheet,
     TouchableOpacity,
     Animated,
-    Image,
+    Image
 } from 'react-native'
 import { Surface, Text, Toolbar, Button, Icon } from '~/src/themes/ThemeComponent'
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
+// import Image from 'react-native-fast-image'
 import { maskBankAccount, getElevation } from '~/src/utils'
 import styles from './styles'
 import { SURFACE_STYLES } from '~/src/themes/common'
