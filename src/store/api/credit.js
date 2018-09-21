@@ -1,0 +1,6 @@
+import { get, post } from './common'
+export default {
+    addCreditCard: (cardType) => {
+        return get('/credit/add-credit-card', { cardType })
+    }
+}

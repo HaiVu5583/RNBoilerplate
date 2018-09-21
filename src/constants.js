@@ -64,3 +64,8 @@ export const PERMISSION_RESPONSE = {
     RESTRICTED: 'restricted',
     UNDETERMINED: 'undetermined'
 }
+
+export const CARD_TYPE = {
+    VISA_MASTER: 2,
+    ATM: 3
+}

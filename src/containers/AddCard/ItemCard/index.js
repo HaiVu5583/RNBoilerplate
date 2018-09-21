@@ -17,7 +17,7 @@ import styles from './styles'
 import { SURFACE_STYLES } from '~/src/themes/common'
 
 class ItemCard extends Component {
-    
+
     constructor(props) {
         super(props)
         this.state = {
@@ -28,31 +28,25 @@ class ItemCard extends Component {
     componentDidMount() {
 
     }
-
-    // itemCardStyle = {itemCardStyle}
-    //             itemCardImageStyle = {itemCardImageStyle}
     render() {
+        const { onPress } = this.props
         return (
             <Surface themeable={false} flex>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={onPress}>
                     <LinearGradient
-                                colors={this.props.colors}
-                                start={{ x: 0.0, y: 0.0 }}
-                                end={{ x: 1.0, y: 0.0 }}
-                                locations={[0.0, 1.0]}
-                                // {...this._panResponder.panHandlers}
-                                style={{
-                                    ...this.props.itemCardStyle,
-                                    ...SURFACE_STYLES.rowStart,
-                                    ...getElevation(4),
-                                    // marginHorizontal: 2,
-                                    // marginTop: 2,
-                                    // marginBottom: 5,
-                                }}
-                            >
+                        colors={this.props.colors}
+                        start={{ x: 0.0, y: 0.0 }}
+                        end={{ x: 1.0, y: 0.0 }}
+                        locations={[0.0, 1.0]}
+                        style={{
+                            ...this.props.itemCardStyle,
+                            ...SURFACE_STYLES.rowStart,
+                            ...getElevation(4),
+                        }}
+                    >
                         <Image
                             source={{ uri: this.props.iconBank }}
-                            style={{...this.props.itemCardImageStyle}} />
+                            style={{ ...this.props.itemCardImageStyle }} />
                     </LinearGradient>
                 </TouchableOpacity>
             </Surface>
