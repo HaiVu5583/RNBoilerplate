@@ -20,17 +20,17 @@ const STEP = {
 }
 
 class WithDrawAuthen extends React.PureComponent {
-    static get options() {
-        if (Platform.OS == 'android') {
-            return {
-                animations: {
-                    push: DEFAULT_PUSH_ANIMATION,
-                    pop: DEFAULT_POP_ANIMATION
-                }
-            }
-        }
-        return {}
-    }
+    // static get options() {
+    //     if (Platform.OS == 'android') {
+    //         return {
+    //             animations: {
+    //                 push: DEFAULT_PUSH_ANIMATION,
+    //                 pop: DEFAULT_POP_ANIMATION
+    //             }
+    //         }
+    //     }
+    //     return {}
+    // }
 
     constructor(props) {
         super(props)

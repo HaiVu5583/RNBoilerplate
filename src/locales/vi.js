@@ -217,6 +217,7 @@ const language = {
     // With Draw
     'with_draw_title': 'Rút tiền từ Gigabank',
     'with_draw_description': 'Chọn hoặc tìm kiếm ngân hàng bạn muốn rút tiền về từ Gigabank',
+    'search_bank': 'Tìm kiếm ngân hàng...',
 
     // With Draw Info
     'with_draw_info_title': 'Thông tin rút tiền',

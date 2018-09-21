@@ -14,7 +14,6 @@ import { Surface, Text, Toolbar, Button, Icon } from '~/src/themes/ThemeComponen
 import { connect } from 'react-redux'
 import LinearGradient from 'react-native-linear-gradient'
 import { maskBankAccount, getElevation } from '~/src/utils'
-// import styles from './styles'
 import {
     ASSETS,
     DEVICE_WIDTH,
@@ -25,6 +24,7 @@ import {
     STATUS_BAR_HEIGHT
 } from '~/src/themes/common'
 import Cards from '~/src/components/Cards'
+import styles from './styles'
 
 class WithDraw extends Component {
     
@@ -78,27 +78,23 @@ class WithDraw extends Component {
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                     <Toolbar
                         themeable={false}
-                        iconStyle={{ color: COLORS.WHITE }}
+                        iconStyle={styles.iconStyle}
                         titleT={'with_draw_title'}
-                        titleStyle={{ color: COLORS.WHITE, fontSize: 25,}}
+                        titleStyle={styles.titleStyle}
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}
-                        iconRight={'search'}
+                        iconRight={'GB_search'}
                         onPressIconRight={this._onPressSearch}
                     />
                     <Surface themeable={false} space24 />
-                    <Text style={{fontSize: 18,
-                        marginLeft: SIZES.CONTAINER_HORIZONTAL_SPACE_AND_MARGIN,
-                        marginRight: SIZES.CONTAINER_HORIZONTAL_SPACE_AND_MARGIN,
-                        }} white t={'with_draw_description'} />
+                    <Text style={styles.description} white t={'with_draw_description'} />
                     <Surface themeable={false} space50 />
                     <Surface themeable={true} flex >
                         <Surface themeable={false} space30 />
                         <Cards
                             datas={items}
                             numColumns={3}
-                        >
-                        </Cards>
+                        />
                     </Surface>
                 </ImageBackground>
             </Surface>
