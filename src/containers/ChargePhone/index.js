@@ -26,7 +26,6 @@ class ChargePhone extends React.PureComponent {
         super(props)
         this.state = {
             authenCode: '',
-
             errorMessage: 'jkf jkffkl sks',
         }
     }
@@ -92,6 +91,8 @@ class ChargePhone extends React.PureComponent {
 
         const items = [
             {
+                id: 1,
+                isSeleected: false,
                 text: '10.000',
             },
             {
@@ -126,15 +127,19 @@ class ChargePhone extends React.PureComponent {
                     <Text white description t={'charge_phone_description'} style={styles.description} />
                     <Surface themeable={false} space50 />
                     <Surface flex>
-                        <TextInput
-                            iconRight={'GB_contact'}
-                            placeholderT={'authen_code'}
-                            blackWithDarkblueIcon
-                            onChangeText={text => this.setState({ authenCode: text })}
-                            value={this.state.authenCode}
-                            secureTextEntry={true}
-                            style={styles.enterPhone}
-                        />
+                        <Surface containerHorizontalSpace>
+                            <TextInput
+                                iconRight={'GB_contact'}
+                                placeholderT={'authen_code'}
+                                blackWithDarkblueIcon
+                                onChangeText={text => this.setState({ authenCode: text })}
+                                value={this.state.authenCode}
+                                secureTextEntry={true}
+                                style={styles.enterPhone}
+                                hasError={this.state.errorMessage != '' ? true : false}
+                                errorText={this.state.errorMessage}
+                            />
+                        </Surface>
                         <Surface themeable={false} space8 style={styles.lineSpace} />
                         <Text t={'choose_denominations'} style={styles.titleList} textTransform={String.prototype.toUpperCase}/>
                         <Surface themeable={true} space20/>
@@ -142,6 +147,7 @@ class ChargePhone extends React.PureComponent {
                             datas={items}
                             numColumns={4}
                         />
+                        <Text t={'limit_money'} style={styles.limitMoney} />
                         {this._renderBottomButtonByStep()}
                     </Surface>
                     

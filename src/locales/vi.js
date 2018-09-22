@@ -249,6 +249,7 @@ const language = {
     'charge_phone_info': 'Thông tin nạp tiền điện thoại',
     'denominations': 'Mệnh giá',
     'charge_phone_discount': 'Chiết khấu',
+    'limit_money': 'Số tiền tiêu dùng trong ngày vượt quá hạn mức',
 
     // Money Transfer
     'money_transfer': 'Chuyển tiền',
