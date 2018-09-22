@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { themeSelector } from '~/src/store/selectors/ui'
 import commonStyle from '~/src/themes/common'
 import { connect } from 'react-redux'
@@ -11,7 +11,7 @@ import PropTypes from 'prop-types'
 import LinearGradient from 'react-native-linear-gradient'
 import { getElevation } from '~/src/utils'
 
-class Button extends Component {
+class Button extends PureComponent {
     static defaultProps = {
         textTransform: String.prototype.toUpperCase
     }

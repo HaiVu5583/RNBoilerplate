@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { themeSelector, languageSelector } from '~/src/store/selectors/ui'
 import { connect } from 'react-redux'
 import { getTheme } from './utils'
@@ -8,7 +8,7 @@ import commonStyle, { TEXT_INPUT_STYLES } from '~/src/themes/common'
 import I18n from '~/src/I18n'
 import { COLORS } from '~/src/themes/common'
 
-class ThemeTextInput extends Component {
+class ThemeTextInput extends PureComponent {
 
     _handlePressIconRight = () => {
         this.props.onPressIconRight && this.props.onPressIconRight()

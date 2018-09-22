@@ -45,6 +45,7 @@ class MoneySource extends React.PureComponent {
             errPass: '',
             loading: false
         }
+        this.selectedCardItem = {}
     }
 
     _handleBack = () => {
@@ -115,6 +116,7 @@ class MoneySource extends React.PureComponent {
     }
 
     _getHeaderByStep = () => {
+        console.log('Get Header', this.state.step)
         let hintT = ''
         switch (this.state.step) {
             case STEP.LIST_CARD:
@@ -127,6 +129,12 @@ class MoneySource extends React.PureComponent {
         }
         const { listCard } = this.props
         const selectedCardItem = listCard.filter(item => item.cardId == this.state.selecteCard)[0]
+        this.selectedCardItem = {
+            bankImage: selectedCardItem.logo,
+            bankAccount: selectedCardItem.hintCard,
+            expireDate: selectedCardItem.expiryDate,
+            active: true
+        }
         if (this.state.step == STEP.LIST_CARD) {
             return {
                 titleT: hintT
@@ -136,12 +144,7 @@ class MoneySource extends React.PureComponent {
             return {
                 titleT: hintT,
                 floatBankItem: true,
-                bankItemInfo: {
-                    bankImage: selectedCardItem.logo,
-                    bankAccount: selectedCardItem.hintCard,
-                    expireDate: selectedCardItem.expiryDate,
-                    active: true
-                }
+                bankItemInfo: this.selectedCardItem
             }
         } else if (this.state.step == STEP.DELETE_SUCCESS) {
             return {
@@ -215,11 +218,11 @@ class MoneySource extends React.PureComponent {
     _getBottomButtonByStep = () => {
         if (this.state.step == STEP.LIST_CARD) {
             return {
-                enable: false
+                show: false
             }
         } else if (this.state.step == STEP.DELETE_CARD) {
             return {
-                enable: true,
+                show: true,
                 t: 'delete_card',
                 onPress: this._deleteCard
             }

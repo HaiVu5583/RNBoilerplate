@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, PureComponent } from 'react';
 import { Surface, Text, Toolbar, Button } from '~/src/themes/ThemeComponent'
 import { ImageBackground, StatusBar, Animated } from 'react-native'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES } from '~/src/themes/common'
 import LoadingModal from '~/src/components/LoadingModal'
 import Header from './Header'
 
-export default class Screen extends Component {
+export default class Screen extends PureComponent {
     constructor(props) {
         super(props)
         this.state = {
@@ -69,9 +69,13 @@ export default class Screen extends Component {
                         onPressIconLeft={hanleBack}
                     />
                 </Surface>
-                {(!!bottomButton && !!bottomButton.enable) && <Surface containerHorizontalSpace style={{
-                    position: 'absolute', bottom: 16, left: 0, right: 0, zIndex: 200
-                }}>
+                {(!!bottomButton && !!bottomButton.show) && <Surface 
+                    containerHorizontalSpace 
+                    style={{
+                        position: 'absolute', bottom: 16, left: 0, right: 0, zIndex: 200
+                    }}
+                    themeable={false}
+                >
                     <Button
                         round full
                         noPadding
