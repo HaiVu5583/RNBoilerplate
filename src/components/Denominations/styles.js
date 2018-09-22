@@ -10,7 +10,7 @@ import {
 
 export default {
     textStyle: {
-        fontSize: 20,
+        fontSize: 14,
     },
     itemStart: {
         marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,

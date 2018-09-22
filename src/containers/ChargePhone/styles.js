@@ -10,7 +10,7 @@ export default {
         color: COLORS.WHITE        
     },
     description: {
-        fontSize: 18,
+        // fontSize: 18,
         marginLeft: 48,
         marginRight: 48,
     },
@@ -24,7 +24,7 @@ export default {
         marginTop: 60,
     },
     titleList: {
-        fontSize: 18,
+        fontSize: 14,
         marginLeft: 48,
         marginRight: 48,
         color: '#233c63',
