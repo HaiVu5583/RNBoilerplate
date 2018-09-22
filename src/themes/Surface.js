@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { themeSelector } from '~/src/store/selectors/ui'
 import { connect } from 'react-redux'
 import { View } from 'react-native'
@@ -6,7 +6,7 @@ import { getTheme } from './utils'
 import { SURFACE_STYLES } from '~/src/themes/common'
 import { getElevation } from '~/src/utils'
 
-class ThemeView extends Component {
+class ThemeView extends PureComponent {
     render() {
         const { forwardedRef, children, style, theme, themeable = true, text, icon, elevation, ...rest } = this.props
         const themeStyle = getTheme(theme)

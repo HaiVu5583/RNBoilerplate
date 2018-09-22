@@ -18,7 +18,7 @@ export default class AddCardFail extends Component {
 
     render() {
         return (
-            <Surface themeable={false} columnCenter flex>
+            <Surface themeable={false} columnCenter full>
                 <Surface themeable={false} imageBackground />
                 <Text white bold textTransform={String.prototype.toUpperCase} t={'add_card_fail'}></Text>
                 <SvgUri
@@ -26,7 +26,9 @@ export default class AddCardFail extends Component {
                     height="180"
                     svgXmlData={addCardFail}
                 />
-                <Text center white description t='add_card_fail_1' />
+                <Surface containerHorizontalSpace2 rowCenter themeable={false}>
+                    <Text center white description t='add_card_fail_1' />
+                </Surface>
                 <Surface flex themeable={false} />
                 <Surface themeable={false} containerHorizontalSpace rowAlignEnd>
                     <Button
