@@ -15,6 +15,7 @@ import md5 from 'md5'
 import I18n from '~/src/I18n'
 import DeleteCardSuccess from '~/src/components/DeleteCardSuccess'
 import { chainParse } from '~/src/utils'
+import lodash from 'lodash'
 
 const STEP = {
     LIST_CARD: 'LIST_CARD',
@@ -115,8 +116,18 @@ class MoneySource extends React.PureComponent {
         })
     }
 
+    _getSelectedBankItem = lodash.memoize((selectCard, listCard) => {
+        const selectedCardItem = listCard.filter(item => item.cardId == selectCard)[0]
+        return {
+            bankImage: selectedCardItem.logo,
+            bankAccount: selectedCardItem.hintCard,
+            expireDate: selectedCardItem.expiryDate,
+            active: true
+        }
+    })
+
+
     _getHeaderByStep = () => {
-        console.log('Get Header', this.state.step)
         let hintT = ''
         switch (this.state.step) {
             case STEP.LIST_CARD:
@@ -128,23 +139,16 @@ class MoneySource extends React.PureComponent {
                 break
         }
         const { listCard } = this.props
-        const selectedCardItem = listCard.filter(item => item.cardId == this.state.selecteCard)[0]
-        this.selectedCardItem = {
-            bankImage: selectedCardItem.logo,
-            bankAccount: selectedCardItem.hintCard,
-            expireDate: selectedCardItem.expiryDate,
-            active: true
-        }
+        const selectedCardItem = this._getSelectedBankItem(this.state.selecteCard, listCard)
         if (this.state.step == STEP.LIST_CARD) {
             return {
                 titleT: hintT
             }
         } else if (this.state.step == STEP.DELETE_CARD || this.state.step == STEP.INPUT) {
-            console.log('Selected CardItem', selectedCardItem)
             return {
                 titleT: hintT,
                 floatBankItem: true,
-                bankItemInfo: this.selectedCardItem
+                bankItemInfo: selectedCardItem
             }
         } else if (this.state.step == STEP.DELETE_SUCCESS) {
             return {
