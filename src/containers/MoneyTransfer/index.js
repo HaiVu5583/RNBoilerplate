@@ -10,6 +10,7 @@ import Permissions from 'react-native-permissions'
 import { PERMISSION_RESPONSE } from '~/src/constants'
 import { formatPhoneNumber, isValidPhoneNumer, formatMoney, revertFormatMoney } from '~/src/utils'
 import I18n from '~/src/I18n'
+import Screen from '~/src/components/Screen'
 
 
 const STEP = {
@@ -48,13 +49,15 @@ class MoneyTransfer extends React.PureComponent {
             errFee: '',
             errContent: '',
             errOTP: '',
-            errPass: ''
+            errPass: '',
+            loading: false
         }
         this.fakeBankAccount = {
             id: 2,
             bankImage: 'https://banner2.kisspng.com/20171216/dcc/mastercard-icon-png-5a3556c6e81b34.5328243515134450629507.jpg',
             bankAccount: '7813737375432',
             expireDate: '09/19',
+            active: false
         }
     }
 
@@ -70,16 +73,6 @@ class MoneyTransfer extends React.PureComponent {
             this.setState({ step: STEP.OTP })
         }
         return true
-    }
-
-    _handlePressAddCard = () => {
-        console.log('Handle Press AddCard')
-    }
-
-    _handlePressBankItem = (item) => {
-        if (item.id != this.state.selecteCard) {
-            this.setState({ selecteCard: item.id })
-        }
     }
 
     _handleContinuePhoneInput = () => {
@@ -100,35 +93,8 @@ class MoneyTransfer extends React.PureComponent {
         this.setState({ step: STEP.RESULT })
     }
 
-    _handleChargeMoney = () => {
-        console.log('Press Charge Money')
-        this.setState({ step: STEP.RESULT })
-    }
-
     _handleGoHome = () => {
         Navigation.popTo('HomeScreen')
-    }
-
-    _handleDeleteCard = (item) => {
-        console.log('Deleting', item)
-        this.setState({
-            selecteCard: item.id
-        }, () => {
-            this.setState({ step: STEP.DELETE_CARD })
-        })
-    }
-
-    _deleteCard = () => {
-
-    }
-
-    _handleAddCard = () => {
-        console.log('Pressing Add Card')
-        Navigation.push(this.props.componentId, {
-            component: {
-                name: 'gigabankclient.AddCard',
-            }
-        })
     }
 
     _handleChooseContact = (contact) => {
@@ -155,8 +121,7 @@ class MoneyTransfer extends React.PureComponent {
         })
     }
 
-    _renderHeaderByStep = () => {
-
+    _getHeaderByStep = () => {
         let hintT = ''
         switch (this.state.step) {
             case STEP.PHONE_INPUT:
@@ -174,42 +139,23 @@ class MoneyTransfer extends React.PureComponent {
         }
 
         if (this.state.step == STEP.PHONE_INPUT) {
-            return (
-                <Surface themeable={false} imageBackgroundSmall>
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={hintT} />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                </Surface>
-            )
+            return {
+                titleT: hintT
+            }
         } else if (this.state.step == STEP.TRANSFER_INFO || this.state.step == STEP.OTP
             || this.state.step == STEP.RESULT) {
-            return (
-                <Surface themeable={false} imageBackgroundSmallFloat>
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={hintT} />
-                    </Surface>
-                    <Surface themeable={false} flex />
-                    <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                        <BankAccountItem
-                            bankImage={this.fakeBankAccount.bankImage}
-                            bankAccount={this.fakeBankAccount.bankAccount}
-                            expireDate={this.fakeBankAccount.expireDate}
-                            onPress={() => { }}
-                            active={false}
-                            verticalMargin={false}
-                        />
-                    </Surface>
-                    <Surface floatBankItemPart />
-                </Surface>
-            )
+            return {
+                titleT: hintT,
+                floatBankItem: true,
+                bankItemInfo: this.fakeBankAccount
+            }
         }
     }
 
     _renderContentByStep = () => {
         if (this.state.step == STEP.PHONE_INPUT) {
             return (
-                <Surface containerHorizontalSpace flex>
+                <Surface containerHorizontalSpace content flex>
                     <Surface themeable={false} space16 />
                     <TextInput
                         placeholderT={'phone_receive_money_hint'}
@@ -227,7 +173,7 @@ class MoneyTransfer extends React.PureComponent {
             )
         } else if (this.state.step == STEP.TRANSFER_INFO) {
             return (
-                <ScrollView>
+                <Surface content flex>
                     <Surface themeable={false} space20 />
                     <Surface containerHorizontalSpace>
                         <Text darkBlue description t={'receiver_info'} textTransform={String.prototype.toUpperCase} />
@@ -286,11 +232,11 @@ class MoneyTransfer extends React.PureComponent {
                             errorText={this.state.errPass}
                         />
                     </Surface>
-                </ScrollView>
+                </Surface>
             )
         } else if (this.state.step == STEP.OTP) {
             return (
-                <ScrollView>
+                <Surface content flex>
                     <Surface themeable={false} space20 />
                     <Surface containerHorizontalSpace>
                         <Text darkBlue description t={'receiver_info'} textTransform={String.prototype.toUpperCase} />
@@ -335,11 +281,11 @@ class MoneyTransfer extends React.PureComponent {
                             errorText={this.state.errOTP}
                         />
                     </Surface>
-                </ScrollView>
+                </Surface>
             )
         } else if (this.state.step == STEP.RESULT) {
             return (
-                <ScrollView>
+                <Surface content>
                     <Surface themeable={false} space20 />
                     <Surface containerHorizontalSpace>
                         <Text darkBlue description t={'transaction_info'} textTransform={String.prototype.toUpperCase} />
@@ -376,61 +322,39 @@ class MoneyTransfer extends React.PureComponent {
                             <Text description>15:11 17/07/2018</Text>
                         </Surface>
                     </Surface>
-                </ScrollView>
+                </Surface>
             )
         }
     }
 
-    _renderBottomButtonByStep = () => {
+
+    _getBottomButtonByStep = () => {
         if (this.state.step == STEP.PHONE_INPUT) {
-            return (
-                <Surface containerHorizontalSpace rowAlignEnd>
-                    <Button
-                        round full
-                        noPadding
-                        t={'continue'}
-                        onPress={this._handleContinuePhoneInput}
-                        enable={!!this.state.phone}
-                        gradientButton={true}
-                        rippleStyle={{ marginBottom: 10, width: '100%' }}
-                    />
-                </Surface>
-            )
+            return {
+                show: true,
+                t: 'continue',
+                onPress: this._handleContinuePhoneInput,
+                enable: !!this.state.phone
+            }
         } else if (this.state.step == STEP.TRANSFER_INFO) {
             const enableTransferButton = !!(
                 !!this.state.money && !!this.state.fee && !!this.state.content && !!this.state.password
             )
-            return (
-                <Surface containerHorizontalSpace rowAlignEnd>
-                    <Button
-                        round full
-                        noPadding
-                        t={'money_transfer'}
-                        onPress={this._handlePressTransfer}
-                        enable={enableTransferButton}
-                        gradientButton={true}
-                        rippleStyle={{ marginBottom: 10, width: '100%' }}
-                    />
-                </Surface>
-            )
+            return {
+                show: true,
+                t: 'money_transfer',
+                onPress: this._handlePressTransfer,
+                enable: enableTransferButton
+            }
         } else if (this.state.step == STEP.OTP) {
             const enableContinueOTP = !!this.state.otp
-            return (
-                <Surface containerHorizontalSpace rowAlignEnd>
-                    <Button
-                        round full
-                        noPadding
-                        t={'money_transfer'}
-                        onPress={this._handleContinueOTP}
-                        enable={enableContinueOTP}
-                        gradientButton={true}
-                        rippleStyle={{ marginBottom: 10, width: '100%' }}
-                    />
-                </Surface>
-            )
+            return {
+                show: true,
+                t: 'money_transfer',
+                onPress: this._handleContinueOTP,
+                enable: enableContinueOTP
+            }
         }
-
-
     }
 
     componentDidMount() {
@@ -460,25 +384,15 @@ class MoneyTransfer extends React.PureComponent {
                 break
         }
         return (
-            <Surface flex>
-                <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
-                    <Toolbar
-                        themeable={false}
-                        iconStyle={{ color: COLORS.WHITE }}
-                        titleT={titleT}
-                        titleStyle={{ color: COLORS.WHITE }}
-                        componentId={this.props.componentId}
-                        onPressIconLeft={this._handleBack}
-                    />
-                    <Surface themeable={false} space20 />
-                    {this._renderHeaderByStep()}
-                    <Surface flex>
-                        {this._renderContentByStep()}
-                        <Surface themeable={false} space16 />
-                        {this._renderBottomButtonByStep()}
-                    </Surface>
-                </ImageBackground>
-            </Surface >
+            <Screen
+                content={this._renderContentByStep}
+                header={this._getHeaderByStep()}
+                toolbarTitleT={titleT}
+                hanleBack={this._handleBack}
+                componentId={this.props.componentId}
+                loading={this.state.loading}
+                bottomButton={this._getBottomButtonByStep()}
+            />
         )
     }
 }

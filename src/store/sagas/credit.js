@@ -39,12 +39,18 @@ export const requestListCard = createRequestSaga({
     ]
 })
 
+export const requestDeleteCard = createRequestSaga({
+    request: api.credit.deleteCard,
+    key: 'credit/deleteCard',
+})
+
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
         takeLatest('credit/addCreditCard', requestAddCreditCard),
         takeLatest('credit/getBankList', requestGetBankList),
-        takeLatest('credit/getListCard', requestListCard)
+        takeLatest('credit/getListCard', requestListCard),
+        takeLatest('credit/deleteCard', requestDeleteCard)
     ])
 }
 

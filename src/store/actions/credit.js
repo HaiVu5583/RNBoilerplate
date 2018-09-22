@@ -22,3 +22,8 @@ export const setListCard = (data) => ({
     type: 'credit/setListCard',
     payload: data
 })
+
+export const deleteCard = (...args) => ({
+    type: 'credit/deleteCard',
+    args
+})

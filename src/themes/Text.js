@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PureComponent } from 'react'
 import { themeSelector, languageSelector } from '~/src/store/selectors/ui'
 import { connect } from 'react-redux'
 import { Text } from 'react-native'
@@ -8,7 +8,7 @@ import I18n from '~/src/I18n'
 import { isFunction } from '~/src/utils'
 import PropTypes from 'prop-types'
 
-class ThemeText extends Component {
+class ThemeText extends PureComponent {
 
     render() {
         const { forwardedRef, children, style, theme, language, themeable = true, dispatch,

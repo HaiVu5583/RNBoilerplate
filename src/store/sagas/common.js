@@ -51,7 +51,7 @@ export const createRequestSaga = ({ request, key, start, stop, success, failure,
             }
             let res = yield race(raceOptions)
             const { data, isTimeout, cancelRet } = res
-
+            console.log('Data Common', data)
             // Append Argument
             if (data) {
                 data.args = args
@@ -59,7 +59,6 @@ export const createRequestSaga = ({ request, key, start, stop, success, failure,
                     yield put(updateAccessToken(data['access-token']))
                 }
             }
-
             if (isTimeout) {
                 throw TIMEOUT
             } else if (cancelRet) {

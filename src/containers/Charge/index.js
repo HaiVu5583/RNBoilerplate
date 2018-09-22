@@ -183,7 +183,6 @@ class Charge extends React.PureComponent {
                                     onPress={() => this._handlePressBankItem(item)}
                                     active={this.state.selecteCard == item.id}
                                 />
-                                <Surface themeable={false} space16 />
                             </Surface>
                         ))}
                         <Button

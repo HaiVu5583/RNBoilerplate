@@ -17,5 +17,8 @@ export default {
     },
     changePassword: (oldPassword, newPassword) => {
         return post('/user/change-password', { oldPassword, newPassword })
+    },
+    verifyPin: (pinNumber) => {
+        return post('/user/verify-pin', {pinNumber})
     }
 }
