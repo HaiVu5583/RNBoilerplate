@@ -179,7 +179,7 @@ class AddCard extends Component {
 
     _renderListBank = () => {
         return (
-            <Surface>
+            <Surface content>
                 <Surface themeable={false} space20 />
                 <Surface containerHorizontalSpace>
                     <Text bold darkBlue description t={'international_card'} textTransform={String.prototype.toUpperCase} />
@@ -215,9 +215,11 @@ class AddCard extends Component {
     _onLoadWebviewAddCardStart = (e) => {
         const webviewInfo = this.webviewAddCardInfo
         if (webviewInfo && webviewInfo.successLink && e.nativeEvent.url.indexOf(webviewInfo.successLink) > -1) {
+            this.webViewAddCard && this.webViewAddCard.stopLoading()
             this.setState({ step: STEP.ADD_CARD_SUCCESS })
             this.props.getListCard()
         } else if (webviewInfo && webviewInfo.failLink && e.nativeEvent.url.indexOf(webviewInfo.failLink) > -1) {
+            this.webViewAddCard && this.webViewAddCard.stopLoading()
             this.setState({ step: STEP.ADD_CARD_FAIL })
         }
     }
