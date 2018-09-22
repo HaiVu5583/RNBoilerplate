@@ -8,5 +8,8 @@ export default {
     },
     getListCard: () => {
         return get('/credit/list-card')
+    },
+    deleteCard: (cardId, access_token) => {
+        return post('/credit/delete-card', { cardId, access_token })
     }
 }

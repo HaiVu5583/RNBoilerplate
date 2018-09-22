@@ -37,3 +37,8 @@ export const updateAccessToken = (data) => ({
     type: 'auth/updateAccessToken',
     payload: data
 })
+
+export const verifyPin = (...args) => ({
+    type: 'user/verify-pin',
+    args 
+})

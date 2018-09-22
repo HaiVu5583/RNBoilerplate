@@ -75,8 +75,6 @@ export default class Screen extends Component {
                     <Button
                         round full
                         noPadding
-                        t={'delete_card'}
-                        onPress={this._deleteCard}
                         enable={true}
                         gradientButton={true}
                         {...bottomButton}

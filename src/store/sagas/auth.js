@@ -55,6 +55,11 @@ export const requestChangePassword = createRequestSaga({
     key: 'auth/changePassword',
 })
 
+export const requestVerifyPin = createRequestSaga({
+    request: api.auth.verifyPin,
+    key: 'user/verify-pin',
+})
+
 // root saga reducer
 export default function* fetchWatcher() {
     yield all([
@@ -63,7 +68,8 @@ export default function* fetchWatcher() {
         takeLatest('auth/createOTPToken', requestCreateOTPToken),
         takeLatest('auth/verifyOTPToken', requestVerifyOTPToken),
         takeLatest('auth/checkExistUser', requestCheckExistUser),
-        takeLatest('auth/changePassword', requestChangePassword)
+        takeLatest('auth/changePassword', requestChangePassword),
+        takeLatest('user/verify-pin', requestVerifyPin)
     ])
 }
 

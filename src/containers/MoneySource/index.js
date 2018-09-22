@@ -1,21 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, View, ScrollView, BackHandler, Platform } from 'react-native'
-import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
+import { BackHandler, Platform } from 'react-native'
+import { Surface, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import { Navigation } from 'react-native-navigation'
-import { getListCard } from '~/src/store/actions/credit'
+import { getListCard, deleteCard } from '~/src/store/actions/credit'
+import { verifyPin } from '~/src/store/actions/auth'
 import { listCardSelector } from '~/src/store/selectors/credit'
 import { ADDED_CARD_TYPE } from '~/src/constants'
 import Screen from '~/src/components/Screen'
+import md5 from 'md5'
+import I18n from '~/src/I18n'
+import DeleteCardSuccess from '~/src/components/DeleteCardSuccess'
+import { chainParse } from '~/src/utils'
 
 const STEP = {
     LIST_CARD: 'LIST_CARD',
     DELETE_CARD: 'DELETE_CARD',
-    INPUT: 'INPUT',
-    RESULT: 'RESULT',
+    DELETE_SUCCESS: 'DELETE_SUCCESS'
 }
 class MoneySource extends React.PureComponent {
     static get options() {
@@ -38,6 +42,7 @@ class MoneySource extends React.PureComponent {
             step: STEP.LIST_CARD,
             money: '',
             password: '',
+            errPass: '',
             loading: false
         }
     }
@@ -72,7 +77,32 @@ class MoneySource extends React.PureComponent {
     }
 
     _deleteCard = () => {
+        if (this.state.loading) return
+        this.setState({ loading: true })
+        this.props.verifyPin(md5(this.state.password), (err, data) => {
+            console.log('Error VerifyPin', err)
+            console.log('Data VerifyPin', data)
+            if (data && data.code && data.code == 1005) {
+                this.setState({ errPass: I18n.t('err_invalid_password'), loading: false })
+                return
+            } else if (data && data['access-token']) {
+                // Do smt
+                this.props.deleteCard(this.state.selecteCard, data['access-token'], (errDeleteCard, dataDeleteCard) => {
+                    console.log('Error Delete Card', errDeleteCard)
+                    console.log('Data Delete Card', dataDeleteCard)
+                    if (chainParse(dataDeleteCard, ['updated', 'result'])) {
+                        this.props.getListCard()
+                        this.setState({ loading: false, step: STEP.DELETE_SUCCESS })
+                    }
+                })
+                return
+            }
+            this.setState({ loading: false })
+        })
+    }
 
+    _handleBackToList = () => {
+        this.setState({ step: STEP.LIST_CARD })
     }
 
     _handleAddCard = () => {
@@ -112,6 +142,10 @@ class MoneySource extends React.PureComponent {
                     expireDate: selectedCardItem.expiryDate,
                     active: true
                 }
+            }
+        } else if (this.state.step == STEP.DELETE_SUCCESS) {
+            return {
+                enable: false
             }
         }
     }
@@ -166,8 +200,14 @@ class MoneySource extends React.PureComponent {
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
                         secureTextEntry={true}
+                        hasError={!!this.state.errPass}
+                        errorText={this.state.errPass}
                     />
                 </Surface>
+            )
+        } else if (this.state.step == STEP.DELETE_SUCCESS) {
+            return (
+                <DeleteCardSuccess onPress={this._handleBackToList} />
             )
         }
     }
@@ -199,7 +239,7 @@ class MoneySource extends React.PureComponent {
     }
 
     render() {
-        console.log('Money Source Props', this.props)
+        console.log('Money Source state', this.state)
         let titleT = ''
         switch (this.state.step) {
             case STEP.LIST_CARD:
@@ -227,4 +267,4 @@ class MoneySource extends React.PureComponent {
 
 export default connect(state => ({
     listCard: listCardSelector(state)
-}), { getListCard })(MoneySource)
+}), { getListCard, verifyPin, deleteCard })(MoneySource)

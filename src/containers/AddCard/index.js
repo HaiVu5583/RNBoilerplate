@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import {
-    Surface, Text, Toolbar
+    Surface, Text
 } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import { ImageBackground, StatusBar, View, FlatList, WebView, ScrollView, Animated } from 'react-native'
+import { View, FlatList, WebView } from 'react-native'
 import { connect } from 'react-redux'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES } from '~/src/themes/common'
 import styles from './styles'
 import ItemCard from './ItemCard'
-import { addCreditCard, getBankList } from '~/src/store/actions/credit'
-import LoadingModal from '~/src/components/LoadingModal'
+import { addCreditCard, getBankList, getListCard } from '~/src/store/actions/credit'
 import AddCardSuccess from '~/src/components/AddCardSuccess'
 import AddCardFail from '~/src/components/AddCardFail'
 import { internationalTokenCardSelector, domesticTokenCardSelector } from '~/src/store/selectors/credit'
@@ -40,7 +39,6 @@ class AddCard extends Component {
             step: STEP.LIST_BANK
         }
         this.webviewAddCardInfo = {}
-        this.scrollY = new Animated.Value(0)
     }
 
     componentDidMount() {
@@ -218,6 +216,7 @@ class AddCard extends Component {
         const webviewInfo = this.webviewAddCardInfo
         if (webviewInfo && webviewInfo.successLink && e.nativeEvent.url.indexOf(webviewInfo.successLink) > -1) {
             this.setState({ step: STEP.ADD_CARD_SUCCESS })
+            this.props.getListCard()
         } else if (webviewInfo && webviewInfo.failLink && e.nativeEvent.url.indexOf(webviewInfo.failLink) > -1) {
             this.setState({ step: STEP.ADD_CARD_FAIL })
         }
@@ -293,4 +292,4 @@ class AddCard extends Component {
 export default connect(state => ({
     internationalCard: internationalTokenCardSelector(state),
     domesticCard: domesticTokenCardSelector(state)
-}), { addCreditCard, getBankList })(AddCard)
+}), { addCreditCard, getBankList, getListCard })(AddCard)
