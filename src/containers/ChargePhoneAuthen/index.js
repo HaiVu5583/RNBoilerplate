@@ -107,7 +107,7 @@ class WithDrawAuthen extends React.PureComponent {
         const hintT = ((this.state.step == STEP.WAIT_OTP || this.state.step == STEP.ENTER_OTP) ? 'enter_otp' : 'send_account')
         const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
         return (
-            <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
+            <Surface themeable={false} imageBackgroundSmallFloat>
                 {this.state.step == STEP.RESULT
                     && <Surface themeable={false} style={{height: 35,}} />
                 }

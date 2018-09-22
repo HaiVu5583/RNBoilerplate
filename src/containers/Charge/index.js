@@ -7,7 +7,6 @@ import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import MaskBalanceView from '~/src/components/MaskBalanceView'
 import { Navigation } from 'react-native-navigation'
-import styles from './styles'
 
 
 const STEP = {
@@ -101,7 +100,7 @@ class Charge extends React.PureComponent {
         const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
         if (this.state.step == STEP.CHOOSE_CARD) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmall}>
+                <Surface themeable={false} imageBackgroundSmall>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
@@ -111,7 +110,7 @@ class Charge extends React.PureComponent {
             )
         } else if (this.state.step == STEP.INPUT) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
+                <Surface themeable={false} imageBackgroundSmallFloat>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={hintT} />
                     </Surface>
@@ -123,14 +122,15 @@ class Charge extends React.PureComponent {
                             expireDate={selectedCardItem.expireDate}
                             onPress={() => { }}
                             active={true}
+                            verticalMargin={false}
                         />
                     </Surface>
-                    <Surface style={styles.fakeFloatPart} />
+                    <Surface floatBankItemPart />
                 </Surface>
             )
         } else if (this.state.step == STEP.RESULT) {
             return (
-                <Surface themeable={false} style={styles.imageBackgroundSmall}>
+                <Surface themeable={false} imageBackgroundSmall>
                     <Surface themeable={false} containerHorizontalSpace>
                         <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
                     </Surface>
@@ -159,7 +159,7 @@ class Charge extends React.PureComponent {
                                 active={true}
                             />
                         </Surface>
-                        <Surface style={styles.fakeFloatPart} />
+                        <Surface floatBankItemPart />
                     </Surface>
                 </Surface>
             )

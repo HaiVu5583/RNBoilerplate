@@ -54,7 +54,8 @@ export const SIZES = {
     IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR: 116,
     BANNER_WIDTH: DEVICE_WIDTH - 52,
     BANNER_HEIGHT: 128,
-    BANK_ITEM_HEIGHT: 68
+    BANK_ITEM_HEIGHT: 68,
+
 }
 
 // console.log('SIZES', SIZES)
@@ -278,6 +279,10 @@ export const TEXT_INPUT_STYLES = {
 }
 
 export const SURFACE_STYLES = {
+    full: {
+        width: DEVICE_WIDTH,
+        height: DEVICE_HEIGHT
+    },
     fullWidth: {
         width: '100%'
     },
@@ -421,6 +426,26 @@ export const SURFACE_STYLES = {
     borderBottomBlue: {
         borderBottomWidth: LINE_HEIGHT,
         borderBottomColor: COLORS.BLUE
+    },
+    imageBackground: {
+        height: SIZES.IMAGE_BACKGROUND_HEIGHT
+    },
+    imageBackgroundSmall: {
+        height: SIZES.IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR
+    },
+    imageBackgroundSmallFloat: {
+        height: SIZES.IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR + SIZES.BANK_ITEM_HEIGHT / 2,
+    },
+    floatBankItemPart: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: SIZES.BANK_ITEM_HEIGHT / 2,
+        zIndex: 0
+    },
+    fakeToolbar: {
+        height: SIZES.TOOLBAR_AND_STATUSBAR
     }
 }
 
