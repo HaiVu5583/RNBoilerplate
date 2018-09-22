@@ -25,7 +25,9 @@ export default class AddCardSuccess extends Component {
                     height="180"
                     svgXmlData={addCardSuccess}
                 />
-                <Text center white description t='add_card_success_1' />
+                <Surface containerHorizontalSpace2 rowCenter themeable={false}>
+                    <Text center white description t='add_card_success_1' />
+                </Surface>
                 <Surface flex themeable={false} />
                 <Surface themeable={false} containerHorizontalSpace rowAlignEnd>
                     <Button

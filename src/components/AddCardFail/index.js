@@ -26,7 +26,9 @@ export default class AddCardFail extends Component {
                     height="180"
                     svgXmlData={addCardFail}
                 />
-                <Text center white description t='add_card_fail_1' />
+                <Surface containerHorizontalSpace2 rowCenter themeable={false}>
+                    <Text center white description t='add_card_fail_1' />
+                </Surface>
                 <Surface flex themeable={false} />
                 <Surface themeable={false} containerHorizontalSpace rowAlignEnd>
                     <Button

@@ -404,7 +404,9 @@ export const SURFACE_STYLES = {
     titleAndDescription: {
         height: SIZES.TITLE_DESCRIPTION,
     },
-
+    containerHorizontalSpace2: {
+        paddingHorizontal: 58
+    },
     containerHorizontalSpace: {
         paddingHorizontal: 48
     },

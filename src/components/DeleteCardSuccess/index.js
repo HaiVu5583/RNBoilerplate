@@ -26,7 +26,9 @@ export default class DeleteCardSuccess extends Component {
                     height="180"
                     svgXmlData={removeSuccess}
                 />
-                <Text center white description t='delete_card_success_text' />
+                <Surface containerHorizontalSpace2 rowCenter themeable={false}>
+                    <Text center white description t='delete_card_success_text' />
+                </Surface>
                 <Surface flex themeable={false} />
                 <Surface themeable={false} containerHorizontalSpace rowAlignEnd>
                     <Button
