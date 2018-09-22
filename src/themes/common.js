@@ -287,6 +287,9 @@ export const SURFACE_STYLES = {
         width: DEVICE_WIDTH,
         height: DEVICE_HEIGHT - SIZES.TOOLBAR_AND_STATUSBAR
     },
+    content: {
+        minHeight: DEVICE_HEIGHT - SIZES.IMAGE_BACKGROUND_HEIGHT
+    },
     fullWidth: {
         width: '100%'
     },

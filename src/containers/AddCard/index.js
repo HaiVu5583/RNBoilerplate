@@ -14,7 +14,6 @@ import AddCardSuccess from '~/src/components/AddCardSuccess'
 import AddCardFail from '~/src/components/AddCardFail'
 import { internationalTokenCardSelector, domesticTokenCardSelector } from '~/src/store/selectors/credit'
 import Screen from '~/src/components/Screen'
-import { formatPhoneNumber } from '~/src/utils'
 
 const STEP = {
     LIST_BANK: 'LIST_BANK',

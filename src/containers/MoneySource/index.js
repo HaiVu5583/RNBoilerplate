@@ -9,6 +9,7 @@ import { Navigation } from 'react-native-navigation'
 import { getListCard } from '~/src/store/actions/credit'
 import { listCardSelector } from '~/src/store/selectors/credit'
 import { ADDED_CARD_TYPE } from '~/src/constants'
+import Screen from '~/src/components/Screen'
 
 const STEP = {
     LIST_CARD: 'LIST_CARD',
@@ -31,32 +32,14 @@ class MoneySource extends React.PureComponent {
 
     constructor(props) {
         super(props)
+        const { listCard } = props
         this.state = {
-            selecteCard: 1,
+            selecteCard: listCard && listCard[0] ? listCard[0].cardId : 0,
             step: STEP.LIST_CARD,
             money: '',
-            password: ''
+            password: '',
+            loading: false
         }
-        this.bankAccount = [
-            {
-                id: 1,
-                bankImage: 'https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit: 500%2C316&ssl: 1',
-                bankAccount: '7813737375432',
-                expireDate: '09/19',
-            },
-            {
-                id: 2,
-                bankImage: 'https://banner2.kisspng.com/20171216/dcc/mastercard-icon-png-5a3556c6e81b34.5328243515134450629507.jpg',
-                bankAccount: '7813737375432',
-                expireDate: '09/19',
-            },
-            {
-                id: 3,
-                bankImage: 'https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1',
-                bankAccount: '7813737375432',
-                expireDate: '09/19',
-            }
-        ]
     }
 
     _handleBack = () => {
@@ -65,32 +48,14 @@ class MoneySource extends React.PureComponent {
             Navigation.pop(this.props.componentId)
         } else if (this.state.step == STEP.DELETE_CARD) {
             this.setState({ step: STEP.LIST_CARD })
-        } else if (this.state.step == STEP.INPUT) {
-            this.setState({ step: STEP.LIST_CARD })
-        } else if (this.state.step == STEP.RESULT) {
-            this.setState({ step: STEP.INPUT })
         }
         return true
     }
 
-    _handlePressAddCard = () => {
-        console.log('Handle Press AddCard')
-    }
-
     _handlePressBankItem = (item) => {
         if (item.id != this.state.selecteCard) {
-            this.setState({ selecteCard: item.id })
+            this.setState({ selecteCard: item.cardId })
         }
-    }
-
-    _handleContinueChooseCard = () => {
-        console.log('Continue Choose Card')
-        this.setState({ step: STEP.INPUT })
-    }
-
-    _handleChargeMoney = () => {
-        console.log('Press Charge Money')
-        this.setState({ step: STEP.RESULT })
     }
 
     _handleGoHome = () => {
@@ -100,7 +65,7 @@ class MoneySource extends React.PureComponent {
     _handleDeleteCard = (item) => {
         console.log('Deleting', item)
         this.setState({
-            selecteCard: item.id
+            selecteCard: item.cardId
         }, () => {
             this.setState({ step: STEP.DELETE_CARD })
         })
@@ -119,8 +84,7 @@ class MoneySource extends React.PureComponent {
         })
     }
 
-    _renderHeaderByStep = () => {
-
+    _getHeaderByStep = () => {
         let hintT = ''
         switch (this.state.step) {
             case STEP.LIST_CARD:
@@ -131,70 +95,24 @@ class MoneySource extends React.PureComponent {
                 hintT = 'delete_linked_card_hint'
                 break
         }
-        const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
+        const { listCard } = this.props
+        const selectedCardItem = listCard.filter(item => item.cardId == this.state.selecteCard)[0]
         if (this.state.step == STEP.LIST_CARD) {
-            return (
-                <Surface themeable={false} imageBackgroundSmall>
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={hintT} />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                </Surface>
-            )
+            return {
+                titleT: hintT
+            }
         } else if (this.state.step == STEP.DELETE_CARD || this.state.step == STEP.INPUT) {
-            return (
-                <Surface themeable={false} imageBackgroundSmallFloat>
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={hintT} />
-                    </Surface>
-                    <Surface themeable={false} flex />
-                    <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                        <BankAccountItem
-                            bankImage={selectedCardItem.bankImage}
-                            bankAccount={selectedCardItem.bankAccount}
-                            expireDate={selectedCardItem.expireDate}
-                            onPress={() => { }}
-                            active={true}
-                        />
-                    </Surface>
-                    <Surface floatBankItemPart />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.RESULT) {
-            return (
-                <Surface themeable={false} imageBackgroundSmallFloat>
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false} containerHorizontalMargin>
-                        <BankAccountItem
-                            bankImage={selectedCardItem.bankImage}
-                            bankAccount={selectedCardItem.bankAccount}
-                            expireDate={selectedCardItem.expireDate}
-                            onPress={() => { }}
-                            active={false}
-                        />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false} containerHorizontalSpace>
-                        <Text white description t={'receive_account'} textTransform={String.prototype.toUpperCase} />
-                    </Surface>
-                    <Surface themeable={false} space16 />
-                    <Surface themeable={false}>
-                        <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                            <BankAccountItem
-                                bankImage={selectedCardItem.bankImage}
-                                bankAccount={selectedCardItem.bankAccount}
-                                expireDate={selectedCardItem.expireDate}
-                                onPress={() => { }}
-                                active={true}
-                            />
-                        </Surface>
-                        <Surface floatBankItemPart />
-                    </Surface>
-                </Surface>
-            )
+            console.log('Selected CardItem', selectedCardItem)
+            return {
+                titleT: hintT,
+                floatBankItem: true,
+                bankItemInfo: {
+                    bankImage: selectedCardItem.logo,
+                    bankAccount: selectedCardItem.hintCard,
+                    expireDate: selectedCardItem.expiryDate,
+                    active: true
+                }
+            }
         }
     }
 
@@ -218,7 +136,7 @@ class MoneySource extends React.PureComponent {
     _renderContentByStep = () => {
         if (this.state.step == STEP.LIST_CARD) {
             return (
-                <Surface themeable={false} flex>
+                <Surface themeable={false} flex content>
                     <Surface containerHorizontalMargin flex>
                         <Surface themeable={false} space20 />
                         {this.props.listCard.map(this._renderCardItem)}
@@ -239,7 +157,7 @@ class MoneySource extends React.PureComponent {
             )
         } else if (this.state.step == STEP.DELETE_CARD) {
             return (
-                <Surface containerHorizontalSpace flex>
+                <Surface containerHorizontalSpace flex content>
                     <Surface themeable={false} space16 />
                     <TextInput
                         descriptionIcon={'GB_pass'}
@@ -249,113 +167,23 @@ class MoneySource extends React.PureComponent {
                         value={this.state.password}
                         secureTextEntry={true}
                     />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.INPUT) {
-            return (
-                <Surface containerHorizontalSpace flex>
-                    <Surface themeable={false} space16 />
-                    <TextInput
-                        descriptionIcon={'GB_recharge'}
-                        placeholderT={'charge_input_money_hint'}
-                        blackWithDarkblueIcon
-                        onChangeText={text => this.setState({ money: text })}
-                        keyboardType='number-pad'
-                        value={this.state.money}
-                        iconRight={'GB_close'}
-                        onPressIconRight={() => this.setState({ money: '' })}
-                        showIconRight={(this.state.money && this.state.money.trim())}
-                    />
-                    <TextInput
-                        descriptionIcon={'GB_pass'}
-                        placeholderT={'hint_input_password'}
-                        blackWithDarkblueIcon
-                        onChangeText={text => this.setState({ password: text })}
-                        value={this.state.password}
-                        secureTextEntry={true}
-                    />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.RESULT) {
-            return (
-                <Surface themeable={false} flex>
-                    <Surface themeable={false} space20 />
-                    <Surface containerHorizontalSpace>
-                        <Text darkBlue description t={'transaction_info'} textTransform={String.prototype.toUpperCase} />
-                    </Surface>
-                    <Surface themeable={false} space20 />
-                    <Surface containerHorizontalMargin>
-                        <Surface rowSpacebetween>
-                            <Text description t='transaction_code' />
-                            <Text description>X12AA22</Text>
-                        </Surface>
-                        <Surface rowSpacebetween>
-                            <Text description t='money_number' />
-                            <Text description>5.000.000VND</Text>
-                        </Surface>
-                        <Surface rowSpacebetween>
-                            <Text description t='discount' />
-                            <Text description>5.000VND</Text>
-                        </Surface>
-
-                        <Surface rowSpacebetween>
-                            <Text description t='fee' />
-                            <Text description>11.000VND</Text>
-                        </Surface>
-                        <Surface rowSpacebetween>
-                            <Text description t='gigabank_balance' />
-                            <Text description>30.000.000VND</Text>
-                        </Surface>
-                        <Surface rowSpacebetween>
-                            <Text description t='discount_balance' />
-                            <Text description>30.000VND</Text>
-                        </Surface>
-                        <Surface rowSpacebetween>
-                            <Text description t='transaction_time' />
-                            <Text description>15:11 17/07/2018</Text>
-                        </Surface>
-                    </Surface>
                 </Surface>
             )
         }
     }
 
-    _renderBottomButtonByStep = () => {
+    _getBottomButtonByStep = () => {
         if (this.state.step == STEP.LIST_CARD) {
-            return (
-                <View />
-            )
+            return {
+                enable: false
+            }
         } else if (this.state.step == STEP.DELETE_CARD) {
-            const enableChargeButton = !!(this.state.money && this.state.password)
-            return (
-                <Surface containerHorizontalSpace rowAlignEnd>
-                    <Button
-                        round full
-                        noPadding
-                        t={'delete_card'}
-                        onPress={this._deleteCard}
-                        enable={true}
-                        gradientButton={true}
-                        rippleStyle={{ marginBottom: 10, width: '100%' }}
-                    />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.RESULT) {
-            return (
-                <Surface containerHorizontalSpace rowAlignEnd>
-                    <Button
-                        round full outline-blue
-                        noPadding
-                        t={'go_back_home'}
-                        onPress={this._handleGoHome}
-                        enable={true}
-                        style={{ marginBottom: 10 }}
-                    />
-                </Surface>
-            )
+            return {
+                enable: true,
+                t: 'delete_card',
+                onPress: this._deleteCard
+            }
         }
-
-
     }
 
     componentDidMount() {
@@ -382,26 +210,17 @@ class MoneySource extends React.PureComponent {
                 titleT = 'delete_linked_card'
                 break
         }
+
         return (
-            <Surface flex>
-                <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
-                    <Toolbar
-                        themeable={false}
-                        iconStyle={{ color: COLORS.WHITE }}
-                        titleT={titleT}
-                        titleStyle={{ color: COLORS.WHITE }}
-                        componentId={this.props.componentId}
-                        onPressIconLeft={this._handleBack}
-                    />
-                    <Surface themeable={false} space20 />
-                    {this._renderHeaderByStep()}
-                    <Surface flex>
-                        {this._renderContentByStep()}
-                        <Surface themeable={false} space16 />
-                        {this._renderBottomButtonByStep()}
-                    </Surface>
-                </ImageBackground>
-            </Surface >
+            <Screen
+                content={this._renderContentByStep}
+                header={this._getHeaderByStep()}
+                toolbarTitleT={titleT}
+                hanleBack={this._handleBack}
+                componentId={this.props.componentId}
+                loading={this.state.loading}
+                bottomButton={this._getBottomButtonByStep()}
+            />
         )
     }
 }

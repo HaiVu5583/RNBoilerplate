@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-    Surface, Text, Toolbar
-} from '~/src/themes/ThemeComponent'
+import { Surface, Text, Toolbar, Button } from '~/src/themes/ThemeComponent'
 import { ImageBackground, StatusBar, Animated } from 'react-native'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES } from '~/src/themes/common'
 import LoadingModal from '~/src/components/LoadingModal'
@@ -20,7 +18,8 @@ export default class Screen extends Component {
     }
 
     render() {
-        const { header, content, toolbarTitleT, hanleBack, componentId, loading } = this.props
+        const { header, content, toolbarTitleT, hanleBack,
+            componentId, loading, bottomButton } = this.props
         return (
             <Surface themeable={false} flex>
                 <StatusBar
@@ -70,6 +69,19 @@ export default class Screen extends Component {
                         onPressIconLeft={hanleBack}
                     />
                 </Surface>
+                {(!!bottomButton && !!bottomButton.enable) && <Surface containerHorizontalSpace style={{
+                    position: 'absolute', bottom: 16, left: 0, right: 0, zIndex: 200
+                }}>
+                    <Button
+                        round full
+                        noPadding
+                        t={'delete_card'}
+                        onPress={this._deleteCard}
+                        enable={true}
+                        gradientButton={true}
+                        {...bottomButton}
+                    />
+                </Surface>}
             </Surface>
         )
     }

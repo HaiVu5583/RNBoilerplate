@@ -31,6 +31,7 @@ export default class Header extends Component {
         if (empty) {
             return <Surface themeable={false} imageBackgroundFloat />
         }
+        console.log('Header Bank Item Info', bankItemInfo)
         if (floatBankItem) {
             return (
                 <Surface themeable={false} imageBackgroundFloat>
