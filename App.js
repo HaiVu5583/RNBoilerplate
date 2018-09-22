@@ -57,7 +57,20 @@ const _setRoot = (bottomTabs) => {
                 children: [
                     {
                         component: {
-                            name: rootScreen,
+                            // name: 'gigabankclient.AddCard'
+                            // name: 'gigabankclient.AddCardSuccess'
+                            // name: 'gigabankclient.AddCardFail'
+                            // name: 'gigabankclient.WithDraw'
+                            // name: 'gigabankclient.WithDrawSearch'
+                            // name: 'gigabankclient.WithDrawInfo'
+                            // name: 'gigabankclient.WithDrawAuthen'
+                            name: 'gigabankclient.ChargePhone'
+                            // name: 'gigabankclient.EnterPassword'
+                            // name: 'gigabankclient.AddCard'
+                            // name: 'gigabankclient.ChargePhoneAuthen'
+
+
+                            // name: rootScreen,
                         }
                     }
                 ]
