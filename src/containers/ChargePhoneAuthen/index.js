@@ -31,7 +31,7 @@ class WithDrawAuthen extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            step: STEP.RESULT,
+            step: STEP.WAIT_OTP,
             authenCode: '',
             selecteCard: 1,
             bankAccount: '',
@@ -126,10 +126,10 @@ class WithDrawAuthen extends React.PureComponent {
                     }
                 </Surface>
                 {this.state.step == STEP.RESULT
-                    && <Surface themeable={false} style={{height: 7}} />
+                    && <Surface themeable={false} style={{height: 17}} />
                 }
                 {this.state.step != STEP.RESULT
-                    && <Surface themeable={false} style={{height: 20}} />
+                    && <Surface themeable={false} style={{height: 30}} />
                 }
                 <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
                     <BankAccountItem
