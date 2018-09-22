@@ -13,6 +13,8 @@ import LoadingModal from '~/src/components/LoadingModal'
 import AddCardSuccess from '~/src/components/AddCardSuccess'
 import AddCardFail from '~/src/components/AddCardFail'
 import { internationalTokenCardSelector, domesticTokenCardSelector } from '~/src/store/selectors/credit'
+import Screen from '~/src/components/Screen'
+import { formatPhoneNumber } from '~/src/utils'
 
 const STEP = {
     LIST_BANK: 'LIST_BANK',
@@ -180,62 +182,36 @@ class AddCard extends Component {
 
     _renderListBank = () => {
         return (
-            <Animated.ScrollView
-                onScroll={Animated.event(
-                    [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
-                )}
-                scrollEventThrottle={16}
-            >
-                <Surface themeable={false}>
-                    <Surface themeable={false} containerHorizontalSpace imageBackground>
-                        <Surface themeable={false} fakeToolbar />
-                        <Surface themeable={false} space20 />
-                        <Text white description t={'add_card_hint'} />
-                        <Animated.View style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backgroundColor: COLORS.BLUE,
-                            opacity: this.scrollY.interpolate({
-                                inputRange: [0, 70],
-                                outputRange: [0, 1],
-                            }),
-                        }} />
-                    </Surface>
-                    <Surface>
-                        <Surface themeable={false} space20 />
-                        <Surface containerHorizontalSpace>
-                            <Text bold darkBlue description t={'international_card'} textTransform={String.prototype.toUpperCase} />
-                        </Surface>
-                        <Surface themeable={false} space20 />
-                        <FlatList
-                            data={this.props.internationalCard}
-                            renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
-                            horizontal={true}
-                            showsHorizontalScrollIndicator={false}
-                            keyExtractor={(item, index) => item.id + '_' + index}
-                            bounces={false}
-                            scrollEnabled={false}
-                        />
-                        <Surface themeable={false} space20 />
-                        <Surface containerHorizontalSpace>
-                            <Text bold darkBlue description t={'domestic_card'} textTransform={String.prototype.toUpperCase} />
-                        </Surface>
-                        <Surface themeable={false} space20 />
-
-                        <FlatList
-                            data={this.props.domesticCard}
-                            renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}
-                            showsHorizontalScrollIndicator={false}
-                            keyExtractor={(item, index) => item.id + '_' + index}
-                            bounces={false}
-                            numColumns={3}
-                        />
-                    </Surface>
+            <Surface>
+                <Surface themeable={false} space20 />
+                <Surface containerHorizontalSpace>
+                    <Text bold darkBlue description t={'international_card'} textTransform={String.prototype.toUpperCase} />
                 </Surface>
-            </Animated.ScrollView>
+                <Surface themeable={false} space20 />
+                <FlatList
+                    data={this.props.internationalCard}
+                    renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
+                    horizontal={true}
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item, index) => item.id + '_' + index}
+                    bounces={false}
+                    scrollEnabled={false}
+                />
+                <Surface themeable={false} space20 />
+                <Surface containerHorizontalSpace>
+                    <Text bold darkBlue description t={'domestic_card'} textTransform={String.prototype.toUpperCase} />
+                </Surface>
+                <Surface themeable={false} space20 />
+
+                <FlatList
+                    data={this.props.domesticCard}
+                    renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}
+                    showsHorizontalScrollIndicator={false}
+                    keyExtractor={(item, index) => item.id + '_' + index}
+                    bounces={false}
+                    numColumns={3}
+                />
+            </Surface>
         )
     }
 
@@ -300,46 +276,18 @@ class AddCard extends Component {
         }
     }
 
-
     render() {
-        console.log('Add Card Props', this.props)
-        return (
-            <Surface themeable={false} flex>
-                <StatusBar
-                    backgroundColor="transparent"
-                    barStyle="light-content"
-                    translucent={true}
-                />
-                <LoadingModal visible={this.state.loading} />
-                <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
-                    {this._render()}
-                </ImageBackground>
-                <Animated.View style={{
-                    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 100,
-                    backgroundColor: COLORS.BLUE,
-                    opacity: this.scrollY.interpolate({
-                        inputRange: [0, 70, 71],
-                        outputRange: [0, 0, 1],
-                    }),
-                    height: SIZES.TOOLBAR_AND_STATUSBAR,
-
-                }}>
-                </Animated.View>
-                <Surface themeable={false} style={{
-                    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 200
-                }}>
-                    <Toolbar
-                        themeable={false}
-                        iconStyle={{ color: COLORS.WHITE }}
-                        titleT={'add_payment_card'}
-                        titleStyle={{ color: COLORS.WHITE }}
-                        componentId={this.props.componentId}
-                        onPressIconLeft={this._handleBack}
-                    />
-                </Surface>
-            </Surface>
-
-        )
+        return <Screen
+            content={this._render}
+            header={{
+                titleT: 'add_card_hint',
+                enable: (this.state.step == STEP.LIST_BANK)
+            }}
+            toolbarTitleT='add_payment_card'
+            hanleBack={this._handleBack}
+            componentId={this.props.componentId}
+            loading={this.state.loading}
+        />
     }
 }
 

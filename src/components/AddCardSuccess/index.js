@@ -17,7 +17,7 @@ export default class AddCardSuccess extends Component {
 
     render() {
         return (
-            <Surface themeable={false} columnCenter flex>
+            <Surface themeable={false} columnCenter full>
                 <Surface themeable={false} imageBackground style={{backgroundColor: 'red'}}/>
                 <Text bold white textTransform={String.prototype.toUpperCase} t={'add_card_success'}></Text>
                 <SvgUri

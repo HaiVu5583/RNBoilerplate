@@ -283,6 +283,10 @@ export const SURFACE_STYLES = {
         width: DEVICE_WIDTH,
         height: DEVICE_HEIGHT
     },
+    fullWithoutToolbar: {
+        width: DEVICE_WIDTH,
+        height: DEVICE_HEIGHT - SIZES.TOOLBAR_AND_STATUSBAR
+    },
     fullWidth: {
         width: '100%'
     },
@@ -423,14 +427,17 @@ export const SURFACE_STYLES = {
         borderBottomWidth: LINE_HEIGHT,
         borderBottomColor: COLORS.BLUE
     },
-    imageBackground: {
-        height: SIZES.IMAGE_BACKGROUND_HEIGHT
-    },
     imageBackgroundSmall: {
         height: SIZES.IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR
     },
     imageBackgroundSmallFloat: {
         height: SIZES.IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR + SIZES.BANK_ITEM_HEIGHT / 2,
+    },
+    imageBackground: {
+        height: SIZES.IMAGE_BACKGROUND_HEIGHT
+    },
+    imageBackgroundFloat: {
+        height: SIZES.IMAGE_BACKGROUND_HEIGHT + SIZES.BANK_ITEM_HEIGHT / 2
     },
     floatBankItemPart: {
         position: 'absolute',
