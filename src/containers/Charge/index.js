@@ -34,7 +34,8 @@ class Charge extends React.PureComponent {
             selecteCard: 1,
             step: STEP.CHOOSE_CARD,
             money: '',
-            password: ''
+            password: '',
+            loading: false
         }
         this.bankAccount = [
             {

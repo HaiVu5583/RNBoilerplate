@@ -3,11 +3,9 @@ import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
 import { ImageBackground, ScrollView, BackHandler, Platform } from 'react-native'
 import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
-import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
-import MaskBalanceView from '~/src/components/MaskBalanceView'
 import { Navigation } from 'react-native-navigation'
-
+import Screen from '~/src/components/Screen'
 
 const STEP = {
     CHOOSE_CARD: 'CHOOSE_CARD',
@@ -30,31 +28,8 @@ class Charge extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            selecteCard: 1,
-            step: STEP.CHOOSE_CARD,
-            money: '',
-            password: ''
+            loading: false
         }
-        this.bankAccount = [
-            {
-                id: 1,
-                bankImage: 'https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit: 500%2C316&ssl: 1',
-                bankAccount: '7813737375432',
-                expireDate: '09/19',
-            },
-            {
-                id: 2,
-                bankImage: 'https://banner2.kisspng.com/20171216/dcc/mastercard-icon-png-5a3556c6e81b34.5328243515134450629507.jpg',
-                bankAccount: '7813737375432',
-                expireDate: '09/19',
-            },
-            {
-                id: 3,
-                bankImage: 'https://i1.wp.com/sysbox.com.au/wp-content/uploads/2017/06/inverted-old-visa1.png?fit=500%2C316&ssl=1',
-                bankAccount: '7813737375432',
-                expireDate: '09/19',
-            }
-        ]
     }
 
     _handleBack = () => {
@@ -71,13 +46,21 @@ class Charge extends React.PureComponent {
         Navigation.popTo('HomeScreen')
     }
 
+    _getHeader = () => {
+        return {
+            render: this._renderHeaderByStep
+        }
+    }
+
     _renderHeaderByStep = () => {
         const hintT = (this.state.step == STEP.CHOOSE_CARD ? 'charge_gigabank_hint' :
             this.state.step == STEP.INPUT ? 'charge_input_hint' : ''
         )
         const { cardItem } = this.props
         return (
-            <Surface themeable={false} imageBackgroundSmall>
+            <Surface themeable={false} imageBackground>
+                <Surface themeable={false} fakeToolbar />
+                <Surface themeable={false} space20 />
                 <Surface themeable={false} containerHorizontalSpace>
                     <Text white description t={'send_account'} textTransform={String.prototype.toUpperCase} />
                 </Surface>
@@ -89,6 +72,7 @@ class Charge extends React.PureComponent {
                         expireDate={cardItem.expireDate}
                         onPress={() => { }}
                         active={false}
+                        verticalMargin={false}
                     />
                 </Surface>
                 <Surface themeable={false} space16 />
@@ -104,6 +88,7 @@ class Charge extends React.PureComponent {
                             expireDate={cardItem.expireDate}
                             onPress={() => { }}
                             active={true}
+                            verticalMargin={false}
                         />
                     </Surface>
                     <Surface floatBankItemPart />
@@ -114,9 +99,9 @@ class Charge extends React.PureComponent {
 
     }
 
-    _renderContentByStep = () => {
+    _renderContent = () => {
         return (
-            <ScrollView>
+            <Surface content>
                 <Surface themeable={false} space20 />
                 <Surface containerHorizontalSpace>
                     <Text darkBlue description t={'transaction_info'} textTransform={String.prototype.toUpperCase} />
@@ -153,7 +138,7 @@ class Charge extends React.PureComponent {
                         <Text description>15:11 17/07/2018</Text>
                     </Surface>
                 </Surface>
-            </ScrollView>
+            </Surface>
         )
     }
 
@@ -181,6 +166,18 @@ class Charge extends React.PureComponent {
     }
 
     render() {
+
+        return (
+            <Screen
+                content={this._renderContent}
+                header={this._getHeader()}
+                toolbarTitleT={'transaction_result'}
+                hanleBack={this._handleBack}
+                componentId={this.props.componentId}
+                loading={this.state.loading}
+            />
+        )
+
         const titleT = 'transaction_result'
         return (
             <Surface flex>
