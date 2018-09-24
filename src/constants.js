@@ -74,3 +74,5 @@ export const ADDED_CARD_TYPE = {
     GIGABANK: 1,
     ADDED: 2
 }
+
+export const ERR_NETWORK = 'TypeError: Network request failed'
