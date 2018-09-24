@@ -71,8 +71,9 @@ class Authentication extends Component {
             } else if (data && data.code && data.code == 1003) {
                 this.setState({ loading: false })
                 this.popupUserSuspend && this.popupUserSuspend.open()
+            }else {
+                this.setState({ loading: false, errPass: I18n.t('err_general') })   
             }
-            this.setState({ loading: false })
         })
     }
 

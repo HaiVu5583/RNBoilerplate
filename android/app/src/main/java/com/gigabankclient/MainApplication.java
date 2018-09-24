@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.rt2zz.reactnativecontacts.ReactNativeContacts;
-import com.toast.RCTToastPackage;
 import com.ninty.system.setting.SystemSettingPackage;
 import com.oblador.shimmer.RNShimmerPackage;
 import com.dylanvann.fastimage.FastImageViewPackage;
@@ -12,24 +11,17 @@ import com.krazylabs.OpenAppSettingsPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.horcrux.svg.SvgPackage;
 import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
-
-import com.oblador.shimmer.RNShimmerPackage;
-import com.AlexanderZaytsev.RNI18n.RNI18nPackage;
-import com.dylanvann.fastimage.FastImageViewPackage;
-import com.krazylabs.OpenAppSettingsPackage;
 import org.reactnative.camera.RNCameraPackage;
-import com.horcrux.svg.SvgPackage;
-import com.ninty.system.setting.SystemSettingPackage;
-import com.oblador.vectoricons.VectorIconsPackage;
-
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import java.util.Arrays;
 import java.util.List;
-
 import com.reactnativenavigation.NavigationApplication;
 import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.reactnativenavigation.react.ReactGateway;
+import com.learnium.RNDeviceInfo.RNDeviceInfo;
+import com.hieuvp.fingerprint.ReactNativeFingerprintScannerPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 
 //import com.oblador.vectoricons.VectorIconsPackage;
 
@@ -74,10 +66,6 @@ import com.reactnativenavigation.react.ReactGateway;
 //  }
 //}
 
-import com.learnium.RNDeviceInfo.RNDeviceInfo;
-import com.hieuvp.fingerprint.ReactNativeFingerprintScannerPackage;
-import com.BV.LinearGradient.LinearGradientPackage;
-
 
 public class MainApplication extends NavigationApplication {
 
@@ -101,7 +89,6 @@ public class MainApplication extends NavigationApplication {
         // Add additional packages you require here
         // No need to add RnnPackage and MainReactPackage
         return Arrays.<ReactPackage>asList(
-                new RCTToastPackage(),
                 new ReactNativeContacts(),
                 new VectorIconsPackage(),
                 new RNDeviceInfo(),

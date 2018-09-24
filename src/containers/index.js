@@ -97,4 +97,5 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.ChargePhone`, () => require('~/src/containers/ChargePhone'), store)
     registerContainerWithRedux(`gigabankclient.EnterPassword`, () => require('~/src/containers/EnterPassword'), store)
     registerContainerWithRedux(`gigabankclient.ChargePhoneAuthen`, () => require('~/src/containers/ChargePhoneAuthen'), store)
+    registerContainerWithRedux(`gigabankclient.Toast`, () => require('~/src/components/Toast'), store)
 }
