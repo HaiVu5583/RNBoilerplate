@@ -16,18 +16,6 @@ export default class Header extends PureComponent {
 
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        // If we have a snapshot value, we've just added new items.
-        // Adjust scroll so these new items don't push the old ones out of view.
-        // (snapshot here is the value returned from getSnapshotBeforeUpdate)
-        console.log('Next Props', prevProps)
-        console.log('Current Props', this.props)
-        console.log('Diff All', (prevProps !== this.props))
-        console.log('Diff Bank Item', (prevProps.bankItemInfo !== this.props.bankItemInfo))
-        console.log('Diff Animated', (prevProps.scrollY !== this.props.scrollY))
-        console.log('Diff titleT', (prevProps.titleT !== this.props.titleT))
-    }
-
     _renderHeaderContent = () => {
         const { render, titleT } = this.props
         if (titleT) {

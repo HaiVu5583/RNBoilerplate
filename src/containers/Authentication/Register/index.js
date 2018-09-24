@@ -87,12 +87,13 @@ class Register extends Component {
         this.setState({ loading: true })
         this.props.createOTPToken(this.state.phone, (err, data) => {
             console.log('Data OTP', data)
-            if (data && data.code && data.code == 2002) {
+            if (data == "true") {
+                this.setState({ loading: false, step: STEP.OTP })
+            } else if (data && data.code && data.code == 2002) {
                 this.setState({ errOTP: I18n.t('err_otp_retry_too_fast'), loading: false })
-                return
+            } else {
+                this.setState({ errOTP: I18n.t('err_general'), loading: false })
             }
-
-            this.setState({ loading: false, step: STEP.OTP })
         })
     }
 
@@ -111,12 +112,16 @@ class Register extends Component {
             this.props.checkExistUser(phoneNumber, (err, data) => {
                 console.log('Err Exist User', err)
                 console.log('Data Exist User', data)
-                if (chainParse(data, ['updated', 'result'])) {
-                    this.setState({ loading: false })
-                    this.popupAlreadyHaveAccount && this.popupAlreadyHaveAccount.open()
+                if (data && data.updated) {
+                    if (data.updated.result) {
+                        this.setState({ loading: false })
+                        this.popupAlreadyHaveAccount && this.popupAlreadyHaveAccount.open()
+                    } else {
+                        this.setState({ loading: false })
+                        this.popupConfirm && this.popupConfirm.open()
+                    }
                 } else {
-                    this.setState({ loading: false })
-                    this.popupConfirm && this.popupConfirm.open()
+                    this.setState({ loading: false, errPhone: I18n.t('err_general') })
                 }
             })
         }
@@ -225,7 +230,7 @@ class Register extends Component {
                     />
                     <Surface space8 themeable={false} />
                     <Surface themeable={false} fullWidth rowCenter>
-                        <OTPCountdown time={20} onResend={() => {
+                        <OTPCountdown time={60} onResend={() => {
                         }} />
                     </Surface>
                 </Surface>
@@ -244,17 +249,22 @@ class Register extends Component {
         this.props.signUp(this.state.name, md5(this.state.password), this.otpToken, (err, data) => {
             console.log('Err Register', err)
             console.log('Data Register', data)
-            Navigation.setStackRoot('mainStack',
-                {
-                    component: {
-                        id: 'HomeScreen',
-                        name: 'gigabankclient.HomeScreen',
-                        passProps: {
-                            isSignUp: true
+            if (data && data.accessToken) {
+                this.setState({ loading: false })
+                Navigation.setStackRoot('mainStack',
+                    {
+                        component: {
+                            id: 'HomeScreen',
+                            name: 'gigabankclient.HomeScreen',
+                            passProps: {
+                                isSignUp: true
+                            }
                         }
                     }
-                }
-            )
+                )
+            } else {
+                this.setState({ loading: false, errRepassword: I18n.t('err_general') })
+            }
         })
     }
 

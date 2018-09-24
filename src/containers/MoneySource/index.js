@@ -138,13 +138,13 @@ class MoneySource extends React.PureComponent {
                 hintT = 'delete_linked_card_hint'
                 break
         }
-        const { listCard } = this.props
-        const selectedCardItem = this._getSelectedBankItem(this.state.selecteCard, listCard)
         if (this.state.step == STEP.LIST_CARD) {
             return {
                 titleT: hintT
             }
         } else if (this.state.step == STEP.DELETE_CARD || this.state.step == STEP.INPUT) {
+            const { listCard } = this.props
+            const selectedCardItem = this._getSelectedBankItem(this.state.selecteCard, listCard)
             return {
                 titleT: hintT,
                 floatBankItem: true,

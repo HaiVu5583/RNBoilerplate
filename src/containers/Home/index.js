@@ -14,9 +14,8 @@ import Sidebar from '~/src/containers/Drawer'
 import { logoStep3 } from '~/src/components/Asset/LogoStep3'
 import SvgUri from 'react-native-svg-uri'
 import AccountInfo from '~/src/containers/Home/AccountInfo'
-import Toast from 'react-native-root-toast'
 import I18n from '~/src/I18n'
-
+import { showToast } from '~/src/utils'
 class Home extends Component {
     static get options() {
         return {
@@ -111,7 +110,8 @@ class Home extends Component {
                 id: 4,
                 name: 'Nạp tiền điện thoại',
                 iconName: 'GB_scratch_card',
-                iconColor: '#45B1A8'
+                iconColor: '#45B1A8',
+                onPress: this._showExampleToast
             },
         ]
 
@@ -130,6 +130,10 @@ class Home extends Component {
             },
 
         ]
+    }
+
+    _showExampleToast = () => {
+        showToast('Example Toast')
     }
 
     _handlePressTransfer = () => {
@@ -175,17 +179,7 @@ class Home extends Component {
     componentDidMount() {
         const { isSignUp } = this.props
         if (isSignUp) {
-            let toast = Toast.show(I18n.t('welcome_to_gigabank'), {
-                duration: Toast.durations.LONG,
-                position: Toast.positions.CENTER,
-                shadow: true,
-                animation: true,
-                hideOnPress: true,
-                delay: 0,
-            });
-            setTimeout(() => {
-                Toast.hide(toast);
-            }, 2500)
+            showToast(I18n.t('welcome_to_gigabank'))
         }
     }
 

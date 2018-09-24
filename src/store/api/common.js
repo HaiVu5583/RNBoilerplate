@@ -12,6 +12,7 @@ const hashSHA256 = (strData) => {
 }
 
 const resolveResponse = async (res, extractHeaders = ['access-token']) => {
+    console.log('Res Resolve', res)
     let headerObj = {}
     if (extractHeaders) {
         for (let i = 0; i < extractHeaders.length; i++) {
