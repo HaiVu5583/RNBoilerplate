@@ -81,7 +81,17 @@ class Charge extends React.PureComponent {
 
     _handleContinueChooseCard = () => {
         console.log('Continue Choose Card')
-        this.setState({ step: STEP.INPUT })
+        const selectedCardItem = this.bankAccount.filter(item => item.id == this.state.selecteCard)[0]
+        // this.setState({ step: STEP.INPUT })
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.ChargeInfo',
+                passProps: {
+                    cardItem: selectedCardItem
+                }
+            },
+        })
+        
     }
 
     _handleChargeMoney = () => {
