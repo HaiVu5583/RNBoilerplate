@@ -11,7 +11,6 @@ import { changePassword } from '~/src/store/actions/auth'
 import md5 from 'md5'
 import LoadingModal from '~/src/components/LoadingModal'
 import { chainParse, showToast } from '~/src/utils'
-import Toast from 'react-native-root-toast'
 
 const STEP = {
     PASSWORD: 'PASSWORD',

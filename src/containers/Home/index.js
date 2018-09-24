@@ -110,7 +110,8 @@ class Home extends Component {
                 id: 4,
                 name: 'Nạp tiền điện thoại',
                 iconName: 'GB_scratch_card',
-                iconColor: '#45B1A8'
+                iconColor: '#45B1A8',
+                onPress: this._showExampleToast
             },
         ]
 
@@ -129,6 +130,10 @@ class Home extends Component {
             },
 
         ]
+    }
+
+    _showExampleToast = () => {
+        showToast('Example Toast')
     }
 
     _handlePressTransfer = () => {

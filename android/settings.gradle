@@ -1,8 +1,6 @@
 rootProject.name = 'gigabankclient'
 include ':react-native-contacts'
 project(':react-native-contacts').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-contacts/android')
-include ':react-native-toast-native'
-project(':react-native-toast-native').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-toast-native/android')
 include ':react-native-system-setting'
 project(':react-native-system-setting').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-system-setting/android')
 include ':react-native-shimmer'
