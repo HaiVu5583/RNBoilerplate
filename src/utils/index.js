@@ -318,3 +318,19 @@ export const revertFormatMoney = (str) => {
     if (!str || str.length === 0) return ''
     return str.replace(/\./g, '')
 }
+
+export const showToast = (text) => {
+    Navigation.showOverlay({
+        component: {
+            name: 'gigabankclient.Toast',
+            passProps: {
+                text
+            },
+            options: {
+                overlay: {
+                    interceptTouchOutside: true
+                }
+            }
+        }
+    })
+}
