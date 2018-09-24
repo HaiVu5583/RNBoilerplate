@@ -26,8 +26,11 @@ export default class Header extends PureComponent {
     }
 
     render() {
-        const { scrollY, floatBankItem = false, bankItemInfo, enable = true, empty = false } = this.props
+        const { scrollY, floatBankItem = false, bankItemInfo, enable = true, empty = false, render } = this.props
         if (!enable) return <View />
+        if (render) {
+            return render()
+        }
         if (empty) {
             return <Surface themeable={false} imageBackgroundFloat />
         }

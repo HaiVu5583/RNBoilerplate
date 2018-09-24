@@ -73,7 +73,7 @@ class MoneySource extends React.PureComponent {
         })
     }
 
-    _getHeaderByStep = () => {
+    _getHeader = () => {
         return {
             titleT: 'money_source_hint'
         }
@@ -134,7 +134,7 @@ class MoneySource extends React.PureComponent {
         return (
             <Screen
                 content={this._renderContent}
-                header={this._getHeaderByStep()}
+                header={this._getHeader()}
                 toolbarTitleT={'money_source'}
                 hanleBack={this._handleBack}
                 componentId={this.props.componentId}
