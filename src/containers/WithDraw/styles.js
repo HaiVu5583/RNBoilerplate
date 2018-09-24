@@ -14,11 +14,17 @@ export default {
     },
     titleStyle: {
         color: COLORS.WHITE,
-        fontSize: 25,
     },
     description: {
-        fontSize: 18,
         marginLeft: SIZES.CONTAINER_HORIZONTAL_SPACE_AND_MARGIN,
         marginRight: SIZES.CONTAINER_HORIZONTAL_SPACE_AND_MARGIN,
-    }
+    },
+    titleList: {
+        fontSize: 14,
+        marginLeft: 48,
+        marginRight: 48,
+        color: '#233c63',
+        fontWeight: 'bold',
+        // marginTop: 30,
+    },
 }

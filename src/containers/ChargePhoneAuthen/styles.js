@@ -17,5 +17,9 @@ export default {
         height: HALF_ITEM_HEIGHT,
         zIndex: 0
     },
-    
+    chargePhoneInfo: {
+        paddingLeft: 32,
+        color: '#233c63',
+        fontWeight: 'bold',
+    },
 }

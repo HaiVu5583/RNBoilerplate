@@ -369,6 +369,10 @@ export const SURFACE_STYLES = {
         width: '100%',
         height: 10
     },
+    space12: {
+        width: '100%',
+        height: 12
+    },
     space16: {
         width: '100%',
         height: 16,
@@ -400,10 +404,6 @@ export const SURFACE_STYLES = {
     space50: {
         width: '100%',
         height: 50
-    },
-    space100: {
-        width: '100%',
-        height: 80
     },
     titleAndDescription: {
         height: SIZES.TITLE_DESCRIPTION,

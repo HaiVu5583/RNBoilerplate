@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView, BackHandler, Platform } from 'react-native'
+import { ImageBackground, ScrollView, BackHandler, Platform, StatusBar } from 'react-native'
 import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
@@ -148,7 +148,7 @@ class WithDrawInfo extends React.PureComponent {
         return (
             <Surface containerHorizontalSpace flex>
                 <Surface themeable={false} space16 />
-                <TextInput
+                {/* <TextInput
                     placeholderT={'bank_number'}
                     blackWithDarkblueIcon
                     onChangeText={text => this.setState({ bankAccount: text })}
@@ -159,14 +159,14 @@ class WithDrawInfo extends React.PureComponent {
                     showIconRight={(this.state.bankAccount && this.state.bankAccount.trim())}
                     hasError={this.state.errorMessage != '' ? true : false}
                     errorText={this.state.errorMessage}
-                />
-                <TextInput
+                /> */}
+                {/* <TextInput
                     placeholderT={'bank_account'}
                     blackWithDarkblueIcon
                     onChangeText={text => this.setState({ accountName: text })}
                     value={this.state.accountName}
                     secureTextEntry={true}
-                />
+                /> */}
                 <TextInput
                     placeholderT={'with_draw_money'}
                     blackWithDarkblueIcon
@@ -213,7 +213,6 @@ class WithDrawInfo extends React.PureComponent {
 
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this._handleBack)
-        this.popupConfirm.open()
     }
 
     componentWillUnmount() {
@@ -223,6 +222,11 @@ class WithDrawInfo extends React.PureComponent {
     render() {
         return (
             <Surface flex>
+                <StatusBar
+                    backgroundColor="transparent"
+                    barStyle="light-content"
+                    translucent={true}
+                />
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                     <Toolbar
                         themeable={false}

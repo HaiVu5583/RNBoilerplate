@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, BackHandler, } from 'react-native'
+import { ImageBackground, BackHandler, StatusBar } from 'react-native'
 import { Surface, Toolbar, Text, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
@@ -33,11 +33,7 @@ class ChargePhone extends React.PureComponent {
     _handleBack = () => {
 
     }
-
-    _handlePressAddCard = () => {
-        console.log('Handle Press AddCard')
-    }
-
+    
     _handlePressBankItem = (item) => {
         if (item.id != this.state.selecteCard) {
             this.setState({ selecteCard: item.id })
@@ -46,7 +42,6 @@ class ChargePhone extends React.PureComponent {
 
     _handleContinueChooseCard = () => {
         console.log('Continue Choose Card')
-        // this.setState({ step: STEP.INPUT })
     }
 
     _handleGoHome = () => {
@@ -65,7 +60,7 @@ class ChargePhone extends React.PureComponent {
         // const enableChargeButton = !!(this.state.money && this.state.password)
         const enableChargeButton = true // Set temp
         return (
-            <Surface containerHorizontalSpace rowAlignEnd>
+            <Surface containerHorizontalSpace rowAlignEnd flex>
                 <Button
                     round full
                     noPadding
@@ -114,6 +109,11 @@ class ChargePhone extends React.PureComponent {
 
         return (
             <Surface flex>
+                <StatusBar
+                    backgroundColor="transparent"
+                    barStyle="light-content"
+                    translucent={true}
+                />
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                     <Toolbar
                         themeable={false}
@@ -123,34 +123,41 @@ class ChargePhone extends React.PureComponent {
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}
                     />
-                    <Surface themeable={false} space20 />
-                    <Text white description t={'charge_phone_description'} style={styles.description} />
-                    <Surface themeable={false} space50 />
-                    <Surface flex>
-                        <Surface containerHorizontalSpace>
-                            <TextInput
-                                iconRight={'GB_contact'}
-                                placeholderT={'authen_code'}
-                                blackWithDarkblueIcon
-                                onChangeText={text => this.setState({ authenCode: text })}
-                                value={this.state.authenCode}
-                                secureTextEntry={true}
-                                style={styles.enterPhone}
-                                hasError={this.state.errorMessage != '' ? true : false}
-                                errorText={this.state.errorMessage}
-                            />
-                        </Surface>
-                        <Surface themeable={false} space8 style={styles.lineSpace} />
+                    <Surface themeable={false} style={styles.descriptionCover}>
+                        <Text white description t={'charge_phone_description'} style={styles.description} />
+                    </Surface>
+                    <Surface space40 />
+                    <Surface containerHorizontalSpace style={styles.textInputCover}>
+                        <TextInput
+                            iconRight={'GB_contact'}
+                            placeholderT={'charge_phone_money_hint'}
+                            blackWithDarkblueIcon
+                            onChangeText={text => this.setState({ authenCode: text })}
+                            value={this.state.authenCode}
+                            secureTextEntry={true}
+                            hasError={this.state.errorMessage != '' ? true : false}
+                            errorText={this.state.errorMessage}
+                        />
+                    </Surface>
+                    <Surface space20 />
+                    <Surface themeable={false} space8 style={styles.lineSpace} />
+                    <Surface space24 />
+                    <Surface>
                         <Text t={'choose_denominations'} style={styles.titleList} textTransform={String.prototype.toUpperCase}/>
-                        <Surface themeable={true} space20/>
+                    </Surface>
+                    <Surface space12 />
+                    <Surface>
                         <Denominations
                             datas={items}
                             numColumns={4}
                         />
-                        <Text t={'limit_money'} style={styles.limitMoney} />
-                        {this._renderBottomButtonByStep()}
                     </Surface>
-                    
+                    <Surface>
+                        <Surface space12 />
+                        <Text t={'limit_money'} style={styles.limitMoney} />
+                    </Surface>
+                    {this._renderBottomButtonByStep()}
+
                     <PopupConfirm
                         titleT={'alert_block_account_title'}
                         contentT={'alert_block_account'}
