@@ -35,8 +35,8 @@ class MoneySource extends React.PureComponent {
             loading: false,
             index: 0,
             routes: [
-                { key: 'card', title: '', label: '', icon: 'GB_contact' },
-                { key: 'bank', title: '', label: '', icon: 'GB_email' },
+                { key: 'card', title: 'Card', label: 'Card', icon: 'GB_contact' },
+                { key: 'bank', title: 'Bank', label: 'Bank', icon: 'GB_email' },
             ],
         }
         this.selectedCardItem = {}
@@ -147,8 +147,8 @@ class MoneySource extends React.PureComponent {
                                 backgroundColor: COLORS.DARK_BLUE
                             }}
                             style={{
-                                backgroundColor: 'transparent',
                                 width: DEVICE_WIDTH - 32,
+                                backgroundColor: 'transparent'
                             }}
                         />
                     </Surface>
@@ -164,14 +164,14 @@ class MoneySource extends React.PureComponent {
                         inputRange: [0, 70],
                         outputRange: [0, 1],
                     }) : 0,
+                    zIndex: -1
                 }} />
             </Surface>
-
         )
     }
 
     _renderPager = (props) => {
-        return (Platform.OS === 'ios') ? <PagerScroll {...props} /> : <PagerPan   {...props} />
+        return (Platform.OS === 'ios') ? <PagerScroll {...props} /> : <PagerPan {...props} />
     }
 
     _renderContent = () => {
