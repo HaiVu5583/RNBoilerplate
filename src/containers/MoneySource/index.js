@@ -35,8 +35,8 @@ class MoneySource extends React.PureComponent {
             loading: false,
             index: 0,
             routes: [
-                { key: 'card', title: 'Card', label: 'Card', icon: 'GB_contact' },
-                { key: 'bank', title: 'Bank', label: 'Bank', icon: 'GB_email' },
+                { key: 'card', title: '', label: '', icon: 'GB_contact' },
+                { key: 'bank', title: '', label: '', icon: 'GB_email' },
             ],
         }
         this.selectedCardItem = {}

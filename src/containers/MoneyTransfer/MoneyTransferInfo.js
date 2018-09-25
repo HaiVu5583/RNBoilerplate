@@ -1,15 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView, BackHandler, Platform } from 'react-native'
-import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
-import { COLORS } from '~/src/themes/common'
-import BankAccountItem from '~/src/components/BankAccountItem'
+import { BackHandler, Platform, KeyboardAvoidingView } from 'react-native'
+import { Surface, Text, TextInput } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
-import Permissions from 'react-native-permissions'
-import { PERMISSION_RESPONSE } from '~/src/constants'
 import { formatPhoneNumber, isValidPhoneNumer, formatMoney, revertFormatMoney } from '~/src/utils'
-import I18n from '~/src/I18n'
 import Screen from '~/src/components/Screen'
 
 
@@ -102,45 +97,47 @@ class MoneyTransferInfo extends React.PureComponent {
                 </Surface>
 
                 <Surface containerHorizontalSpace>
-                    <TextInput
-                        placeholderT={'money_transfer_amount'}
-                        black
-                        keyboardType='number-pad'
-                        onChangeText={text => this.setState({ money: text, errMoney: '' })}
-                        value={formatMoney(this.state.money)}
-                        hasError={!!this.state.errMoney}
-                        errorText={this.state.errMoney}
-                        rightTextT={'VND'}
-                    />
-                    <TextInput
-                        placeholderT={'fee'}
-                        black
-                        keyboardType='number-pad'
-                        onChangeText={text => this.setState({ fee: text, errFee: '' })}
-                        value={formatMoney(this.state.fee)}
-                        hasError={!!this.state.errFee}
-                        errorText={this.state.errFee}
-                        rightTextT={'VND'}
-                    />
-                    <TextInput
-                        placeholderT={'money_trasfer_content'}
-                        black
-                        keyboardType='number-pad'
-                        onChangeText={text => this.setState({ content: text, errContent: '' })}
-                        value={this.state.content}
-                        hasError={!!this.state.errContent}
-                        errorText={this.state.errContent}
-                    />
-                    <TextInput
-                        descriptionIcon={'GB_pass'}
-                        placeholderT={'password'}
-                        black
-                        onChangeText={text => this.setState({ password: text, errPass: '' })}
-                        value={this.state.password}
-                        secureTextEntry={true}
-                        hasError={!!this.state.errPass}
-                        errorText={this.state.errPass}
-                    />
+                    <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 1 }}> 
+                        <TextInput
+                            placeholderT={'money_transfer_amount'}
+                            black
+                            keyboardType='number-pad'
+                            onChangeText={text => this.setState({ money: text, errMoney: '' })}
+                            value={formatMoney(this.state.money)}
+                            hasError={!!this.state.errMoney}
+                            errorText={this.state.errMoney}
+                            rightTextT={'VND'}
+                        />
+                        <TextInput
+                            placeholderT={'fee'}
+                            black
+                            keyboardType='number-pad'
+                            onChangeText={text => this.setState({ fee: text, errFee: '' })}
+                            value={formatMoney(this.state.fee)}
+                            hasError={!!this.state.errFee}
+                            errorText={this.state.errFee}
+                            rightTextT={'VND'}
+                        />
+                        <TextInput
+                            placeholderT={'money_trasfer_content'}
+                            black
+                            keyboardType='number-pad'
+                            onChangeText={text => this.setState({ content: text, errContent: '' })}
+                            value={this.state.content}
+                            hasError={!!this.state.errContent}
+                            errorText={this.state.errContent}
+                        />
+                        <TextInput
+                            descriptionIcon={'GB_pass'}
+                            placeholderT={'password'}
+                            black
+                            onChangeText={text => this.setState({ password: text, errPass: '' })}
+                            value={this.state.password}
+                            secureTextEntry={true}
+                            hasError={!!this.state.errPass}
+                            errorText={this.state.errPass}
+                        />
+                    </KeyboardAvoidingView>
                 </Surface>
             </Surface>
         )
