@@ -139,6 +139,7 @@ class MoneyTransferInfo extends React.PureComponent {
                         />
                     </KeyboardAvoidingView>
                 </Surface>
+                <Surface themeable={false} bottomButtonSpace />
             </Surface>
         )
     }

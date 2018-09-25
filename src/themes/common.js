@@ -458,6 +458,9 @@ export const SURFACE_STYLES = {
     },
     fakeToolbar: {
         height: SIZES.TOOLBAR_AND_STATUSBAR
+    },
+    bottomButtonSpace: {
+        height: SIZES.BUTTON_FIELD + 26
     }
 }
 

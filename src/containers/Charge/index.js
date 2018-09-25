@@ -143,6 +143,7 @@ class Charge extends React.PureComponent {
                     )}
                     style={{ paddingLeft: 0, paddingRight: 0 }}
                 />
+                <Surface themeable={false} bottomButtonSpace />
             </Surface>
         )
     }
