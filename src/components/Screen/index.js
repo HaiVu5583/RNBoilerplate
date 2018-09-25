@@ -16,7 +16,6 @@ export default class Screen extends PureComponent {
 
     componentDidMount() {
         if (this.scrollView && Platform.OS == 'ios') {
-            console.log('ScrollView', this.scrollView._component)
             this.scrollView._component.scrollTo({ x: 0, y: 1, animated: false })
             setTimeout(() => {
                 this.scrollView._component.scrollTo({ x: 0, y: 0, animated: false })

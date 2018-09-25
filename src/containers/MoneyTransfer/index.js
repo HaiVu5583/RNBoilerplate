@@ -93,7 +93,7 @@ class MoneyTransfer extends React.PureComponent {
     _renderContent = () => {
         return (
             <Surface containerHorizontalSpace content flex>
-                <Surface themeable={false} space16 />
+                <Surface themeable={false} space40 />
                 <TextInput
                     placeholderT={'phone_receive_money_hint'}
                     blackWithDarkblueIcon
