@@ -81,13 +81,7 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.WebView`, () => require('~/src/containers/WebView'), store)
     registerContainerWithRedux(`gigabankclient.AccountScreen`, () => require('~/src/containers/Account'), store)
     registerContainerWithRedux(`gigabankclient.Drawer`, () => require('~/src/containers/Drawer'), store)
-    registerContainerWithRedux(`gigabankclient.Charge`, () => require('~/src/containers/Charge'), store)
-    registerContainerWithRedux(`gigabankclient.MoneySource`, () => require('~/src/containers/MoneySource'), store)
-    registerContainerWithRedux(`gigabankclient.AddCard`, () => require('~/src/containers/AddCard'), store)
-    registerContainerWithRedux(`gigabankclient.AddCardSuccess`, () => require('~/src/containers/AddCardSuccess'), store)
-    registerContainerWithRedux(`gigabankclient.AddCardFail`, () => require('~/src/containers/AddCardFail'), store)
     registerContainerWithRedux(`gigabankclient.WithDraw`, () => require('~/src/containers/WithDraw'), store)
-    registerContainerWithRedux(`gigabankclient.MoneyTransfer`, () => require('~/src/containers/MoneyTransfer'), store)
     registerContainerWithRedux(`gigabankclient.WithDrawSearch`, () => require('~/src/containers/WithDrawSearch'), store)
     registerContainerWithRedux(`gigabankclient.ContactChooser`, () => require('~/src/containers/ContactChooser'), store)
     registerContainerWithRedux(`gigabankclient.WithDrawInfo`, () => require('~/src/containers/WithDrawInfo'), store)
@@ -98,4 +92,21 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.EnterPassword`, () => require('~/src/containers/EnterPassword'), store)
     registerContainerWithRedux(`gigabankclient.ChargePhoneAuthen`, () => require('~/src/containers/ChargePhoneAuthen'), store)
     registerContainerWithRedux(`gigabankclient.Toast`, () => require('~/src/components/Toast'), store)
+    // Money Source Flow
+    registerContainerWithRedux(`gigabankclient.MoneySource`, () => require('~/src/containers/MoneySource'), store)
+    registerContainerWithRedux(`gigabankclient.MoneySourceDeleteCard`, () => require('~/src/containers/MoneySource/DeleteCardConfirm'), store)
+    registerContainerWithRedux(`gigabankclient.MoneySourceDeleteSuccess`, () => require('~/src/containers/MoneySource/DeleteSuccess'), store)
+    registerContainerWithRedux(`gigabankclient.AddCard`, () => require('~/src/containers/AddCard'), store)
+    registerContainerWithRedux(`gigabankclient.AddCardSuccess`, () => require('~/src/containers/AddCardSuccess'), store)
+    registerContainerWithRedux(`gigabankclient.AddCardFail`, () => require('~/src/containers/AddCardFail'), store)
+    // Money Transfer Flow
+    registerContainerWithRedux(`gigabankclient.MoneyTransfer`, () => require('~/src/containers/MoneyTransfer'), store)
+    registerContainerWithRedux(`gigabankclient.MoneyTransferInfo`, () => require('~/src/containers/MoneyTransfer/MoneyTransferInfo'), store)
+    registerContainerWithRedux(`gigabankclient.MoneyTransferOTP`, () => require('~/src/containers/MoneyTransfer/MoneyTransferOTP'), store)
+    registerContainerWithRedux(`gigabankclient.MoneyTransferResult`, () => require('~/src/containers/MoneyTransfer/MoneyTransferResult'), store)
+    // Charge Flow
+    registerContainerWithRedux(`gigabankclient.Charge`, () => require('~/src/containers/Charge'), store)
+    registerContainerWithRedux(`gigabankclient.ChargeInfo`, () => require('~/src/containers/Charge/ChargeInfo'), store)
+    registerContainerWithRedux(`gigabankclient.ChargeResult`, () => require('~/src/containers/Charge/ChargeResult'), store)
+
 }

@@ -437,16 +437,16 @@ export const SURFACE_STYLES = {
         borderBottomColor: COLORS.BLUE
     },
     imageBackgroundSmall: {
-        height: SIZES.IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR
+        minHeight: SIZES.IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR
     },
     imageBackgroundSmallFloat: {
-        height: SIZES.IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR + SIZES.BANK_ITEM_HEIGHT / 2,
+        minHeight: SIZES.IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR + SIZES.BANK_ITEM_HEIGHT / 2,
     },
     imageBackground: {
-        height: SIZES.IMAGE_BACKGROUND_HEIGHT
+        minHeight: SIZES.IMAGE_BACKGROUND_HEIGHT
     },
     imageBackgroundFloat: {
-        height: SIZES.IMAGE_BACKGROUND_HEIGHT + SIZES.BANK_ITEM_HEIGHT / 2
+        minHeight: SIZES.IMAGE_BACKGROUND_HEIGHT + SIZES.BANK_ITEM_HEIGHT / 2
     },
     floatBankItemPart: {
         position: 'absolute',

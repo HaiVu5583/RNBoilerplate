@@ -1,27 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { BackHandler, Platform } from 'react-native'
-import { Surface, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
-import { COLORS } from '~/src/themes/common'
+import { BackHandler, Platform, View, ScrollView, Animated, StatusBar, ImageBackground } from 'react-native'
+import { Surface, Text, Icon, Button, TextInput, Toolbar } from '~/src/themes/ThemeComponent'
+import { COLORS, SIZES } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import { Navigation } from 'react-native-navigation'
-import { getListCard, deleteCard } from '~/src/store/actions/credit'
-import { verifyPin } from '~/src/store/actions/auth'
+import { getListCard } from '~/src/store/actions/credit'
 import { listCardSelector } from '~/src/store/selectors/credit'
 import { ADDED_CARD_TYPE } from '~/src/constants'
-import Screen from '~/src/components/Screen'
-import md5 from 'md5'
-import I18n from '~/src/I18n'
-import DeleteCardSuccess from '~/src/components/DeleteCardSuccess'
-import { chainParse } from '~/src/utils'
-import lodash from 'lodash'
+import LoadingModal from '~/src/components/LoadingModal'
+import { TabView, TabBar, SceneMap, PagerScroll, PagerPan } from 'react-native-tab-view'
 
-const STEP = {
-    LIST_CARD: 'LIST_CARD',
-    DELETE_CARD: 'DELETE_CARD',
-    DELETE_SUCCESS: 'DELETE_SUCCESS'
-}
 class MoneySource extends React.PureComponent {
     static get options() {
         if (Platform.OS == 'android') {
@@ -39,30 +29,23 @@ class MoneySource extends React.PureComponent {
         super(props)
         const { listCard } = props
         this.state = {
-            selecteCard: listCard && listCard[0] ? listCard[0].cardId : 0,
-            step: STEP.LIST_CARD,
             money: '',
             password: '',
             errPass: '',
-            loading: false
+            loading: false,
+            index: 0,
+            routes: [
+                { key: 'card', title: '', label: '', icon: 'GB_contact' },
+                { key: 'bank', title: '', label: '', icon: 'GB_email' },
+            ],
         }
         this.selectedCardItem = {}
+        this.scrollY = new Animated.Value(0)
     }
 
     _handleBack = () => {
-        if (this.state.step == STEP.LIST_CARD) {
-            console.log('Component Id', this.props.componentId)
-            Navigation.pop(this.props.componentId)
-        } else if (this.state.step == STEP.DELETE_CARD) {
-            this.setState({ step: STEP.LIST_CARD })
-        }
+        Navigation.pop(this.props.componentId)
         return true
-    }
-
-    _handlePressBankItem = (item) => {
-        if (item.id != this.state.selecteCard) {
-            this.setState({ selecteCard: item.cardId })
-        }
     }
 
     _handleGoHome = () => {
@@ -71,40 +54,15 @@ class MoneySource extends React.PureComponent {
 
     _handleDeleteCard = (item) => {
         console.log('Deleting', item)
-        this.setState({
-            selecteCard: item.cardId
-        }, () => {
-            this.setState({ step: STEP.DELETE_CARD })
-        })
-    }
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.MoneySourceDeleteCard',
+                passProps: {
+                    cardItem: item
+                }
+            },
 
-    _deleteCard = () => {
-        if (this.state.loading) return
-        this.setState({ loading: true })
-        this.props.verifyPin(md5(this.state.password), (err, data) => {
-            console.log('Error VerifyPin', err)
-            console.log('Data VerifyPin', data)
-            if (data && data.code && data.code == 1005) {
-                this.setState({ errPass: I18n.t('err_invalid_password'), loading: false })
-                return
-            } else if (data && data['access-token']) {
-                // Do smt
-                this.props.deleteCard(this.state.selecteCard, data['access-token'], (errDeleteCard, dataDeleteCard) => {
-                    console.log('Error Delete Card', errDeleteCard)
-                    console.log('Data Delete Card', dataDeleteCard)
-                    if (chainParse(dataDeleteCard, ['updated', 'result'])) {
-                        this.props.getListCard()
-                        this.setState({ loading: false, step: STEP.DELETE_SUCCESS })
-                    }
-                })
-                return
-            }
-            this.setState({ loading: false })
         })
-    }
-
-    _handleBackToList = () => {
-        this.setState({ step: STEP.LIST_CARD })
     }
 
     _handleAddCard = () => {
@@ -116,44 +74,9 @@ class MoneySource extends React.PureComponent {
         })
     }
 
-    _getSelectedBankItem = lodash.memoize((selectCard, listCard) => {
-        const selectedCardItem = listCard.filter(item => item.cardId == selectCard)[0]
+    _getHeader = () => {
         return {
-            bankImage: selectedCardItem.logo,
-            bankAccount: selectedCardItem.hintCard,
-            expireDate: selectedCardItem.expiryDate,
-            active: true
-        }
-    })
-
-
-    _getHeaderByStep = () => {
-        let hintT = ''
-        switch (this.state.step) {
-            case STEP.LIST_CARD:
-            default:
-                hintT = 'money_source_hint'
-                break
-            case STEP.DELETE_CARD:
-                hintT = 'delete_linked_card_hint'
-                break
-        }
-        if (this.state.step == STEP.LIST_CARD) {
-            return {
-                titleT: hintT
-            }
-        } else if (this.state.step == STEP.DELETE_CARD || this.state.step == STEP.INPUT) {
-            const { listCard } = this.props
-            const selectedCardItem = this._getSelectedBankItem(this.state.selecteCard, listCard)
-            return {
-                titleT: hintT,
-                floatBankItem: true,
-                bankItemInfo: selectedCardItem
-            }
-        } else if (this.state.step == STEP.DELETE_SUCCESS) {
-            return {
-                enable: false
-            }
+            titleT: 'money_source_hint'
         }
     }
 
@@ -164,7 +87,6 @@ class MoneySource extends React.PureComponent {
                     bankImage={item.logo}
                     bankAccount={item.hintCard}
                     expireDate={item.expiryDate}
-                    onPress={() => this._handlePressBankItem(item)}
                     active={(item.type == ADDED_CARD_TYPE.ADDED)}
                     draggable={(item.type == ADDED_CARD_TYPE.ADDED)}
                     isGigabank={(item.type == ADDED_CARD_TYPE.GIGABANK)}
@@ -174,63 +96,122 @@ class MoneySource extends React.PureComponent {
         )
     }
 
-    _renderContentByStep = () => {
-        if (this.state.step == STEP.LIST_CARD) {
-            return (
-                <Surface themeable={false} flex content>
-                    <Surface containerHorizontalMargin flex>
+
+    _renderCardTab = () => {
+        return (
+            <Surface themeable={false} flex content>
+                <Surface containerHorizontalMargin flex>
+                    <Surface themeable={false} space20 />
+                    {this.props.listCard.map(this._renderCardItem)}
+                    <Button
+                        flat
+                        rowStart
+                        leftComponent={() => (
+                            <Icon name='GB_plus' style={{ fontSize: 24, color: COLORS.BLUE }} />
+                        )}
+                        centerComponent={() => (
+                            <Text blue t='add_link_card' />
+                        )}
+                        onPress={this._handleAddCard}
+                        style={{ paddingLeft: 0, paddingRight: 0 }}
+                    />
+                </Surface>
+            </Surface>
+        )
+    }
+
+    _handleIndexChange = () => {
+
+    }
+
+
+    _renderIcon = ({ route }) => (
+        <Icon name={route.icon} size={24} style={{ color: 'white' }} />
+    );
+
+    _renderTabBar = props => {
+        return (
+            <Surface themeable={false}>
+                <Surface themeable={false} imageBackground>
+                    <Surface themeable={false} containerHorizontalSpace>
+                        <Surface themeable={false} fakeToolbar />
                         <Surface themeable={false} space20 />
-                        {this.props.listCard.map(this._renderCardItem)}
-                        <Button
-                            flat
-                            rowStart
-                            leftComponent={() => (
-                                <Icon name='GB_plus' style={{ fontSize: 24, color: COLORS.BLUE }} />
-                            )}
-                            centerComponent={() => (
-                                <Text blue t='add_link_card' />
-                            )}
-                            onPress={this._handleAddCard}
-                            style={{ paddingLeft: 0, paddingRight: 0 }}
+                        <Text white description t={'money_source_hint'} />
+                    </Surface>
+                    <Surface themeable={false} containerHorizontalMargin flex columnEnd>
+                        <TabBar
+                            {...props}
+                            renderIcon={this._renderIcon}
+                            renderLabel={() => <View />}
+                            indicatorStyle={{
+                                backgroundColor: COLORS.DARK_BLUE
+                            }}
+                            style={{
+                                backgroundColor: 'transparent',
+                                width: DEVICE_WIDTH - 32,
+                            }}
                         />
                     </Surface>
                 </Surface>
-            )
-        } else if (this.state.step == STEP.DELETE_CARD) {
-            return (
-                <Surface containerHorizontalSpace flex content>
-                    <Surface themeable={false} space16 />
-                    <TextInput
-                        descriptionIcon={'GB_pass'}
-                        placeholderT={'hint_input_password'}
-                        blackWithDarkblueIcon
-                        onChangeText={text => this.setState({ password: text })}
-                        value={this.state.password}
-                        secureTextEntry={true}
-                        hasError={!!this.state.errPass}
-                        errorText={this.state.errPass}
-                    />
-                </Surface>
-            )
-        } else if (this.state.step == STEP.DELETE_SUCCESS) {
-            return (
-                <DeleteCardSuccess onPress={this._handleBackToList} />
-            )
-        }
+                <Animated.View style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: COLORS.BLUE,
+                    opacity: !!this.scrollY ? this.scrollY.interpolate({
+                        inputRange: [0, 70],
+                        outputRange: [0, 1],
+                    }) : 0,
+                }} />
+            </Surface>
+
+        )
     }
 
-    _getBottomButtonByStep = () => {
-        if (this.state.step == STEP.LIST_CARD) {
-            return {
-                show: false
-            }
-        } else if (this.state.step == STEP.DELETE_CARD) {
-            return {
-                show: true,
-                t: 'delete_card',
-                onPress: this._deleteCard
-            }
-        }
+    _renderPager = (props) => {
+        return (Platform.OS === 'ios') ? <PagerScroll {...props} /> : <PagerPan   {...props} />
+    }
+
+    _renderContent = () => {
+        return (
+            <TabView
+                navigationState={this.state}
+                renderScene={
+                    SceneMap({
+                        card: this._renderCardTab,
+                        bank: this._renderCardTab,
+                    })
+                }
+                renderTabBar={this._renderTabBar}
+                onIndexChange={index => this.setState({ index })}
+                initialLayout={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}
+                renderPager={this._renderPager}
+                useNativeDriver={true}
+            />
+        )
+
+        return (
+            <Surface themeable={false} flex content>
+                <Surface containerHorizontalMargin flex>
+                    <Surface themeable={false} space20 />
+                    {this.props.listCard.map(this._renderCardItem)}
+                    <Button
+                        flat
+                        rowStart
+                        leftComponent={() => (
+                            <Icon name='GB_plus' style={{ fontSize: 24, color: COLORS.BLUE }} />
+                        )}
+                        centerComponent={() => (
+                            <Text blue t='add_link_card' />
+                        )}
+                        onPress={this._handleAddCard}
+                        style={{ paddingLeft: 0, paddingRight: 0 }}
+                    />
+                </Surface>
+            </Surface>
+        )
     }
 
     componentDidMount() {
@@ -246,32 +227,56 @@ class MoneySource extends React.PureComponent {
     }
 
     render() {
-        console.log('Money Source state', this.state)
-        let titleT = ''
-        switch (this.state.step) {
-            case STEP.LIST_CARD:
-            default:
-                titleT = 'money_source'
-                break
-            case STEP.DELETE_CARD:
-                titleT = 'delete_linked_card'
-                break
-        }
-
         return (
-            <Screen
-                content={this._renderContentByStep}
-                header={this._getHeaderByStep()}
-                toolbarTitleT={titleT}
-                hanleBack={this._handleBack}
-                componentId={this.props.componentId}
-                loading={this.state.loading}
-                bottomButton={this._getBottomButtonByStep()}
-            />
+            <Surface themeable={false} flex>
+                <StatusBar
+                    backgroundColor="transparent"
+                    barStyle="light-content"
+                    translucent={true}
+                />
+                <LoadingModal visible={this.state.loading} />
+                <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
+                    <Animated.ScrollView
+                        onScroll={Animated.event(
+                            [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
+                        )}
+                        scrollEventThrottle={16}
+                    >
+                        <Surface themeable={false}>
+                            <Surface themeable={false}>
+                                {this._renderContent()}
+                            </Surface>
+                        </Surface>
+                    </Animated.ScrollView>
+                </ImageBackground>
+                <Animated.View style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 100,
+                    backgroundColor: COLORS.BLUE,
+                    opacity: this.scrollY.interpolate({
+                        inputRange: [0, 70, 71],
+                        outputRange: [0, 0, 1],
+                    }),
+                    height: SIZES.TOOLBAR_AND_STATUSBAR,
+
+                }}>
+                </Animated.View>
+                <Surface themeable={false} style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, zIndex: 200
+                }}>
+                    <Toolbar
+                        themeable={false}
+                        iconStyle={{ color: COLORS.WHITE }}
+                        titleT={'money_source'}
+                        titleStyle={{ color: COLORS.WHITE }}
+                        componentId={this.props.componentId}
+                        onPressIconLeft={this._handleBack}
+                    />
+                </Surface>
+            </Surface>
         )
     }
 }
 
 export default connect(state => ({
     listCard: listCardSelector(state)
-}), { getListCard, verifyPin, deleteCard })(MoneySource)
+}), { getListCard })(MoneySource)
