@@ -9,19 +9,19 @@ export default {
     titleStyle: {
         color: COLORS.WHITE        
     },
+    descriptionCover: {
+        height: 116,
+    },
     description: {
-        // fontSize: 18,
         marginLeft: 48,
         marginRight: 48,
+        marginTop: 20,
     },
-    enterPhone: {
-        // marginHorizontal: 48,
-        marginTop: 40,
-        // marginBottom: 50,
+    textInputCover: {
+        height: 74,
     },
     lineSpace: {
-        backgroundColor: COLORS.LIGHT_GRAY,
-        marginTop: 60,
+        backgroundColor: COLORS.FEATURE_BACKGROUND,
     },
     titleList: {
         fontSize: 14,
@@ -29,14 +29,13 @@ export default {
         marginRight: 48,
         color: '#233c63',
         fontWeight: 'bold',
-        marginTop: 30,
     },
     limitMoney: {
         fontSize: 12,
         marginLeft: 48,
         marginRight: 48,
         color: COLORS.ERROR,
-        marginBottom: 40,
+        // marginBottom: 20,
     },
 
 

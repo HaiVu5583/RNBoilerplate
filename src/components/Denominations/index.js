@@ -40,26 +40,29 @@ class Denominations extends Component {
 
     _renderItemFlatListDomesticCard = ({item, index}) => {
         let itemCardContainerStyle = {}
-        let itemWidth = (DEVICE_WIDTH - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2 - 10*(this.props.numColumns-1))/this.props.numColumns
+        let itemWidth = (DEVICE_WIDTH - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2 - 8*(this.props.numColumns-1))/this.props.numColumns
         
         itemCardContainerStyle = {
-            width: itemWidth,
-            height: itemWidth/1.35,
-            marginTop: 10,
-            marginBottom: 10,
-            // ...getElevation(4),
+            marginTop: 8,
+            marginBottom: 13,
         }
 
         itemCardStyle = {
+            // width: 80,
+            // height: 54,
             width: itemWidth,
-            height: itemWidth/1.35,
-            borderRadius: 17,
+            height: itemWidth/1.52,
+            borderRadius: 18,
+            justifyContent: 'center',
+            alignItems: 'center',
         }
         itemCardImageStyle = {
-            width: itemWidth - 7,
-            height: (itemWidth - 7)/1.35,
+            // width: 76,
+            // height: 50,
+            width: itemWidth - 4,
+            height: (itemWidth - 4)/1.52,
             borderRadius: 15,
-            marginLeft: 3.5,
+            marginLeft: 2,
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 15,
@@ -68,7 +71,7 @@ class Denominations extends Component {
 
         if (index%this.props.numColumns == 0) {
             return (
-                <View style={{...itemCardContainerStyle, ...styles.itemStart}}
+                <View style={{...itemCardContainerStyle,...styles.itemStart}}
                     key={item.id}>
                     {this._renderDomestic(item)}
                 </View>
@@ -92,7 +95,9 @@ class Denominations extends Component {
     
     _renderDomestic = (item) => {
         return (
-            <TouchableOpacity>
+            <TouchableOpacity
+                // style={{justifyContent: 'center', alignItems: 'center'}}
+            >
                 <LinearGradient
                     colors={this.state.itemCoverColor}
                     start={{ x: 0.0, y: 0.0 }}
@@ -103,9 +108,6 @@ class Denominations extends Component {
                         ...itemCardStyle,
                         ...SURFACE_STYLES.rowStart,
                         ...getElevation(4),
-                        // marginHorizontal: 2,
-                        // marginTop: 2,
-                        // marginBottom: 5,
                     }}
                 >
                 <View style={itemCardImageStyle}>
@@ -124,11 +126,6 @@ class Denominations extends Component {
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item, index) => item.id + '_' + index}
                     bounces={false}
-                    // style={{
-                    //     marginRight: 0,
-                    //     paddingTop: 0,
-                    //     paddingBottom: 0,
-                    // }}
                     numColumns={this.props.numColumns}>
                 </FlatList>
         )

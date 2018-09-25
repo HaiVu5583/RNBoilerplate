@@ -10,18 +10,18 @@ import {
 
 export default {
     textStyle: {
-        fontSize: 14,
+        fontSize: 16,
     },
     itemStart: {
         marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
-        marginRight: 5,
+        marginRight: 4,
     },
     itemMiddle: {
-        marginLeft: 5,
-        marginRight: 5,
+        marginLeft: 4,
+        marginRight: 4,
     },
     itemEnd: {
-        marginLeft: 5,
+        marginLeft: 4,
         marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,
     }    
 }

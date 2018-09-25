@@ -115,20 +115,18 @@ class Cards extends Component {
         }
         itemCardStyle = {
             width: itemWidth,
-            height: itemWidth/1.35,
-            borderRadius: 17,
+            height: itemWidth/1.52,
+            borderRadius: 18,
         }
         itemCardImageStyle = {
-            width: itemWidth - 7,
-            height: (itemWidth - 7)/1.35,
+            width: itemWidth - 4,
+            height: (itemWidth - 4)/1.52,
             borderRadius: 15,
-            marginLeft: 3.5,
+            marginLeft: 2,
         }
         if (index%3 == 0) {
             return (
-                <View style={{...itemCardContainerStyle,
-                    marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
-                    marginRight: 10,}}
+                <View style={{...itemCardContainerStyle, ...styles.itemStart}}
                     key={item.id}>
                     <ItemCard iconBank = {item.iconBank}
                         itemCardStyle = {itemCardStyle}
@@ -139,7 +137,7 @@ class Cards extends Component {
             )
         } else if (index%3 == 1) {
             return (
-                <View style={{...itemCardContainerStyle, marginLeft: 10, marginRight: 10,}}
+                <View style={{...itemCardContainerStyle, ...styles.itemMiddle}}
                     key={item.id}>
                     <ItemCard iconBank = {item.iconBank}
                         itemCardStyle = {itemCardStyle}
@@ -150,7 +148,7 @@ class Cards extends Component {
             )
         } else {
             return (
-                <View style={{...itemCardContainerStyle, marginLeft: 10, marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN,}}
+                <View style={{...itemCardContainerStyle, ...styles.itemEnd}}
                     key={item.id}>
                     <ItemCard iconBank = {item.iconBank}
                         itemCardStyle = {itemCardStyle}
