@@ -1,9 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import { Surface, Text, Toolbar, Button } from '~/src/themes/ThemeComponent'
 import { ImageBackground, StatusBar, Animated } from 'react-native'
-import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES } from '~/src/themes/common'
+import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
 import LoadingModal from '~/src/components/LoadingModal'
 import Header from './Header'
+import { Platform } from 'react-native'
 
 export default class Screen extends PureComponent {
     constructor(props) {
@@ -14,7 +15,12 @@ export default class Screen extends PureComponent {
     }
 
     componentDidMount() {
-
+        if (this.scrollView && Platform.OS == 'ios') {
+            this.scrollView._component.scrollTo({ x: 0, y: 1, animated: false })
+            setTimeout(() => {
+                this.scrollView._component.scrollTo({ x: 0, y: 0, animated: false })
+            }, 10)
+        }
     }
 
     render() {
@@ -34,6 +40,8 @@ export default class Screen extends PureComponent {
                             [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
                         )}
                         scrollEventThrottle={16}
+                        contentInset={{ top: Platform.OS == 'ios' ? -STATUS_BAR_HEIGHT : 0 }}
+                        ref={ref => this.scrollView = ref}
                     >
                         <Surface themeable={false}>
                             <Header
@@ -69,8 +77,8 @@ export default class Screen extends PureComponent {
                         onPressIconLeft={hanleBack}
                     />
                 </Surface>
-                {(!!bottomButton && !!bottomButton.show) && <Surface 
-                    containerHorizontalSpace 
+                {(!!bottomButton && !!bottomButton.show) && <Surface
+                    containerHorizontalSpace
                     style={{
                         position: 'absolute', bottom: 16, left: 0, right: 0, zIndex: 200
                     }}
