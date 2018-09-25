@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import { ASSETS, DEVICE_WIDTH, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
 import Carousel from 'react-native-snap-carousel'
 import FeatureBlock from '~/src/containers/Home/FeatureBlock'
-import { getElevation } from '~/src/utils'
 import Drawer from 'react-native-drawer'
 import Sidebar from '~/src/containers/Drawer'
 import { logoStep3 } from '~/src/components/Asset/LogoStep3'
@@ -238,10 +237,16 @@ class Home extends Component {
                 styles={
                     {
                         drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
-                        main: { paddingLeft: 3 },
+                        main: { paddingLeft: 3, backgroundColor: 'black' },
                     }
                 }
                 ref={ref => this._drawer = ref}
+                tweenHandler={ratio => ({
+                    mainOverlay: {
+                        opacity: 0.6 * ratio,
+                        backgroundColor: 'black',
+                    },
+                })}
             >
                 <Surface themeable={false} flex>
                     <StatusBar
