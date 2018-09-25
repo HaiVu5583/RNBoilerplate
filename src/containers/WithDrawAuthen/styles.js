@@ -14,7 +14,7 @@ export default {
         bottom: 0,
         left: 0,
         right: 0,
-        height: HALF_ITEM_HEIGHT,
+        height: 52,
         zIndex: 0
     },
     withDrawInfoTitle: {

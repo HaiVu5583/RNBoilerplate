@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, BackHandler, StatusBar } from 'react-native'
+import { ImageBackground, BackHandler, StatusBar, Platform } from 'react-native'
 import { Surface, Toolbar, Text, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
@@ -10,17 +10,17 @@ import { DIALOG_MODE } from '~/src/constants'
 import Denominations from '~/src/components/Denominations'
 
 class ChargePhone extends React.PureComponent {
-    // static get options() {
-    //     if (Platform.OS == 'android') {
-    //         return {
-    //             animations: {
-    //                 push: DEFAULT_PUSH_ANIMATION,
-    //                 pop: DEFAULT_POP_ANIMATION
-    //             }
-    //         }
-    //     }
-    //     return {}
-    // }
+    static get options() {
+        if (Platform.OS == 'android') {
+            return {
+                animations: {
+                    push: DEFAULT_PUSH_ANIMATION,
+                    pop: DEFAULT_POP_ANIMATION
+                }
+            }
+        }
+        return {}
+    }
 
     constructor(props) {
         super(props)
@@ -124,7 +124,7 @@ class ChargePhone extends React.PureComponent {
                         onPressIconLeft={this._handleBack}
                     />
                     <Surface themeable={false} style={styles.descriptionCover}>
-                        <Text white description t={'charge_phone_description'} style={styles.description} />
+                        <Text white description t={'with_draw_description'} style={styles.description} />
                     </Surface>
                     <Surface space40 />
                     <Surface containerHorizontalSpace style={styles.textInputCover}>

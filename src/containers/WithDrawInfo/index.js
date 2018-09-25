@@ -173,6 +173,8 @@ class WithDrawInfo extends React.PureComponent {
                     onChangeText={text => this.setState({ moneyAmount: text })}
                     value={this.state.moneyAmount}
                     secureTextEntry={true}
+                    hasError={this.state.errorMessage != '' ? true : false}
+                    errorText={this.state.errorMessage}
                 />
                 <TextInput
                     placeholderT={'service_fee'}

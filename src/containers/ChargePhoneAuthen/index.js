@@ -140,7 +140,12 @@ class WithDrawAuthen extends React.PureComponent {
                         active={false}
                     />
                 </Surface>
-                <Surface style={styles.fakeFloatPart} />
+                {this.state.step != STEP.RESULT
+                    && <Surface style={{...styles.fakeFloatPart, height: 30}} />
+                }
+                {this.state.step == STEP.RESULT
+                    && <Surface style={styles.fakeFloatPart} />
+                }
             </Surface>
         )
     }
