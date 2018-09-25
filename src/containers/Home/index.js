@@ -147,6 +147,7 @@ class Home extends Component {
     _handlePressSave = () => {
         Navigation.push(this.props.componentId, {
             component: {
+                componentId: 'gigabankclient.MoneySource',
                 name: 'gigabankclient.MoneySource',
             }
         })
