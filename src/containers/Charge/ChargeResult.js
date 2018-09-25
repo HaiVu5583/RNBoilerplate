@@ -37,11 +37,6 @@ class Charge extends React.PureComponent {
         return true
     }
 
-    _handleChargeMoney = () => {
-        console.log('Press Charge Money')
-        this.setState({ step: STEP.RESULT })
-    }
-
     _handleGoHome = () => {
         Navigation.popTo('HomeScreen')
     }
