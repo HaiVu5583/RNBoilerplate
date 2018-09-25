@@ -110,7 +110,7 @@ class Home extends Component {
                 name: 'Nạp tiền điện thoại',
                 iconName: 'GB_scratch_card',
                 iconColor: '#45B1A8',
-                onPress: this._showExampleToast
+                onPress: this._handlePressChargePhone
             },
         ]
 
@@ -156,6 +156,14 @@ class Home extends Component {
         Navigation.push(this.props.componentId, {
             component: {
                 name: 'gigabankclient.Charge',
+            }
+        })
+    }
+
+    _handlePressChargePhone = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.ChargePhone',
             }
         })
     }
