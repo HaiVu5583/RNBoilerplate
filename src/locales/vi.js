@@ -270,6 +270,8 @@ const language = {
     'transaction_authenticate': 'Xác thực giao dịch',
     'transaction_authenticate_hint': 'Nhập mã OTP đã được gửi tới số điện thoại của bạn để xác nhận giao dịch',
     'content': 'Nội dung',
+    'grant_permission': 'Cấp phép truy cập',
+    'grant_contact_permission_hint': 'Bạn cần cho phép truy cập Danh bạ để sử dụng tính năng này.',
 
 
     //bat vi tri
