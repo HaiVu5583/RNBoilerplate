@@ -217,10 +217,13 @@ const language = {
     'back_to_list': 'Trở lại danh sách',
     'delete_card_success_title': 'Xoá thẻ thành công',
     'delete_card_success_text': 'Thẻ liên kết của bạn đã được xoá khỏi danh sách. Bạn vẫn có thể thêm lại thẻ này vào lần tới',
+    
     // With Draw
     'with_draw_title': 'Rút tiền từ Gigabank',
     'with_draw_description': 'Chọn hoặc tìm kiếm ngân hàng bạn muốn rút tiền về từ Gigabank',
     'search_bank': 'Tìm kiếm ngân hàng...',
+    'add_payment_account': 'Thêm tài khoản thanh toán',
+    'add_payment_account_description': 'Chọn tài khoản ngân hàng bạn đang sở hữu để liên kết với Gigabank',
 
     // With Draw Info
     'with_draw_info_title': 'Thông tin rút tiền',

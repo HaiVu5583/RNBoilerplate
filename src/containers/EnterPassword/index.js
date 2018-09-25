@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, BackHandler, } from 'react-native'
+import { ImageBackground, BackHandler, StatusBar } from 'react-native'
 import { Surface, Toolbar, Text, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
@@ -69,7 +69,7 @@ class ChargePhone extends React.PureComponent {
         // const enableChargeButton = !!(this.state.money && this.state.password)
         const enableChargeButton = true // Set temp
         return (
-            <Surface rowAlignEnd>
+            <Surface containerHorizontalSpace rowAlignEnd flex>
                 <Button
                     round full
                     noPadding
@@ -94,6 +94,11 @@ class ChargePhone extends React.PureComponent {
     render() {
         return (
             <Surface flex>
+                <StatusBar
+                    backgroundColor="transparent"
+                    barStyle="light-content"
+                    translucent={true}
+                />
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                     <Toolbar
                         themeable={false}
@@ -106,8 +111,9 @@ class ChargePhone extends React.PureComponent {
                     <Surface themeable={false} space20 />
                     <Text white description t={'enter_password_please'} style={styles.description} />
                     <Surface themeable={false} space50 />
-                    <Surface containerHorizontalSpace flex>
-                        <Surface themeable={false} space20 />
+                    <Surface themeable={false} space20 />
+                    <Surface space24 />
+                    <Surface containerHorizontalSpace style={styles.textInputCover}>
                         <TextInput
                             descriptionIcon={'GB_pass'}
                             placeholderT={'hint_input_password'}
@@ -118,10 +124,9 @@ class ChargePhone extends React.PureComponent {
                             hasError={this.state.errorMessage != '' ? true : false}
                             errorText={this.state.errorMessage}
                         />
-                        <Surface themeable={false} space8 style={styles.lineSpace} />
-                        <Surface flex themeable={true}/>
+                        </Surface>
+                        
                         {this._renderBottomButtonByStep()}
-                    </Surface>
                     
                     <PopupConfirm
                         // title={I18n.t('alert_block_account_title')}

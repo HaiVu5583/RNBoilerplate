@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, ScrollView, BackHandler, Platform } from 'react-native'
+import { ImageBackground, ScrollView, BackHandler, Platform, StatusBar } from 'react-native'
 import { Surface, Toolbar, Text, Icon, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
@@ -35,7 +35,7 @@ class WithDrawAuthen extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            step: STEP.WAIT_OTP,
+            step: STEP.RESULT,
             authenCode: '',
 
 
@@ -170,12 +170,11 @@ class WithDrawAuthen extends React.PureComponent {
                 }
                 <Surface themeable={false} containerHorizontalSpace>
                     {this.state.step != STEP.RESULT
-                        && <Text white description t={hintT}
-                        style={{fontSize: 18}} />
+                        && <Text white description t={hintT} />
                     }
                     {this.state.step == STEP.RESULT
                         && <Text white t={hintT} textTransform={String.prototype.toUpperCase}
-                            style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10,}}
+                            style={{fontWeight: 'bold', marginBottom: 10,}}
                         />
                     }
                 </Surface>
@@ -202,83 +201,95 @@ class WithDrawAuthen extends React.PureComponent {
             return (
                 <Surface style={{paddingHorizontal: 16,}}>
                     <Surface themeable={false} space16 />
-                    <Text style={{fontSize: 20, paddingLeft: 32,}} t='with_draw_info_title' textTransform={String.prototype.toUpperCase}/>
+                    <Text style={styles.withDrawInfoTitle} t='with_draw_info_title' textTransform={String.prototype.toUpperCase}/>
                     <Surface themeable={false} space20 />
                     <Surface rowSpacebetween >
-                        <Text style={{fontSize: 18}} t={'account_number'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                        <Text description t={'account_number'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'bank_account'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'bank_account'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'bank'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'bank'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space24 />
                     <Surface themeable={false} style={{backgroundColor: '#29aae1', width: '100%', height: 1}}/>
                     <Surface themeable={false} space24 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'with_draw_money_amount'} />
-                        <Text style={{fontSize: 18}}>X12AA22 VND</Text>
+                    <Text description t={'with_draw_money_amount'} />
+                        <Text description>X12AA22 VND</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'service_fee'} />
-                        <Text style={{fontSize: 18}}>X12AA22 VND</Text>
+                    <Text description t={'service_fee'} />
+                        <Text description>X12AA22 VND</Text>
                     </Surface>
                 </Surface>
             )
         } else if (this.state.step == STEP.RESULT) {
+            const selectedCardItem = this.bankAccount[1]
             return (
                 <Surface style={{paddingHorizontal: 16,}}>
                     <Surface themeable={false} space16 />
-                    <Text style={{fontSize: 20, paddingLeft: 32,}} t='receive_account' textTransform={String.prototype.toUpperCase}/>
+                    <Text style={styles.withDrawInfoTitle} t='receive_account' textTransform={String.prototype.toUpperCase}/>
                     <Surface themeable={false} space20 />
-                    <Surface rowSpacebetween>
-                        <Text style={{fontSize: 18}} t={'account_number'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+
+                    <BankAccountItem
+                        bankImage={selectedCardItem.bankImage}
+                        bankAccount={selectedCardItem.bankAccount}
+                        // expireDate={selectedCardItem.expireDate}
+                        bankName={selectedCardItem.bankName}
+                        onPress={() => { }}
+                        active={true}
+                    />
+
+                    
+                    {/* <Surface rowSpacebetween>
+                        <Text description t={'account_number'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'bank_account'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'bank_account'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'bank'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
-                    </Surface>
+                    <Text description t={'bank'} />
+                        <Text description>X12AA22</Text>
+                    </Surface> */}
 
                     <Surface themeable={false} space16 />
-                    <Text style={{fontSize: 20, paddingLeft: 32,}} t='transaction_info' textTransform={String.prototype.toUpperCase}/>
+                    <Text style={styles.withDrawInfoTitle} t='transaction_info' textTransform={String.prototype.toUpperCase}/>
                     <Surface themeable={false} space20 />
                     <Surface rowSpacebetween>
-                        <Text style={{fontSize: 18}} t={'transaction_code'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                        <Text description t={'transaction_code'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'money_number'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'money_number'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'service_fee'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'service_fee'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'gigabank_balance'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'gigabank_balance'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'transaction_time'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'transaction_time'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                 </Surface>
             )
@@ -360,6 +371,11 @@ class WithDrawAuthen extends React.PureComponent {
         // )
         return (
             <Surface flex>
+                <StatusBar
+                    backgroundColor="transparent"
+                    barStyle="light-content"
+                    translucent={true}
+                />
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                     {/* <Toolbar
                         themeable={false}

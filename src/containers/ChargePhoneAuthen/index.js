@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, BackHandler, } from 'react-native'
+import { ImageBackground, BackHandler, StatusBar } from 'react-native'
 import { Surface, Toolbar, Text, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
@@ -31,7 +31,7 @@ class WithDrawAuthen extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            step: STEP.WAIT_OTP,
+            step: STEP.ENTER_OTP,
             authenCode: '',
             selecteCard: 1,
             bankAccount: '',
@@ -116,12 +116,11 @@ class WithDrawAuthen extends React.PureComponent {
                 }
                 <Surface themeable={false} containerHorizontalSpace>
                     {this.state.step != STEP.RESULT
-                        && <Text white description t={hintT}
-                        style={{fontSize: 18}} />
+                        && <Text white description t={hintT} />
                     }
                     {this.state.step == STEP.RESULT
                         && <Text white t={hintT} textTransform={String.prototype.toUpperCase}
-                            style={{fontSize: 18, fontWeight: 'bold', marginBottom: 10,}}
+                            style={{fontWeight: 'bold', marginBottom: 10,}}
                         />
                     }
                 </Surface>
@@ -151,24 +150,24 @@ class WithDrawAuthen extends React.PureComponent {
             return (
                 <Surface style={{paddingHorizontal: 16,}}>
                     <Surface themeable={false} space30 />
-                    <Text style={{fontSize: 18, paddingLeft: 32,}} t='charge_phone_info'
+                    <Text style={styles.chargePhoneInfo} t='charge_phone_info'
                         textTransform={String.prototype.toUpperCase}/>
                     <Surface themeable={false} space20 />
                     <Surface rowSpacebetween >
-                        <Text style={{fontSize: 18}} t={'phone'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                        <Text description t={'phone'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space24 />
                     <Surface themeable={false} style={{backgroundColor: '#29aae1', width: '100%', height: 1}}/>
                     <Surface themeable={false} space24 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'denominations'} />
-                        <Text style={{fontSize: 18}}>X12AA22 VND</Text>
+                    <Text description t={'denominations'} />
+                        <Text description>X12AA22 VND</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'charge_phone_discount'} />
-                        <Text style={{fontSize: 18}}>X12AA22 VND</Text>
+                        <Text description t={'charge_phone_discount'} />
+                        <Text description>10%</Text>
                     </Surface>
                 </Surface>
             )
@@ -176,37 +175,37 @@ class WithDrawAuthen extends React.PureComponent {
             return (
                 <Surface style={{paddingHorizontal: 16,}}>
                     <Surface themeable={false} space16 />
-                    <Text style={{fontSize: 18, paddingLeft: 32,}} t='charge_phone_info'
+                    <Text style={styles.chargePhoneInfo} t='charge_phone_info'
                         textTransform={String.prototype.toUpperCase}/>
                     <Surface themeable={false} space20 />
                     <Surface rowSpacebetween>
-                        <Text style={{fontSize: 18}} t={'transaction_code'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                        <Text description t={'transaction_code'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'phone'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'phone'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'denominations'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'denominations'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                        <Text style={{fontSize: 18}} t={'charge_phone_discount'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                        <Text description t={'charge_phone_discount'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'transaction_time'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'transaction_time'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                     <Surface themeable={false} space10 />
                     <Surface rowSpacebetween>
-                    <Text style={{fontSize: 18}} t={'gigabank_balance'} />
-                        <Text style={{fontSize: 18}}>X12AA22</Text>
+                    <Text description t={'gigabank_balance'} />
+                        <Text description>X12AA22</Text>
                     </Surface>
                 </Surface>
             )
@@ -282,6 +281,11 @@ class WithDrawAuthen extends React.PureComponent {
     render() {
         return (
             <Surface flex>
+                <StatusBar
+                    backgroundColor="transparent"
+                    barStyle="light-content"
+                    translucent={true}
+                />
                 <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}>
                     {this._renderHeaderByStep()}
                     {this._renderContentHeaderByStep()}

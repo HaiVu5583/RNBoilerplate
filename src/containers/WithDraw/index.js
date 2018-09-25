@@ -39,9 +39,9 @@ class WithDraw extends Component {
 
     }
     
-    _onPressSearch = () => {
-        alert('sEARCH is press')
-    }
+    // _onPressSearch = () => {
+    //     alert('sEARCH is press')
+    // }
 
     render() {
         
@@ -79,18 +79,22 @@ class WithDraw extends Component {
                     <Toolbar
                         themeable={false}
                         iconStyle={styles.iconStyle}
-                        titleT={'with_draw_title'}
+                        titleT={'add_payment_account'}
                         titleStyle={styles.titleStyle}
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}
-                        iconRight={'GB_search'}
-                        onPressIconRight={this._onPressSearch}
+                        // iconRight={'GB_search'}
+                        // onPressIconRight={this._onPressSearch}
                     />
                     <Surface themeable={false} space24 />
-                    <Text style={styles.description} white t={'with_draw_description'} />
+                    <Text description white t={'add_payment_account_description'} style={styles.description} />
                     <Surface themeable={false} space50 />
+                    <Surface space30 />
+                    <Surface space30>
+                        <Text t={'bank'} style={styles.titleList} textTransform={String.prototype.toUpperCase}/>
+                    </Surface>
+                    <Surface space24 />
                     <Surface themeable={true} flex >
-                        <Surface themeable={false} space30 />
                         <Cards
                             datas={items}
                             numColumns={3}
