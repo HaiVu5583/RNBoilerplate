@@ -163,7 +163,7 @@ class WithDrawAuthen extends React.PureComponent {
         return (
             <Surface themeable={false} style={styles.imageBackgroundSmallFloat}>
                 {this.state.step == STEP.RESULT
-                    && <Surface themeable={false} style={{height: 35,}} />
+                    && <Surface themeable={false} style={{height: 30,}} />
                 }
                 {this.state.step != STEP.RESULT
                     && <Surface themeable={false} style={{height: 20,}} />
@@ -174,7 +174,7 @@ class WithDrawAuthen extends React.PureComponent {
                     }
                     {this.state.step == STEP.RESULT
                         && <Text white t={hintT} textTransform={String.prototype.toUpperCase}
-                            style={{fontWeight: 'bold', marginBottom: 10,}}
+                            style={{fontWeight: 'bold', marginBottom: 15,}}
                         />
                     }
                 </Surface>
