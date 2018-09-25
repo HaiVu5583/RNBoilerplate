@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { BackHandler, Platform, View, ScrollView, Animated, StatusBar, ImageBackground } from 'react-native'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, STATUS_BAR_HEIGHT } from '~/src/themes/common'
+import { BackHandler, Platform, View, Animated, StatusBar, ImageBackground } from 'react-native'
 import { Surface, Text, Icon, Button, TextInput, Toolbar } from '~/src/themes/ThemeComponent'
 import { COLORS, SIZES } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
@@ -215,6 +215,13 @@ class MoneySource extends React.PureComponent {
     }
 
     componentDidMount() {
+        if (this.scrollView && Platform.OS == 'ios') {
+            console.log('ScrollView', this.scrollView._component)
+            this.scrollView._component.scrollTo({ x: 0, y: 1, animated: false })
+            setTimeout(() => {
+                this.scrollView._component.scrollTo({ x: 0, y: 0, animated: false })
+            }, 10)
+        }
         this.props.getListCard((err, data) => {
             console.log('Err getListCard', err)
             console.log('Data List Card', data)
@@ -241,6 +248,8 @@ class MoneySource extends React.PureComponent {
                             [{ nativeEvent: { contentOffset: { y: this.scrollY } } }],
                         )}
                         scrollEventThrottle={16}
+                        contentInset={{ top: Platform.OS == 'ios' ? -STATUS_BAR_HEIGHT : 0 }}
+                        ref={ref => this.scrollView = ref}
                     >
                         <Surface themeable={false}>
                             <Surface themeable={false}>

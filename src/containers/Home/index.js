@@ -178,6 +178,13 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        if (this.scrollView && Platform.OS == 'ios') {
+            console.log('ScrollView', this.scrollView._component)
+            this.scrollView._component.scrollTo({ x: 0, y: 1, animated: false })
+            setTimeout(() => {
+                this.scrollView._component.scrollTo({ x: 0, y: 0, animated: false })
+            }, 10)
+        }
         const { isSignUp } = this.props
         if (isSignUp) {
             showToast(I18n.t('welcome_to_gigabank'))
@@ -249,9 +256,9 @@ class Home extends Component {
                         )}
                         scrollEventThrottle={16}
                         contentInset={{ top: Platform.OS == 'ios' ? -STATUS_BAR_HEIGHT : 0 }}
-
+                        ref={ref => this.scrollView = ref}
                     >
-                        <Surface style={{ height: 210 }}>
+                        <Surface style={{ height: SIZES.IMAGE_BACKGROUND_HEIGHT + SIZES.BANK_ITEM_HEIGHT / 2 }}>
                             <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: SIZES.IMAGE_BACKGROUND_HEIGHT }}>
                                 <Surface themeable={false} style={{ width: '100%', height: SIZES.TOOLBAR_AND_STATUSBAR }} />
                                 <Surface themeable={false} space8 />
