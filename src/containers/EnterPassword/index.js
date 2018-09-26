@@ -6,7 +6,7 @@ import { Surface, Toolbar, Text, Button, TextInput } from '~/src/themes/ThemeCom
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import PopupConfirm from '~/src/components/PopupConfirm'
-import { DIALOG_MODE } from '~/src/constants'
+import { DIALOG_MODE, SCREENS } from '~/src/constants'
 import Denominations from '~/src/components/Denominations'
 
 class ChargePhone extends React.PureComponent {
@@ -58,15 +58,42 @@ class ChargePhone extends React.PureComponent {
     }
 
     onDisagree = () => {
-
+        Navigation.push(this.props.componentId, {
+            component: {
+                id: SCREENS.ALERT.id,
+                name: SCREENS.ALERT.name,
+                passProps: {
+                    // const {headerTitle, title, image, description, buttonTitle} = this.props
+                    headerTitle: 'transaction_result',
+                    title: 'transaction_fail',
+                    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png',
+                    description: 'gigabank_balance_not_enough',
+                    buttonTitle: 'go_back_home',
+                    goHome: this._handleGoHome
+                },
+            }
+        })
     }
 
     onAgree = () => {
-
+        Navigation.push(this.props.componentId, {
+            component: {
+                id: SCREENS.CHARGE_PHONE_AUTHEN.id,
+                name: SCREENS.CHARGE_PHONE_AUTHEN.name,
+                // passProps: {
+                //     // const {headerTitle, title, image, description, buttonTitle} = this.props
+                //     headerTitle: 'transaction_result',
+                //     title: 'transaction_fail',
+                //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png',
+                //     description: 'gigabank_balance_not_enough',
+                //     buttonTitle: 'go_back_home',
+                //     goHome: this._handleGoHome
+                // },
+            }
+        })
     }
     
     _renderBottomButtonByStep = () => {
-        // const enableChargeButton = !!(this.state.money && this.state.password)
         const enableChargeButton = true // Set temp
         return (
             <Surface containerHorizontalSpace rowAlignEnd flex>
@@ -129,13 +156,12 @@ class ChargePhone extends React.PureComponent {
                         {this._renderBottomButtonByStep()}
                     
                     <PopupConfirm
-                        // title={I18n.t('alert_block_account_title')}
                         titleT={'alert_block_account_title'}
                         contentT={'alert_block_account'}
                         textNoT={'cancel'}
                         textYesT={'call'}
-                        onPressButton1={this.onDisagree}
-                        onPressButton2={this.onAgree}
+                        onPressNo={this.onDisagree}
+                        onPressYes={this.onAgree}
                         mode = {DIALOG_MODE.YES_NO}
                         ref={ref => this.popupConfirm = ref}
                     />

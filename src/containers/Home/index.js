@@ -15,6 +15,8 @@ import SvgUri from 'react-native-svg-uri'
 import AccountInfo from '~/src/containers/Home/AccountInfo'
 import I18n from '~/src/I18n'
 import { showToast } from '~/src/utils'
+import {SCREENS} from '~/src/constants'
+
 class Home extends Component {
     static get options() {
         return {
@@ -112,6 +114,13 @@ class Home extends Component {
                 iconColor: '#45B1A8',
                 onPress: this._handlePressChargePhone
             },
+            {
+                id: 5,
+                name: 'Rút tiền',
+                iconName: 'GB_wallet',
+                iconColor: '#4CC1A8',
+                onPress: this._handlePressWithDraw
+            },
         ]
 
         this.featureBlock2 = [
@@ -163,9 +172,27 @@ class Home extends Component {
     _handlePressChargePhone = () => {
         Navigation.push(this.props.componentId, {
             component: {
-                name: 'gigabankclient.ChargePhone',
+                name: SCREENS.CHARGE_PHONE.name,
             }
         })
+    }
+
+    _handlePressWithDraw = () => {
+        // Temp
+        let gen = Math.floor(Math.random() * Math.floor(2))
+        if (gen == 0) {
+            Navigation.push(this.props.componentId, {
+                component: {
+                    name: SCREENS.WITH_DRAW_SEARCH.name,
+                }
+            })
+        } else if (gen == 1) {
+            Navigation.push(this.props.componentId, {
+                component: {
+                    name: SCREENS.WITH_DRAW_SEARCH.name,
+                }
+            })
+        }
     }
 
     _handlePressHambergerIcon = () => {

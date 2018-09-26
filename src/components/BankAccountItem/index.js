@@ -62,7 +62,8 @@ export default class BankAccountItem extends React.PureComponent {
     }
 
     render() {
-        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false, onDelete, moreStyle, isGigabank, index, verticalMargin = true } = this.props
+        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false,
+            onDelete, moreStyle, isGigabank, index, verticalMargin = true } = this.props
         const marginTop = (verticalMargin && index == 0) ? 24 : 0
         const marginBottom =  verticalMargin ? 20 : 0
         if (draggable) {

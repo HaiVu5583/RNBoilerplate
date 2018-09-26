@@ -221,10 +221,13 @@ const language = {
     
     // With Draw
     'with_draw_title': 'Rút tiền từ Gigabank',
-    'with_draw_description': 'Chọn hoặc tìm kiếm ngân hàng bạn muốn rút tiền về từ Gigabank',
+    'with_draw_search_description': 'Chọn hoặc tìm kiếm ngân hàng bạn muốn rút tiền về từ Gigabank',
     'search_bank': 'Tìm kiếm ngân hàng...',
     'add_payment_account': 'Thêm tài khoản thanh toán',
     'add_payment_account_description': 'Chọn tài khoản ngân hàng bạn đang sở hữu để liên kết với Gigabank',
+    'with_draw_description': 'Rút tiền từ tài khoản Gigabank về tài khoản ngân hàng đã liên kết',
+    'with_draw_subdescription': 'Bạn hãy liên kết tài khoản ngân hàng để nhận tiền rút từ Gigabank nhé',
+    'with_draw_btn_title': 'Thêm tài khoản',
 
     // With Draw Info
     'with_draw_info_title': 'Thông tin rút tiền',
@@ -237,6 +240,7 @@ const language = {
     'with_draw_money': 'Rút tiền',
     'alert_block_account_title': 'Tài khoản tạm khoá',
     'alert_block_account': 'Tài khoản Gigabank của bạn tạm thời bị khoá do nhập sai mật khẩu 3 lần liên tiếp. Vui lòng liên hệ 0912 345 678 để được hỗ trợ.',
+    'something_wrong': 'Đã có lỗi xảy ra trong quá trình giao dịch. Vui lòng thử lại sau.',
 
     // With draw authen
     'authen_transaction': 'Xác thực giao dịch',
@@ -255,6 +259,10 @@ const language = {
     'denominations': 'Mệnh giá',
     'charge_phone_discount': 'Chiết khấu',
     'limit_money': 'Số tiền tiêu dùng trong ngày vượt quá hạn mức',
+    'transaction_fail': 'Giao dịch thất bại',
+    'gigabank_balance_not_enough': 'Số dư tài khoản Gigabank không đủ để thực hiện giao dịch',
+    'you_need_support': 'Bạn cần hỗ trợ?',
+    'transaction_unclear': 'Chưa rõ kết quả giao dịch. Vui lòng liên hệ hotline 0967 888 111 để được hỗ trợ.',
 
     // Money Transfer
     'money_transfer': 'Chuyển tiền',

@@ -1,13 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT } from '~/src/themes/common'
-import { ImageBackground, BackHandler, StatusBar } from 'react-native'
+import { ImageBackground, BackHandler, StatusBar, Platform } from 'react-native'
 import { Surface, Toolbar, Text, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { COLORS } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import OTPCountdown from '~/src/containers/Authentication/OTPCountdown'
+import {SCREENS} from '~/src/constants'
 
 const STEP = {
     WAIT_OTP: 'WAIT_OTP',
@@ -16,22 +17,23 @@ const STEP = {
 }
 
 class WithDrawAuthen extends React.PureComponent {
-    // static get options() {
-    //     if (Platform.OS == 'android') {
-    //         return {
-    //             animations: {
-    //                 push: DEFAULT_PUSH_ANIMATION,
-    //                 pop: DEFAULT_POP_ANIMATION
-    //             }
-    //         }
-    //     }
-    //     return {}
-    // }
+    static get options() {
+        if (Platform.OS == 'android') {
+            return {
+                animations: {
+                    push: DEFAULT_PUSH_ANIMATION,
+                    pop: DEFAULT_POP_ANIMATION
+                }
+            }
+        }
+        return {}
+    }
 
     constructor(props) {
         super(props)
+
         this.state = {
-            step: STEP.ENTER_OTP,
+            step: STEP.WAIT_OTP,
             authenCode: '',
             selecteCard: 1,
             bankAccount: '',
@@ -71,6 +73,25 @@ class WithDrawAuthen extends React.PureComponent {
         //     this.setState({ step: STEP.INPUT })
         // }
         // return true
+    }
+    
+    _handlePay = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                id: SCREENS.ALERT.id,
+                name: SCREENS.ALERT.name,
+                passProps: {
+                    // const {headerTitle, title, image, description, buttonTitle} = this.props
+                    headerTitle: 'transaction_result',
+                    title: 'transaction_fail',
+                    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png',
+                    description: 'transaction_unclear',
+                    actionTitle: 'you_need_support',
+                    buttonTitle: 'go_back_home',
+                    goHome: this._handleGoHome
+                },
+            }
+        })
     }
 
     _handleGoHome = () => {
@@ -128,7 +149,7 @@ class WithDrawAuthen extends React.PureComponent {
                     && <Surface themeable={false} style={{height: 17}} />
                 }
                 {this.state.step != STEP.RESULT
-                    && <Surface themeable={false} style={{height: 30}} />
+                    && <Surface themeable={false} style={{height: 25}} />
                 }
                 <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
                     <BankAccountItem
@@ -141,10 +162,10 @@ class WithDrawAuthen extends React.PureComponent {
                     />
                 </Surface>
                 {this.state.step != STEP.RESULT
-                    && <Surface style={{...styles.fakeFloatPart, height: 30}} />
+                    && <Surface style={{...styles.fakeFloatPart, height: 52}} />
                 }
                 {this.state.step == STEP.RESULT
-                    && <Surface style={styles.fakeFloatPart} />
+                    && <Surface style={{...styles.fakeFloatPart, height: 52}} />
                 }
             </Surface>
         )
@@ -231,7 +252,7 @@ class WithDrawAuthen extends React.PureComponent {
                         secureTextEntry={true}
                     />
                     <Surface themeable={false} fullWidth rowCenter>
-                        <OTPCountdown time={60}
+                        <OTPCountdown time={20}
                         textColor={'black'}
                         secondColor={'yellow'}
                         onResend={() => {
@@ -251,8 +272,8 @@ class WithDrawAuthen extends React.PureComponent {
                     <Button
                         round full
                         noPadding
-                        t={'with_draw_money'}
-                        onPress={this._handleWithDraw}
+                        t={'pay'}
+                        onPress={this._handlePay}
                         enable={enableChargeButton}
                         gradientButton={true}
                         rippleStyle={{ marginBottom: 10, width: '100%' }}
@@ -277,6 +298,18 @@ class WithDrawAuthen extends React.PureComponent {
 
     componentDidMount() {
         BackHandler.addEventListener('hardwareBackPress', this._handleBack)
+        
+        // Temp
+        let gen = Math.floor(Math.random() * Math.floor(2))
+        if (gen == 0) {
+            this.setState({
+                step: STEP.WAIT_OTP
+            })
+        } else if (gen == 1) {
+            this.setState({
+                step: STEP.RESULT
+            })
+        }
     }
 
     componentWillUnmount() {

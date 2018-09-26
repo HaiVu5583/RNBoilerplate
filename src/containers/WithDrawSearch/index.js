@@ -28,6 +28,8 @@ import {
 } from '~/src/themes/common'
 import Cards from '~/src/components/Cards'
 import BankAccountItem from '~/src/components/BankAccountItem'
+import { Navigation } from 'react-native-navigation'
+import {SCREENS} from '~/src/constants'
 
 class WithDrawSearch extends Component {
     
@@ -56,7 +58,7 @@ class WithDrawSearch extends Component {
     }
 
     _onPressSearch = () => {
-        // alert(this.getText())
+        alert('_onPressSearch handle')
     }
 
     _handleAddCard = () => {
@@ -71,6 +73,7 @@ class WithDrawSearch extends Component {
                     bankName={item.bankName}
                     // expireDate = {item.expireDate}
                     bankAccount = {item.bankAccount}
+                    onPress={this.onSelected}
                 />
             )
         } else {
@@ -86,6 +89,25 @@ class WithDrawSearch extends Component {
                 />
             )
         }
+    }
+
+    onSelected = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                id: SCREENS.WITH_DRAW_INFO.id,
+                name: SCREENS.WITH_DRAW_INFO.name,
+                // passProps: {
+                //     // const {headerTitle, title, image, description, buttonTitle} = this.props
+                //     headerTitle: 'transaction_result',
+                //     title: 'transaction_fail',
+                //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png',
+                //     description: 'transaction_unclear',
+                //     actionTitle: 'you_need_support',
+                //     buttonTitle: 'go_back_home',
+                //     goHome: this._handleGoHome
+                // },
+            }
+        })
     }
 
     render() {
@@ -112,20 +134,6 @@ class WithDrawSearch extends Component {
                 expireDate: '12/22',
                 bankAccount: 'HUU LUNG LA'
             },
-            // {
-            //     id: 4,
-            //     iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg',
-            //     bankName: 'NMMK M',
-            //     expireDate: '12/22',
-            //     bankAccount: 'HUU LUNG LA'
-            // },
-            // {
-            //     id: 5,
-            //     iconBank: 'https://images.pexels.com/photos/8633/nature-tree-green-pine.jpg',
-            //     bankName: 'NMMK M',
-            //     expireDate: '12/22',
-            //     bankAccount: 'HUU LUNG LA'
-            // },
             {
                 id: 0,
                 iconBank: '',
@@ -173,7 +181,7 @@ class WithDrawSearch extends Component {
                     />
                     <Surface themeable={false} style={styles.descriptionCover} containerHorizontalSpace>
                         <Surface space10 themeable={false} />
-                        <Text white description t={'charge_phone_description'} style={styles.description} />
+                        <Text white description t={'with_draw_search_description'} style={styles.description} />
                     </Surface>
                     <Surface space24 />
                     <Surface themeable={true} flex>

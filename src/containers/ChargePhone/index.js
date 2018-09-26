@@ -6,7 +6,7 @@ import { Surface, Toolbar, Text, Button, TextInput } from '~/src/themes/ThemeCom
 import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import PopupConfirm from '~/src/components/PopupConfirm'
-import { DIALOG_MODE } from '~/src/constants'
+import { DIALOG_MODE, SCREENS } from '~/src/constants'
 import Denominations from '~/src/components/Denominations'
 
 class ChargePhone extends React.PureComponent {
@@ -41,15 +41,30 @@ class ChargePhone extends React.PureComponent {
     }
 
     _handleContinueChooseCard = () => {
-        console.log('Continue Choose Card')
+
     }
 
     _handleGoHome = () => {
         Navigation.popTo('HomeScreen')
     }
-
-    _handleWithDraw = () => {
-        this.popupConfirm.open()
+    
+    _handlePressButton = () => {
+        // this.popupConfirm.open()
+        Navigation.push(this.props.componentId, {
+            component: {
+                id: SCREENS.MONEY_SOURCE.id,
+                name: SCREENS.MONEY_SOURCE.name,
+                // passProps: {
+                //     // const {headerTitle, title, image, description, buttonTitle} = this.props
+                //     headerTitle: 'transaction_result',
+                //     title: 'transaction_fail',
+                //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png',
+                //     description: 'gigabank_balance_not_enough',
+                //     buttonTitle: 'go_back_home',
+                //     goHome: this._handleGoHome
+                // },
+            }
+        })
     }
 
     onAgree = () => {
@@ -65,7 +80,7 @@ class ChargePhone extends React.PureComponent {
                     round full
                     noPadding
                     t={'continue'}
-                    onPress={this._handleWithDraw}
+                    onPress={this._handlePressButton}
                     enable={enableChargeButton}
                     gradientButton={true}
                     rippleStyle={{ marginBottom: 10, width: '100%' }}
