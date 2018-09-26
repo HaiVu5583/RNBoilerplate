@@ -165,7 +165,6 @@ export const TEXT_STYLES = {
         // letterSpacing: 10
         color: COLORS.BLACK
     },
-
     white: {
         color: COLORS.WHITE
     },
@@ -427,7 +426,10 @@ export const SURFACE_STYLES = {
     },
     bottomButtonSpace: {
         height: SIZES.BUTTON_FIELD + 26
-    }
+    },
+    titleBlock: {
+        paddingVertical: 24
+    },
 }
 
 export const BUTTON_STYLES = {
