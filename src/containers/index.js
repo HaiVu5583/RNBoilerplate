@@ -2,6 +2,7 @@ import { Navigation } from 'react-native-navigation'
 import { getHOCScreen } from '~/src/utils'
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import {SCREENS} from '~/src/constants'
 
 export function registerContainerWithRedux(
     containerName,
@@ -85,7 +86,7 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.WithDrawSearch`, () => require('~/src/containers/WithDrawSearch'), store)
     registerContainerWithRedux(`gigabankclient.ContactChooser`, () => require('~/src/containers/ContactChooser'), store)
     registerContainerWithRedux(`gigabankclient.WithDrawInfo`, () => require('~/src/containers/WithDrawInfo'), store)
-    registerContainerWithRedux(`gigabankclient.AlertScreen`, () => require('~/src/containers/AlertScreen'), store)
+    registerContainerWithRedux(SCREENS.ALERT, () => require('~/src/containers/AlertScreen'), store)
     registerContainerWithRedux(`gigabankclient.ChangePassword`, () => require('~/src/containers/ChangePassword'), store)
     registerContainerWithRedux(`gigabankclient.WithDrawAuthen`, () => require('~/src/containers/WithDrawAuthen'), store)
     registerContainerWithRedux(`gigabankclient.ChargePhone`, () => require('~/src/containers/ChargePhone'), store)

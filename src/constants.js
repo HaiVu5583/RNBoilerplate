@@ -76,3 +76,8 @@ export const ADDED_CARD_TYPE = {
 }
 
 export const ERR_NETWORK = 'TypeError: Network request failed'
+
+export const SCREENS = {
+    ALERT: 'gigabankclient.AlertScreen',
+    CHARGE_PHONE: 'gigabankclient.ChargePhone',
+}

@@ -15,9 +15,17 @@ export default {
         alignContent: 'center',
         alignItems: 'center',
     },
+    titleStyle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
     listBackText: {
-        fontSize: 20,
+        fontSize: 16,
         color: '#29aae1',
         marginTop: 10,
+    },
+    description: {
+        alignContent: 'center',
+        alignItems: 'center',
     }
 }

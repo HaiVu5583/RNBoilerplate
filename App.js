@@ -67,6 +67,7 @@ const _setRoot = (bottomTabs) => {
                             // name: 'gigabankclient.ChargePhone'
                             // name: 'gigabankclient.EnterPassword'
                             // name: 'gigabankclient.ChargePhoneAuthen'
+                            // name: 'gigabankclient.AlertScreen'
                             // name: 'gigabankclient.HomeScreen'
                             
                             

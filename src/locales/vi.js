@@ -254,6 +254,8 @@ const language = {
     'denominations': 'Mệnh giá',
     'charge_phone_discount': 'Chiết khấu',
     'limit_money': 'Số tiền tiêu dùng trong ngày vượt quá hạn mức',
+    'transaction_fail': 'Giao dịch thất bại',
+    'gigabank_balance_not_enough': 'Số dư tài khoản Gigabank không đủ để thực hiện giao dịch',
 
     // Money Transfer
     'money_transfer': 'Chuyển tiền',

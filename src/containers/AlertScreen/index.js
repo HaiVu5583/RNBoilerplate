@@ -17,6 +17,7 @@ import { maskBankAccount, getElevation } from '~/src/utils'
 import styles from './styles'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT }
 from '~/src/themes/common'
+import {SCREENS} from '~/src/constants'
 
 class AlertScreen extends Component {
 
@@ -32,8 +33,10 @@ class AlertScreen extends Component {
     }
     
     _onPressButton = () => {
-        if (this.props.onPressButton) {
-            this.props.onPressButton()
+        console.log('lam _onPressButton')
+        if (this.props.goHome) {
+            console.log('lam _onPressButton 2')
+            this.props.goHome()
         }
     }
 
@@ -55,20 +58,20 @@ class AlertScreen extends Component {
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}
                     />
-                    <Surface themeable={false} space20 />
+                    <Surface themeable={false} space40 />
                     <Surface themeable={false} containerHorizontalSpace flex columnStart>
-                        <Text style={{fontSize: 21, fontWeight: 'bold',}} white t={title} />
+                        <Text style={styles.titleStyle} white t={title} textTransform={String.prototype.toUpperCase} />
                         <Surface themeable={false} space30 />
-                        <Image style={{width: '100%', height: 150}}
+                        <Image style={{width: 200, height: 150}}
                             source={{ uri: image }}
                         />
                         <Surface themeable={false} space35 />
-                        <Text white style={{fontSize: 20,}} t={description} />
+                        <Text white description t={description} style={styles.description} />
 
                         <TouchableOpacity style={styles.listBackButton}
                             onPress={this._onPressButton}
                         >
-                            <Text style={styles.listBackText} t={'buttonTitle'} />
+                            <Text style={styles.listBackText} t={buttonTitle} textTransform={String.prototype.toUpperCase}/>
                         </TouchableOpacity>
                     </Surface>
                 </ImageBackground>
