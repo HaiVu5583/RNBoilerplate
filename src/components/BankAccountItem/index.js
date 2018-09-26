@@ -8,6 +8,7 @@ import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple';
 import { Animated, PanResponder, View } from 'react-native'
 import { MONEY_SOURCE_TYPE } from '~/src/constants'
+import I18n from '~/src/I18n'
 
 export default class BankAccountItem extends React.PureComponent {
 
@@ -74,20 +75,21 @@ export default class BankAccountItem extends React.PureComponent {
 
     _renderInfo = () => {
         const { expireDate, bankName, bankAccount, active = false,
-            draggable = false, isGigabank, type = MONEY_SOURCE_TYPE.BANK
+            draggable = false, isGigabank, type = MONEY_SOURCE_TYPE.CREDIT_CARD
         } = this.props
         const iconName = (type == MONEY_SOURCE_TYPE.BANK) ? 'GB_bank' : 'GB_paycard'
         const iconColor = active ? COLORS.WHITE : COLORS.DARK_BLUE
         const textColor = active ? COLORS.WHITE : COLORS.BLACK
+        const bankNameDisplay = isGigabank ? I18n.t('gigabank_account') : bankName
         const bankAccountDisplay = (type == MONEY_SOURCE_TYPE.BANK) ? bankAccount : maskBankAccount(bankAccount)
         return (
             <Surface columnAlignEnd flex themeable={false}>
                 <Surface rowStart themeable={false}>
-                    <Text info style={{ flex: 1, color: textColor }}>{bankName}</Text>
+                    <Text info style={{ flex: 1, color: textColor }}>{bankNameDisplay}</Text>
                     <Icon name={iconName} style={{ ...styles.iconBank, color: iconColor }} />
                 </Surface>
                 <Text body16 style={{ color: textColor }}>{bankAccountDisplay}</Text>
-                {!!expireDate
+                {(!!expireDate && (type == MONEY_SOURCE_TYPE.CREDIT_CARD))
                     && <Text info style={{ color: textColor }}>VALID {expireDate}</Text>
                 }
             </Surface>

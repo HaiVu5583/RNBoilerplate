@@ -8,7 +8,7 @@ import BankAccountItem from '~/src/components/BankAccountItem'
 import { Navigation } from 'react-native-navigation'
 import { getListCard } from '~/src/store/actions/credit'
 import { listCardSelector } from '~/src/store/selectors/credit'
-import { ADDED_CARD_TYPE } from '~/src/constants'
+import { ADDED_CARD_TYPE, MONEY_SOURCE_MODE } from '~/src/constants'
 import LoadingModal from '~/src/components/LoadingModal'
 import { TabView, TabBar, SceneMap, PagerScroll, PagerPan } from 'react-native-tab-view'
 
@@ -75,8 +75,9 @@ class MoneySource extends React.PureComponent {
     }
 
     _getHeader = () => {
+        const { hintT = 'money_source_hint' } = this.props
         return {
-            titleT: 'money_source_hint'
+            titleT: hintT
         }
     }
 
@@ -149,8 +150,7 @@ class MoneySource extends React.PureComponent {
                             style={{
                                 width: DEVICE_WIDTH - 32,
                                 backgroundColor: 'transparent'
-                            }}
-                        />
+                            }} />
                     </Surface>
                 </Surface>
                 <Animated.View style={{
@@ -195,6 +195,8 @@ class MoneySource extends React.PureComponent {
                 initialLayout={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}
                 renderPager={this._renderPager}
                 useNativeDriver={true}
+                animationEnabled={false}
+                swipeEnabled={false}
             />
         )
 
@@ -239,6 +241,7 @@ class MoneySource extends React.PureComponent {
     }
 
     render() {
+        const { titleT = 'money_source' } = this.props
         return (
             <Surface themeable={false} flex>
                 <StatusBar
@@ -280,7 +283,7 @@ class MoneySource extends React.PureComponent {
                     <Toolbar
                         themeable={false}
                         iconStyle={{ color: COLORS.WHITE }}
-                        titleT={'money_source'}
+                        titleT={titleT}
                         titleStyle={{ color: COLORS.WHITE }}
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}

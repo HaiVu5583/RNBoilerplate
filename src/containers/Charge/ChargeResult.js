@@ -12,7 +12,7 @@ const STEP = {
     INPUT: 'INPUT',
     RESULT: 'RESULT'
 }
-class Charge extends React.PureComponent {
+class ChargeResult extends React.PureComponent {
     static get options() {
         if (Platform.OS == 'android') {
             return {
@@ -196,4 +196,4 @@ class Charge extends React.PureComponent {
     }
 }
 
-export default connect(null, {})(Charge)
+export default connect(null, {})(ChargeResult)

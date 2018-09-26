@@ -8,7 +8,7 @@ export default {
         backgroundColor: COLORS.WHITE
     },
     container: {
-        // height: SIZES.BANK_ITEM_HEIGHT,
+        minHeight: SIZES.BANK_ITEM_HEIGHT,
         padding: 5,
         borderRadius: 10,
         marginHorizontal: 2,

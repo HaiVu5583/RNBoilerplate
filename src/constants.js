@@ -80,3 +80,7 @@ export const MONEY_SOURCE_TYPE = {
     BANK: 'BANK',
     CREDIT_CARD: 'CREDIT_CARD'
 }
+export const MONEY_SOURCE_MODE = {
+    MANAGE: 'MANAGE',
+    SELECT: 'SELECT'
+}
