@@ -81,6 +81,6 @@ NEW
 	}];
 }
 
-#Generate Font Icon
-cd react-native/node_modules/react-native-vector-icons/bin
-node generate-icon.js ~/Desktop/GB/style.css --componentName=GB --fontFamily=GB > ~/Desktop/icon2.js
+#Generate Font Icon (Stand at rootProject folder)
+node node_modules/react-native-vector-icons/bin/generate-icon.js ~/Desktop/GB/style.css --componentName=GB --fontFamily=GB > ~/Desktop/icon2.js
+cp ~/Desktop/GB/fonts/GB.ttf android/app/src/main/assets/fonts/GB.ttf

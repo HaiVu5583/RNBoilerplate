@@ -5,6 +5,13 @@
 import { Animated } from 'react-native'
 import createIconSet from 'react-native-vector-icons/lib/create-icon-set';
 const glyphMap = {
+    "GB_internet": 59698,
+    "GB_power": 59699,
+    "GB_water": 59700,
+    "GB_tv": 59701,
+    "GB_copy": 59702,
+    "GB_paycard": 59696,
+    "GB_bank": 59697,
     "GB_clear": 59695,
     "GB_search": 59691,
     "GB_contact": 59692,

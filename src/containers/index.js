@@ -93,6 +93,7 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(SCREENS.CHARGE_PHONE.name, () => require('~/src/containers/ChargePhone'), store)
     registerContainerWithRedux(SCREENS.ENTER_PASSWORD.name, () => require('~/src/containers/EnterPassword'), store)
     registerContainerWithRedux(SCREENS.CHARGE_PHONE_AUTHEN.name, () => require('~/src/containers/ChargePhoneAuthen'), store)
+    registerContainerWithRedux(`gigabankclient.NoConnection`, () => require('~/src/components/NoConnection'), store)
     registerContainerWithRedux(`gigabankclient.Toast`, () => require('~/src/components/Toast'), store)
     // Money Source Flow
     registerContainerWithRedux(SCREENS.MONEY_SOURCE.name, () => require('~/src/containers/MoneySource'), store)
