@@ -44,7 +44,7 @@ class Denominations extends Component {
         
         itemCardContainerStyle = {
             marginTop: 8,
-            marginBottom: 13,
+            marginBottom: 8,
         }
 
         itemCardStyle = {
@@ -52,9 +52,10 @@ class Denominations extends Component {
             // height: 54,
             width: itemWidth,
             height: itemWidth/1.52,
-            borderRadius: 18,
+            borderRadius: 15,
             justifyContent: 'center',
             alignItems: 'center',
+            marginBottom: 5
         }
         itemCardImageStyle = {
             // width: 76,
@@ -95,26 +96,22 @@ class Denominations extends Component {
     
     _renderDomestic = (item) => {
         return (
-            <TouchableOpacity
-                // style={{justifyContent: 'center', alignItems: 'center'}}
+            <LinearGradient
+                colors={this.state.itemCoverColor}
+                start={{ x: 0.0, y: 0.0 }}
+                end={{ x: 1.0, y: 0.0 }}
+                locations={[0.0, 1.0]}
+                // {...this._panResponder.panHandlers}
+                style={{
+                    ...itemCardStyle,
+                    ...SURFACE_STYLES.rowStart,
+                    ...getElevation(4),
+                }}
             >
-                <LinearGradient
-                    colors={this.state.itemCoverColor}
-                    start={{ x: 0.0, y: 0.0 }}
-                    end={{ x: 1.0, y: 0.0 }}
-                    locations={[0.0, 1.0]}
-                    // {...this._panResponder.panHandlers}
-                    style={{
-                        ...itemCardStyle,
-                        ...SURFACE_STYLES.rowStart,
-                        ...getElevation(4),
-                    }}
-                >
-                <View style={itemCardImageStyle}>
+                <Ripple style={itemCardImageStyle}>
                     <Text style={styles.textStyle}>{item.text}</Text>
-                </View>
-                </LinearGradient>
-            </TouchableOpacity>
+                </Ripple> 
+            </LinearGradient>
         )
     }
     

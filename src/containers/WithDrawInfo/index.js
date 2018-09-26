@@ -10,7 +10,7 @@ import { Navigation } from 'react-native-navigation'
 import styles from './styles'
 import PopupConfirm from '~/src/components/PopupConfirm'
 import I18n from '~/src/I18n'
-import { DIALOG_MODE } from '~/src/constants'
+import { DIALOG_MODE, SCREENS } from '~/src/constants'
 
 class WithDrawInfo extends React.PureComponent {
     static get options() {
@@ -117,8 +117,40 @@ class WithDrawInfo extends React.PureComponent {
         this.popupConfirm.open()
     }
 
-    onAgree = () => {
+    onDisagree = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                id: SCREENS.ALERT.id,
+                name: SCREENS.ALERT.name,
+                passProps: {
+                    // const {headerTitle, title, image, description, buttonTitle} = this.props
+                    headerTitle: 'transaction_result',
+                    title: 'transaction_fail',
+                    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png',
+                    description: 'something_wrong',
+                    buttonTitle: 'go_back_home',
+                    goHome: this._handleGoHome
+                },
+            }
+        })
+    }
 
+    onAgree = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                id: SCREENS.WITH_DRAW_AUTHEN.id,
+                name: SCREENS.WITH_DRAW_AUTHEN.name,
+                passProps: {
+                    // const {headerTitle, title, image, description, buttonTitle} = this.props
+                    headerTitle: 'transaction_result',
+                    title: 'transaction_fail',
+                    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png',
+                    description: 'something_wrong',
+                    buttonTitle: 'go_back_home',
+                    goHome: this._handleGoHome
+                },
+            }
+        })
     }
     
     _renderHeaderByStep = () => {
@@ -132,7 +164,7 @@ class WithDrawInfo extends React.PureComponent {
                     <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
                         <BankAccountItem
                             bankImage={selectedCardItem.bankImage}
-                            // bankAccount={selectedCardItem.bankAccount}
+                            bankAccount={selectedCardItem.bankAccount}
                             // expireDate={selectedCardItem.expireDate}
                             bankName={selectedCardItem.bankName}
                             onPress={() => { }}
@@ -251,8 +283,8 @@ class WithDrawInfo extends React.PureComponent {
                         contentT={'alert_block_account'}
                         textNoT={'cancel'}
                         textYesT={'call'}
-                        onPressButton1={this.onDisagree}
-                        onPressButton2={this.onAgree}
+                        onPressNo={this.onDisagree}
+                        onPressYes={this.onAgree}
                         mode = {DIALOG_MODE.YES_NO}
                         ref={ref => this.popupConfirm = ref}
                     />

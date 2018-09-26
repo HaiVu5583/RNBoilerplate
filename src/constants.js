@@ -84,3 +84,46 @@ export const MONEY_SOURCE_MODE = {
     MANAGE: 'MANAGE',
     SELECT: 'SELECT'
 }
+
+export const SCREENS = {
+    ALERT: {
+        id: 'Alert',
+        name: 'gigabankclient.AlertScreen'
+    },
+    CHARGE_PHONE: {
+        id: 'ChargePhone',
+        name: 'gigabankclient.ChargePhone'
+    },
+    CHARGE_PHONE_AUTHEN: {
+        id: 'ChargePhoneAuthen',
+        name: 'gigabankclient.ChargePhoneAuthen'
+    },
+    MONEY_SOURCE: {
+        id: 'MoneySource',
+        name: 'gigabankclient.MoneySource'
+    },
+    ENTER_PASSWORD: {
+        id: 'EnterPassword',
+        name: 'gigabankclient.EnterPassword'
+    },
+    WITH_DRAW: {
+        id: 'WithDraw',
+        name: 'gigabankclient.WithDraw'
+    },
+    WITH_DRAW_ADD_CARD: {
+        id: 'WithDrawAddCard',
+        name: 'gigabankclient.WithDrawAddCard'
+    },
+    WITH_DRAW_SEARCH: {
+        id: 'WithDrawSearch',
+        name: 'gigabankclient.WithDrawSearch'
+    },
+    WITH_DRAW_INFO: {
+        id: 'WithDrawInfo',
+        name: 'gigabankclient.WithDrawInfo'
+    },
+    WITH_DRAW_AUTHEN: {
+        id: 'WithDrawAuthen',
+        name: 'gigabankclient.WithDrawAuthen'
+    },
+}

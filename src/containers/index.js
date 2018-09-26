@@ -2,6 +2,7 @@ import { Navigation } from 'react-native-navigation'
 import { getHOCScreen } from '~/src/utils'
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import {SCREENS} from '~/src/constants'
 
 export function registerContainerWithRedux(
     containerName,
@@ -81,20 +82,21 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.WebView`, () => require('~/src/containers/WebView'), store)
     registerContainerWithRedux(`gigabankclient.AccountScreen`, () => require('~/src/containers/Account'), store)
     registerContainerWithRedux(`gigabankclient.Drawer`, () => require('~/src/containers/Drawer'), store)
-    registerContainerWithRedux(`gigabankclient.WithDraw`, () => require('~/src/containers/WithDraw'), store)
-    registerContainerWithRedux(`gigabankclient.WithDrawSearch`, () => require('~/src/containers/WithDrawSearch'), store)
+    registerContainerWithRedux(SCREENS.WITH_DRAW.name, () => require('~/src/containers/WithDraw'), store)
+    registerContainerWithRedux(SCREENS.WITH_DRAW_ADD_CARD.name, () => require('~/src/containers/WithDrawAddCard'), store)
+    registerContainerWithRedux(SCREENS.WITH_DRAW_SEARCH.name, () => require('~/src/containers/WithDrawSearch'), store)
+    registerContainerWithRedux(SCREENS.WITH_DRAW_INFO.name, () => require('~/src/containers/WithDrawInfo'), store)
+    registerContainerWithRedux(SCREENS.WITH_DRAW_AUTHEN.name, () => require('~/src/containers/WithDrawAuthen'), store)
     registerContainerWithRedux(`gigabankclient.ContactChooser`, () => require('~/src/containers/ContactChooser'), store)
-    registerContainerWithRedux(`gigabankclient.WithDrawInfo`, () => require('~/src/containers/WithDrawInfo'), store)
-    registerContainerWithRedux(`gigabankclient.AlertScreen`, () => require('~/src/containers/AlertScreen'), store)
+    registerContainerWithRedux(SCREENS.ALERT.name, () => require('~/src/containers/AlertScreen'), store)
     registerContainerWithRedux(`gigabankclient.ChangePassword`, () => require('~/src/containers/ChangePassword'), store)
-    registerContainerWithRedux(`gigabankclient.WithDrawAuthen`, () => require('~/src/containers/WithDrawAuthen'), store)
-    registerContainerWithRedux(`gigabankclient.ChargePhone`, () => require('~/src/containers/ChargePhone'), store)
-    registerContainerWithRedux(`gigabankclient.EnterPassword`, () => require('~/src/containers/EnterPassword'), store)
-    registerContainerWithRedux(`gigabankclient.ChargePhoneAuthen`, () => require('~/src/containers/ChargePhoneAuthen'), store)
+    registerContainerWithRedux(SCREENS.CHARGE_PHONE.name, () => require('~/src/containers/ChargePhone'), store)
+    registerContainerWithRedux(SCREENS.ENTER_PASSWORD.name, () => require('~/src/containers/EnterPassword'), store)
+    registerContainerWithRedux(SCREENS.CHARGE_PHONE_AUTHEN.name, () => require('~/src/containers/ChargePhoneAuthen'), store)
     registerContainerWithRedux(`gigabankclient.NoConnection`, () => require('~/src/components/NoConnection'), store)
     registerContainerWithRedux(`gigabankclient.Toast`, () => require('~/src/components/Toast'), store)
     // Money Source Flow
-    registerContainerWithRedux(`gigabankclient.MoneySource`, () => require('~/src/containers/MoneySource'), store)
+    registerContainerWithRedux(SCREENS.MONEY_SOURCE.name, () => require('~/src/containers/MoneySource'), store)
     registerContainerWithRedux(`gigabankclient.MoneySourceDeleteCard`, () => require('~/src/containers/MoneySource/DeleteCardConfirm'), store)
     registerContainerWithRedux(`gigabankclient.MoneySourceDeleteSuccess`, () => require('~/src/containers/MoneySource/DeleteSuccess'), store)
     registerContainerWithRedux(`gigabankclient.AddCard`, () => require('~/src/containers/AddCard'), store)

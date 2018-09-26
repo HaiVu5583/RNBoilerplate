@@ -8,7 +8,7 @@ import BankAccountItem from '~/src/components/BankAccountItem'
 import { Navigation } from 'react-native-navigation'
 import { getListCard } from '~/src/store/actions/credit'
 import { listCardSelector } from '~/src/store/selectors/credit'
-import { ADDED_CARD_TYPE, MONEY_SOURCE_MODE } from '~/src/constants'
+import { ADDED_CARD_TYPE, MONEY_SOURCE_MODE, SCREENS } from '~/src/constants'
 import LoadingModal from '~/src/components/LoadingModal'
 import { TabView, TabBar, SceneMap, PagerScroll, PagerPan } from 'react-native-tab-view'
 
@@ -70,6 +70,15 @@ class MoneySource extends React.PureComponent {
         Navigation.push(this.props.componentId, {
             component: {
                 name: 'gigabankclient.AddCard',
+            }
+        })
+    }
+
+    _handleEnterPassword = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                id: SCREENS.ENTER_PASSWORD.id,
+                name: SCREENS.ENTER_PASSWORD.name
             }
         })
     }
@@ -199,27 +208,6 @@ class MoneySource extends React.PureComponent {
                 swipeEnabled={false}
             />
         )
-
-        return (
-            <Surface themeable={false} flex content>
-                <Surface containerHorizontalMargin flex>
-                    <Surface themeable={false} space20 />
-                    {this.props.listCard.map(this._renderCardItem)}
-                    <Button
-                        flat
-                        rowStart
-                        leftComponent={() => (
-                            <Icon name='GB_plus' style={{ fontSize: 24, color: COLORS.BLUE }} />
-                        )}
-                        centerComponent={() => (
-                            <Text blue t='add_link_card' />
-                        )}
-                        onPress={this._handleAddCard}
-                        style={{ paddingLeft: 0, paddingRight: 0 }}
-                    />
-                </Surface>
-            </Surface>
-        )
     }
 
     componentDidMount() {
@@ -262,6 +250,19 @@ class MoneySource extends React.PureComponent {
                         <Surface themeable={false}>
                             <Surface themeable={false}>
                                 {this._renderContent()}
+                                {/* Temp */}
+                                {/* <Button
+                                    flat
+                                    rowStart
+                                    leftComponent={() => (
+                                        <Icon name='GB_plus' style={{ fontSize: 24, color: COLORS.BLUE }} />
+                                    )}
+                                    centerComponent={() => (
+                                        <Text blue t='add_link_card' />
+                                    )}
+                                    onPress={this._handleEnterPassword}
+                                    style={{ paddingLeft: 0, paddingRight: 0, backgroundColor: '#783322' }}
+                                /> */}
                             </Surface>
                         </Surface>
                     </Animated.ScrollView>
