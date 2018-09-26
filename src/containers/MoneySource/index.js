@@ -8,7 +8,7 @@ import BankAccountItem from '~/src/components/BankAccountItem'
 import { Navigation } from 'react-native-navigation'
 import { getListCard } from '~/src/store/actions/credit'
 import { listCardSelector } from '~/src/store/selectors/credit'
-import { ADDED_CARD_TYPE, SCREENS } from '~/src/constants'
+import { ADDED_CARD_TYPE, MONEY_SOURCE_MODE, SCREENS } from '~/src/constants'
 import LoadingModal from '~/src/components/LoadingModal'
 import { TabView, TabBar, SceneMap, PagerScroll, PagerPan } from 'react-native-tab-view'
 
@@ -35,8 +35,8 @@ class MoneySource extends React.PureComponent {
             loading: false,
             index: 0,
             routes: [
-                { key: 'card', title: '', label: '', icon: 'GB_contact' },
-                { key: 'bank', title: '', label: '', icon: 'GB_email' },
+                { key: 'bank', title: '', label: '', icon: 'GB_bank' },
+                { key: 'card', title: '', label: '', icon: 'GB_paycard' },
             ],
         }
         this.selectedCardItem = {}
@@ -84,8 +84,9 @@ class MoneySource extends React.PureComponent {
     }
 
     _getHeader = () => {
+        const { hintT = 'money_source_hint' } = this.props
         return {
-            titleT: 'money_source_hint'
+            titleT: hintT
         }
     }
 
@@ -158,8 +159,7 @@ class MoneySource extends React.PureComponent {
                             style={{
                                 width: DEVICE_WIDTH - 32,
                                 backgroundColor: 'transparent'
-                            }}
-                        />
+                            }} />
                     </Surface>
                 </Surface>
                 <Animated.View style={{
@@ -179,6 +179,17 @@ class MoneySource extends React.PureComponent {
         )
     }
 
+    _renderScene = ({ route }) => {
+        switch (route.key) {
+            case 'card':
+                return this._renderCardTab()
+            case 'bank':
+                return this._renderCardTab()
+            default:
+                return null;
+        }
+    }
+
     _renderPager = (props) => {
         return (Platform.OS === 'ios') ? <PagerScroll {...props} /> : <PagerPan {...props} />
     }
@@ -187,39 +198,15 @@ class MoneySource extends React.PureComponent {
         return (
             <TabView
                 navigationState={this.state}
-                renderScene={
-                    SceneMap({
-                        card: this._renderCardTab,
-                        bank: this._renderCardTab,
-                    })
-                }
+                renderScene={this._renderScene}
                 renderTabBar={this._renderTabBar}
                 onIndexChange={index => this.setState({ index })}
                 initialLayout={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}
                 renderPager={this._renderPager}
                 useNativeDriver={true}
+                animationEnabled={false}
+                swipeEnabled={false}
             />
-        )
-
-        return (
-            <Surface themeable={false} flex content>
-                <Surface containerHorizontalMargin flex>
-                    <Surface themeable={false} space20 />
-                    {this.props.listCard.map(this._renderCardItem)}
-                    <Button
-                        flat
-                        rowStart
-                        leftComponent={() => (
-                            <Icon name='GB_plus' style={{ fontSize: 24, color: COLORS.BLUE }} />
-                        )}
-                        centerComponent={() => (
-                            <Text blue t='add_link_card' />
-                        )}
-                        onPress={this._handleAddCard}
-                        style={{ paddingLeft: 0, paddingRight: 0, }}
-                    />
-                </Surface>
-            </Surface>
         )
     }
 
@@ -242,6 +229,7 @@ class MoneySource extends React.PureComponent {
     }
 
     render() {
+        const { titleT = 'money_source' } = this.props
         return (
             <Surface themeable={false} flex>
                 <StatusBar
@@ -263,7 +251,7 @@ class MoneySource extends React.PureComponent {
                             <Surface themeable={false}>
                                 {this._renderContent()}
                                 {/* Temp */}
-                                <Button
+                                {/* <Button
                                     flat
                                     rowStart
                                     leftComponent={() => (
@@ -274,8 +262,7 @@ class MoneySource extends React.PureComponent {
                                     )}
                                     onPress={this._handleEnterPassword}
                                     style={{ paddingLeft: 0, paddingRight: 0, backgroundColor: '#783322' }}
-                                />
-
+                                /> */}
                             </Surface>
                         </Surface>
                     </Animated.ScrollView>
@@ -297,7 +284,7 @@ class MoneySource extends React.PureComponent {
                     <Toolbar
                         themeable={false}
                         iconStyle={{ color: COLORS.WHITE }}
-                        titleT={'money_source'}
+                        titleT={titleT}
                         titleStyle={{ color: COLORS.WHITE }}
                         componentId={this.props.componentId}
                         onPressIconLeft={this._handleBack}

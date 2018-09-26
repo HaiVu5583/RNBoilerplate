@@ -75,7 +75,7 @@ class AddCard extends Component {
 
         itemCardContainerStyle = {
             width: itemWidth,
-            height: 95,
+            // height: 95,
             marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
         }
         itemCardStyle = {
@@ -180,11 +180,9 @@ class AddCard extends Component {
     _renderListBank = () => {
         return (
             <Surface content>
-                <Surface themeable={false} space20 />
-                <Surface containerHorizontalSpace>
-                    <Text bold darkBlue description t={'international_card'} textTransform={String.prototype.toUpperCase} />
+                <Surface containerHorizontalSpace titleInfoBlock>
+                    <Text bold darkBlue titleInfo t={'international_card'} textTransform={String.prototype.toUpperCase} />
                 </Surface>
-                <Surface themeable={false} space20 />
                 <FlatList
                     data={this.props.internationalCard}
                     renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
@@ -194,12 +192,9 @@ class AddCard extends Component {
                     bounces={false}
                     scrollEnabled={false}
                 />
-                <Surface themeable={false} space20 />
-                <Surface containerHorizontalSpace>
-                    <Text bold darkBlue description t={'domestic_card'} textTransform={String.prototype.toUpperCase} />
+                <Surface containerHorizontalSpace titleInfoBlock>
+                    <Text bold darkBlue titleInfo t={'domestic_card'} textTransform={String.prototype.toUpperCase} />
                 </Surface>
-                <Surface themeable={false} space20 />
-
                 <FlatList
                     data={this.props.domesticCard}
                     renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}

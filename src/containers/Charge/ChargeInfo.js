@@ -5,6 +5,7 @@ import { BackHandler, Platform } from 'react-native'
 import { Surface, Button, TextInput } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import Screen from '~/src/components/Screen'
+import { formatMoney, revertFormatMoney } from '~/src/utils'
 
 class ChargeInfo extends React.PureComponent {
     static get options() {
@@ -65,14 +66,14 @@ class ChargeInfo extends React.PureComponent {
     _renderContent = () => {
         return (
             <Surface containerHorizontalSpace flex content>
-                <Surface themeable={false} space16 />
+                <Surface themeable={false} space40 />
                 <TextInput
                     descriptionIcon={'GB_recharge'}
                     placeholderT={'charge_input_money_hint'}
                     blackWithDarkblueIcon
                     onChangeText={text => this.setState({ money: text })}
                     keyboardType='number-pad'
-                    value={this.state.money}
+                    value={formatMoney(this.state.money)}
                     iconRight={'GB_close'}
                     onPressIconRight={() => this.setState({ money: '' })}
                     showIconRight={(this.state.money && this.state.money.trim())}

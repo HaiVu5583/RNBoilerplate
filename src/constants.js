@@ -76,6 +76,14 @@ export const ADDED_CARD_TYPE = {
 }
 
 export const ERR_NETWORK = 'TypeError: Network request failed'
+export const MONEY_SOURCE_TYPE = {
+    BANK: 'BANK',
+    CREDIT_CARD: 'CREDIT_CARD'
+}
+export const MONEY_SOURCE_MODE = {
+    MANAGE: 'MANAGE',
+    SELECT: 'SELECT'
+}
 
 export const SCREENS = {
     ALERT: {

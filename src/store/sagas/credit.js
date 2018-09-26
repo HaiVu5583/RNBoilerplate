@@ -16,10 +16,8 @@ export const requestGetBankList = createRequestSaga({
     success: [
         (data) => {
             const { args, ...rest } = data
-            console.log('Data banklist', data)
-            console.log('Rest Get BankList', rest)
-            if (rest && rest[0]) {
-                return setBankList(Object.values(rest))
+            if (data && data.result) {
+                return setBankList(data.result)
             }
             return noop('')
         }

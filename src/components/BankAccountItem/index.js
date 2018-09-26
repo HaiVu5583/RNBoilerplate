@@ -4,9 +4,11 @@ import Image from 'react-native-fast-image'
 import { maskBankAccount, getElevation } from '~/src/utils'
 import styles from './styles'
 import LinearGradient from 'react-native-linear-gradient'
-import { SURFACE_STYLES, SIZES } from '~/src/themes/common'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple';
 import { Animated, PanResponder, View } from 'react-native'
+import { MONEY_SOURCE_TYPE } from '~/src/constants'
+import I18n from '~/src/I18n'
 
 export default class BankAccountItem extends React.PureComponent {
 
@@ -61,11 +63,64 @@ export default class BankAccountItem extends React.PureComponent {
         console.log('Handle Press AddCard')
     }
 
+    _renderImage = () => {
+        const { bankImage } = this.props
+        return (
+            <Image
+                source={{ uri: bankImage }}
+                style={styles.image}
+            />
+        )
+    }
+
+    _renderInfo = () => {
+        const { expireDate, bankName, bankAccount, active = false,
+            draggable = false, isGigabank, type = MONEY_SOURCE_TYPE.CREDIT_CARD
+        } = this.props
+        const iconName = (type == MONEY_SOURCE_TYPE.BANK) ? 'GB_bank' : 'GB_paycard'
+        const iconColor = active ? COLORS.WHITE : COLORS.DARK_BLUE
+        const textColor = active ? COLORS.WHITE : COLORS.BLACK
+        const bankNameDisplay = isGigabank ? I18n.t('gigabank_account') : bankName
+        const bankAccountDisplay = (type == MONEY_SOURCE_TYPE.BANK) ? bankAccount : maskBankAccount(bankAccount)
+        return (
+            <Surface columnAlignEnd flex themeable={false}>
+                <Surface rowStart themeable={false}>
+                    <Text info style={{ flex: 1, color: textColor }}>{bankNameDisplay}</Text>
+                    <Icon name={iconName} style={{ ...styles.iconBank, color: iconColor }} />
+                </Surface>
+                <Text body16 style={{ color: textColor }}>{bankAccountDisplay}</Text>
+                {(!!expireDate && (type == MONEY_SOURCE_TYPE.CREDIT_CARD))
+                    && <Text info style={{ color: textColor }}>VALID {expireDate}</Text>
+                }
+            </Surface>
+        )
+    }
+
+    _renderDragableFunction = () => {
+        const { active = false, onDelete } = this.props
+        const iconColor = active ? COLORS.DARK_BLUE : COLORS.WHITE
+        return (
+            <Ripple onPress={() => {
+                Animated.spring(this.translateX, {
+                    toValue: 0,
+                    useNativeDriver: true
+                }).start(() => {
+                    this.animationRunning = false
+                    this.showingIconFunction = false
+                    onDelete && onDelete()
+                })
+            }}
+                rippleColor={'white'}>
+                <Icon name='GB_trash' style={{ ...styles.icon, color: iconColor }} />
+            </Ripple>
+        )
+    }
+
     render() {
-        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false,
-            onDelete, moreStyle, isGigabank, index, verticalMargin = true } = this.props
+        const { active = false, onPress, draggable = false,
+            moreStyle, index, verticalMargin = true } = this.props
         const marginTop = (verticalMargin && index == 0) ? 24 : 0
-        const marginBottom =  verticalMargin ? 20 : 0
+        const marginBottom = verticalMargin ? 20 : 0
         if (draggable) {
             return (
                 <View>
@@ -76,52 +131,60 @@ export default class BankAccountItem extends React.PureComponent {
                             }]
                         }}
                     >
+                        {active ?
+                            <LinearGradient
+                                colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
+                                start={{ x: 0.0, y: 0.0 }}
+                                end={{ x: 1.0, y: 0.0 }}
+                                locations={[0.0, 1.0]}
+                                {...this._panResponder.panHandlers}
+                                style={{
+                                    ...styles.container,
+                                    ...SURFACE_STYLES.rowStart,
+                                    ...getElevation(4),
+                                    marginTop,
+                                    marginBottom
+                                }}
+                            >
+                                {this._renderImage()}
+                                {this._renderInfo()}
+                            </LinearGradient> :
+                            <Surface
+                                rowStart
+                                {...this._panResponder.panHandlers}
+                                style={{
+                                    ...styles.container,
+                                    ...getElevation(4),
+                                    marginTop,
+                                    marginBottom
+                                }}
+                            >
+                                {this._renderImage()}
+                                {this._renderInfo()}
+                            </Surface>
+                        }
+                    </Animated.View>
+                    {active ?
+                        <View style={{
+                            ...styles.iconContainer,
+                            top: marginTop,
+                            bottom: marginBottom
+                        }}>
+                            {this._renderDragableFunction()}
+                        </View> :
                         <LinearGradient
                             colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 0.0 }}
                             locations={[0.0, 1.0]}
-                            {...this._panResponder.panHandlers}
                             style={{
-                                ...styles.container,
-                                ...SURFACE_STYLES.rowStart,
-                                ...getElevation(4),
-                                marginTop,
-                                marginBottom
-                            }}
-                        >
-                            <Image
-                                source={{ uri: bankImage }}
-                                style={styles.image}
-                            />
-                            <Surface columnAlignEnd flex themeable={false}>
-                                <Text description white>{bankName}</Text>
-                                <Text description white>{maskBankAccount(bankAccount)}</Text>
-                                {!!expireDate
-                                    && <Text description white>VALID {expireDate}</Text>
-                                }
-                            </Surface>
+                                ...styles.iconContainer,
+                                top: marginTop,
+                                bottom: marginBottom
+                            }}>
+                            {this._renderDragableFunction()}
                         </LinearGradient>
-                    </Animated.View>
-                    <View style={{
-                        ...styles.iconContainer,
-                        top: marginTop,
-                        bottom: marginBottom
-                    }}>
-                        <Ripple onPress={() => {
-                            Animated.spring(this.translateX, {
-                                toValue: 0,
-                                useNativeDriver: true
-                            }).start(() => {
-                                this.animationRunning = false
-                                this.showingIconFunction = false
-                                onDelete && onDelete()
-                            })
-                        }}
-                            rippleColor={'white'}>
-                            <Icon name='GB_trash' style={styles.icon} />
-                        </Ripple>
-                    </View>
+                    }
                 </View>
             )
         }
@@ -144,28 +207,12 @@ export default class BankAccountItem extends React.PureComponent {
                             ...moreStyle
                         }}
                     >
-                        <Image
-                            source={{ uri: bankImage }}
-                            style={styles.image}
-                        />
-                        <Surface columnAlignEnd flex themeable={false}>
-                            <Text description white>{bankName}</Text>
-                            <Text description white>{maskBankAccount(bankAccount)}</Text>
-                            {!!expireDate
-                                && <Text description white>VALID {expireDate}</Text>
-                            }
-                        </Surface>
+                        {this._renderImage()}
+                        {this._renderInfo()}
                     </LinearGradient>
                 </Ripple>
             )
         }
-
-        const accountDisplayElement = !isGigabank ?
-            <Text description>{maskBankAccount(bankAccount)}</Text> :
-            <Text description t={'gigabank_account'} />
-        const expireDateElement = isGigabank ?
-            <Text description>123456</Text> :
-            !!expireDate ? <Text description>VALID {expireDate}</Text> : <View />
         return (
             <Ripple onPress={onPress} rippleColor={'white'}>
                 <Surface rowStart style={{
@@ -174,15 +221,8 @@ export default class BankAccountItem extends React.PureComponent {
                     marginBottom,
                     ...moreStyle
                 }}>
-                    <Image
-                        source={{ uri: bankImage }}
-                        style={styles.image}
-                    />
-                    <Surface columnAlignEnd flex themeable={false}>
-                        <Text description>{bankName}</Text>
-                        {accountDisplayElement}
-                        {expireDateElement}
-                    </Surface>
+                    {this._renderImage()}
+                    {this._renderInfo()}
                 </Surface>
             </Ripple>
         )

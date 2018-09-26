@@ -120,6 +120,20 @@ export const TEXT_STYLES = {
         fontSize: 12,
         lineHeight: 16,
     },
+    infoResult: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 14,
+        lineHeight: 23,
+    },
+    titleInfo: {
+        ...getFontStyle(FONT_WEIGHTS.bold),
+        fontSize: 12,
+    },
+    body16: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 16,
+        lineHeight: 24,
+    },
     buttonText: {
         ...getFontStyle(FONT_WEIGHTS.regular),
         fontSize: 14,
@@ -160,46 +174,6 @@ export const TEXT_STYLES = {
         // letterSpacing: 10
         color: COLORS.BLACK
     },
-
-
-    // sologan: {
-    //     ...getFontStyle(FONT_WEIGHTS.medium),
-    //     fontSize: 30,
-    //     color: COLORS.LIGHT_WHITE
-    // },
-
-    // h4: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 34
-    // },
-    // h5: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 24
-    // },
-    // h6: {
-    //     ...getFontStyle(FONT_WEIGHTS.medium),
-    //     fontSize: 20
-    // },
-    // overline: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 10
-    // },
-    // body1: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 16
-    // },
-    // body2: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 14
-    // },
-    // subtitle1: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 16
-    // },
-    // subtitle2: {
-    //     ...getFontStyle(FONT_WEIGHTS.medium),
-    //     fontSize: 14
-    // },
     white: {
         color: COLORS.WHITE
     },
@@ -461,7 +435,10 @@ export const SURFACE_STYLES = {
     },
     bottomButtonSpace: {
         height: SIZES.BUTTON_FIELD + 26
-    }
+    },
+    titleInfoBlock: {
+        paddingVertical: 24
+    },  
 }
 
 export const BUTTON_STYLES = {

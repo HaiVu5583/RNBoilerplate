@@ -56,7 +56,6 @@ class Button extends PureComponent {
         )
 
         const ButtonComponent = enable === false ? View : Ripple
-console.log('lam buttonThemeStyle', buttonThemeStyle)
         if (gradientButton) {
             if (typeof (enable) === 'undefined' || enable === true) {
                 buttonThemeStyle.push(
