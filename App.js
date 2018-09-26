@@ -1,40 +1,13 @@
 import { Navigation } from 'react-native-navigation'
 import registerScreens from '~/src/containers'
 import configStore from '~/src/store/configStore'
-import Icon from '~/src/components/FontIcon'
-import { YellowBox } from 'react-native'
-import { BOTTOM_TABS } from '~/src/constants'
+import { YellowBox, NetInfo } from 'react-native'
 import { persistStore } from 'redux-persist'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, COLORS } from '~/src/themes/common'
 import { languageSelector } from '~/src/store/selectors/ui'
 import I18n from '~/src/I18n'
-import { chainParse } from '~/src/utils'
+import { chainParse, showNoConnection, hideNoConnection } from '~/src/utils'
 export const store = configStore()
-// const _getBottomTabIcon = (tabs, size, color) => {
-//     const promiseList = []
-//     for (let tab of tabs) {
-//         promiseList.push(Icon.getImageSource(tab.icon, size, color))
-//     }
-//     return Promise.all(promiseList)
-// }
-
-// const _getBottomTabs = (bottomTabs) => {
-//     return BOTTOM_TABS.map((tab, index) => ({
-//         component: {
-//             name: tab.component,
-//             id: tab.id,
-//             options: {
-//                 bottomTab: {
-//                     text: tab.name,
-//                     icon: bottomTabs[index],
-//                     iconColor: 'gray',
-//                     selectedIconColor: '#F16654',
-//                 }
-//             },
-//         }
-//     }))
-// }
-
 
 const _persist = (store) => {
     return new Promise(resolve => {
@@ -71,6 +44,28 @@ YellowBox.ignoreWarnings([
     'Warning: Module SafeAreaManager requires',
 ]);
 
+_checkShowConnectionWarning = (connectionInfo) => {
+    if (connectionInfo.type == "none") {
+        showNoConnection()
+    } else {
+        hideNoConnection()
+    }
+}
+
+_listenNetworkConnection = () => {
+    console.log('Call Connection')
+    NetInfo.getConnectionInfo().then((connectionInfo) => {
+        console.log('Connection: ', connectionInfo);
+        this._checkShowConnectionWarning(connectionInfo)
+    })
+    NetInfo.addEventListener(
+        'connectionChange',
+        (connectionInfo) => {
+            console.log('Connection Change', connectionInfo)
+            this._checkShowConnectionWarning(connectionInfo)
+        }
+    )
+}
 
 export const run = () => {
     registerScreens(store)
@@ -99,7 +94,6 @@ export const run = () => {
         })
         console.log('Before Promise', new Date().getTime())
         Promise.all([
-            // _getBottomTabIcon(BOTTOM_TABS, 24, '#F16654'),
             _persist(store)
         ]).then((values) => {
             // Apply language after restore store
@@ -109,6 +103,7 @@ export const run = () => {
 
             const bottomTabs = values[0]
             _setRoot(bottomTabs)
+            _listenNetworkConnection()
         })
     })
 }

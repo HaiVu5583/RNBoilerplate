@@ -334,3 +334,25 @@ export const showToast = (text) => {
         }
     })
 }
+
+export const showNoConnection = () => {
+    hideNoConnection()
+    Navigation.showOverlay({
+        component: {
+            name: 'gigabankclient.NoConnection',
+            id: 'NoConnection',
+            options: {
+                overlay: {
+                    interceptTouchOutside: false
+                }
+            }
+        }
+    })
+}
+
+export const hideNoConnection = () => {
+    Navigation.dismissOverlay('NoConnection')
+        .catch(error => {
+            // Do Nothing  
+        })
+}
