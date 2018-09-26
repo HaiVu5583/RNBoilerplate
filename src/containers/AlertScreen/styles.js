@@ -27,5 +27,11 @@ export default {
     description: {
         alignContent: 'center',
         alignItems: 'center',
+    },
+    actionStyle: {
+        paddingLeft: 0,
+        paddingRight: 0,
+        marginTop: 50,
+        fontSize: 15
     }
 }

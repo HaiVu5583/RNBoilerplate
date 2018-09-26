@@ -60,7 +60,7 @@ const _setRoot = (bottomTabs) => {
                             // name: 'gigabankclient.AddCard'
                             // name: 'gigabankclient.AddCardSuccess'
                             // name: 'gigabankclient.AddCardFail'
-                            // name: 'gigabankclient.WithDraw'
+                            // name: 'gigabankclient.WithDraw',
                             // name: 'gigabankclient.WithDrawSearch'
                             // name: 'gigabankclient.WithDrawInfo'
                             // name: 'gigabankclient.WithDrawAuthen'
@@ -68,8 +68,8 @@ const _setRoot = (bottomTabs) => {
                             // name: 'gigabankclient.EnterPassword'
                             // name: 'gigabankclient.ChargePhoneAuthen'
                             // name: 'gigabankclient.AlertScreen'
-                            // name: 'gigabankclient.HomeScreen'
-                            
+                            // name: 'gigabankclient.HomeScreen',
+                            // id: 'HomeScreen'
                             
                             name: rootScreen,
                         }

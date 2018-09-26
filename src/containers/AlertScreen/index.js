@@ -31,6 +31,10 @@ class AlertScreen extends Component {
     componentDidMount() {
 
     }
+
+    _handleAction =() => {
+        alert('You need help!')
+    }
     
     _onPressButton = () => {
         console.log('lam _onPressButton')
@@ -41,7 +45,7 @@ class AlertScreen extends Component {
     }
 
     render() {
-        const {headerTitle, title, image, description, buttonTitle} = this.props
+        const {headerTitle, title, image, description, buttonTitle, actionTitle} = this.props
         return (
             <Surface themeable={false} flex>
                 <StatusBar
@@ -66,7 +70,16 @@ class AlertScreen extends Component {
                             source={{ uri: image }}
                         />
                         <Surface themeable={false} space35 />
-                        <Text white description t={description} style={styles.description} />
+                        <Text white description center t={description} style={styles.description} />
+                        {!!actionTitle
+                            && <Button flat
+                                centerComponent={() => (
+                                    <Text blue t={actionTitle} textTransform={String.prototype.toUpperCase} />
+                                )}
+                                onPress={this._handleAction}
+                                style={styles.actionStyle}
+                            />
+                        }
 
                         <TouchableOpacity style={styles.listBackButton}
                             onPress={this._onPressButton}

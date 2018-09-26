@@ -41,7 +41,7 @@ class ChargePhone extends React.PureComponent {
     }
 
     _handleContinueChooseCard = () => {
-        
+
     }
 
     _handleGoHome = () => {
@@ -52,16 +52,17 @@ class ChargePhone extends React.PureComponent {
         // this.popupConfirm.open()
         Navigation.push(this.props.componentId, {
             component: {
-                name: SCREENS.ALERT,
-                passProps: {
-                    // const {headerTitle, title, image, description, buttonTitle} = this.props
-                    headerTitle: 'transaction_result',
-                    title: 'transaction_fail',
-                    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png',
-                    description: 'gigabank_balance_not_enough',
-                    buttonTitle: 'go_back_home',
-                    goHome: this._handleGoHome
-                },
+                id: SCREENS.MONEY_SOURCE.id,
+                name: SCREENS.MONEY_SOURCE.name,
+                // passProps: {
+                //     // const {headerTitle, title, image, description, buttonTitle} = this.props
+                //     headerTitle: 'transaction_result',
+                //     title: 'transaction_fail',
+                //     image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Bing_logo_%282016%29.svg/1280px-Bing_logo_%282016%29.svg.png',
+                //     description: 'gigabank_balance_not_enough',
+                //     buttonTitle: 'go_back_home',
+                //     goHome: this._handleGoHome
+                // },
             }
         })
     }
