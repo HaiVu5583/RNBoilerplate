@@ -77,8 +77,8 @@ export default class BankAccountItem extends React.PureComponent {
             draggable = false, isGigabank, type = MONEY_SOURCE_TYPE.BANK
         } = this.props
         const iconName = (type == MONEY_SOURCE_TYPE.BANK) ? 'GB_bank' : 'GB_paycard'
-        const iconColor = (draggable || active) ? COLORS.WHITE : COLORS.DARK_BLUE
-        const textColor = (draggable || active) ? COLORS.WHITE : COLORS.BLACK
+        const iconColor = active ? COLORS.WHITE : COLORS.DARK_BLUE
+        const textColor = active ? COLORS.WHITE : COLORS.BLACK
         const bankAccountDisplay = (type == MONEY_SOURCE_TYPE.BANK) ? bankAccount : maskBankAccount(bankAccount)
         return (
             <Surface columnAlignEnd flex themeable={false}>
@@ -94,9 +94,29 @@ export default class BankAccountItem extends React.PureComponent {
         )
     }
 
+    _renderDragableFunction = () => {
+        const { active = false, onDelete } = this.props
+        const iconColor = active ? COLORS.DARK_BLUE : COLORS.WHITE
+        return (
+            <Ripple onPress={() => {
+                Animated.spring(this.translateX, {
+                    toValue: 0,
+                    useNativeDriver: true
+                }).start(() => {
+                    this.animationRunning = false
+                    this.showingIconFunction = false
+                    onDelete && onDelete()
+                })
+            }}
+                rippleColor={'white'}>
+                <Icon name='GB_trash' style={{ ...styles.icon, color: iconColor }} />
+            </Ripple>
+        )
+    }
+
     render() {
         const { active = false, onPress, draggable = false,
-            onDelete, moreStyle, index, verticalMargin = true } = this.props
+            moreStyle, index, verticalMargin = true } = this.props
         const marginTop = (verticalMargin && index == 0) ? 24 : 0
         const marginBottom = verticalMargin ? 20 : 0
         if (draggable) {
@@ -109,43 +129,60 @@ export default class BankAccountItem extends React.PureComponent {
                             }]
                         }}
                     >
+                        {active ?
+                            <LinearGradient
+                                colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
+                                start={{ x: 0.0, y: 0.0 }}
+                                end={{ x: 1.0, y: 0.0 }}
+                                locations={[0.0, 1.0]}
+                                {...this._panResponder.panHandlers}
+                                style={{
+                                    ...styles.container,
+                                    ...SURFACE_STYLES.rowStart,
+                                    ...getElevation(4),
+                                    marginTop,
+                                    marginBottom
+                                }}
+                            >
+                                {this._renderImage()}
+                                {this._renderInfo()}
+                            </LinearGradient> :
+                            <Surface
+                                rowStart
+                                {...this._panResponder.panHandlers}
+                                style={{
+                                    ...styles.container,
+                                    ...getElevation(4),
+                                    marginTop,
+                                    marginBottom
+                                }}
+                            >
+                                {this._renderImage()}
+                                {this._renderInfo()}
+                            </Surface>
+                        }
+                    </Animated.View>
+                    {active ?
+                        <View style={{
+                            ...styles.iconContainer,
+                            top: marginTop,
+                            bottom: marginBottom
+                        }}>
+                            {this._renderDragableFunction()}
+                        </View> :
                         <LinearGradient
                             colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 0.0 }}
                             locations={[0.0, 1.0]}
-                            {...this._panResponder.panHandlers}
                             style={{
-                                ...styles.container,
-                                ...SURFACE_STYLES.rowStart,
-                                ...getElevation(4),
-                                marginTop,
-                                marginBottom
-                            }}
-                        >
-                            {this._renderImage()}
-                            {this._renderInfo()}
+                                ...styles.iconContainer,
+                                top: marginTop,
+                                bottom: marginBottom
+                            }}>
+                            {this._renderDragableFunction()}
                         </LinearGradient>
-                    </Animated.View>
-                    <View style={{
-                        ...styles.iconContainer,
-                        top: marginTop,
-                        bottom: marginBottom
-                    }}>
-                        <Ripple onPress={() => {
-                            Animated.spring(this.translateX, {
-                                toValue: 0,
-                                useNativeDriver: true
-                            }).start(() => {
-                                this.animationRunning = false
-                                this.showingIconFunction = false
-                                onDelete && onDelete()
-                            })
-                        }}
-                            rippleColor={'white'}>
-                            <Icon name='GB_trash' style={styles.icon} />
-                        </Ripple>
-                    </View>
+                    }
                 </View>
             )
         }
