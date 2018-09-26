@@ -293,6 +293,11 @@ export const SURFACE_STYLES = {
         justifyContent: 'center',
         alignItems: 'flex-end'
     },
+    columnAlignStart: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'flex-start'
+    },
     rowCenter: {
         flexDirection: 'row',
         justifyContent: 'center',
