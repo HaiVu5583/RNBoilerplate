@@ -170,6 +170,17 @@ class MoneySource extends React.PureComponent {
         )
     }
 
+    _renderScene = ({ route }) => {
+        switch (route.key) {
+            case 'card':
+                return this._renderCardTab()
+            case 'bank':
+                return this._renderCardTab()
+            default:
+                return null;
+        }
+    }
+
     _renderPager = (props) => {
         return (Platform.OS === 'ios') ? <PagerScroll {...props} /> : <PagerPan {...props} />
     }
@@ -178,12 +189,7 @@ class MoneySource extends React.PureComponent {
         return (
             <TabView
                 navigationState={this.state}
-                renderScene={
-                    SceneMap({
-                        card: this._renderCardTab,
-                        bank: this._renderCardTab,
-                    })
-                }
+                renderScene={this._renderScene}
                 renderTabBar={this._renderTabBar}
                 onIndexChange={index => this.setState({ index })}
                 initialLayout={{ width: DEVICE_WIDTH, height: DEVICE_HEIGHT }}
