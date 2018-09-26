@@ -11,6 +11,7 @@ import I18n from '~/src/I18n'
 import Screen from '~/src/components/Screen'
 import PopupConfirm from '~/src/components/PopupConfirm'
 import { DIALOG_MODE } from '~/src/constants'
+import ContactTextInput from '~/src/components/ContactTextInput'
 
 class MoneyTransfer extends React.PureComponent {
     static get options() {
@@ -76,7 +77,7 @@ class MoneyTransfer extends React.PureComponent {
             // Response is one of: 'authorized', 'denied', 'restricted', or 'undetermined'
             console.log('check request permsion callback', { response });
             if (response == PERMISSION_RESPONSE.AUTHORIZED) {
-                this._openContactChooser()   
+                this._openContactChooser()
             } else {
                 console.log('Permission Deny')
             }
@@ -92,7 +93,7 @@ class MoneyTransfer extends React.PureComponent {
         Permissions.check('contacts').then(response => {
             if (response != PERMISSION_RESPONSE.AUTHORIZED) {
                 this.popupContactPermission && this.popupContactPermission.open()
-            }else{
+            } else {
                 this._openContactChooser()
             }
         })
@@ -110,17 +111,12 @@ class MoneyTransfer extends React.PureComponent {
         return (
             <Surface containerHorizontalSpace content flex>
                 <Surface themeable={false} space40 />
-                <TextInput
+                <ContactTextInput
                     placeholderT={'phone_receive_money_hint'}
-                    blackWithDarkblueIcon
                     onChangeText={text => this.setState({ phone: text, errPhone: '' })}
-                    keyboardType='number-pad'
                     value={formatPhoneNumber(this.state.phone)}
-                    iconRight={'GB_contact'}
-                    onPressIconRight={this._handlePressContact}
-                    showIconRight={true}
-                    hasError={!!this.state.errPhone}
-                    errorText={this.state.errPhone}
+                    onChooseContact={phone => this.setState({ phone, errPhone: '' })}
+                    error={!!this.state.errPhone}
                 />
             </Surface>
         )
