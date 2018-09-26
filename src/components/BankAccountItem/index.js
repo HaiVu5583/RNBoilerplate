@@ -4,9 +4,10 @@ import Image from 'react-native-fast-image'
 import { maskBankAccount, getElevation } from '~/src/utils'
 import styles from './styles'
 import LinearGradient from 'react-native-linear-gradient'
-import { SURFACE_STYLES, SIZES } from '~/src/themes/common'
+import { SURFACE_STYLES, COLORS } from '~/src/themes/common'
 import Ripple from 'react-native-material-ripple';
 import { Animated, PanResponder, View } from 'react-native'
+import { MONEY_SOURCE_TYPE } from '~/src/constants'
 
 export default class BankAccountItem extends React.PureComponent {
 
@@ -61,10 +62,43 @@ export default class BankAccountItem extends React.PureComponent {
         console.log('Handle Press AddCard')
     }
 
+    _renderImage = () => {
+        const { bankImage } = this.props
+        return (
+            <Image
+                source={{ uri: bankImage }}
+                style={styles.image}
+            />
+        )
+    }
+
+    _renderInfo = () => {
+        const { expireDate, bankName, bankAccount, active = false,
+            draggable = false, isGigabank, type = MONEY_SOURCE_TYPE.BANK
+        } = this.props
+        const iconName = (type == MONEY_SOURCE_TYPE.BANK) ? 'GB_bank' : 'GB_paycard'
+        const iconColor = (draggable || active) ? COLORS.WHITE : COLORS.DARK_BLUE
+        const textColor = (draggable || active) ? COLORS.WHITE : COLORS.BLACK
+        const bankAccountDisplay = (type == MONEY_SOURCE_TYPE.BANK) ? bankAccount : maskBankAccount(bankAccount)
+        return (
+            <Surface columnAlignEnd flex themeable={false}>
+                <Surface rowStart themeable={false}>
+                    <Text info style={{ flex: 1, color: textColor }}>{bankName}</Text>
+                    <Icon name={iconName} style={{ ...styles.iconBank, color: iconColor }} />
+                </Surface>
+                <Text body16 style={{ color: textColor }}>{bankAccountDisplay}</Text>
+                {!!expireDate
+                    && <Text info style={{ color: textColor }}>VALID {expireDate}</Text>
+                }
+            </Surface>
+        )
+    }
+
     render() {
-        const { bankImage, expireDate, bankName, bankAccount, active = false, onPress, draggable = false, onDelete, moreStyle, isGigabank, index, verticalMargin = true } = this.props
+        const { active = false, onPress, draggable = false,
+            onDelete, moreStyle, index, verticalMargin = true } = this.props
         const marginTop = (verticalMargin && index == 0) ? 24 : 0
-        const marginBottom =  verticalMargin ? 20 : 0
+        const marginBottom = verticalMargin ? 20 : 0
         if (draggable) {
             return (
                 <View>
@@ -89,17 +123,8 @@ export default class BankAccountItem extends React.PureComponent {
                                 marginBottom
                             }}
                         >
-                            <Image
-                                source={{ uri: bankImage }}
-                                style={styles.image}
-                            />
-                            <Surface columnAlignEnd flex themeable={false}>
-                                <Text description white>{bankName}</Text>
-                                <Text description white>{maskBankAccount(bankAccount)}</Text>
-                                {!!expireDate
-                                    && <Text description white>VALID {expireDate}</Text>
-                                }
-                            </Surface>
+                            {this._renderImage()}
+                            {this._renderInfo()}
                         </LinearGradient>
                     </Animated.View>
                     <View style={{
@@ -143,28 +168,12 @@ export default class BankAccountItem extends React.PureComponent {
                             ...moreStyle
                         }}
                     >
-                        <Image
-                            source={{ uri: bankImage }}
-                            style={styles.image}
-                        />
-                        <Surface columnAlignEnd flex themeable={false}>
-                            <Text description white>{bankName}</Text>
-                            <Text description white>{maskBankAccount(bankAccount)}</Text>
-                            {!!expireDate
-                                && <Text description white>VALID {expireDate}</Text>
-                            }
-                        </Surface>
+                        {this._renderImage()}
+                        {this._renderInfo()}
                     </LinearGradient>
                 </Ripple>
             )
         }
-
-        const accountDisplayElement = !isGigabank ?
-            <Text description>{maskBankAccount(bankAccount)}</Text> :
-            <Text description t={'gigabank_account'} />
-        const expireDateElement = isGigabank ?
-            <Text description>123456</Text> :
-            !!expireDate ? <Text description>VALID {expireDate}</Text> : <View />
         return (
             <Ripple onPress={onPress} rippleColor={'white'}>
                 <Surface rowStart style={{
@@ -173,15 +182,8 @@ export default class BankAccountItem extends React.PureComponent {
                     marginBottom,
                     ...moreStyle
                 }}>
-                    <Image
-                        source={{ uri: bankImage }}
-                        style={styles.image}
-                    />
-                    <Surface columnAlignEnd flex themeable={false}>
-                        <Text description>{bankName}</Text>
-                        {accountDisplayElement}
-                        {expireDateElement}
-                    </Surface>
+                    {this._renderImage()}
+                    {this._renderInfo()}
                 </Surface>
             </Ripple>
         )

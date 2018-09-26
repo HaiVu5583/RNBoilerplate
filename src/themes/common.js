@@ -120,6 +120,11 @@ export const TEXT_STYLES = {
         fontSize: 12,
         lineHeight: 16,
     },
+    body16: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 16,
+        lineHeight: 24,
+    },
     buttonText: {
         ...getFontStyle(FONT_WEIGHTS.regular),
         fontSize: 14,
@@ -161,45 +166,6 @@ export const TEXT_STYLES = {
         color: COLORS.BLACK
     },
 
-
-    // sologan: {
-    //     ...getFontStyle(FONT_WEIGHTS.medium),
-    //     fontSize: 30,
-    //     color: COLORS.LIGHT_WHITE
-    // },
-
-    // h4: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 34
-    // },
-    // h5: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 24
-    // },
-    // h6: {
-    //     ...getFontStyle(FONT_WEIGHTS.medium),
-    //     fontSize: 20
-    // },
-    // overline: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 10
-    // },
-    // body1: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 16
-    // },
-    // body2: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 14
-    // },
-    // subtitle1: {
-    //     ...getFontStyle(FONT_WEIGHTS.regular),
-    //     fontSize: 16
-    // },
-    // subtitle2: {
-    //     ...getFontStyle(FONT_WEIGHTS.medium),
-    //     fontSize: 14
-    // },
     white: {
         color: COLORS.WHITE
     },
