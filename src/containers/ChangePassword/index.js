@@ -70,6 +70,9 @@ class ChangePassword extends Component {
             } else if (data && data.code == 1005) {
                 this.setState({ errPassword: I18n.t('err_invalid_password'), loading: false })
                 return
+            }else{
+                this.setState({ errPassword: I18n.t('err_general'), loading: false })
+                return
             }
         })
     }

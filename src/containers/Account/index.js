@@ -10,6 +10,7 @@ import RowItem from '~/src/components/RowItem'
 import styles from './styles'
 import MaskBalanceView from '~/src/components/MaskBalanceView'
 import { Navigation } from 'react-native-navigation'
+import Screen from '~/src/components/Screen'
 
 class Account extends React.PureComponent {
     static get options() {
@@ -27,6 +28,7 @@ class Account extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
+            loading: false
         }
     }
 
@@ -38,7 +40,72 @@ class Account extends React.PureComponent {
         })
     }
 
+    _renderHeader = () => {
+        return (
+            <Surface themeable={false} imageBackground>
+                <Surface themeable={false} fakeToolbar />
+                <Surface themeable={false} space20 />
+                <Surface themeable={false} rowAlignStart containerHorizontalMargin>
+                    <Image
+                        source={{ uri: 'https://am23.akamaized.net/tms/cnt/uploads/2015/06/TheGameWorldDoctorStrange-832x1024.jpg' }}
+                        style={styles.avatar} />
+                    <Surface themeable={false} flex style={{ paddingLeft: 16 }}>
+                        <Text description white>HOANG THANH GIANG</Text>
+                        <Surface themeable={false} space8 />
+                        <Surface themeable={false} rowStart>
+                            <Icon name={'GB_call'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
+                            <Text info white>0912 233 3444</Text>
+                        </Surface>
+                        <Surface themeable={false} rowStart>
+                            <Icon name={'GB_email'} style={{ color: COLORS.WHITE, fontSize: 13, marginRight: 3 }} />
+                            <Text info white>htgiang@gmail.com</Text>
+                        </Surface>
+                    </Surface>
+                    <Icon name='GB_edit' style={{ fontSize: 24, color: COLORS.DARK_BLUE }} />
+                </Surface>
+            </Surface>
+        )
+    }
+
+    _getHeader = () => {
+        return {
+            render: this._renderHeader
+        }
+    }
+
+    _renderContent = () => {
+        return (
+            <Surface flex themeable={false} content>
+                <MaskBalanceView style={{ backgroundColor: COLORS.LIGHT_BLUE }} color={COLORS.BLACK} />
+                <Surface flex>
+                    <RowItem icon='GB_statement' textT={'account_statement'} iconStyle={styles.rowIcon}
+                        onPress={() => {
+                            Navigation.pop(this.props.componentId)
+                        }}
+                    />
+                    <RowItem icon='GB_history' textT={'transaction_history'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='GB_payment-method' textT={'payment_account'} iconStyle={styles.rowIcon} />
+                    <RowItem icon='GB_pass_code' textT={'change_password'} iconStyle={styles.rowIcon}
+                        onPress={this._handlePressChangePassword}
+                    />
+                </Surface>
+            </Surface>
+        )
+    }
+
     render() {
+
+
+        return (
+            <Screen
+                content={this._renderContent}
+                header={this._getHeader()}
+                toolbarTitleT={'account'}
+                hanleBack={this._handleBack}
+                componentId={this.props.componentId}
+                loading={this.state.loading}
+            />
+        )
 
         return (
             <Surface themeable={false} flex>
@@ -82,7 +149,7 @@ class Account extends React.PureComponent {
                     />
                     <RowItem icon='GB_history' textT={'transaction_history'} iconStyle={styles.rowIcon} />
                     <RowItem icon='GB_payment-method' textT={'payment_account'} iconStyle={styles.rowIcon} />
-                    <RowItem icon='GB_pass_code' textT={'change_password'} iconStyle={styles.rowIcon} 
+                    <RowItem icon='GB_pass_code' textT={'change_password'} iconStyle={styles.rowIcon}
                         onPress={this._handlePressChangePassword}
                     />
                 </Surface>

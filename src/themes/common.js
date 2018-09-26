@@ -50,7 +50,7 @@ export const SIZES = {
     DIALOG_BUTTON_FIELD: 64,
     DIALOG_SPACE: 28,
     BLOCK_TITLE_HEIGHT: 40,
-    IMAGE_BACKGROUND_HEIGHT: 180,
+    IMAGE_BACKGROUND_HEIGHT: 116 + 44 + STATUS_BAR_HEIGHT,
     IMAGE_BACKGROUND_HEIGHT_WITHOUT_TOOLBAR: 116,
     BANNER_WIDTH: DEVICE_WIDTH - 52,
     BANNER_HEIGHT: 128,
@@ -458,6 +458,9 @@ export const SURFACE_STYLES = {
     },
     fakeToolbar: {
         height: SIZES.TOOLBAR_AND_STATUSBAR
+    },
+    bottomButtonSpace: {
+        height: SIZES.BUTTON_FIELD + 26
     }
 }
 

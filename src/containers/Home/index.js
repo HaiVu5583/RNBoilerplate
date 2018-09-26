@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
 import { ASSETS, DEVICE_WIDTH, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
 import Carousel from 'react-native-snap-carousel'
 import FeatureBlock from '~/src/containers/Home/FeatureBlock'
-import { getElevation } from '~/src/utils'
 import Drawer from 'react-native-drawer'
 import Sidebar from '~/src/containers/Drawer'
 import { logoStep3 } from '~/src/components/Asset/LogoStep3'
@@ -186,6 +185,12 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        if (this.scrollView && Platform.OS == 'ios') {
+            this.scrollView._component.scrollTo({ x: 0, y: 1, animated: false })
+            setTimeout(() => {
+                this.scrollView._component.scrollTo({ x: 0, y: 0, animated: false })
+            }, 10)
+        }
         const { isSignUp } = this.props
         if (isSignUp) {
             showToast(I18n.t('welcome_to_gigabank'))
@@ -240,10 +245,16 @@ class Home extends Component {
                 styles={
                     {
                         drawer: { shadowColor: '#000000', shadowOpacity: 0.8, shadowRadius: 3 },
-                        main: { paddingLeft: 3 },
+                        main: { paddingLeft: 3, backgroundColor: 'black' },
                     }
                 }
                 ref={ref => this._drawer = ref}
+                tweenHandler={ratio => ({
+                    mainOverlay: {
+                        opacity: 0.6 * ratio,
+                        backgroundColor: 'black',
+                    },
+                })}
             >
                 <Surface themeable={false} flex>
                     <StatusBar
@@ -257,9 +268,9 @@ class Home extends Component {
                         )}
                         scrollEventThrottle={16}
                         contentInset={{ top: Platform.OS == 'ios' ? -STATUS_BAR_HEIGHT : 0 }}
-
+                        ref={ref => this.scrollView = ref}
                     >
-                        <Surface style={{ height: 210 }}>
+                        <Surface style={{ height: SIZES.IMAGE_BACKGROUND_HEIGHT + SIZES.BANK_ITEM_HEIGHT / 2 }}>
                             <ImageBackground source={ASSETS.LIGHT_BACKGROUND} style={{ width: DEVICE_WIDTH, height: SIZES.IMAGE_BACKGROUND_HEIGHT }}>
                                 <Surface themeable={false} style={{ width: '100%', height: SIZES.TOOLBAR_AND_STATUSBAR }} />
                                 <Surface themeable={false} space8 />

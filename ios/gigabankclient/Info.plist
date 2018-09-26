@@ -35,6 +35,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSContactsUsageDescription</key>
+	<string>Using photo to search service user</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
