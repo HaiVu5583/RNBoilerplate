@@ -180,8 +180,8 @@ class AddCard extends Component {
     _renderListBank = () => {
         return (
             <Surface content>
-                <Surface containerHorizontalSpace titleBlock>
-                    <Text bold darkBlue description t={'international_card'} textTransform={String.prototype.toUpperCase} />
+                <Surface containerHorizontalSpace titleInfoBlock>
+                    <Text bold darkBlue titleInfo t={'international_card'} textTransform={String.prototype.toUpperCase} />
                 </Surface>
                 <FlatList
                     data={this.props.internationalCard}
@@ -192,8 +192,8 @@ class AddCard extends Component {
                     bounces={false}
                     scrollEnabled={false}
                 />
-                <Surface containerHorizontalSpace titleBlock>
-                    <Text bold darkBlue description t={'domestic_card'} textTransform={String.prototype.toUpperCase} />
+                <Surface containerHorizontalSpace titleInfoBlock>
+                    <Text bold darkBlue titleInfo t={'domestic_card'} textTransform={String.prototype.toUpperCase} />
                 </Surface>
                 <FlatList
                     data={this.props.domesticCard}

@@ -97,40 +97,38 @@ class Charge extends React.PureComponent {
     _renderContent = () => {
         return (
             <Surface content>
-                <Surface themeable={false} space20 />
-                <Surface containerHorizontalSpace>
-                    <Text darkBlue description t={'transaction_info'} textTransform={String.prototype.toUpperCase} />
+                <Surface containerHorizontalSpace titleInfoBlock>
+                    <Text darkBlue titleInfo t={'transaction_info'} textTransform={String.prototype.toUpperCase} />
                 </Surface>
-                <Surface themeable={false} space20 />
                 <Surface containerHorizontalMargin>
                     <Surface rowSpacebetween>
-                        <Text description t='transaction_code' />
-                        <Text description>X12AA22</Text>
+                        <Text infoResult t='transaction_code' />
+                        <Text infoResult>X12AA22</Text>
                     </Surface>
                     <Surface rowSpacebetween>
-                        <Text description t='money_number' />
-                        <Text description>5.000.000VND</Text>
+                        <Text infoResult t='money_number' />
+                        <Text infoResult>5.000.000VND</Text>
                     </Surface>
                     <Surface rowSpacebetween>
-                        <Text description t='discount' />
-                        <Text description>5.000VND</Text>
+                        <Text infoResult t='discount' />
+                        <Text infoResult>5.000VND</Text>
                     </Surface>
 
                     <Surface rowSpacebetween>
-                        <Text description t='fee' />
-                        <Text description>11.000VND</Text>
+                        <Text infoResult t='fee' />
+                        <Text infoResult>11.000VND</Text>
                     </Surface>
                     <Surface rowSpacebetween>
-                        <Text description t='gigabank_balance' />
-                        <Text description>30.000.000VND</Text>
+                        <Text infoResult t='gigabank_balance' />
+                        <Text infoResult>30.000.000VND</Text>
                     </Surface>
                     <Surface rowSpacebetween>
-                        <Text description t='discount_balance' />
-                        <Text description>30.000VND</Text>
+                        <Text infoResult t='discount_balance' />
+                        <Text infoResult>30.000VND</Text>
                     </Surface>
                     <Surface rowSpacebetween>
-                        <Text description t='transaction_time' />
-                        <Text description>15:11 17/07/2018</Text>
+                        <Text infoResult t='transaction_time' />
+                        <Text infoResult>15:11 17/07/2018</Text>
                     </Surface>
                 </Surface>
             </Surface>

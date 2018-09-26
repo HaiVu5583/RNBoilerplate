@@ -120,6 +120,15 @@ export const TEXT_STYLES = {
         fontSize: 12,
         lineHeight: 16,
     },
+    infoResult: {
+        ...getFontStyle(FONT_WEIGHTS.regular),
+        fontSize: 14,
+        lineHeight: 23,
+    },
+    titleInfo: {
+        ...getFontStyle(FONT_WEIGHTS.bold),
+        fontSize: 12,
+    },
     body16: {
         ...getFontStyle(FONT_WEIGHTS.regular),
         fontSize: 16,
@@ -427,9 +436,9 @@ export const SURFACE_STYLES = {
     bottomButtonSpace: {
         height: SIZES.BUTTON_FIELD + 26
     },
-    titleBlock: {
+    titleInfoBlock: {
         paddingVertical: 24
-    },
+    },  
 }
 
 export const BUTTON_STYLES = {
