@@ -21,6 +21,7 @@ export default class CardItem extends Component {
             <TouchableOpacity onPress={onPress}>
                 <Image
                     source={{ uri: image }}
+                    resizeMode={'cover'}
                     style={[
                         {
                             width: 90, height: 68,
@@ -42,6 +43,8 @@ export default class CardItem extends Component {
                         padding: 3,
                         backgroundColor: COLORS.FEATURE_BACKGROUND,
                         borderRadius: 10,
+                        width: 96,
+                        height: 74,
                         margin: 5,
                         ...getElevation(4)
                     },

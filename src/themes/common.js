@@ -19,6 +19,7 @@ export const COLORS = {
     TRANSPARENT: 'transparent',
     BLACK: '#000000',
     GRAY: '#EAEAEC',
+    DARK_GRAY: '#919699',
     LIGHT_GRAY: '#F2F2F2',
     FEATURE_BACKGROUND: '#EBF0F0'
 }

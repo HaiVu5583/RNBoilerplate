@@ -1,12 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, STATUS_BAR_HEIGHT } from '~/src/themes/common'
 import { Platform, FlatList } from 'react-native'
 import { Surface, Text } from '~/src/themes/ThemeComponent'
 import { SIZES } from '~/src/themes/common'
 import { Navigation } from 'react-native-navigation'
-import { getListCard } from '~/src/store/actions/credit'
-import { listCardSelector } from '~/src/store/selectors/credit'
 import Screen from '~/src/components/Screen'
 import CardItem from '~/src/components/CardItem'
 const gridWidth = (DEVICE_WIDTH - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2) / 3
