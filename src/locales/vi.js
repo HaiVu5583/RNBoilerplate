@@ -218,6 +218,9 @@ const language = {
     'delete_card_success_title': 'Xoá thẻ thành công',
     'delete_card_success_text': 'Thẻ liên kết của bạn đã được xoá khỏi danh sách. Bạn vẫn có thể thêm lại thẻ này vào lần tới',
     'no_internet_connection': 'Không có kết nối Internet',
+    'no_card_bank_account_hint': 'Nạp tiền vào tài khoản Gigabank từ tài khoản/ thẻ ngân hàng đã liên kết',
+    'no_card_bank_account_hint_1': 'Bạn hãy liên kết tài khoản/ thẻ để nạp tiền vào tài khoản Gigabank nhé.',
+    'add_card_bank_account': 'Thêm tài khoản/thẻ',
     
     // With Draw
     'with_draw_title': 'Rút tiền từ Gigabank',
@@ -282,6 +285,13 @@ const language = {
     'grant_permission': 'Cấp phép truy cập',
     'grant_contact_permission_hint': 'Bạn cần cho phép truy cập Danh bạ để sử dụng tính năng này.',
 
+    // Buy Card
+    'buy_card': 'Mua mã thẻ',
+    'buy_card_hint': 'Chọn loại thẻ cào bạn muốn mua',
+    'phone_card': 'Thẻ điện thoại',
+    'game_card': 'Thẻ game',
+    'buy_card_price_hint': 'Chọn mệnh giá và số lượng thẻ bạn muốn mua',
+    'choose_phone_card_type': 'Chọn mệnh giá thẻ',
 
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
