@@ -1,6 +1,6 @@
 import React from 'react';
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, STATUS_BAR_HEIGHT } from '~/src/themes/common'
-import { Platform, FlatList, KeyboardAvoidingView } from 'react-native'
+import { Platform, FlatList, KeyboardAvoidingView, BackHandler } from 'react-native'
 import { Surface, Text, TextInput } from '~/src/themes/ThemeComponent'
 import { Navigation } from 'react-native-navigation'
 import Screen from '~/src/components/Screen'
@@ -107,6 +107,19 @@ export default class BuyCardPrice extends React.PureComponent {
             onPress: this._handlePressContinue,
             enable: true
         }
+    }
+
+    _handleBack = () => {
+        Navigation.pop(this.props.componentId)
+        return true
+    }
+
+    componentDidMount() {
+        BackHandler.addEventListener('hardwareBackPress', this._handleBack)
+    }
+
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this._handleBack)
     }
 
     render() {
