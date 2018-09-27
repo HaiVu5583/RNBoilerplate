@@ -106,7 +106,11 @@ export default class BuyCardPrice extends React.PureComponent {
     }
 
     _handlePressContinue = () => {
-
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.BuyCardTransactionOTP'
+            }
+        })
     }
 
     _getBottomButton = () => {

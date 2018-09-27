@@ -114,4 +114,5 @@ export default registerScreens = (store) => {
     // Buy Card
     registerContainerWithRedux(`gigabankclient.BuyCard`, () => require('~/src/containers/BuyCard'), store)
     registerContainerWithRedux(`gigabankclient.BuyCardPrice`, () => require('~/src/containers/BuyCard/BuyCardPrice'), store)
+    registerContainerWithRedux(`gigabankclient.BuyCardTransactionOTP`, () => require('~/src/containers/BuyCard/TransactionOTP'), store)
 }
