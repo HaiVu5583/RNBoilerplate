@@ -11,7 +11,7 @@ import Screen from '~/src/components/Screen'
 import CardItem from '~/src/components/CardItem'
 const gridWidth = (DEVICE_WIDTH - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2) / 3
 
-class MoneySource extends React.PureComponent {
+export default class BuyCard extends React.PureComponent {
     static get options() {
         if (Platform.OS == 'android') {
             return {
@@ -79,10 +79,18 @@ class MoneySource extends React.PureComponent {
             <Surface themeable={false} columnCenter style={{ width: gridWidth }}>
                 <CardItem
                     image={item.image}
-                    style={{marginBottom: 5}}
+                    style={{ marginBottom: 5 }}
                 />
             </Surface>
         )
+    }
+
+    _handlePressPhoneProvider = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.BuyCardPrice',
+            }
+        })
     }
 
     _renderPhoneProvider = ({ item, index }) => {
@@ -90,6 +98,7 @@ class MoneySource extends React.PureComponent {
             <CardItem
                 image={item.image}
                 style={{ marginRight: 15 }}
+                onPress={() => this._handlePressPhoneProvider(item)}
             />
         )
     }
@@ -140,7 +149,3 @@ class MoneySource extends React.PureComponent {
         />
     }
 }
-
-export default connect(state => ({
-    listCard: listCardSelector(state)
-}), { getListCard })(MoneySource)

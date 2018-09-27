@@ -290,6 +290,8 @@ const language = {
     'buy_card_hint': 'Chọn loại thẻ cào bạn muốn mua',
     'phone_card': 'Thẻ điện thoại',
     'game_card': 'Thẻ game',
+    'buy_card_price_hint': 'Chọn mệnh giá và số lượng thẻ bạn muốn mua',
+    'choose_phone_card_type': 'Chọn mệnh giá thẻ',
 
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
