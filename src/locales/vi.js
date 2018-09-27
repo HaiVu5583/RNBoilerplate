@@ -218,6 +218,9 @@ const language = {
     'delete_card_success_title': 'Xoá thẻ thành công',
     'delete_card_success_text': 'Thẻ liên kết của bạn đã được xoá khỏi danh sách. Bạn vẫn có thể thêm lại thẻ này vào lần tới',
     'no_internet_connection': 'Không có kết nối Internet',
+    'no_card_bank_account_hint': 'Nạp tiền vào tài khoản Gigabank từ tài khoản/ thẻ ngân hàng đã liên kết',
+    'no_card_bank_account_hint_1': 'Bạn hãy liên kết tài khoản/ thẻ để nạp tiền vào tài khoản Gigabank nhé.',
+    'add_card_bank_account': 'Thêm tài khoản/thẻ',
     
     // With Draw
     'with_draw_title': 'Rút tiền từ Gigabank',
