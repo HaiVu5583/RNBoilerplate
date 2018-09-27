@@ -83,7 +83,7 @@ export default class BankAccountItem extends React.PureComponent {
         const bankNameDisplay = isGigabank ? I18n.t('gigabank_account') : bankName
         const bankAccountDisplay = (type == MONEY_SOURCE_TYPE.BANK) ? bankAccount : maskBankAccount(bankAccount)
         return (
-            <Surface columnAlignEnd flex themeable={false}>
+            <Surface columnAlignStart flex themeable={false}>
                 <Surface rowStart themeable={false}>
                     <Text info style={{ flex: 1, color: textColor }}>{bankNameDisplay}</Text>
                     <Icon name={iconName} style={{ ...styles.iconBank, color: iconColor }} />
