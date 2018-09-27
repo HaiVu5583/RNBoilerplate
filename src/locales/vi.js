@@ -285,6 +285,11 @@ const language = {
     'grant_permission': 'Cấp phép truy cập',
     'grant_contact_permission_hint': 'Bạn cần cho phép truy cập Danh bạ để sử dụng tính năng này.',
 
+    // Buy Card
+    'buy_card': 'Mua mã thẻ',
+    'buy_card_hint': 'Chọn loại thẻ cào bạn muốn mua',
+    'phone_card': 'Thẻ điện thoại',
+    'game_card': 'Thẻ game',
 
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',

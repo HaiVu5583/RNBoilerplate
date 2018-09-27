@@ -128,7 +128,8 @@ class Home extends Component {
                 id: 1,
                 name: 'Nạp tiền điện thoại',
                 iconName: 'mobile-money-in',
-                iconColor: '#F27142'
+                iconColor: '#F27142',
+                onPress: this._handlePressBuyCard
             },
             {
                 id: 2,
@@ -193,6 +194,14 @@ class Home extends Component {
                 }
             })
         }
+    }
+
+    _handlePressBuyCard = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: 'gigabankclient.BuyCard',
+            }
+        })
     }
 
     _handlePressHambergerIcon = () => {
