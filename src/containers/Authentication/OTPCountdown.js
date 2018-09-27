@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text, Button } from '~/src/themes/ThemeComponent'
-import { COLORS } from '~/src/themes/common'
+import { Text, Button, Surface } from '~/src/themes/ThemeComponent'
+import { COLORS, SIZES } from '~/src/themes/common'
 
 export default class OTPCountdown extends React.PureComponent {
 
@@ -55,12 +55,14 @@ export default class OTPCountdown extends React.PureComponent {
         if (secondColor) {
             textCountStyle = { color: secondColor }
         }
-        
+
         return (
-            <Text themeable={false}>
-                <Text white description t='hint_not_receive_otp' style={textStyle} />
-                <Text yellow description style={textCountStyle}> {this.state.time}</Text>
-            </Text>
+            <Surface themeable={false} rowCenter style={{ height: SIZES.BUTTON_FIELD }}>
+                <Text themeable={false}>
+                    <Text white description t='hint_not_receive_otp' style={textStyle} />
+                    <Text yellow description style={textCountStyle}> {this.state.time}</Text>
+                </Text>
+            </Surface>
         )
     }
 }

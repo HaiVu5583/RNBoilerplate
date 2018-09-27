@@ -1,13 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux'
 import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, STATUS_BAR_HEIGHT } from '~/src/themes/common'
 import { Platform, FlatList, KeyboardAvoidingView } from 'react-native'
 import { Surface, Text, TextInput } from '~/src/themes/ThemeComponent'
-import { SIZES } from '~/src/themes/common'
 import { Navigation } from 'react-native-navigation'
 import Screen from '~/src/components/Screen'
 import OTPCountdown from '~/src/containers/Authentication/OTPCountdown'
-import { COLORS } from '../../themes/common';
+import { COLORS } from '~/src/themes/common';
 
 export default class BuyCardPrice extends React.PureComponent {
     static get options() {
@@ -55,25 +53,28 @@ export default class BuyCardPrice extends React.PureComponent {
                     </Surface>
                     <Surface themeable={false} lineSeperatorBlue />
                     <Surface rowSpacebetween themeable={false}>
-                        <Text bold infoResult t={'card_value'} />
-                        <Text bold infoResult t={'number'} />
-                        <Text bold infoResult t={'discount'} />
+                        <Surface themeable={false} columnAlignStart>
+                            <Text bold infoResult t={'card_value'} />
+                            <Text infoResult>10.000 VND</Text>
+                            <Text infoResult>50.000 VND</Text>
+                        </Surface>
+                        <Surface themeable={false} columnAlignStart>
+                            <Text bold infoResult t={'number'} />
+                            <Text infoResult>2</Text>
+                            <Text infoResult>3</Text>
+                        </Surface>
+                        <Surface themeable={false} columnAlignEnd>
+                            <Text bold infoResult t={'discount'} />
+                            <Text infoResult>10%</Text>
+                            <Text infoResult>5%</Text>
+                        </Surface>
                     </Surface>
-                    <Surface rowSpacebetween themeable={false}>
-                        <Text infoResult>10.000 VND</Text>
-                        <Text infoResult>2</Text>
-                        <Text infoResult>10%</Text>
-                    </Surface>
-                    <Surface rowSpacebetween themeable={false}>
-                        <Text infoResult>50.000 VND</Text>
-                        <Text infoResult>3</Text>
-                        <Text infoResult>5%</Text>
-                    </Surface>
+                    <Surface themeable={false} space20 />
                 </Surface>
                 <Surface themeable={false} seperator />
                 <KeyboardAvoidingView behavior="padding" enabled>
                     <Surface containerHorizontalSpace>
-                        <Surface themeable={false} space40 />
+                        <Surface themeable={false} space20 />
                         <TextInput
                             placeholder={'\u2022 \u2022 \u2022 \u2022 \u2022 \u2022'}
                             blackWithDarkblueIcon
@@ -84,15 +85,13 @@ export default class BuyCardPrice extends React.PureComponent {
                             onChangeText={text => this.setState({ otp: text, errOTP: '' })}
                             value={this.state.otp}
                         />
-                        <Surface themeable={false} space8 />
-                        <Surface themeable={false} fullWidth rowCenter>
-                            <OTPCountdown time={10} white={false}
-                                textColor={'black'}
-                                onResend={() => { }}
-                            />
-                        </Surface>
+                        <OTPCountdown time={60} white={false}
+                            textColor={COLORS.BLACK}
+                            onResend={() => { }}
+                        />
                     </Surface>
                 </KeyboardAvoidingView>
+                <Surface themeable={false} bottomButtonSpace />
             </Surface>
         )
     }
