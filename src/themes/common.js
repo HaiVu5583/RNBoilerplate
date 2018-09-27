@@ -19,8 +19,10 @@ export const COLORS = {
     TRANSPARENT: 'transparent',
     BLACK: '#000000',
     GRAY: '#EAEAEC',
+    DARK_GRAY: '#919699',
     LIGHT_GRAY: '#F2F2F2',
-    FEATURE_BACKGROUND: '#EBF0F0'
+    FEATURE_BACKGROUND: '#EBF0F0',
+    YELLOW: '#FDB149'
 }
 
 // const SIZES = {
@@ -152,6 +154,9 @@ export const TEXT_STYLES = {
         fontSize: 12,
         lineHeight: 18,
         // letterSpacing: 10
+    },
+    yellow: {
+        color: COLORS.YELLOW
     },
     errorNormal: {
         ...getFontStyle(FONT_WEIGHTS.regular),
@@ -444,6 +449,18 @@ export const SURFACE_STYLES = {
     titleInfoBlock: {
         paddingVertical: 24
     },  
+    lineSeperatorBlue: {
+        backgroundColor: COLORS.BLUE,
+        height: 1,
+        marginTop: 20,
+        marginBottom: 20,
+        width: '100%'
+    },
+    seperator: {
+        width: '100%',
+        height: 8,
+        backgroundColor: COLORS.FEATURE_BACKGROUND
+    }
 }
 
 export const BUTTON_STYLES = {

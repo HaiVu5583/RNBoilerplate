@@ -292,6 +292,10 @@ const language = {
     'game_card': 'Thẻ game',
     'buy_card_price_hint': 'Chọn mệnh giá và số lượng thẻ bạn muốn mua',
     'choose_phone_card_type': 'Chọn mệnh giá thẻ',
+    'provider': 'Nhà mạng',
+    'card_value': 'Mệnh giá thẻ',
+    'number': 'SL',
+    'discount': 'Chiết khấu',
 
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',
