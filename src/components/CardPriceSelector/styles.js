@@ -3,7 +3,7 @@ export default {
     container: {
         borderRadius: 10,
         backgroundColor: COLORS.FEATURE_BACKGROUND,
-        paddingRight: 16
+        paddingRight: 8
     },
     icon: {
         fontSize: 24,
@@ -15,8 +15,11 @@ export default {
         borderRadius: 10
     },
     valueOuter: {
-
         padding: 2,
         borderRadius: 10,
+    },
+    errorMessage: {
+        flex: 1, 
+        paddingHorizontal: 8
     }
 }

@@ -47,7 +47,8 @@ export default class BuyCardPrice extends React.PureComponent {
             },
             {
                 id: 3,
-                valueLabel: '30.000'
+                valueLabel: '30.000',
+                error: 'Qúa nhiều tiền. Haha. Đây là message.'
             },
             {
                 id: 4,
@@ -81,6 +82,7 @@ export default class BuyCardPrice extends React.PureComponent {
             id={item.id}
             valueLabel={item.valueLabel}
             onValueChange={this._handleValueChange}
+            error={item.error}
             style={{ marginBottom: 16 }}
         />
     }
