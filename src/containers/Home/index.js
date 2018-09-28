@@ -176,6 +176,7 @@ class Home extends Component {
         Navigation.push(this.props.componentId, {
             component: {
                 name: SCREENS.CHARGE_PHONE.name,
+                id: SCREENS.CHARGE_PHONE.id,
             }
         })
     }
