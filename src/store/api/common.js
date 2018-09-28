@@ -4,6 +4,8 @@ import { BUILD_INFO } from '~/src/constants'
 import { API_URL, SECRET_KEY } from './constants'
 import { store } from '~/App'
 import { chainParse } from '~/src/utils'
+import DeviceInfo from 'react-native-device-info'
+const uniqueID = DeviceInfo.getUniqueID()
 
 const convertParamToPath = (data, encode = false) => data ? Object.keys(data).map((key) => key + '=' + (encode ? encodeURIComponent(data[key]) : data[key])).join('&') : ''
 
@@ -44,7 +46,7 @@ export const get = (url, params, api, extractHeaders) => {
     let sendHeader = {
         'X-DATA-VERSION': BUILD_INFO['X-DATA-VERSION'],
         'X-VERSION': BUILD_INFO['X-VERSION'],
-        'X-UNIQUE-DEVICE': 'FAKE_DEVICE',
+        'X-UNIQUE-DEVICE': uniqueID,
         'Authorization': `Bearer ${accessToken}`
     }
 
@@ -82,7 +84,7 @@ export const post = (url, body, api, extractHeaders = ['access-token']) => {
     let sendHeader = {
         'X-DATA-VERSION': BUILD_INFO['X-DATA-VERSION'],
         'X-VERSION': BUILD_INFO['X-VERSION'],
-        'X-UNIQUE-DEVICE': 'FAKE_DEVICE',
+        'X-UNIQUE-DEVICE': uniqueID,
         'X-LANGUAGE': 'vi',
         'Authorization': `Bearer ${accessToken}`
     }
