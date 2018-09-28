@@ -49,6 +49,10 @@ export default class ContactChooser extends React.PureComponent {
         })
     }
 
+    componentWillUnmount() {
+        BackHandler.removeEventListener('hardwareBackPress', this._handleBack)
+    }
+
     _handlePressSearchIcon = () => {
 
     }
