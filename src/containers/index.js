@@ -112,4 +112,7 @@ export default registerScreens = (store) => {
     registerContainerWithRedux(`gigabankclient.ChargeInfo`, () => require('~/src/containers/Charge/ChargeInfo'), store)
     registerContainerWithRedux(`gigabankclient.ChargeResult`, () => require('~/src/containers/Charge/ChargeResult'), store)
 
+    // Buy Card
+    registerContainerWithRedux(`gigabankclient.BuyCardResult`, () => require('~/src/containers/BuyCardResult'), store)
+    registerContainerWithRedux(`gigabankclient.BuyCardCodes`, () => require('~/src/containers/BuyCardCodes'), store)
 }

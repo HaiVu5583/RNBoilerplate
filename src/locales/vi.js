@@ -282,6 +282,22 @@ const language = {
     'grant_permission': 'Cấp phép truy cập',
     'grant_contact_permission_hint': 'Bạn cần cho phép truy cập Danh bạ để sử dụng tính năng này.',
 
+    // Buy Card
+    // 'grant_contact_permission_hint': 'Bạn cần cho phép truy cập Danh bạ để sử dụng tính năng này.',
+    'card_denominations': 'Mệnh giá thẻ',
+    'sort_quantily': 'SL',
+    'view_card_code': 'Xem mã thẻ',
+    'card_codes': 'Danh sách mã thẻ',
+    'bought_cards': 'Danh sách thẻ đã mua của bạn',
+    'card_code': 'Mã thẻ',
+    'copy': 'Sao chép',
+    'charge_now': 'Nạp ngay',
+    'seri_number': 'Số seri: ',
+    'expire_date': 'Ngày hết hạn: ',
+    'copy_charge_syntax': 'Sao chép cú pháp nạp tiền',
+    'copy_charge_code': 'Sao chép mã nạp tiền',
+    'copy_seri': 'Sao chép số seri',
+    'copy_charge_code_seri': 'Sao chép mã nạp tiền và số seri',
 
     //bat vi tri
     'change_location_title': 'Vui lòng bật tính năng định vị để Clingme có thể gợi ý cho bạn những địa điểm và ưu đãi tốt nhất.',

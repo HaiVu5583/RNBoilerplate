@@ -33,7 +33,7 @@ class WithDrawInfo extends React.PureComponent {
             password: '',
             errorMessage: 'jkf jkffkl sks',
 
-            // selecteCard: 1,
+            selecteCard: 1,
             // bankAccount: '',
             // accountName: '',
         }
