@@ -5,7 +5,7 @@ import { ImageBackground, ScrollView, StatusBar, Animated, Platform } from 'reac
 import Image from 'react-native-fast-image'
 import styles from './styles'
 import { connect } from 'react-redux'
-import { ASSETS, DEVICE_WIDTH, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
+import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, ASSETS, DEVICE_WIDTH, SURFACE_STYLES, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
 import Carousel from 'react-native-snap-carousel'
 import FeatureBlock from '~/src/containers/Home/FeatureBlock'
 import Drawer from 'react-native-drawer'
@@ -15,17 +15,19 @@ import SvgUri from 'react-native-svg-uri'
 import AccountInfo from '~/src/containers/Home/AccountInfo'
 import I18n from '~/src/I18n'
 import { showToast } from '~/src/utils'
-import {SCREENS} from '~/src/constants'
+import { SCREENS } from '~/src/constants'
 
 class Home extends Component {
     static get options() {
-        return {
-            topBar: {
-                drawBehind: true,
-                visible: false,
-                animate: false
+        if (Platform.OS == 'android') {
+            return {
+                animations: {
+                    push: DEFAULT_PUSH_ANIMATION,
+                    pop: DEFAULT_POP_ANIMATION
+                }
             }
-        };
+        }
+        return {}
     }
 
     constructor(props) {
