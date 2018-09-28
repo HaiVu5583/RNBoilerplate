@@ -28,14 +28,14 @@ class WithDrawInfo extends React.PureComponent {
     constructor(props) {
         super(props)
         this.state = {
-            selecteCard: 1,
-            // step: STEP.CHOOSE_CARD,
-            bankAccount: '',
-            accountName: '',
             moneyAmount: '',
             serviceFee: '',
             password: '',
             errorMessage: 'jkf jkffkl sks',
+
+            selecteCard: 1,
+            // bankAccount: '',
+            // accountName: '',
         }
         this.bankAccount = [
             {
@@ -74,32 +74,17 @@ class WithDrawInfo extends React.PureComponent {
         // return true
     }
 
-    _handlePressAddCard = () => {
-        console.log('Handle Press AddCard')
-    }
-
-    _handlePressBankItem = (item) => {
-        if (item.id != this.state.selecteCard) {
-            this.setState({ selecteCard: item.id })
-        }
-    }
-
-    _handleContinueChooseCard = () => {
-        console.log('Continue Choose Card')
-        // this.setState({ step: STEP.INPUT })
-    }
-
     _handleGoHome = () => {
         Navigation.popTo('HomeScreen')
     }
     
-    getBankAccount = () => {
-        return this.state.bankAccount
-    }
+    // getBankAccount = () => {
+    //     return this.state.bankAccount
+    // }
 
-    getAccountName = () => {
-        return this.state.accountName
-    }
+    // getAccountName = () => {
+    //     return this.state.accountName
+    // }
 
     getMoneyAmount = () => {
         return this.state.moneyAmount
@@ -228,7 +213,6 @@ class WithDrawInfo extends React.PureComponent {
     }
 
     _renderBottomButtonByStep = () => {
-        // const enableChargeButton = !!(this.state.money && this.state.password)
         const enableChargeButton = true // Set temp
         return (
             <Surface containerHorizontalSpace rowAlignEnd>

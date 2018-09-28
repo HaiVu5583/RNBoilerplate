@@ -31,7 +31,8 @@ class ChargePhone extends React.PureComponent {
     }
 
     _handleBack = () => {
-
+        Navigation.pop(this.props.componentId)
+        return true
     }
     
     _handlePressBankItem = (item) => {

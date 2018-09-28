@@ -126,4 +126,12 @@ export const SCREENS = {
         id: 'WithDrawAuthen',
         name: 'gigabankclient.WithDrawAuthen'
     },
+    BUY_CARD_RESULT: {
+        id: 'BuyCardResult',
+        name: 'gigabankclient.BuyCardResult'
+    },
+    BUY_CARD_CODES: {
+        id: 'BuyCardCodes',
+        name: 'gigabankclient.BuyCardCodes'
+    },
 }
