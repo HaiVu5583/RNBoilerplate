@@ -55,7 +55,7 @@ class Register extends Component {
             showPassword: false,
             showRepassword: false,
             loading: false,
-            otpTime: OTP_COUNTDOWN_TIME
+            otpKey: new Date().getTime()
         }
         this.otpToken = ''
     }
@@ -129,7 +129,7 @@ class Register extends Component {
     }
 
     _handleResendOTP = () => {
-        this.setState({ otpTime: OTP_COUNTDOWN_TIME }, () => {
+        this.setState({ otpKey: new Date().getTime() }, () => {
             if (this.state.loading) return
             this.setState({ loading: true })
             this.props.createOTPToken(this.state.phone, (err, data) => {
@@ -244,7 +244,7 @@ class Register extends Component {
                     />
                     <Surface space8 themeable={false} />
                     <Surface themeable={false} fullWidth rowCenter>
-                        <OTPCountdown time={this.state.otpTime} onResend={this._handleResendOTP} />
+                        <OTPCountdown time={OTP_COUNTDOWN_TIME} onResend={this._handleResendOTP} key={this.state.otpKey} />
                     </Surface>
                 </Surface>
                 <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />

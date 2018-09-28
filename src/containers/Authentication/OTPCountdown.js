@@ -13,6 +13,10 @@ export default class OTPCountdown extends React.PureComponent {
     }
 
     componentDidMount() {
+        this._playCount()
+    }
+
+    _playCount = () => {
         this.intervalID = setInterval(() => {
             const { onCountToEnd } = this.props
             if (this.state.time <= 0) {
