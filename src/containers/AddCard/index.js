@@ -6,13 +6,13 @@ import { Navigation } from 'react-native-navigation'
 import { View, FlatList, WebView } from 'react-native'
 import { connect } from 'react-redux'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES } from '~/src/themes/common'
-import styles from './styles'
-import ItemCard from './ItemCard'
+import CardItem from '~/src/components/CardItem'
 import { addCreditCard, getBankList, getListCard } from '~/src/store/actions/credit'
 import AddCardSuccess from '~/src/components/AddCardSuccess'
 import AddCardFail from '~/src/components/AddCardFail'
 import { internationalTokenCardSelector, domesticTokenCardSelector } from '~/src/store/selectors/credit'
 import Screen from '~/src/components/Screen'
+const gridWidth = (DEVICE_WIDTH - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2) / 3
 
 const STEP = {
     LIST_BANK: 'LIST_BANK',
@@ -67,114 +67,27 @@ class AddCard extends Component {
         })
     }
 
-    _renderItemFlatList = (item, index) => {
-        let itemCardContainerStyle = {}
-        let itemCardStyle = {}
-        let itemCardImageStyle = {}
-        let itemWidth = (DEVICE_WIDTH - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2 - 20 * 2) / 3
-
-        itemCardContainerStyle = {
-            width: itemWidth,
-            // height: 95,
-            marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
-        }
-        itemCardStyle = {
-            width: itemWidth,
-            height: itemWidth / 1.35,
-            borderRadius: 17,
-        }
-        itemCardImageStyle = {
-            width: itemWidth - 7,
-            height: (itemWidth - 7) / 1.35,
-            borderRadius: 15,
-            marginLeft: 3.5,
-        }
-
-        if (index != this.props.internationalCard.length - 1) {
-            return (
-                <View style={{ ...itemCardContainerStyle }}
-                    key={item.id}>
-                    <ItemCard iconBank={item.logo}
-                        itemCardStyle={itemCardStyle}
-                        itemCardImageStyle={itemCardImageStyle}
-                        colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
-                        onPress={() => this._handlePressInternationalCard(item)}
-                    />
-                </View>
-            )
-        } else {
-            return (
-                <View style={{ ...itemCardContainerStyle, marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN }}
-                    key={item.id}>
-                    <ItemCard iconBank={item.logo}
-                        itemCardStyle={itemCardStyle}
-                        itemCardImageStyle={itemCardImageStyle}
-                        colors={['rgba(29,119,187,1)', 'rgba(41,170,225,0.85)']}
-                    />
-                </View>
-            )
-        }
+    _renderInternationalCard = ({item, index}) => {
+        return (
+            <CardItem
+                image={item.logo}
+                style={{ marginRight: 15 }}
+                onPress={() => this._handlePressInternationalCard(item)}
+            />
+        )
     }
 
-    _renderItemFlatListDomesticCard = (item, index) => {
-        let itemCardContainerStyle = {}
-        let itemCardStyle = {}
-        let itemCardImageStyle = {}
-        let itemWidth = (DEVICE_WIDTH - SIZES.CONTAINER_HORIZONTAL_MARGIN * 2 - 20 * 2) / 3
-
-        itemCardContainerStyle = {
-            width: itemWidth,
-            height: 95,
-        }
-        itemCardStyle = {
-            width: itemWidth,
-            height: itemWidth / 1.35,
-            borderRadius: 17,
-        }
-        itemCardImageStyle = {
-            width: itemWidth - 7,
-            height: (itemWidth - 7) / 1.35,
-            borderRadius: 15,
-            marginLeft: 3.5,
-        }
-        if (index % 3 == 0) {
-            return (
-                <View style={{
-                    ...itemCardContainerStyle,
-                    marginLeft: SIZES.CONTAINER_HORIZONTAL_MARGIN,
-                    marginRight: 10,
-                }}
-                    key={item.id}>
-                    <ItemCard iconBank={item.logo}
-                        itemCardStyle={itemCardStyle}
-                        itemCardImageStyle={itemCardImageStyle}
-                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
-                    />
-                </View>
-            )
-        } else if (index % 3 == 1) {
-            return (
-                <View style={{ ...itemCardContainerStyle, marginLeft: 10, marginRight: 10, }}
-                    key={item.id}>
-                    <ItemCard iconBank={item.logo}
-                        itemCardStyle={itemCardStyle}
-                        itemCardImageStyle={itemCardImageStyle}
-                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
-                    />
-                </View>
-            )
-        } else {
-            return (
-                <View style={{ ...itemCardContainerStyle, marginLeft: 10, marginRight: SIZES.CONTAINER_HORIZONTAL_MARGIN, }}
-                    key={item.id}>
-                    <ItemCard iconBank={item.iconBank}
-                        itemCardStyle={itemCardStyle}
-                        itemCardImageStyle={itemCardImageStyle}
-                        colors={['rgba(0,0,0,0.15)', 'rgba(0,0,0,0.05)']}
-                    />
-                </View>
-            )
-        }
+    _renderDomesticCard = ({item, index}) => {
+        return (
+            <Surface themeable={false} columnCenter style={{ width: gridWidth }}>
+                <CardItem
+                    image={item.logo}
+                    style={{ marginBottom: 5 }}
+                    onPress={() => this._handlePressInternationalCard(item)}
+                    gradient={true}
+                />
+            </Surface>
+        )
     }
 
     _renderListBank = () => {
@@ -185,23 +98,25 @@ class AddCard extends Component {
                 </Surface>
                 <FlatList
                     data={this.props.internationalCard}
-                    renderItem={({ item, index }) => this._renderItemFlatList(item, index)}
+                    renderItem={this._renderInternationalCard}
                     horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item, index) => item.id + '_' + index}
                     bounces={false}
                     scrollEnabled={false}
+                    contentContainerStyle={{ paddingHorizontal: SIZES.CONTAINER_HORIZONTAL_MARGIN }}
                 />
                 <Surface containerHorizontalSpace titleInfoBlock>
                     <Text bold darkBlue titleInfo t={'domestic_card'} textTransform={String.prototype.toUpperCase} />
                 </Surface>
                 <FlatList
                     data={this.props.domesticCard}
-                    renderItem={({ item, index }) => this._renderItemFlatListDomesticCard(item, index)}
+                    renderItem={this._renderDomesticCard}
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item, index) => item.id + '_' + index}
                     bounces={false}
                     numColumns={3}
+                    contentContainerStyle={{ paddingHorizontal: SIZES.CONTAINER_HORIZONTAL_MARGIN }}
                 />
             </Surface>
         )

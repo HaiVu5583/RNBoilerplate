@@ -185,13 +185,13 @@ class BuyCardCodes extends React.PureComponent {
     _handleBack = () => {
         // if (this.state.step == STEP.CHOOSE_CARD) {
         //     console.log('Component Id', this.props.componentId)
-        //     Navigation.pop(this.props.componentId)
+            Navigation.pop(this.props.componentId)
         // } else if (this.state.step == STEP.INPUT) {
         //     this.setState({ step: STEP.CHOOSE_CARD })
         // } else if (this.state.step == STEP.RESULT) {
         //     this.setState({ step: STEP.INPUT })
         // }
-        // return true
+        return true
     }
     
     _handlePay = () => {
@@ -280,7 +280,7 @@ class BuyCardCodes extends React.PureComponent {
             </Surface>
         )
     }
-    
+
     _renderCardBrand = () => {
         return (
             <Carousel

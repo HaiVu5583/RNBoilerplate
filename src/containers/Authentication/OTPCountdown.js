@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text, Button } from '~/src/themes/ThemeComponent'
-import { COLORS } from '~/src/themes/common'
+import { Text, Button, Surface } from '~/src/themes/ThemeComponent'
+import { COLORS, SIZES } from '~/src/themes/common'
 
 export default class OTPCountdown extends React.PureComponent {
 
@@ -40,7 +40,7 @@ export default class OTPCountdown extends React.PureComponent {
     }
 
     render() {
-        const {textColor, secondColor} = this.props
+        const { textColor, secondColor } = this.props
         if (this.state.time <= 0) {
             return <Button
                 flat textStyle={{ color: COLORS.BLUE }}
@@ -48,11 +48,21 @@ export default class OTPCountdown extends React.PureComponent {
                 onPress={this._handlePressResend}
             />
         }
+        let textStyle = {}, textCountStyle = {}
+        if (textColor) {
+            textStyle = { color: textColor }
+        }
+        if (secondColor) {
+            textCountStyle = { color: secondColor }
+        }
+
         return (
-            <Text themeable={false}>
-                <Text white description t='hint_not_receive_otp' style={{color: textColor}} />
-                <Text error description style={{color: secondColor}}> {this.state.time}</Text>
-            </Text>
+            <Surface themeable={false} rowCenter style={{ height: SIZES.BUTTON_FIELD }}>
+                <Text themeable={false}>
+                    <Text white description t='hint_not_receive_otp' style={textStyle} />
+                    <Text yellow description style={textCountStyle}> {this.state.time}</Text>
+                </Text>
+            </Surface>
         )
     }
 }

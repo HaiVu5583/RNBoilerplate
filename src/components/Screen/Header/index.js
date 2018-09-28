@@ -4,6 +4,7 @@ import { Animated, View } from 'react-native'
 import { COLORS, } from '~/src/themes/common'
 import BankAccountItem from '~/src/components/BankAccountItem'
 import { SIZES } from '~/src/themes/common';
+import CardItem from '~/src/components/CardItem'
 
 export default class Header extends PureComponent {
     constructor(props) {
@@ -26,7 +27,7 @@ export default class Header extends PureComponent {
     }
 
     render() {
-        const { scrollY, floatBankItem = false, bankItemInfo, enable = true, empty = false, render } = this.props
+        const { scrollY, floatBankItem = false, bankItemInfo, cardItemInfo, enable = true, empty = false, render } = this.props
         if (!enable) return <View />
         if (render) {
             return render()
@@ -45,10 +46,14 @@ export default class Header extends PureComponent {
                     </Surface>
                     <Surface themeable={false} flex />
                     <Surface themeable={false} containerHorizontalMargin style={{ zIndex: 100 }}>
-                        <BankAccountItem
-                            {...bankItemInfo}
-                            verticalMargin={false}
-                        />
+                        {bankItemInfo ?
+                            <BankAccountItem
+                                {...bankItemInfo}
+                                verticalMargin={false}
+                            /> :
+                            <Surface themeable={false} rowCenter>
+                                <CardItem {...cardItemInfo} />
+                            </Surface>}
                     </Surface>
                     <Surface floatBankItemPart />
                     <Animated.View style={{

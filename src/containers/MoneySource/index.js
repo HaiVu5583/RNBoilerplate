@@ -11,6 +11,8 @@ import { listCardSelector } from '~/src/store/selectors/credit'
 import { ADDED_CARD_TYPE, MONEY_SOURCE_MODE, SCREENS } from '~/src/constants'
 import LoadingModal from '~/src/components/LoadingModal'
 import { TabView, TabBar, SceneMap, PagerScroll, PagerPan } from 'react-native-tab-view'
+import { noLinkCard } from '~/src/components/Asset/NoLinkCard'
+import SvgUri from 'react-native-svg-uri'
 
 class MoneySource extends React.PureComponent {
     static get options() {
@@ -195,6 +197,7 @@ class MoneySource extends React.PureComponent {
     }
 
     _renderContent = () => {
+        // return this._renderEmpty()
         return (
             <TabView
                 navigationState={this.state}
@@ -207,6 +210,47 @@ class MoneySource extends React.PureComponent {
                 animationEnabled={false}
                 swipeEnabled={false}
             />
+        )
+    }
+
+    _handleAddCardBankAccount = () => {
+
+    }
+
+    _renderEmpty = () => {
+        return (
+            <Surface themeable={false} full>
+                <Surface themeable={false} imageBackground>
+                    <Surface themeable={false} fakeToolbar />
+                    <Surface themeable={false} space20 />
+                    <Surface themeable={false} containerHorizontalSpace>
+                        <Text white t={'no_card_bank_account_hint'}></Text>
+                    </Surface>
+                </Surface>
+                <SvgUri
+                    width="375"
+                    height="180"
+                    svgXmlData={noLinkCard}
+                />
+                <Surface themeable={false} space20/>
+                <Surface containerHorizontalSpace2 rowCenter themeable={false}>
+                    <Text center white description t='no_card_bank_account_hint_1' />
+                </Surface>
+                <Surface themeable={false} space24 />
+                <Surface flex />
+
+                <Surface containerHorizontalSpace rowAlignEnd>
+                    <Button
+                        round full
+                        noPadding
+                        gradient={true}
+                        t={'add_card_bank_account'}
+                        onPress={this._handleAddCardBankAccount}
+                        enable={true}
+                        style={{ marginBottom: 16 }}
+                    />
+                </Surface>
+            </Surface>
         )
     }
 
@@ -250,19 +294,6 @@ class MoneySource extends React.PureComponent {
                         <Surface themeable={false}>
                             <Surface themeable={false}>
                                 {this._renderContent()}
-                                {/* Temp */}
-                                {/* <Button
-                                    flat
-                                    rowStart
-                                    leftComponent={() => (
-                                        <Icon name='GB_plus' style={{ fontSize: 24, color: COLORS.BLUE }} />
-                                    )}
-                                    centerComponent={() => (
-                                        <Text blue t='add_link_card' />
-                                    )}
-                                    onPress={this._handleEnterPassword}
-                                    style={{ paddingLeft: 0, paddingRight: 0, backgroundColor: '#783322' }}
-                                /> */}
                             </Surface>
                         </Surface>
                     </Animated.ScrollView>
