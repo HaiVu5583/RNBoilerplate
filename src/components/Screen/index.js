@@ -1,10 +1,10 @@
 import React, { Component, PureComponent } from 'react';
 import { Surface, Text, Toolbar, Button } from '~/src/themes/ThemeComponent'
-import { ImageBackground, StatusBar, Animated } from 'react-native'
+import { ImageBackground, StatusBar, Animated, Platform } from 'react-native'
 import { ASSETS, DEVICE_WIDTH, DEVICE_HEIGHT, COLORS, SIZES, STATUS_BAR_HEIGHT } from '~/src/themes/common'
 import LoadingModal from '~/src/components/LoadingModal'
 import Header from './Header'
-import { Platform } from 'react-native'
+import KeyboardSpacer from 'react-native-keyboard-spacer'
 
 export default class Screen extends PureComponent {
     constructor(props) {
@@ -53,6 +53,7 @@ export default class Screen extends PureComponent {
                             </Surface>
                         </Surface>
                     </Animated.ScrollView>
+                    {(Platform.OS == 'ios') && <KeyboardSpacer />}
                 </ImageBackground>
                 <Animated.View style={{
                     position: 'absolute', top: 0, left: 0, right: 0, zIndex: 100,

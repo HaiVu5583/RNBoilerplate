@@ -27,6 +27,7 @@
     "react-native-fingerprint-scanner": "^2.3.2",
     "react-native-i18n": "^2.0.15",
     "react-native-iphone-x-helper": "^1.1.0",
+    "react-native-keyboard-spacer": "^0.4.1",
     "react-native-linear-gradient": "^2.4.0",
     "react-native-material-ripple": "^0.8.0",
     "react-native-navigation": "^2.0.2553",
