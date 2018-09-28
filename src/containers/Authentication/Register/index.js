@@ -11,7 +11,7 @@ import { DEFAULT_PUSH_ANIMATION, DEFAULT_POP_ANIMATION, DEVICE_WIDTH, DEVICE_HEI
 import OTPInput from '~/src/components/OTPInput'
 import { ImageBackground, StatusBar } from 'react-native'
 import NumberKeyboard from '~/src/components/NumberKeyboard'
-import { DIALOG_MODE } from '~/src/constants'
+import { DIALOG_MODE, OTP_COUNTDOWN_TIME } from '~/src/constants'
 import OTPCountdown from '~/src/containers/Authentication/OTPCountdown'
 import { logoStep3 } from '~/src/components/Asset/LogoStep3'
 import { logoStep1 } from '~/src/components/Asset/LogoStep1'
@@ -54,7 +54,8 @@ class Register extends Component {
             errRepassword: '',
             showPassword: false,
             showRepassword: false,
-            loading: false
+            loading: false,
+            otpTime: OTP_COUNTDOWN_TIME
         }
         this.otpToken = ''
     }
@@ -127,6 +128,23 @@ class Register extends Component {
         }
     }
 
+    _handleResendOTP = () => {
+        this.setState({ otpTime: OTP_COUNTDOWN_TIME }, () => {
+            if (this.state.loading) return
+            this.setState({ loading: true })
+            this.props.createOTPToken(this.state.phone, (err, data) => {
+                console.log('Data OTP', data)
+                if (data == "true") {
+                    this.setState({ loading: false })
+                } else if (data && data.code && data.code == 2002) {
+                    this.setState({ errOTP: I18n.t('err_otp_retry_too_fast'), loading: false })
+                } else {
+                    this.setState({ errOTP: I18n.t('err_general'), loading: false })
+                }
+            })
+        })
+    }
+
     _renderStepPhone = () => {
         const enableContinuePhoneButton = !!(this.state.phone && this.state.phone.trim() &&
             this.state.name && this.state.name.trim()
@@ -197,10 +215,6 @@ class Register extends Component {
 
     }
 
-    _handleResend = () => {
-
-    }
-
     _renderStepOTP = () => {
         const enableButtonContinueOTP = !!(this.state.otp && this.state.otp.length >= 4)
         return (
@@ -230,8 +244,7 @@ class Register extends Component {
                     />
                     <Surface space8 themeable={false} />
                     <Surface themeable={false} fullWidth rowCenter>
-                        <OTPCountdown time={60} onResend={() => {
-                        }} />
+                        <OTPCountdown time={this.state.otpTime} onResend={this._handleResendOTP} />
                     </Surface>
                 </Surface>
                 <NumberKeyboard onChangeValue={otp => this.setState({ otp })} />
