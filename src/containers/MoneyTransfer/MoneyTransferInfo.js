@@ -79,25 +79,25 @@ class MoneyTransferInfo extends React.PureComponent {
     _renderContent = () => {
         return (
             <Surface content flex>
-                <Surface themeable={false} space20 />
-                <Surface containerHorizontalSpace>
-                    <Text darkBlue description t={'receiver_info'} textTransform={String.prototype.toUpperCase} />
+                <Surface containerHorizontalSpace titleInfoBlock>
+                    <Text darkBlue titleInfo t={'receiver_info'} textTransform={String.prototype.toUpperCase} />
                 </Surface>
-                <Surface themeable={false} space20 />
                 <Surface containerHorizontalMargin>
-                    <Surface rowSpacebetween infoRow>
-                        <Text description t='phone' />
-                        <Text description>{formatPhoneNumber(this.state.phone)}</Text>
+                    <Surface rowSpacebetween>
+                        <Text infoResult t='phone' />
+                        <Text infoResult>{formatPhoneNumber(this.state.phone)}</Text>
                     </Surface>
-                    <Surface rowSpacebetween infoRow>
-                        <Text description t='account_owner' />
-                        <Text description>HOANG THANH GIANG</Text>
+                    <Surface rowSpacebetween>
+                        <Text infoResult t='account_owner' />
+                        <Text infoResult>HOANG THANH GIANG</Text>
                     </Surface>
-                    <Surface space8 borderBottomBlue />
+                    <Surface lineSeperatorBlue />
                 </Surface>
 
                 <Surface containerHorizontalSpace>
-                    <KeyboardAvoidingView behavior="padding" enabled style={{ flex: 1 }}> 
+                    <KeyboardAvoidingView behavior="position" enabled
+                        keyboardVerticalOffset={64}
+                    >
                         <TextInput
                             placeholderT={'money_transfer_amount'}
                             black
