@@ -1,6 +1,6 @@
-# React Native Boilderplate Project
+# React Native Boilerplate Project
 
-Include in this boilderplace.
+Include in this boilerplate.
 
 * State Management
 	* Redux
