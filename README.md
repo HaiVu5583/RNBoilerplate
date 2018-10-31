@@ -11,6 +11,7 @@ Include in this boilerplate.
 * Image Caching
 	* react-native-fast-image
 * UI related
-	* react-native-vector-icon: Show vector icon in app
+	* react-native-vector-icon: Display vector icon in app
 	* UI library: Implement style tagging system 
 	* react-native-linear-gradient
+	* react-native-svg/react-native-svg-uri: Display SVG image in app
