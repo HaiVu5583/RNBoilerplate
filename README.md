@@ -7,7 +7,7 @@ Include in this boilderplace.
 	* Redux Saga (Middleware)
 	* Redux persist: Persist Redux store to disk storage
 * Navigation
-	* Wix Navigation V2
+	* Wix Navigation v2
 * Image Caching
 	* react-native-fast-image
 * UI related
