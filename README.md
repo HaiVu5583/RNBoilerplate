@@ -23,7 +23,7 @@
 * Main Project
 	* android: Android Native 
 	* ios: Ios Native 
-	* src: 
+	* src: Javascript source
 		* asset: App asset (image )
 		* components: Multiple use components
 		* containers: App screen
